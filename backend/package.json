@@ -1,0 +1,44 @@
+{
+  "name": "krishinetra-backend",
+  "version": "1.0.0",
+  "private": true,
+  "description": "KrishiNetra 2.0 API — the layer between the mobile app and Supabase",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/server.js",
+    "typecheck": "tsc --noEmit",
+    "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest",
+    "test:watch": "cross-env NODE_OPTIONS=--experimental-vm-modules jest --watch",
+    "seed:demo": "tsx src/scripts/seedDemoFarmer.ts"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.112.4",
+    "@turf/area": "^7.4.0",
+    "@turf/centroid": "^7.4.0",
+    "@turf/helpers": "^7.4.0",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "express-rate-limit": "^8.1.0",
+    "helmet": "^8.1.0",
+    "zod": "^4.1.11"
+  },
+  "devDependencies": {
+    "@jest/globals": "^30.2.0",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.3",
+    "@types/node": "^24.7.0",
+    "@types/supertest": "^6.0.3",
+    "cross-env": "^10.1.0",
+    "jest": "^30.2.0",
+    "supertest": "^7.1.4",
+    "ts-jest": "^29.4.4",
+    "tsx": "^4.20.6",
+    "typescript": "~5.9.3"
+  }
+}

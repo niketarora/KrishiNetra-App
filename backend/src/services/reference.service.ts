@@ -1,0 +1,105 @@
+import { userClient } from '../config/supabase.js';
+import {
+  type CropRow,
+  type MandiRow,
+  type MarketPriceRow,
+  type MspRow,
+  toNullableNumber,
+  toNumber,
+} from '../types/domain.js';
+
+/**
+ * Reference data: the crop catalogue, mandis, MSP and market prices.
+ *
+ * Read through the farmer's own client like everything else. These tables carry
+ * a select-only RLS policy, so a write attempt from here would be refused by
+ * Postgres — reference data is written by the service role alone.
+ *
+ * `market_prices` is EMPTY in Phase 2. The query below is real and will start
+ * returning rows the moment Phase 3 ingests AGMARKNET data; until then it
+ * honestly returns nothing rather than a fabricated price.
+ */
+
+export async function listCrops(token: string): Promise<CropRow[]> {
+  const { data, error } = await userClient(token)
+    .from('crops')
+    .select('*')
+    .order('name_en', { ascending: true });
+
+  if (error) throw error;
+  return (data ?? []) as CropRow[];
+}
+
+export async function listMandis(
+  token: string,
+  filters: { state?: string; district?: string },
+): Promise<MandiRow[]> {
+  let query = userClient(token)
+    .from('mandis')
+    .select('*')
+    .order('name', { ascending: true });
+
+  if (filters.state) query = query.eq('state', filters.state);
+  if (filters.district) query = query.eq('district', filters.district);
+
+  const { data, error } = await query;
+  if (error) throw error;
+
+  return (data ?? []).map((row) => ({
+    ...(row as unknown as MandiRow),
+    latitude: toNullableNumber(row.latitude),
+    longitude: toNullableNumber(row.longitude),
+  }));
+}
+
+export async function listMsp(
+  token: string,
+  filters: { crop?: string; year?: string },
+): Promise<MspRow[]> {
+  const client = userClient(token);
+
+  let query = client
+    .from('msp')
+    .select('*, crops!inner(code, name_en)')
+    .order('marketing_year', { ascending: false });
+
+  if (filters.crop) query = query.eq('crops.code', filters.crop);
+  if (filters.year) query = query.eq('marketing_year', filters.year);
+
+  const { data, error } = await query;
+  if (error) throw error;
+
+  return (data ?? []).map((row) => ({
+    ...(row as unknown as MspRow),
+    price_per_quintal: toNumber(row.price_per_quintal),
+  }));
+}
+
+export async function listMarketPrices(
+  token: string,
+  filters: { crop?: string; mandi?: string; from?: string; to?: string; limit?: number },
+): Promise<MarketPriceRow[]> {
+  const client = userClient(token);
+
+  let query = client
+    .from('market_prices')
+    .select('*, crops!inner(code), mandis!inner(code)')
+    .order('price_date', { ascending: false })
+    .limit(filters.limit ?? 100);
+
+  if (filters.crop) query = query.eq('crops.code', filters.crop);
+  if (filters.mandi) query = query.eq('mandis.code', filters.mandi);
+  if (filters.from) query = query.gte('price_date', filters.from);
+  if (filters.to) query = query.lte('price_date', filters.to);
+
+  const { data, error } = await query;
+  if (error) throw error;
+
+  return (data ?? []).map((row) => ({
+    ...(row as unknown as MarketPriceRow),
+    min_price: toNullableNumber(row.min_price),
+    max_price: toNullableNumber(row.max_price),
+    modal_price: toNumber(row.modal_price),
+    arrivals_tonnes: toNullableNumber(row.arrivals_tonnes),
+  }));
+}

@@ -93,6 +93,13 @@ Replacing those two modules' bodies with `fetch` calls to the Express API is the
 whole client-side change. `src/services/errors.ts` already normalises failures
 into translation keys, so error handling does not move.
 
+> **Done.** Phase 2 took exactly this seam: the two modules now call
+> `src/services/api.ts`, which attaches the Supabase access token via a new
+> `getAccessToken()` in `src/services/supabase.ts`. `errors.ts` gained one
+> function, `toApiError`. No screen, context or navigator changed, and
+> authentication still goes straight to Supabase Auth. See
+> `docs/PHASE2_NOTES.md`.
+
 **Phase 3 (ML / market intelligence).** The empty surfaces listed in §2 keep
 their real layout, so connecting them is a matter of feeding them data. TRD §23
 still applies: when a prediction fails, show that it is unavailable — never a
