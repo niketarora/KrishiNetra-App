@@ -12,9 +12,10 @@ const supabaseAnonKey =
 /**
  * The only Supabase client in the app.
  *
- * Screens must never import this directly — all reads and writes go through
- * `services/farms.ts` and `services/profiles.ts`. Phase 2 replaces the bodies
- * of those modules with calls to the Node/Express API, and no screen changes.
+ * Screens must never import this directly. Since Phase 2 the only things that
+ * use it are authentication (sign-up, sign-in, sign-out, session persistence)
+ * and `getAccessToken` below — farm and profile data now travels through the
+ * Express API in `services/api.ts`.
  *
  * The anon key is publishable by design; every table is protected by RLS, so
  * a token only ever reaches its owner's rows. The service-role key must never
@@ -29,3 +30,15 @@ export const supabase = createClient<Database>(supabaseUrl, supabaseAnonKey, {
     detectSessionInUrl: false,
   },
 });
+
+/**
+ * The current access token, or null when nobody is signed in.
+ *
+ * `services/api.ts` calls this to authorise its requests. Keeping it here means
+ * the transport layer never imports the Supabase query surface, so the rule
+ * that this file is the app's only database client still holds.
+ */
+export async function getAccessToken(): Promise<string | null> {
+  const { data } = await supabase.auth.getSession();
+  return data.session?.access_token ?? null;
+}

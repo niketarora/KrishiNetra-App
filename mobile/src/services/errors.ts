@@ -71,3 +71,29 @@ export function toDataError(error: PostgrestError | Error | null, fallbackKey: s
   }
   return new DataError(fallbackKey, error);
 }
+
+/**
+ * Map an API error code (docs/PHASE2_IMPLEMENTATION.md §7.4) onto a translation
+ * key.
+ *
+ * The backend already guarantees its messages are safe to show, but they are
+ * English and written for a developer reading a log. The farmer sees translated
+ * copy instead, so only the code crosses into the UI.
+ */
+export function toApiError(code: string | undefined, fallbackKey: string): DataError {
+  switch (code) {
+    case 'UNAUTHENTICATED':
+      // The session lapsed. AuthContext will route back to sign-in; this is
+      // only what the current screen shows in the meantime.
+      return new DataError('auth.errors.generic', code);
+    case 'INVALID_REQUEST':
+    case 'CONFLICT':
+    case 'FORBIDDEN':
+    case 'NOT_FOUND':
+    case 'SERVICE_NOT_CONNECTED':
+    case 'INTERNAL_ERROR':
+      return new DataError(fallbackKey, code);
+    default:
+      return new DataError(fallbackKey, code);
+  }
+}
