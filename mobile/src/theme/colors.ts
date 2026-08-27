@@ -38,6 +38,20 @@ export const colors = {
     onPrimary: '#FFFFFF',
   },
 
+  /**
+   * Sample-data violet. Deliberately OUTSIDE the design language.
+   *
+   * Everything else in this file is the product's palette, so a value wearing
+   * these colours reads as foreign at a glance — which is the entire point.
+   * They appear only under DEMO_MODE, always behind a "SAMPLE DATA" badge, and
+   * never in a shipped build. See `features/demo/demoMode.ts`.
+   */
+  demo: {
+    fg: '#6B21A8',
+    bg: '#F5EBFF',
+    border: '#D8B4FE',
+  },
+
   /** Satellite-map placeholder base, used behind tiles while they load. */
   mapBase: '#6F6F68',
   /** Polygon fill on the drawing map — green at 34% opacity. */

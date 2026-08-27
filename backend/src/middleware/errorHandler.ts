@@ -18,6 +18,24 @@ type PostgrestLike = {
   details?: string;
 };
 
+/**
+ * Multer rejects an oversized or malformed upload before the controller runs.
+ * That is the caller's mistake, so it must not be reported as a server fault.
+ */
+function fromUpload(error: unknown): ApiError | null {
+  if (!error || typeof error !== 'object' || (error as { name?: string }).name !== 'MulterError') {
+    return null;
+  }
+
+  const code = (error as { code?: string }).code;
+
+  if (code === 'LIMIT_FILE_SIZE') {
+    return ApiError.invalidRequest('That recording is too long. Please keep it under a minute.');
+  }
+
+  return ApiError.invalidRequest('That upload could not be read.');
+}
+
 /** Recognise the Postgres failures worth reporting as something specific. */
 function fromPostgres(error: PostgrestLike): ApiError | null {
   switch (error.code) {
@@ -52,7 +70,8 @@ export function errorHandler(
   const requestId = res.getHeader('x-request-id');
   const apiError = isApiError(error)
     ? error
-    : fromPostgres((error ?? {}) as PostgrestLike) ??
+    : fromUpload(error) ??
+      fromPostgres((error ?? {}) as PostgrestLike) ??
       new ApiError('INTERNAL_ERROR', 'Something went wrong. Please try again.');
 
   // Everything unexpected, and every 5xx, is worth a full server-side log.

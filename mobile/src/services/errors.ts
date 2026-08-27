@@ -56,11 +56,23 @@ export function mapAuthError(error: AuthError | Error | null): AuthErrorKey {
 export class DataError extends Error {
   readonly translationKey: string;
 
-  constructor(translationKey: string, cause?: unknown) {
+  /**
+   * True when the failure means "there is nothing here yet" rather than "this
+   * broke" — a data source the backend has not connected, or a resource the
+   * farmer has not created.
+   *
+   * Services use it to turn an expected absence into `null`, so a tile can show
+   * its empty state instead of an error banner. It never suppresses a real
+   * fault: transport, auth and server errors all leave it false.
+   */
+  readonly absent: boolean;
+
+  constructor(translationKey: string, cause?: unknown, options: { absent?: boolean } = {}) {
     super(translationKey);
     this.name = 'DataError';
     this.translationKey = translationKey;
     this.cause = cause;
+    this.absent = options.absent ?? false;
   }
 }
 
@@ -86,11 +98,14 @@ export function toApiError(code: string | undefined, fallbackKey: string): DataE
       // The session lapsed. AuthContext will route back to sign-in; this is
       // only what the current screen shows in the meantime.
       return new DataError('auth.errors.generic', code);
+    case 'SERVICE_NOT_CONNECTED':
+    case 'NOT_FOUND':
+      // Nothing is wrong — the data source is not connected yet, or the farmer
+      // has not created this resource. Callers may turn it into an empty state.
+      return new DataError(fallbackKey, code, { absent: true });
     case 'INVALID_REQUEST':
     case 'CONFLICT':
     case 'FORBIDDEN':
-    case 'NOT_FOUND':
-    case 'SERVICE_NOT_CONNECTED':
     case 'INTERNAL_ERROR':
       return new DataError(fallbackKey, code);
     default:

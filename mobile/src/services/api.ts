@@ -31,6 +31,11 @@ type ApiRequest = {
   body?: unknown;
   /** Translation key used when the failure has no more specific mapping. */
   fallbackKey: string;
+  /**
+   * Override the default deadline. Speech synthesis returns a whole audio file
+   * and takes noticeably longer than a JSON read, so it asks for more.
+   */
+  timeoutMs?: number;
 };
 
 /**
@@ -40,7 +45,10 @@ type ApiRequest = {
  * leaves here as a `DataError` carrying a translation key, which is the shape
  * screens have always handled.
  */
-export async function apiFetch<T>(path: string, { method = 'GET', body, fallbackKey }: ApiRequest): Promise<T> {
+export async function apiFetch<T>(
+  path: string,
+  { method = 'GET', body, fallbackKey, timeoutMs = DEFAULT_TIMEOUT_MS }: ApiRequest,
+): Promise<T> {
   const token = await getAccessToken();
 
   if (!token) {
@@ -49,7 +57,7 @@ export async function apiFetch<T>(path: string, { method = 'GET', body, fallback
   }
 
   const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), DEFAULT_TIMEOUT_MS);
+  const timeout = setTimeout(() => controller.abort(), timeoutMs);
 
   let response: Response;
   try {

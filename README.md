@@ -14,19 +14,30 @@ supabase/     SQL migrations
 docs/         PRD, TRD, implementation plan, design assets
 ```
 
-## Current Status — Phase 2
+## Current Status — Phase 2.5
 
-Phase 2 put a Node/Express API between the app and Supabase, and added the
-agricultural data schemas the intelligence layer will need. The app no longer
+Phase 2 put a Node/Express API between the app and Supabase. The app no longer
 queries Supabase tables directly: every farm and profile read/write goes through
 the API, which verifies the farmer's Supabase JWT and forwards it so Row Level
 Security applies as that farmer.
 
-`market_prices` and `weather` exist but ship empty — the API reports plainly
-that those sources are not connected rather than returning a number it invented.
+Phase 2.5 stage a filled the data tables Phase 2 created and left empty. Real
+mandi prices come from data.gov.in AGMARKNET and real observed weather from
+Open-Meteo, both ingested server-side; Home now shows the farmer's crop, its
+Minimum Support Price, and a real temperature for their district.
 
-See [docs/PHASE2_NOTES.md](docs/PHASE2_NOTES.md) for what was built, the
-deviations, and where Phase 3 attaches.
+Where a source has nothing, the API still says so rather than returning a
+number it invented — and the tiles that have no source at all (growth stage,
+predicted price, sell/wait) keep their empty states until Phase 3.
+
+Stage b turned the Phase 1 avatar UI into a working assistant: the farmer holds
+the mic, Sarvam AI transcribes what they said, Google Gemini answers from their
+own field records, and a deterministic controller animates the avatar. The model
+is told exactly which facts it has and required to say a service is not
+connected rather than invent one.
+
+See [docs/PHASE2_5_NOTES.md](docs/PHASE2_5_NOTES.md) for what was built, the
+deviations, and where stage b attaches.
 
 ### Phase 1
 
@@ -146,6 +157,8 @@ Run from `backend/`:
 | [docs/PHASE1_NOTES.md](docs/PHASE1_NOTES.md) | What Phase 1 built, and where Phases 2–5 attach |
 | [docs/PHASE2_IMPLEMENTATION.md](docs/PHASE2_IMPLEMENTATION.md) | The Phase 2 plan |
 | [docs/PHASE2_NOTES.md](docs/PHASE2_NOTES.md) | What Phase 2 built, the deviations, and where Phase 3 attaches |
+| [docs/IMPLEMENTATION_PHASE2_5.md](docs/IMPLEMENTATION_PHASE2_5.md) | The Phase 2.5 plan |
+| [docs/PHASE2_5_NOTES.md](docs/PHASE2_5_NOTES.md) | What Phase 2.5 built, the deviations, and where Phase 3 attaches |
 | [backend/README.md](backend/README.md) | API setup, endpoints, and the auth model |
 | `docs/ui-designs/ui-designs.zip` | The design canvas the UI is built from |
 | `docs/images/hero_image.png` | The farmer avatar assets |
@@ -156,7 +169,8 @@ Run from `backend/`:
 |---|---|---|
 | 1 | UI + Auth + Farm mapping + Avatar UI | **Done** |
 | 2 | Node/Express backend + agricultural data | **Done** |
-| 3 | ML integration + market intelligence | In progress / Up next |
+| 2.5 | Real market + weather data, avatar intelligence V1 | **Done** |
+| 3 | ML integration + market intelligence | Planned |
 | 4 | Market linkage + transactions | Planned |
 | 5 | AI Farmer Avatar intelligence (STT/LLM/TTS, ~22 languages) | Planned |
 

@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 
 import { useAuth } from '@/features/auth/AuthContext';
 import { useAvatar } from '@/features/avatar/AvatarContext';
-import { questionText, suggestionChips } from '@/features/avatar/demoScript';
+import { questionText, suggestionChips } from '@/features/avatar/questions';
 import { avatarColors, colors, layout } from '@/theme';
 import { firstName } from '@/utils/format';
 
@@ -26,18 +26,22 @@ import { Waveform } from './Waveform';
 export function AvatarOverlay() {
   const { t } = useTranslation();
   const { user, profile } = useAuth();
-  const { isOpen, state, question, answer, source, close, ask, pressMic } = useAvatar();
+  const { isOpen, state, question, answer, source, errorKey, close, ask, pressMic } = useAvatar();
 
   const name = firstName(profile?.full_name, user?.email);
   const chips = suggestionChips(t);
 
   // What the avatar is showing at this moment: its greeting when idle, the
   // farmer's question while it listens and thinks, the answer while speaking.
+  //
+  // The error line names what actually failed — a blocked microphone and an
+  // unreachable assistant need different things from the farmer, so telling
+  // them "sorry, I couldn't hear you" for both would send them to the wrong fix.
   const speech =
     state === 'idle'
       ? t('avatar.greeting', { name })
       : state === 'error'
-        ? t('avatar.errorMessage')
+        ? t(errorKey ?? 'avatar.errors.generic')
         : state === 'speaking' && answer
           ? answer
           : question
@@ -80,7 +84,8 @@ export function AvatarOverlay() {
           state={state}
           statusLabel={t(`avatar.status.${state}`)}
           speech={speech}
-          source={state === 'speaking' ? source : null}
+          // `source` arrives as a translation key, localised here for the chip.
+          source={state === 'speaking' && source ? t(source) : null}
         />
 
         <View style={styles.controls}>
@@ -123,7 +128,7 @@ export function AvatarOverlay() {
             <View style={styles.errorBlock} accessibilityRole="alert">
               <Icon name="alert" size={18} color={avatarColors.errorText} strokeWidth={2} />
               <Text variant="caption" color={avatarColors.errorText} style={styles.errorText}>
-                {t('avatar.errorMessage')}
+                {t(errorKey ?? 'avatar.errors.generic')}
               </Text>
             </View>
           ) : null}
@@ -158,11 +163,15 @@ export function AvatarOverlay() {
             </Pressable>
           </View>
 
+          {/*
+            The Phase 1 "this is a visual preview" notice is gone: the voice
+            and the answers are real now, and PHASE1_NOTES.md §5 said to remove
+            it at exactly this point. The answer's source chip carries the
+            caveat that matters instead — the reply comes from an AI and can be
+            wrong.
+          */}
           <Text variant="micro" color={avatarColors.footerHint}>
             {t(`avatar.footer.${state}`)}
-          </Text>
-          <Text variant="micro" color={avatarColors.footerHint}>
-            {t('avatar.previewNotice')}
           </Text>
         </View>
       </SafeAreaView>

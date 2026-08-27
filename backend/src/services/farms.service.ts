@@ -1,4 +1,5 @@
 import { userClient } from '../config/supabase.js';
+import { reverseGeocode } from '../ingestion/geocode/reverseGeocode.js';
 import type { CreateFarmBody, UpdateFarmBody } from '../schemas/farm.schema.js';
 import { type FarmRow, toNumber } from '../types/domain.js';
 import { ApiError } from '../utils/ApiError.js';
@@ -81,15 +82,43 @@ function verifiedValues(body: CreateFarmBody | UpdateFarmBody) {
   };
 }
 
+/**
+ * Resolve the field's district so weather can be looked up for it later.
+ *
+ * Deliberately best-effort: a geocode outage must never stop a farmer saving
+ * the boundary they just walked. An unresolved farm stores nulls, and the
+ * weather endpoint reports honestly that it has nothing for them.
+ */
+async function resolveLocation(
+  latitude: number,
+  longitude: number,
+): Promise<{ district: string | null; state: string | null; location_source: string | null }> {
+  try {
+    const resolved = await reverseGeocode(latitude, longitude);
+    if (!resolved) return { district: null, state: null, location_source: null };
+
+    return {
+      district: resolved.district,
+      state: resolved.state,
+      location_source: resolved.source,
+    };
+  } catch {
+    return { district: null, state: null, location_source: null };
+  }
+}
+
 export async function createFarm(
   token: string,
   userId: string,
   body: CreateFarmBody,
 ): Promise<FarmRow> {
+  const values = verifiedValues(body);
+  const location = await resolveLocation(values.centroid_lat, values.centroid_lng);
+
   const { data, error } = await userClient(token)
     .from('farms')
     // user_id comes from the verified token. The schema refuses it in the body.
-    .insert({ user_id: userId, ...verifiedValues(body) })
+    .insert({ user_id: userId, ...values, ...location })
     .select()
     .single();
 
@@ -107,9 +136,15 @@ export async function updateFarm(
   // rather than as an update that silently affected nothing.
   await getFarm(token, userId, farmId);
 
+  const values = verifiedValues(body);
+  // Editing the boundary moves the centroid, which can move the field into a
+  // different district. Re-resolving keeps the weather lookup pointing at the
+  // place the field is actually in now.
+  const location = await resolveLocation(values.centroid_lat, values.centroid_lng);
+
   const { data, error } = await userClient(token)
     .from('farms')
-    .update(verifiedValues(body))
+    .update({ ...values, ...location })
     .eq('id', farmId)
     .eq('user_id', userId)
     .select()

@@ -49,6 +49,11 @@ export function makeFarm(overrides: Partial<Farm> = {}): Farm {
     area_hectares: 1.0742,
     centroid_lat: 29.6862,
     centroid_lng: 76.991,
+    // Resolved by the API when the boundary was saved. Override with null to
+    // exercise the "weather unavailable" path.
+    district: 'Karnal',
+    state: 'Haryana',
+    location_source: 'OpenStreetMap Nominatim, 2026-08-01',
     created_at: '2026-08-01T06:00:00.000Z',
     updated_at: '2026-08-01T06:00:00.000Z',
     ...overrides,
