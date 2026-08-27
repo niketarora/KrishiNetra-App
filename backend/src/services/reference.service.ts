@@ -4,6 +4,7 @@ import {
   type MandiRow,
   type MarketPriceRow,
   type MspRow,
+  type WeatherRow,
   toNullableNumber,
   toNumber,
 } from '../types/domain.js';
@@ -15,9 +16,10 @@ import {
  * a select-only RLS policy, so a write attempt from here would be refused by
  * Postgres — reference data is written by the service role alone.
  *
- * `market_prices` is EMPTY in Phase 2. The query below is real and will start
- * returning rows the moment Phase 3 ingests AGMARKNET data; until then it
- * honestly returns nothing rather than a fabricated price.
+ * Phase 2.5 connected real sources for `market_prices` and `weather`. The
+ * queries did not change — ingestion simply gave them rows to return. When a
+ * table is still empty for a given filter, they return nothing rather than a
+ * fabricated value.
  */
 
 export async function listCrops(token: string): Promise<CropRow[]> {
@@ -102,4 +104,36 @@ export async function listMarketPrices(
     modal_price: toNumber(row.modal_price),
     arrivals_tonnes: toNullableNumber(row.arrivals_tonnes),
   }));
+}
+
+/**
+ * The most recent observation for a district, or null.
+ *
+ * Null is a real answer here and the caller turns it into the unavailable
+ * state. There is no "nearest district" fallback: serving Jaipur's weather to a
+ * farmer in Kota would be a fabricated reading with a plausible number on it.
+ */
+export async function latestWeatherForDistrict(
+  token: string,
+  district: string,
+  state: string,
+): Promise<WeatherRow | null> {
+  const { data, error } = await userClient(token)
+    .from('weather')
+    .select('*')
+    .eq('district', district)
+    .eq('state', state)
+    .order('observed_on', { ascending: false })
+    .limit(1)
+    .maybeSingle();
+
+  if (error) throw error;
+  if (!data) return null;
+
+  return {
+    ...(data as unknown as WeatherRow),
+    temperature_c: toNullableNumber(data.temperature_c),
+    rainfall_mm: toNullableNumber(data.rainfall_mm),
+    humidity_pct: toNullableNumber(data.humidity_pct),
+  };
 }

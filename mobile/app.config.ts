@@ -33,7 +33,7 @@ const config: ExpoConfig = {
         apiKey: process.env.GOOGLE_MAPS_ANDROID_API_KEY ?? '',
       },
     },
-    permissions: ['ACCESS_COARSE_LOCATION', 'ACCESS_FINE_LOCATION'],
+    permissions: ['ACCESS_COARSE_LOCATION', 'ACCESS_FINE_LOCATION', 'RECORD_AUDIO'],
   },
   web: {
     favicon: './assets/favicon.png',
@@ -55,6 +55,17 @@ const config: ExpoConfig = {
       {
         locationAlwaysAndWhenInUsePermission:
           'KrishiNetra uses your location to centre the map on your field.',
+      },
+    ],
+    [
+      'expo-audio',
+      {
+        microphonePermission:
+          'KrishiNetra uses your microphone so you can ask your farmer companion questions out loud.',
+        recordAudioAndroid: true,
+        // The avatar only listens while the farmer holds the mic button, so
+        // there is no reason to keep recording in the background.
+        enableBackgroundRecording: false,
       },
     ],
   ],

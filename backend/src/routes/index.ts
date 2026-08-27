@@ -1,5 +1,7 @@
 import { Router } from 'express';
+import multer from 'multer';
 
+import * as aiController from '../controllers/ai.controller.js';
 import * as farmCropsController from '../controllers/farmCrops.controller.js';
 import * as farmersController from '../controllers/farmers.controller.js';
 import * as farmsController from '../controllers/farms.controller.js';
@@ -17,6 +19,7 @@ import {
   farmCropParamsSchema,
   updateFarmCropSchema,
 } from '../schemas/farmCrop.schema.js';
+import { chatSchema, speakSchema } from '../schemas/ai.schema.js';
 import { updateProfileSchema } from '../schemas/profile.schema.js';
 import {
   mandisQuerySchema,
@@ -81,3 +84,15 @@ apiRouter.get(
   referenceController.marketPrices,
 );
 apiRouter.get('/weather', validate('query', weatherQuerySchema), referenceController.weather);
+
+// --- AI avatar --------------------------------------------------------------
+// Audio arrives as multipart, so this route parses its own body. Everything
+// else on the API is JSON and stays under the tight app-wide size cap.
+const uploadAudio = multer({
+  storage: multer.memoryStorage(),
+  limits: { fileSize: aiController.MAX_AUDIO_BYTES, files: 1 },
+});
+
+apiRouter.post('/ai/transcribe', uploadAudio.single('audio'), aiController.transcribe);
+apiRouter.post('/ai/chat', validate('body', chatSchema), aiController.chat);
+apiRouter.post('/ai/speak', validate('body', speakSchema), aiController.speak);

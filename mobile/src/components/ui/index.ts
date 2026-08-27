@@ -8,6 +8,7 @@ export { EmptyState } from './EmptyState';
 export { Icon } from './Icon';
 export type { IconName } from './Icon';
 export { Input } from './Input';
+export { SampleBadge, SampleBanner } from './SampleBadge';
 export { Screen } from './Screen';
 export { ScreenHeader } from './ScreenHeader';
 export { Skeleton } from './Skeleton';

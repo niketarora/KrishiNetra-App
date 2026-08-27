@@ -11,11 +11,11 @@ const mockAvatar = {
   question: null as string | null,
   answer: null as string | null,
   source: null as string | null,
+  errorKey: null as string | null,
   open: jest.fn(),
   close: jest.fn(),
   ask: jest.fn(),
   pressMic: jest.fn(),
-  simulateError: jest.fn(),
 };
 
 jest.mock('@/features/avatar/AvatarContext', () => ({
@@ -88,25 +88,55 @@ describe('AvatarOverlay', () => {
     });
 
     it('renders error with a retry affordance', async () => {
-      setAvatar({ state: 'error', question: 'crop' });
+      setAvatar({ state: 'error', question: 'crop', errorKey: 'avatar.errors.reply' });
       await renderWithProviders(<AvatarOverlay />);
 
-      expect(screen.getAllByText("Sorry, I couldn't hear you clearly.").length).toBeGreaterThan(0);
+      expect(
+        screen.getAllByText("I couldn't reach the assistant. Please try again.").length,
+      ).toBeGreaterThan(0);
       expect(screen.getByText('Try again')).toBeTruthy();
       expect(screen.getAllByText('No audio').length).toBeGreaterThan(0);
+    });
+
+    it('names the specific failure, so the farmer knows what to fix', async () => {
+      // A blocked microphone and an unreachable assistant need different
+      // actions. One generic apology would send them to the wrong one.
+      setAvatar({ state: 'error', errorKey: 'avatar.errors.micPermission' });
+      await renderWithProviders(<AvatarOverlay />);
+
+      expect(screen.getAllByText(/microphone access/i).length).toBeGreaterThan(0);
+    });
+
+    it('falls back to a generic message when no reason was recorded', async () => {
+      setAvatar({ state: 'error', errorKey: null });
+      await renderWithProviders(<AvatarOverlay />);
+
+      expect(screen.getAllByText('Something went wrong. Please try again.').length).toBeGreaterThan(
+        0,
+      );
     });
   });
 
   describe('honesty about what this is', () => {
-    it('says on screen that the assistant is a preview, not live AI', async () => {
+    it('no longer calls itself a preview, because the assistant is real', async () => {
+      // PHASE1_NOTES.md §5 said to remove this copy at exactly the point the
+      // avatar became real. Leaving it would be the same inaccuracy in reverse.
       await renderWithProviders(<AvatarOverlay />);
 
-      expect(screen.getByText('Demo preview · voice arrives soon')).toBeTruthy();
-      expect(
-        screen.getByText(
-          'This is a visual preview. Real voice and AI answers arrive in a later update.',
-        ),
-      ).toBeTruthy();
+      expect(screen.queryByText('Demo preview · voice arrives soon')).toBeNull();
+      expect(screen.queryByText(/visual preview/)).toBeNull();
+      expect(screen.queryByText(/arrive in a later update/)).toBeNull();
+    });
+
+    it('labels an answer as coming from an AI that can be wrong', async () => {
+      setAvatar({
+        state: 'speaking',
+        answer: 'Your field is 2.50 acres.',
+        source: 'avatar.sources.assistant',
+      });
+      await renderWithProviders(<AvatarOverlay />);
+
+      expect(screen.getByText('AI companion · may be wrong')).toBeTruthy();
     });
 
     it('never shows a source chip while it has not answered', async () => {

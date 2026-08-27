@@ -91,7 +91,16 @@
     "marketUnavailable": "Market prices are not connected yet",
     "askCompanion": "Ask your farmer companion",
     "askCompanionSub": "A preview of the voice assistant arriving soon",
-    "loadError": "We couldn't load your field. Pull down to try again."
+    "loadError": "We couldn't load your field. Pull down to try again.",
+    "crop": "Crop",
+    "cropNone": "Crop not added yet",
+    "msp": "MSP",
+    "mspPerQuintal": "₹{{price}}/qtl",
+    "mspYear": "Support price {{year}}",
+    "mspNone": "No support price recorded",
+    "weatherNone": "Weather data unavailable",
+    "weatherObserved": "Observed {{date}}",
+    "marketObserved": "Recorded {{date}}"
   },
   "field": {
     "title": "Field analysis",
@@ -100,7 +109,10 @@
     "weatherRisk": "Weather risk",
     "emptyTitle": "Your field hasn't been analysed yet",
     "emptyBody": "Crop health, growth stage and weather risk arrive once satellite and weather analysis is connected.",
-    "areaLabel": "Boundary you drew"
+    "areaLabel": "Boundary you drew",
+    "weatherObserved": "{{temp}}°C · {{rain}} mm rain",
+    "weatherNone": "No weather recorded for your district",
+    "analysisNote": "Crop health and growth stage need satellite analysis, which is not connected yet."
   },
   "market": {
     "title": "Market",
@@ -110,7 +122,18 @@
     "sevenDayTrend": "7-day trend",
     "recommendation": "Selling recommendation",
     "emptyTitle": "Market intelligence isn't connected yet",
-    "emptyBody": "Live mandi prices, MSP comparison, price prediction and a sell-or-wait recommendation arrive in a later update."
+    "emptyBody": "Live mandi prices, MSP comparison, price prediction and a sell-or-wait recommendation arrive in a later update.",
+    "loadError": "We couldn't load market data. Pull down to try again.",
+    "observedOn": "Recorded {{date}} at {{mandi}}",
+    "priceRange": "Range ₹{{min}} – ₹{{max}}",
+    "noPrice": "No mandi price recorded for your crop yet",
+    "noCrop": "Add a crop to your field to see its market data",
+    "aboveMsp": "₹{{amount}} above MSP",
+    "belowMsp": "₹{{amount}} below MSP",
+    "atMsp": "Level with MSP",
+    "trendNeedsHistory": "Needs several days of recorded prices",
+    "recommendationBody": "Sell-or-wait advice needs the price prediction model, which is not connected yet.",
+    "sourceLabel": "Source: {{source}}"
   },
   "history": {
     "title": "History",
@@ -137,11 +160,10 @@
   "avatar": {
     "openLabel": "Talk to your farmer companion",
     "headerTitle": "KrishiNetra AI",
-    "headerSubtitle": "Demo preview · voice arrives soon",
+    "headerSubtitle": "Ask about your field, crop and mandi",
     "close": "Close conversation",
     "end": "End conversation",
     "tryAsking": "Try asking",
-    "previewNotice": "This is a visual preview. Real voice and AI answers arrive in a later update.",
     "status": {
       "idle": "Ready",
       "listening": "Listening…",
@@ -159,12 +181,11 @@
     "footer": {
       "idle": "You can speak in Hindi or English.",
       "listening": "Take your time — I will not interrupt.",
-      "thinking": "Checking your field and mandi data.",
+      "thinking": "Reading your field records…",
       "speaking": "You can cut in with a follow-up any time.",
-      "error": "If the mic is blocked, check your phone settings."
+      "error": "Tap the mic to try again."
     },
     "greeting": "Namaste {{name}}! What would you like to know?",
-    "errorMessage": "Sorry, I couldn't hear you clearly.",
     "questions": {
       "area": "How big is my field?",
       "crop": "How is my crop doing?",
@@ -172,22 +193,53 @@
       "sell": "Sell now or wait?",
       "weather": "How is the weather this week?"
     },
-    "answers": {
-      "area": "Your registered field, {{field}}, is {{acres}} acres.",
-      "areaUnknown": "You haven't saved a field yet. Draw your boundary and I'll be able to tell you its size.",
-      "crop": "I can't check your crop yet — field analysis isn't connected in this preview.",
-      "mandi": "I can't check today's mandi rate yet — market data isn't connected in this preview.",
-      "sell": "I can't advise on selling yet — the recommendation engine isn't connected in this preview.",
-      "weather": "I can't check the weather yet — the weather service isn't connected in this preview."
-    },
     "sources": {
       "field": "From your field record",
-      "preview": "Preview · not connected yet"
+      "assistant": "AI companion · may be wrong"
+    },
+    "errors": {
+      "micPermission": "KrishiNetra needs microphone access. Allow it in your phone settings, then try again.",
+      "mic": "I couldn't record that. Please try again.",
+      "transcribe": "I couldn't make out what you said. Please try again.",
+      "reply": "I couldn't reach the assistant. Please try again.",
+      "generic": "Something went wrong. Please try again.",
+      "timeout": "That took too long. Please try a shorter question.",
+      "upload": "Your recording couldn't be sent. Please try again.",
+      "unreachable": "Can't reach KrishiNetra right now. Check your connection and try again.",
+      "tooShort": "That was too short to hear. Hold the button while you speak.",
+      "voice": "I could not say that out loud. The answer is above."
     }
   },
   "errors": {
     "sessionRestore": "We couldn't restore your session. Please log in again.",
     "offline": "You're offline. Showing your latest saved information.",
     "generic": "Something went wrong. Please try again."
+  },
+  "demo": {
+    "badge": "SAMPLE DATA",
+    "bannerTitle": "Demo mode — some values below are made up",
+    "bannerBody": "Anything marked SAMPLE DATA is illustration only. It is not from your field, a mandi, or any model.",
+    "cropHealth": {
+      "value": "Good",
+      "note": "Illustration of what satellite analysis will report"
+    },
+    "growthStage": {
+      "value": "Tillering",
+      "note": "Illustration of what satellite analysis will report"
+    },
+    "recommendation": {
+      "verdict": "Sell partially",
+      "body": "Illustration only. The real recommendation needs the price prediction model, which is not connected yet."
+    },
+    "history": {
+      "mapped": "Field mapped",
+      "mappedDetail": "North Field · 2.50 acres",
+      "sown": "Wheat sown",
+      "sownDetail": "Sharbati variety",
+      "priced": "Mandi price checked",
+      "pricedDetail": "Alwar mandi",
+      "offer": "Offer received",
+      "offerDetail": "Illustration of a Phase 4 buyer offer"
+    }
   }
 }

@@ -29,6 +29,14 @@ export type FarmRow = {
   area_hectares: number;
   centroid_lat: number;
   centroid_lng: number;
+  /**
+   * Resolved from the centroid by reverse geocoding (0004). Null when the
+   * lookup failed or the farm predates it — which keeps weather unavailable
+   * for that farm rather than guessing a district for it.
+   */
+  district: string | null;
+  state: string | null;
+  location_source: string | null;
   created_at: string;
   updated_at: string;
 };

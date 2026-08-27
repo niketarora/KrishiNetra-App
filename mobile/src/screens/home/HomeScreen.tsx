@@ -17,10 +17,32 @@ import {
 } from '@/components/ui';
 import { useAuth } from '@/features/auth/AuthContext';
 import { useAvatar } from '@/features/avatar/AvatarContext';
+import { isDemoMode, SAMPLE } from '@/features/demo/demoMode';
 import { useFarm } from '@/features/farm/FarmContext';
+import type { CurrentCrop } from '@/services/agronomy';
 import { colors, layout } from '@/theme';
 import { firstName, greetingKey, initials } from '@/utils/format';
 import { fromGeoJSON } from '@/utils/geo';
+
+import { useHomeInsights } from './useHomeInsights';
+
+/** Show the crop in the farmer's own language when the catalogue has it. */
+function cropName(current: CurrentCrop, language: string): string {
+  if (language.startsWith('hi') && current.crop.name_hi) return current.crop.name_hi;
+  return current.crop.name_en;
+}
+
+/** "21 Aug" — enough to see how fresh a reading is without a full date. */
+function formatShortDate(iso: string): string {
+  const date = new Date(`${iso}T00:00:00Z`);
+  if (Number.isNaN(date.getTime())) return iso;
+
+  return date.toLocaleDateString(undefined, {
+    day: 'numeric',
+    month: 'short',
+    timeZone: 'UTC',
+  });
+}
 
 type Props = {
   onOpenProfile: () => void;
@@ -40,19 +62,21 @@ type Props = {
  * never make a selling decision on a value the app invented.
  */
 export function HomeScreen({ onOpenProfile, onOpenAnalysis, onOpenMarket, onEditBoundary }: Props) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { user, profile } = useAuth();
   const { farm, loading, errorKey, refresh } = useFarm();
   const { open: openAvatar } = useAvatar();
+  const { crop, msp, weather, price, refresh: refreshInsights } = useHomeInsights(farm?.id ?? null);
 
   const [refreshing, setRefreshing] = useState(false);
 
   const handleRefresh = async () => {
     setRefreshing(true);
-    await refresh();
+    await Promise.all([refresh(), refreshInsights()]);
     setRefreshing(false);
   };
 
+  const demo = isDemoMode();
   const name = firstName(profile?.full_name, user?.email);
   const boundaryPoints = farm ? fromGeoJSON(farm.boundary) : [];
 
@@ -120,18 +144,52 @@ export function HomeScreen({ onOpenProfile, onOpenAnalysis, onOpenMarket, onEdit
           <View style={styles.grid}>
             <StatusCard
               icon="plant"
+              label={t('home.crop')}
+              value={crop ? cropName(crop, i18n.language) : t('common.notAvailable')}
+              note={crop?.planting.variety ?? t('home.cropNone')}
+              muted={!crop}
+              testID="crop-card"
+            />
+            <StatusCard
+              icon="market"
+              label={t('home.msp')}
+              value={
+                msp
+                  ? t('home.mspPerQuintal', { price: Math.round(msp.price_per_quintal) })
+                  : t('common.notAvailable')
+              }
+              note={
+                msp ? t('home.mspYear', { year: msp.marketing_year }) : t('home.mspNone')
+              }
+              muted={!msp}
+              testID="msp-card"
+            />
+          </View>
+
+          <View style={styles.grid}>
+            <StatusCard
+              icon="plant"
               label={t('home.growthStage')}
-              value={t('common.notAvailable')}
-              note={t('common.comingSoon')}
-              muted
+              value={demo ? t(SAMPLE.growthStage.valueKey) : t('common.notAvailable')}
+              note={demo ? t('demo.badge') : t('common.comingSoon')}
+              muted={!demo}
+              sample={demo}
               testID="growth-card"
             />
             <StatusCard
               icon="sun"
               label={t('home.weather')}
-              value={t('common.notAvailable')}
-              note={t('common.comingSoon')}
-              muted
+              value={
+                weather?.temperature_c !== null && weather?.temperature_c !== undefined
+                  ? `${Math.round(weather.temperature_c)}°C`
+                  : t('common.notAvailable')
+              }
+              note={
+                weather
+                  ? t('home.weatherObserved', { date: formatShortDate(weather.observed_on) })
+                  : t('home.weatherNone')
+              }
+              muted={weather?.temperature_c === null || weather?.temperature_c === undefined}
               testID="weather-card"
             />
           </View>
@@ -152,11 +210,25 @@ export function HomeScreen({ onOpenProfile, onOpenAnalysis, onOpenMarket, onEdit
             <Text variant="caption">{t('home.market')}</Text>
             <View style={styles.marketRow}>
               <View style={styles.marketValue}>
-                <Text variant="cardTitle" color={colors.text.muted}>
-                  {t('common.notAvailable')}
+                <Text
+                  variant="cardTitle"
+                  color={price ? colors.text.primary : colors.text.muted}
+                >
+                  {price
+                    ? `₹${Math.round(price.modal_price)}`
+                    : t('common.notAvailable')}
                 </Text>
+                {/*
+                  A price with no date invites a farmer to read a stale figure
+                  as today's, so the recorded date travels with the number
+                  everywhere it appears.
+                */}
                 <Text variant="micro" style={styles.marketNote}>
-                  {t('home.marketUnavailable')}
+                  {price
+                    ? t('home.marketObserved', {
+                        date: formatShortDate(price.price_date),
+                      })
+                    : t('home.marketUnavailable')}
                 </Text>
               </View>
               <Icon name="chevron" size={20} color={colors.text.muted} />

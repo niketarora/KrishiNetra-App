@@ -14,9 +14,13 @@
     "typecheck": "tsc --noEmit",
     "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest",
     "test:watch": "cross-env NODE_OPTIONS=--experimental-vm-modules jest --watch",
-    "seed:demo": "tsx src/scripts/seedDemoFarmer.ts"
+    "seed:demo": "tsx src/scripts/seedDemoFarmer.ts",
+    "ingest:market": "tsx src/scripts/ingestMarket.ts",
+    "ingest:weather": "tsx src/scripts/ingestWeather.ts",
+    "demo:full": "npm run seed:demo && npm run ingest:market && npm run ingest:weather"
   },
   "dependencies": {
+    "@google/genai": "^2.19.0",
     "@supabase/supabase-js": "^2.112.4",
     "@turf/area": "^7.4.0",
     "@turf/centroid": "^7.4.0",
@@ -26,12 +30,14 @@
     "express": "^5.1.0",
     "express-rate-limit": "^8.1.0",
     "helmet": "^8.1.0",
+    "multer": "^2.2.0",
     "zod": "^4.1.11"
   },
   "devDependencies": {
     "@jest/globals": "^30.2.0",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.3",
+    "@types/multer": "^2.2.0",
     "@types/node": "^24.7.0",
     "@types/supertest": "^6.0.3",
     "cross-env": "^10.1.0",

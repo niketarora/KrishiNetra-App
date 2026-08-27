@@ -12,6 +12,8 @@
  *
  *   fabricated   the farmer, their field, and what they planted — a test
  *                account, clearly labelled as one
+ *   resolved     their district, by the same gazetteer lookup the API uses when
+ *                a boundary is saved, so weather can be ingested for them
  *   NOT touched  market_prices and weather stay empty. Inventing a price a
  *                farmer might act on is exactly what IMPLEMENTATION.md rule 13
  *                forbids, and a demo is not an exception.
@@ -23,6 +25,7 @@ import type { SupabaseClient } from '@supabase/supabase-js';
 
 import { getEnv } from '../config/env.js';
 import { adminClient } from '../config/supabase.js';
+import { reverseGeocode } from '../ingestion/geocode/reverseGeocode.js';
 import { areaFromBoundary, centroidFromBoundary, type BoundaryGeoJSON } from '../utils/geo.js';
 
 // ---------------------------------------------------------------------------
@@ -197,6 +200,12 @@ async function replaceFarm(db: SupabaseClient, userId: string): Promise<string> 
   const area = areaFromBoundary(DEMO_BOUNDARY);
   const centre = centroidFromBoundary(DEMO_BOUNDARY);
 
+  // The API reverse-geocodes a farm when a boundary is saved through it. This
+  // script writes the row directly, so it has to do the same lookup itself —
+  // otherwise the demo farm has no district and the weather tile stays empty,
+  // which is a confusing way to start a demonstration.
+  const location = await reverseGeocode(centre.latitude, centre.longitude);
+
   const { data, error } = await db
     .from('farms')
     .insert({
@@ -208,6 +217,9 @@ async function replaceFarm(db: SupabaseClient, userId: string): Promise<string> 
       area_hectares: area.hectares,
       centroid_lat: centre.latitude,
       centroid_lng: centre.longitude,
+      district: location?.district ?? null,
+      state: location?.state ?? null,
+      location_source: location?.source ?? null,
     })
     .select('id')
     .single();
@@ -220,6 +232,14 @@ async function replaceFarm(db: SupabaseClient, userId: string): Promise<string> 
     `  farm               ${DEMO_FARM_NAME} — ${area.acres.toFixed(2)} acres ` +
       `(${area.hectares.toFixed(2)} ha, ${Math.round(area.squareMeters)} m2)`,
   );
+
+  if (location) {
+    console.log(`  location           ${location.district}, ${location.state}`);
+  } else {
+    console.warn('  location           NOT RESOLVED - the weather tile will stay empty.');
+    console.warn('                     Re-run when online; nothing here guesses a district.');
+  }
+
   return data.id as string;
 }
 
@@ -300,8 +320,12 @@ Demo farmer ready. Sign in with:
   email      ${DEMO_FARMER.email}
   password   ${DEMO_FARMER.password}
 
-Market prices and weather remain empty by design — those screens will say the
-data is not connected, which is the truth until Phase 3.
+This script writes no prices and no weather. Fill those with REAL data:
+
+  npm run ingest:market     needs MARKET_API_KEY
+  npm run ingest:weather    no key needed
+
+Or run both plus this script in one go:  npm run demo:full
 `);
 }
 
