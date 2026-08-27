@@ -1,0 +1,217 @@
+{
+  "common": {
+    "continue": "Continue",
+    "back": "Back",
+    "retry": "Try again",
+    "cancel": "Cancel",
+    "save": "Save",
+    "loading": "Loading…",
+    "notAvailable": "—",
+    "comingSoon": "Available in a future update",
+    "appName": "KrishiNetra"
+  },
+  "auth": {
+    "loginTitle": "Welcome back",
+    "loginSubtitle": "Log in to see your field and today's market.",
+    "registerTitle": "Create your account",
+    "registerSubtitle": "You only need an email and a password to begin.",
+    "nameLabel": "Your name",
+    "namePlaceholder": "Ramesh Kumar",
+    "emailLabel": "Email",
+    "emailPlaceholder": "you@example.com",
+    "passwordLabel": "Password",
+    "passwordPlaceholder": "At least 8 characters",
+    "login": "Log in",
+    "register": "Create account",
+    "noAccount": "New to KrishiNetra?",
+    "haveAccount": "Already have an account?",
+    "goToRegister": "Create an account",
+    "goToLogin": "Log in",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password",
+    "errors": {
+      "nameRequired": "Please enter your name",
+      "emailRequired": "Please enter your email",
+      "emailInvalid": "Enter a valid email address",
+      "passwordRequired": "Please enter a password",
+      "passwordTooShort": "Use at least 8 characters",
+      "invalidCredentials": "Wrong email or password",
+      "emailTaken": "This email is already registered — log in instead",
+      "emailNotConfirmed": "Please confirm your email, then log in",
+      "weakPassword": "That password is too easy to guess — try a longer one",
+      "network": "No internet connection. Check your network and try again.",
+      "rateLimited": "Too many attempts. Please wait a moment and try again.",
+      "generic": "Something went wrong. Please try again."
+    }
+  },
+  "onboarding": {
+    "locationTitle": "Let's find your field",
+    "locationBody": "We'll centre the map on your land so you can draw its boundary.",
+    "useLocation": "Use my current location",
+    "locating": "Finding you…",
+    "locationDenied": "Location permission is off. You can still search for your village below.",
+    "locationFailed": "We couldn't get your location. Search for your village instead.",
+    "searchLabel": "Village or area",
+    "searchPlaceholder": "e.g. Karnal, Haryana",
+    "continueToMap": "Continue to map",
+    "drawTitle": "Draw your field",
+    "satelliteView": "Satellite view",
+    "mapHint": "Tap the map to place a corner",
+    "mapHintDrag": "Drag a corner to correct it",
+    "undoPoint": "Undo point",
+    "restart": "Restart",
+    "acres": "acres",
+    "hectares": "hectares",
+    "squareMeters": "sq metres",
+    "confirmBoundary": "Confirm field boundary",
+    "needMorePoints": "Place at least 3 corners",
+    "mapError": "Unable to load map. Please try again.",
+    "confirmTitle": "Confirm your field",
+    "fieldNameLabel": "Field name (optional)",
+    "fieldNamePlaceholder": "North plot",
+    "saveField": "Save my field",
+    "saving": "Saving your field…",
+    "saveError": "We couldn't save your farm. Please try again.",
+    "editBoundary": "Edit boundary"
+  },
+  "home": {
+    "greeting": {
+      "morning": "Good morning",
+      "afternoon": "Good afternoon",
+      "evening": "Good evening"
+    },
+    "yourField": "Your field",
+    "unnamedField": "My field",
+    "editBoundary": "Edit boundary",
+    "notYetAnalyzed": "Not yet analysed",
+    "growthStage": "Growth stage",
+    "weather": "Weather",
+    "viewFullAnalysis": "View full analysis",
+    "market": "Market",
+    "marketUnavailable": "Market prices are not connected yet",
+    "askCompanion": "Ask your farmer companion",
+    "askCompanionSub": "A preview of the voice assistant arriving soon",
+    "visualAssistantTitle": "Ask KrishiNetra",
+    "visualAssistantSub": "Show us your crop and ask what's happening.",
+    "loadError": "We couldn't load your field. Pull down to try again."
+  },
+  "field": {
+    "title": "Field analysis",
+    "cropHealth": "Crop health",
+    "growthStage": "Growth stage",
+    "weatherRisk": "Weather risk",
+    "emptyTitle": "Your field hasn't been analysed yet",
+    "emptyBody": "Crop health, growth stage and weather risk arrive once satellite and weather analysis is connected.",
+    "areaLabel": "Boundary you drew"
+  },
+  "market": {
+    "title": "Market",
+    "currentPrice": "Current price",
+    "msp": "MSP",
+    "perQuintal": "per quintal",
+    "sevenDayTrend": "7-day trend",
+    "recommendation": "Selling recommendation",
+    "emptyTitle": "Market intelligence isn't connected yet",
+    "emptyBody": "Live mandi prices, MSP comparison, price prediction and a sell-or-wait recommendation arrive in a later update."
+  },
+  "history": {
+    "title": "History",
+    "emptyTitle": "Your field's history will appear here after its first analysis."
+  },
+  "profile": {
+    "title": "Profile",
+    "language": "Language",
+    "editField": "Edit field boundary",
+    "notifications": "Notifications",
+    "help": "Help",
+    "logout": "Log out",
+    "logoutConfirmTitle": "Log out?",
+    "logoutConfirmBody": "You'll need your email and password to log back in.",
+    "languageEnglish": "English",
+    "languageHindi": "हिन्दी"
+  },
+  "nav": {
+    "home": "Home",
+    "field": "Field",
+    "market": "Market",
+    "history": "History"
+  },
+  "avatar": {
+    "openLabel": "Talk to your farmer companion",
+    "headerTitle": "KrishiNetra AI",
+    "headerSubtitle": "Demo preview · voice arrives soon",
+    "close": "Close conversation",
+    "end": "End conversation",
+    "tryAsking": "Try asking",
+    "previewNotice": "This is a visual preview. Real voice and AI answers arrive in a later update.",
+    "status": {
+      "idle": "Ready",
+      "listening": "Listening…",
+      "thinking": "Thinking…",
+      "speaking": "Speaking",
+      "error": "No audio"
+    },
+    "mic": {
+      "idle": "Start speaking",
+      "listening": "I'm done",
+      "thinking": "One moment…",
+      "speaking": "Ask a follow-up",
+      "error": "Try again"
+    },
+    "footer": {
+      "idle": "You can speak in Hindi or English.",
+      "listening": "Take your time — I will not interrupt.",
+      "thinking": "Checking your field and mandi data.",
+      "speaking": "You can cut in with a follow-up any time.",
+      "error": "If the mic is blocked, check your phone settings."
+    },
+    "greeting": "Namaste {{name}}! What would you like to know?",
+    "errorMessage": "Sorry, I couldn't hear you clearly.",
+    "questions": {
+      "area": "How big is my field?",
+      "crop": "How is my crop doing?",
+      "mandi": "Today's mandi rate?",
+      "sell": "Sell now or wait?",
+      "weather": "How is the weather this week?"
+    },
+    "answers": {
+      "area": "Your registered field, {{field}}, is {{acres}} acres.",
+      "areaUnknown": "You haven't saved a field yet. Draw your boundary and I'll be able to tell you its size.",
+      "crop": "I can't check your crop yet — field analysis isn't connected in this preview.",
+      "mandi": "I can't check today's mandi rate yet — market data isn't connected in this preview.",
+      "sell": "I can't advise on selling yet — the recommendation engine isn't connected in this preview.",
+      "weather": "I can't check the weather yet — the weather service isn't connected in this preview."
+    },
+    "sources": {
+      "field": "From your field record",
+      "preview": "Preview · not connected yet"
+    }
+  },
+  "visualAssistant": {
+    "headerTitle": "Ask KrishiNetra",
+    "openLabel": "Ask KrishiNetra with your camera",
+    "permissionTitle": "Camera access needed",
+    "permissionBody": "KrishiNetra needs your camera to see your crop and answer your question.",
+    "permissionAllow": "Allow camera",
+    "permissionDenied": "Camera permission is off. Turn it on in your phone's settings to use this feature.",
+    "unavailable": "Camera isn't available on this device.",
+    "captureLabel": "Take a photo",
+    "captureSub": "Point your camera at your crop, then take a photo.",
+    "retake": "Retake photo",
+    "questionLabel": "Your question",
+    "questionPlaceholder": "Are these tomatoes ripe?",
+    "askButton": "Ask KrishiNetra",
+    "askAgain": "Ask again",
+    "asking": "Asking KrishiNetra…",
+    "answerLabel": "AI answer",
+    "answerDisclaimer": "This answer comes directly from an AI model and is not yet checked by KrishiNetra — a preview, not official advice.",
+    "errors": {
+      "generic": "We couldn't get an answer. Check your connection and try again."
+    }
+  },
+  "errors": {
+    "sessionRestore": "We couldn't restore your session. Please log in again.",
+    "offline": "You're offline. Showing your latest saved information.",
+    "generic": "Something went wrong. Please try again."
+  }
+}
