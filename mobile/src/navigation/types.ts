@@ -30,4 +30,7 @@ export type MainStackParamList = {
   /** Boundary review after a GPS walk, reusing the onboarding draw screen. */
   RegisterBoundary: { centre: LatLng | null; points: LatLng[] };
   RegisterCropInfo: { points: LatLng[] };
+  /** Home → Krishi Academy — Feature #14's local tutorial library. */
+  Learning: undefined;
+  TutorialDetail: { tutorialId: string };
 };
