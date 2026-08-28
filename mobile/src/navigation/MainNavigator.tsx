@@ -7,6 +7,8 @@ import { useTranslation } from 'react-i18next';
 
 import { Icon, type IconName } from '@/components/ui';
 import { useFarm } from '@/features/farm/FarmContext';
+import { CalendarEventDetailScreen } from '@/screens/calendar/CalendarEventDetailScreen';
+import { CalendarScreen } from '@/screens/calendar/CalendarScreen';
 import { FieldAnalysisScreen } from '@/screens/field/FieldAnalysisScreen';
 import { MyFarmScreen } from '@/screens/farm/MyFarmScreen';
 import { RegisterCropScreen } from '@/screens/farm/RegisterCropScreen';
@@ -77,6 +79,7 @@ function MainTabs() {
             onOpenMarket={() => tabNavigation.navigate('Market')}
             onEditBoundary={openEditBoundary}
             onOpenLearning={() => navigation.navigate('Learning')}
+            onOpenCalendar={() => navigation.navigate('Calendar')}
           />
         )}
       </Tab.Screen>
@@ -86,7 +89,10 @@ function MainTabs() {
       </Tab.Screen>
 
       <Tab.Screen name="Market" component={MarketScreen} options={{ title: t('nav.market') }} />
-      <Tab.Screen name="History" component={HistoryScreen} options={{ title: t('nav.history') }} />
+
+      <Tab.Screen name="History" options={{ title: t('nav.history') }}>
+        {() => <HistoryScreen onRegisterLand={() => navigation.navigate('MyFarm')} />}
+      </Tab.Screen>
     </Tab.Navigator>
   );
 }
@@ -224,6 +230,26 @@ export function MainNavigator() {
         {({ navigation, route }) => (
           <TutorialDetailScreen
             tutorialId={route.params.tutorialId}
+            onBack={() => navigation.goBack()}
+          />
+        )}
+      </Stack.Screen>
+
+      {/* Home → Smart Farm Calendar — Feature #10's forward-looking demo UI. */}
+      <Stack.Screen name="Calendar">
+        {({ navigation }) => (
+          <CalendarScreen
+            onBack={() => navigation.goBack()}
+            onRegisterLand={() => navigation.navigate('MyFarm')}
+            onOpenEvent={(eventId) => navigation.navigate('CalendarEventDetail', { eventId })}
+          />
+        )}
+      </Stack.Screen>
+
+      <Stack.Screen name="CalendarEventDetail">
+        {({ navigation, route }) => (
+          <CalendarEventDetailScreen
+            eventId={route.params.eventId}
             onBack={() => navigation.goBack()}
           />
         )}

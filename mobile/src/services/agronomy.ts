@@ -112,6 +112,46 @@ export async function getCurrentCrop(farmId: string): Promise<CurrentCrop | null
 }
 
 /**
+ * The most recently harvested planting, or null.
+ *
+ * "Previous crop" only means something once something has actually been
+ * harvested — a field between its first and only crop has no previous one,
+ * and that is the honest answer rather than guessing at an older sowing.
+ */
+export function selectPreviousPlanting(plantings: FarmCrop[]): FarmCrop | null {
+  const harvested = plantings.filter((planting) => planting.status === 'harvested');
+  if (harvested.length === 0) return null;
+
+  const sorted = [...harvested].sort((a, b) => (b.sown_on ?? '').localeCompare(a.sown_on ?? ''));
+  return sorted[0] ?? null;
+}
+
+export type CropHistory = { current: CurrentCrop | null; previous: CurrentCrop | null };
+
+/**
+ * Current and previous crop together, for Krishi Memory's Farm Overview.
+ *
+ * Fetches plantings and the catalogue once and derives both from it, rather
+ * than calling `getCurrentCrop` and a hypothetical `getPreviousCrop`
+ * separately — a farmer's crop history is one screen's concern, not two
+ * round trips.
+ */
+export async function getCropHistory(farmId: string): Promise<CropHistory> {
+  const [plantings, catalogue] = await Promise.all([listFarmCrops(farmId), listCrops()]);
+
+  const resolve = (planting: FarmCrop | null): CurrentCrop | null => {
+    if (!planting) return null;
+    const crop = catalogue.find((entry) => entry.id === planting.crop_id);
+    return crop ? { crop, planting } : null;
+  };
+
+  return {
+    current: resolve(selectCurrentPlanting(plantings)),
+    previous: resolve(selectPreviousPlanting(plantings)),
+  };
+}
+
+/**
  * The most recent published MSP for a crop, or null when none is recorded.
  *
  * The API returns marketing years newest-first, so the first row is current.

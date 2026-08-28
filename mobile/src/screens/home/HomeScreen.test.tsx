@@ -113,6 +113,7 @@ const props = {
   onOpenMarket: jest.fn(),
   onEditBoundary: jest.fn(),
   onOpenLearning: jest.fn(),
+  onOpenCalendar: jest.fn(),
 };
 
 describe('HomeScreen', () => {
@@ -288,6 +289,13 @@ describe('HomeScreen', () => {
       await fireEvent.press(screen.getByTestId('learning-card'));
 
       expect(props.onOpenLearning).toHaveBeenCalled();
+    });
+
+    it('opens the Smart Farm Calendar from the calendar card', async () => {
+      await renderWithProviders(<HomeScreen {...props} />);
+      await fireEvent.press(screen.getByTestId('calendar-card'));
+
+      expect(props.onOpenCalendar).toHaveBeenCalled();
     });
 
     it('opens the avatar from the companion card', async () => {
