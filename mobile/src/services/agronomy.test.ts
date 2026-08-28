@@ -1,10 +1,12 @@
 import { apiFetch } from './api';
 import {
   createFarmCrop,
+  getCropHistory,
   getCurrentCrop,
   getLatestMsp,
   getWeather,
   selectCurrentPlanting,
+  selectPreviousPlanting,
 } from './agronomy';
 import type { FarmCrop } from './agronomy';
 import { DataError } from './errors';
@@ -101,6 +103,63 @@ describe('getCurrentCrop', () => {
       .mockResolvedValueOnce(catalogue);
 
     expect(await getCurrentCrop('farm-1')).toBeNull();
+  });
+});
+
+describe('selectPreviousPlanting', () => {
+  it('returns the most recently harvested planting', () => {
+    const previous = selectPreviousPlanting([
+      planting({ id: 'older', sown_on: '2024-11-15', status: 'harvested' }),
+      planting({ id: 'newer', sown_on: '2025-04-15', status: 'harvested' }),
+    ]);
+
+    expect(previous?.id).toBe('newer');
+  });
+
+  it('ignores a crop still growing, because it is not "previous" yet', () => {
+    const previous = selectPreviousPlanting([
+      planting({ id: 'growing', sown_on: '2025-11-15', status: 'growing' }),
+    ]);
+
+    expect(previous).toBeNull();
+  });
+
+  it('returns null for a field with no harvest on record', () => {
+    expect(selectPreviousPlanting([])).toBeNull();
+  });
+});
+
+describe('getCropHistory', () => {
+  const mustard = {
+    id: 'crop-mustard',
+    code: 'mustard',
+    name_en: 'Mustard',
+    name_hi: 'सरसों',
+    category: 'oilseed',
+    default_unit: 'quintal',
+  };
+
+  it('resolves the current and previous crop from one set of plantings', async () => {
+    mockedFetch
+      .mockResolvedValueOnce([
+        planting({ id: 'current', crop_id: 'crop-wheat', status: 'growing', sown_on: '2026-11-01' }),
+        planting({ id: 'previous', crop_id: 'crop-mustard', status: 'harvested', sown_on: '2026-04-01' }),
+      ])
+      .mockResolvedValueOnce([...catalogue, mustard]);
+
+    const history = await getCropHistory('farm-1');
+
+    expect(history.current?.crop.name_en).toBe('Wheat');
+    expect(history.previous?.crop.name_en).toBe('Mustard');
+  });
+
+  it('leaves previous crop null when nothing has been harvested yet', async () => {
+    mockedFetch.mockResolvedValueOnce([planting({ status: 'sown' })]).mockResolvedValueOnce(catalogue);
+
+    const history = await getCropHistory('farm-1');
+
+    expect(history.current).not.toBeNull();
+    expect(history.previous).toBeNull();
   });
 });
 

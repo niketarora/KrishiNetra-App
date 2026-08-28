@@ -50,6 +50,7 @@ type Props = {
   onOpenMarket: () => void;
   onEditBoundary: () => void;
   onOpenLearning: () => void;
+  onOpenCalendar: () => void;
 };
 
 /**
@@ -68,6 +69,7 @@ export function HomeScreen({
   onOpenMarket,
   onEditBoundary,
   onOpenLearning,
+  onOpenCalendar,
 }: Props) {
   const { t, i18n } = useTranslation();
   const { user, profile } = useAuth();
@@ -253,6 +255,17 @@ export function HomeScreen({
             <Icon name="chevron" size={18} color={colors.text.muted} />
           </Card>
 
+          <Card onPress={onOpenCalendar} style={styles.calendarCard} testID="calendar-card">
+            <Icon name="clock" size={20} color={colors.text.secondary} />
+            <View style={styles.calendarBody}>
+              <Text variant="bodyMedium">{t('home.calendar')}</Text>
+              <Text variant="micro" style={styles.calendarSub}>
+                {t('home.calendarSub')}
+              </Text>
+            </View>
+            <Icon name="chevron" size={18} color={colors.text.muted} />
+          </Card>
+
           <Card tone="success" onPress={openAvatar} style={styles.companionCard} testID="companion-card">
             <Icon name="mic" size={20} color={colors.primaryDark} />
             <View style={styles.companionBody}>
@@ -314,6 +327,9 @@ const styles = StyleSheet.create({
   learningCard: { flexDirection: 'row', alignItems: 'center', gap: 12 },
   learningBody: { flex: 1, minWidth: 0 },
   learningSub: { marginTop: 2 },
+  calendarCard: { flexDirection: 'row', alignItems: 'center', gap: 12 },
+  calendarBody: { flex: 1, minWidth: 0 },
+  calendarSub: { marginTop: 2 },
   companionCard: { flexDirection: 'row', alignItems: 'center', gap: 12 },
   companionBody: { flex: 1 },
   companionSub: { marginTop: 2 },

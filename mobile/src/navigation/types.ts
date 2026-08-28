@@ -33,4 +33,7 @@ export type MainStackParamList = {
   /** Home → Krishi Academy — Feature #14's local tutorial library. */
   Learning: undefined;
   TutorialDetail: { tutorialId: string };
+  /** Home → Smart Farm Calendar — Feature #10's forward-looking demo UI. */
+  Calendar: undefined;
+  CalendarEventDetail: { eventId: string };
 };

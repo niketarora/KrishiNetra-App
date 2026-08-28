@@ -31,7 +31,8 @@ export type IconName =
   | 'offline'
   | 'map'
   | 'book'
-  | 'droplet';
+  | 'droplet'
+  | 'flask';
 
 type Props = {
   name: IconName;
@@ -196,6 +197,13 @@ export function Icon({ name, size = 20, color = colors.text.secondary, strokeWid
       )}
       {name === 'droplet' && (
         <Path d="M12 2s7 8.5 7 13a7 7 0 0 1-14 0c0-4.5 7-13 7-13z" {...common} />
+      )}
+      {name === 'flask' && (
+        <>
+          <Path d="M9 2h6" {...common} />
+          <Path d="M10 2v6.5L4.5 18a2 2 0 0 0 1.7 3h11.6a2 2 0 0 0 1.7-3L14 8.5V2" {...common} />
+          <Path d="M6.5 15h11" {...common} />
+        </>
       )}
     </Svg>
   );
