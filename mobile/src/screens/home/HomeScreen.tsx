@@ -49,6 +49,7 @@ type Props = {
   onOpenAnalysis: () => void;
   onOpenMarket: () => void;
   onEditBoundary: () => void;
+  onOpenLearning: () => void;
 };
 
 /**
@@ -61,7 +62,13 @@ type Props = {
  * "coming later" note rather than a plausible sample number — a farmer must
  * never make a selling decision on a value the app invented.
  */
-export function HomeScreen({ onOpenProfile, onOpenAnalysis, onOpenMarket, onEditBoundary }: Props) {
+export function HomeScreen({
+  onOpenProfile,
+  onOpenAnalysis,
+  onOpenMarket,
+  onEditBoundary,
+  onOpenLearning,
+}: Props) {
   const { t, i18n } = useTranslation();
   const { user, profile } = useAuth();
   const { farm, loading, errorKey, refresh } = useFarm();
@@ -235,6 +242,17 @@ export function HomeScreen({ onOpenProfile, onOpenAnalysis, onOpenMarket, onEdit
             </View>
           </Card>
 
+          <Card onPress={onOpenLearning} style={styles.learningCard} testID="learning-card">
+            <Icon name="book" size={20} color={colors.text.secondary} />
+            <View style={styles.learningBody}>
+              <Text variant="bodyMedium">{t('home.learning')}</Text>
+              <Text variant="micro" style={styles.learningSub}>
+                {t('home.learningSub')}
+              </Text>
+            </View>
+            <Icon name="chevron" size={18} color={colors.text.muted} />
+          </Card>
+
           <Card tone="success" onPress={openAvatar} style={styles.companionCard} testID="companion-card">
             <Icon name="mic" size={20} color={colors.primaryDark} />
             <View style={styles.companionBody}>
@@ -293,6 +311,9 @@ const styles = StyleSheet.create({
   },
   marketValue: { flex: 1 },
   marketNote: { marginTop: 2 },
+  learningCard: { flexDirection: 'row', alignItems: 'center', gap: 12 },
+  learningBody: { flex: 1, minWidth: 0 },
+  learningSub: { marginTop: 2 },
   companionCard: { flexDirection: 'row', alignItems: 'center', gap: 12 },
   companionBody: { flex: 1 },
   companionSub: { marginTop: 2 },

@@ -89,6 +89,8 @@
     "viewFullAnalysis": "View full analysis",
     "market": "Market",
     "marketUnavailable": "Market prices are not connected yet",
+    "learning": "Krishi Academy",
+    "learningSub": "Practical tutorials on soil, sowing, irrigation and more",
     "askCompanion": "Ask your farmer companion",
     "askCompanionSub": "A preview of the voice assistant arriving soon",
     "loadError": "We couldn't load your field. Pull down to try again.",
@@ -166,6 +168,21 @@
     "notesPlaceholder": "Irrigation, soil, previous crop — anything worth remembering",
     "saveCta": "Save my farm",
     "saveCropError": "Your field saved, but we couldn't save the crop details. You can add them later from My Farm."
+  },
+  "learning": {
+    "title": "Krishi Academy",
+    "intro": "Practical, step-by-step guidance for everyday farm decisions — soil, sowing, irrigation, pests and more.",
+    "progress": "{{completed}} of {{total}} tutorials completed",
+    "completed": "Completed",
+    "markComplete": "Mark as complete",
+    "whyItMatters": "Why it matters",
+    "steps": "Steps",
+    "tips": "Tips",
+    "commonMistake": "Common mistake",
+    "emptyTitle": "No tutorials yet",
+    "emptyBody": "Tutorials will appear here once they're added.",
+    "notFoundTitle": "Tutorial not found",
+    "notFoundBody": "This tutorial isn't available. Go back and pick another one."
   },
   "profile": {
     "title": "Profile",

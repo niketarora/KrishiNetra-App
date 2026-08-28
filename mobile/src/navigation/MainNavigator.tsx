@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
@@ -12,6 +13,8 @@ import { RegisterCropScreen } from '@/screens/farm/RegisterCropScreen';
 import { WalkBoundaryScreen } from '@/screens/farm/WalkBoundaryScreen';
 import { HistoryScreen } from '@/screens/history/HistoryScreen';
 import { HomeScreen } from '@/screens/home/HomeScreen';
+import { LearningHomeScreen } from '@/screens/learning/LearningHomeScreen';
+import { TutorialDetailScreen } from '@/screens/learning/TutorialDetailScreen';
 import { MarketScreen } from '@/screens/market/MarketScreen';
 import { ProfileScreen } from '@/screens/profile/ProfileScreen';
 import { ConfirmFieldScreen } from '@/screens/onboarding/ConfirmFieldScreen';
@@ -73,6 +76,7 @@ function MainTabs() {
             onOpenAnalysis={() => tabNavigation.navigate('Field')}
             onOpenMarket={() => tabNavigation.navigate('Market')}
             onEditBoundary={openEditBoundary}
+            onOpenLearning={() => navigation.navigate('Learning')}
           />
         )}
       </Tab.Screen>
@@ -94,6 +98,12 @@ function MainTabs() {
  */
 export function MainNavigator() {
   const { farm } = useFarm();
+
+  // LearningHomeScreen takes no navigation hooks of its own (see its file
+  // comment) — it just re-fetches progress on mount, so remounting it here
+  // whenever it regains focus is what makes "1 of 8 completed" show up
+  // immediately after marking a tutorial complete and coming back.
+  const [learningKey, setLearningKey] = useState(0);
 
   return (
     <Stack.Navigator screenOptions={{ headerShown: false, animation: 'slide_from_right' }}>
@@ -191,6 +201,29 @@ export function MainNavigator() {
             onSaved={() =>
               navigation.reset({ index: 0, routes: [{ name: 'MyFarm' }] })
             }
+            onBack={() => navigation.goBack()}
+          />
+        )}
+      </Stack.Screen>
+
+      {/* Home → Krishi Academy — Feature #14's local tutorial library. */}
+      <Stack.Screen
+        name="Learning"
+        listeners={{ focus: () => setLearningKey((key) => key + 1) }}
+      >
+        {({ navigation }) => (
+          <LearningHomeScreen
+            key={learningKey}
+            onBack={() => navigation.goBack()}
+            onOpenTutorial={(tutorialId) => navigation.navigate('TutorialDetail', { tutorialId })}
+          />
+        )}
+      </Stack.Screen>
+
+      <Stack.Screen name="TutorialDetail">
+        {({ navigation, route }) => (
+          <TutorialDetailScreen
+            tutorialId={route.params.tutorialId}
             onBack={() => navigation.goBack()}
           />
         )}
