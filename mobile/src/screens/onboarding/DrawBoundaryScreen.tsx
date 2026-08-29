@@ -33,7 +33,7 @@ export function DrawBoundaryScreen({
   const [points, setPoints] = useState<LatLng[]>(initialPoints);
   const [accuracy, setAccuracy] = useState<number | null>(null);
   const [centre, setCentre] = useState<LatLng>(initialPoints[0] ?? initialCentre ?? FALLBACK_CENTRE);
-  const [zoom, setZoom] = useState<number>(16.5);
+  const [zoom, setZoom] = useState<number>(initialCentre ? 17.5 : 16.5);
   const [gpsFixState, setGpsFixState] = useState<FieldFix['state'] | 'idle'>('idle');
 
   const [mapReady, setMapReady] = useState(false);

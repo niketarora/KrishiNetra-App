@@ -6,8 +6,10 @@ export type AuthStackParamList = {
 };
 
 export type OnboardingStackParamList = {
+  RegisterFieldMethod: undefined;
   FieldLocation: undefined;
-  DrawBoundary: { centre: LatLng | null; points?: LatLng[]; name?: string | null };
+  WalkBoundary: { centre: LatLng | null; accuracy?: number | null };
+  DrawBoundary: { centre: LatLng | null; points?: LatLng[]; name?: string | null; accuracy?: number | null };
   ConfirmField: { points: LatLng[]; name?: string | null; accuracy?: number | null };
 };
 
@@ -26,7 +28,8 @@ export type MainStackParamList = {
   ConfirmEdit: { points: LatLng[]; name: string | null; accuracy?: number | null };
   /** Profile → My Farm — optional land registration, reachable any time. */
   MyFarm: undefined;
-  RegisterLand: undefined;
+  RegisterLandMethod: undefined;
+  RegisterLand: { centre?: LatLng | null; accuracy?: number | null } | undefined;
   /** Boundary review after a GPS walk, reusing the onboarding draw screen. */
   RegisterBoundary: { centre: LatLng | null; points: LatLng[]; accuracy?: number | null };
   RegisterCropInfo: { points: LatLng[]; accuracy?: number | null };

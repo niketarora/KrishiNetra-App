@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 
 import { AreaCard } from '@/components/farm/AreaCard';
 import { BoundaryThumbnail } from '@/components/farm/BoundaryThumbnail';
-import { Banner, Button, Icon, Input, Screen, ScreenHeader, Text } from '@/components/ui';
+import { Banner, Button, Icon, Input, Screen, ScreenHeader, Skeleton, Text } from '@/components/ui';
 import { useFarm } from '@/features/farm/FarmContext';
 import { createFarmCrop, listCrops, type Crop } from '@/services/agronomy';
 import { DataError } from '@/services/errors';
@@ -45,6 +45,7 @@ export function RegisterCropScreen({ points, accuracy, onSaved, onBack }: Props)
 
   const [name, setName] = useState('');
   const [crops, setCrops] = useState<Crop[]>([]);
+  const [cropsLoading, setCropsLoading] = useState(true);
   const [selectedCropId, setSelectedCropId] = useState<string | null>(null);
   const [variety, setVariety] = useState('');
   const [sownOn, setSownOn] = useState(today());
@@ -55,11 +56,22 @@ export function RegisterCropScreen({ points, accuracy, onSaved, onBack }: Props)
   const [cropWarning, setCropWarning] = useState(false);
 
   useEffect(() => {
+    let cancelled = false;
+    setCropsLoading(true);
     listCrops()
-      .then(setCrops)
-      // The crop picker is a convenience, not the point of this screen — a
-      // farmer can still register their land and add a crop later.
-      .catch(() => setCrops([]));
+      .then((data) => {
+        if (!cancelled) setCrops(data);
+      })
+      .catch(() => {
+        if (!cancelled) setCrops([]);
+      })
+      .finally(() => {
+        if (!cancelled) setCropsLoading(false);
+      });
+
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   const area = useMemo(() => calculateArea(points), [points]);
@@ -141,29 +153,33 @@ export function RegisterCropScreen({ points, accuracy, onSaved, onBack }: Props)
               {t('myFarm.cropLabel')}
             </Text>
 
-            <View style={styles.cropList}>
-              {crops.map((crop) => {
-                const selected = crop.id === selectedCropId;
-                return (
-                  <Pressable
-                    key={crop.id}
-                    onPress={() => setSelectedCropId(selected ? null : crop.id)}
-                    accessibilityRole="button"
-                    accessibilityState={{ selected }}
-                    testID={`crop-option-${crop.code}`}
-                    style={[styles.cropChip, selected && styles.cropChipSelected]}
-                  >
-                    {selected ? <Icon name="check" size={14} color={colors.primaryDark} /> : null}
-                    <Text
-                      variant="bodyMedium"
-                      color={selected ? colors.primaryDark : colors.text.primary}
+            {cropsLoading ? (
+              <Skeleton height={38} />
+            ) : (
+              <View style={styles.cropList}>
+                {crops.map((crop) => {
+                  const selected = crop.id === selectedCropId;
+                  return (
+                    <Pressable
+                      key={crop.id}
+                      onPress={() => setSelectedCropId(selected ? null : crop.id)}
+                      accessibilityRole="button"
+                      accessibilityState={{ selected }}
+                      testID={`crop-option-${crop.code}`}
+                      style={[styles.cropChip, selected && styles.cropChipSelected]}
                     >
-                      {cropLabel(crop, i18n.language)}
-                    </Text>
-                  </Pressable>
-                );
-              })}
-            </View>
+                      {selected ? <Icon name="check" size={14} color={colors.primaryDark} /> : null}
+                      <Text
+                        variant="bodyMedium"
+                        color={selected ? colors.primaryDark : colors.text.primary}
+                      >
+                        {cropLabel(crop, i18n.language)}
+                      </Text>
+                    </Pressable>
+                  );
+                })}
+              </View>
+            )}
           </View>
 
           {selectedCropId ? (

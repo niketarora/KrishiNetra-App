@@ -3,6 +3,9 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { ConfirmFieldScreen } from '@/screens/onboarding/ConfirmFieldScreen';
 import { DrawBoundaryScreen } from '@/screens/onboarding/DrawBoundaryScreen';
 import { FieldLocationScreen } from '@/screens/onboarding/FieldLocationScreen';
+import { RegisterFieldMethodScreen } from '@/screens/onboarding/RegisterFieldMethodScreen';
+import { WalkBoundaryScreen } from '@/screens/farm/WalkBoundaryScreen';
+import { centroid } from '@/utils/geo';
 
 import type { OnboardingStackParamList } from './types';
 
@@ -16,6 +19,34 @@ const Stack = createNativeStackNavigator<OnboardingStackParamList>();
 export function OnboardingNavigator() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false, animation: 'slide_from_right' }}>
+      <Stack.Screen name="RegisterFieldMethod">
+        {({ navigation }) => (
+          <RegisterFieldMethodScreen
+            onSelectWalk={(centre, accuracy) =>
+              navigation.navigate('WalkBoundary', { centre, accuracy })
+            }
+            onSelectDraw={(centre, accuracy) =>
+              navigation.navigate('DrawBoundary', { centre, accuracy })
+            }
+          />
+        )}
+      </Stack.Screen>
+
+      <Stack.Screen name="WalkBoundary">
+        {({ navigation, route }) => (
+          <WalkBoundaryScreen
+            initialCentre={route.params?.centre}
+            onWalked={(points, accuracy) =>
+              navigation.navigate('ConfirmField', {
+                points,
+                accuracy,
+              })
+            }
+            onBack={() => navigation.goBack()}
+          />
+        )}
+      </Stack.Screen>
+
       <Stack.Screen name="FieldLocation">
         {({ navigation }) => (
           <FieldLocationScreen
@@ -30,7 +61,10 @@ export function OnboardingNavigator() {
             initialCentre={route.params.centre}
             initialPoints={route.params.points}
             onConfirm={(points, accuracy) =>
-              navigation.navigate('ConfirmField', { points, accuracy })
+              navigation.navigate('ConfirmField', {
+                points,
+                accuracy: accuracy ?? route.params.accuracy,
+              })
             }
             onBack={() => navigation.goBack()}
           />

@@ -10,6 +10,7 @@ import { colors, layout } from '@/theme';
 import { calculateArea, isValidPolygon, type LatLng } from '@/utils/geo';
 
 type Props = {
+  initialCentre?: LatLng | null;
   onWalked: (points: LatLng[], accuracy: number | null) => void;
   onBack: () => void;
 };
@@ -17,7 +18,7 @@ type Props = {
 const MIN_WALK_AREA_SQ_METERS = 10;
 const DISTANCE_INTERVAL_METERS = 3;
 
-export function WalkBoundaryScreen({ onWalked, onBack }: Props) {
+export function WalkBoundaryScreen({ initialCentre, onWalked, onBack }: Props) {
   const { t } = useTranslation();
 
   const [points, setPoints] = useState<LatLng[]>([]);
@@ -118,7 +119,7 @@ export function WalkBoundaryScreen({ onWalked, onBack }: Props) {
 
       <BoundaryMap
         points={points}
-        initialCentre={points[0] ?? null}
+        initialCentre={points[0] ?? initialCentre ?? null}
         editable={false}
         showsUserLocation
       />

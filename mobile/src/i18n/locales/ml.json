@@ -29,6 +29,19 @@
     "goToLogin": "ലോഗിൻ ചെയ്യുക",
     "showPassword": "പാസ്‌വേഡ് കാണിക്കുക",
     "hidePassword": "പാസ്‌വേഡ് മറയ്ക്കുക",
+    "phoneTitle": "Welcome to KrishiNetra",
+    "phoneSubtitle": "Enter your mobile number to continue",
+    "phoneLabel": "Mobile number",
+    "phonePlaceholder": "98765 43210",
+    "otpTitle": "Verify your number",
+    "otpSentTo": "OTP sent to",
+    "otpLabel": "Enter OTP",
+    "verify": "Verify",
+    "resendOtp": "Resend OTP",
+    "resendIn": "Resend OTP in {{seconds}}s",
+    "changeNumber": "Change number",
+    "demoOtpBannerTitle": "Demo OTP — no SMS is sent",
+    "demoOtpBannerBody": "This prototype does not send real SMS. Your one-time code is {{code}}.",
     "errors": {
       "nameRequired": "നിങ്ങളുടെ പേര് നൽകുക",
       "emailRequired": "ഇമെയിൽ നൽകുക",
@@ -41,10 +54,30 @@
       "weakPassword": "പാസ്‌വേഡ് ലളിതമാണ് — നീളമുള്ളത് നൽകുക",
       "network": "ഇന്റർനെറ്റ് കണക്ഷൻ ഇല്ല. നെറ്റ്‌വർക്ക് പരിശോധിക്കുക.",
       "rateLimited": "കൂടുതൽ തവണ ശ്രമിച്ചു. അല്പം കഴിഞ്ഞ് ശ്രമിക്കുക.",
-      "generic": "എന്തോ തകരാറുണ്ടായി. വീണ്ടും ശ്രമിക്കുക."
+      "generic": "എന്തോ തകരാറുണ്ടായി. വീണ്ടും ശ്രമിക്കുക.",
+      "phoneRequired": "Please enter your mobile number",
+      "phoneInvalid": "Enter a valid 10-digit mobile number",
+      "otpRequired": "Please enter the OTP",
+      "otpInvalid": "That code isn't right. Please try again.",
+      "phoneAlreadyLinkedOnAnotherDevice": "This number is already linked to an account on another device. Try a different number, or continue on that device."
     }
   },
+  "profileSetup": {
+    "title": "Complete your profile",
+    "subtitle": "Just a couple of details to get started.",
+    "emailOptional": "Optional",
+    "saveCta": "Save and continue"
+  },
   "onboarding": {
+    "methodTitle": "Register your field",
+    "methodSubtitle": "Choose how you would like to map your land boundary.",
+    "walkMethodTitle": "Walk around your field",
+    "walkMethodDesc": "Walk along the perimeter of your field with your phone. GPS records your corners in real time.",
+    "drawMethodTitle": "Mark boundary on map",
+    "drawMethodDesc": "View high-resolution satellite imagery centered on your nearby land and tap corners to draw your field.",
+    "gpsAcquired": "GPS location acquired",
+    "gpsAccuracyMeters": "±{{meters}}m accuracy",
+    "retryLocation": "Retry GPS location",
     "locationTitle": "നിങ്ങളുടെ കൃഷിയിടം കണ്ടെത്താം",
     "locationBody": "അതിർത്തി വരയ്ക്കാൻ മാപ്പ് നിങ്ങളുടെ കൃഷിഭൂമിയിലേക്ക് കേന്ദ്രീകരിക്കും.",
     "useLocation": "നിലവിലെ ലൊക്കേഷൻ ഉപയോഗിക്കുക",
@@ -88,6 +121,7 @@
     "unnamedField": "എന്റെ കൃഷിയിടം",
     "editBoundary": "അതിർത്തി മാറ്റുക",
     "notYetAnalyzed": "വിശകലനം ചെയ്തിട്ടില്ല",
+    "farmStatus": "Farm status",
     "growthStage": "വളർച്ചാ ഘട്ടം",
     "weather": "കാലാവസ്ഥ",
     "viewFullAnalysis": "പൂർണ്ണ വിവരങ്ങൾ കാണുക",
@@ -100,6 +134,7 @@
     "farmerResources": "കർഷക വിഭവങ്ങൾ",
     "schemes": "സർക്കാർ പദ്ധതികൾ",
     "updates": "കാർഷിക വാർത്തകൾ",
+    "alerts": "Alerts",
     "askCompanion": "കൃഷി കൂട്ടുകാരനോട് ചോദിക്കൂ",
     "askCompanionSub": "ഉടൻ വരുന്ന വോയ്‌സ് അസിസ്റ്റന്റ്",
     "loadError": "വിവരങ്ങൾ ലഭ്യമായില്ല. താഴേക്ക് വലിച്ച് വീണ്ടും ശ്രമിക്കുക.",
@@ -354,19 +389,62 @@
       "technology": "സാങ്കേതികവിദ്യ"
     }
   },
+  "alerts": {
+    "title": "Alerts",
+    "intro": "Weather, disaster, scheme and advisory alerts for your farm.",
+    "sampleBannerTitle": "Demo communication history",
+    "sampleBannerBody": "These are sample alerts — no real SMS or phone call was sent for any of them.",
+    "today": "Today",
+    "yesterday": "Yesterday",
+    "daysAgo": "{{count}} days ago",
+    "emptyTitle": "No alerts yet",
+    "notFoundTitle": "Alert not found",
+    "notFoundBody": "This alert isn't available. Go back and pick another one.",
+    "demoNotice": "Demo communication — no real SMS or phone call was sent.",
+    "priority": {
+      "high": "High priority",
+      "medium": "Important",
+      "info": "Information"
+    },
+    "categories": {
+      "weather": "Weather",
+      "disaster": "Natural disaster",
+      "government": "Government scheme",
+      "advisory": "Agricultural advisory",
+      "cropHealth": "Crop health"
+    },
+    "channels": {
+      "sms": "SMS",
+      "voice": "Voice call"
+    },
+    "status": {
+      "sent": "Sent",
+      "initiated": "Initiated",
+      "notSent": "Not sent"
+    }
+  },
   "profile": {
     "title": "പ്രൊഫൈൽ",
+    "sectionFarmer": "Farmer",
+    "sectionPreferences": "Preferences",
+    "sectionServices": "Farm & services",
+    "sectionSupport": "Support",
+    "phone": "Phone",
+    "email": "Email",
+    "emailNotAdded": "Not added",
     "language": "ഭാഷ",
+    "location": "Location",
     "myFarm": "എന്റെ കൃഷിയിടം",
     "registerLand": "ഭൂമി രജിസ്റ്റർ ചെയ്യുക",
     "schemes": "സർക്കാർ പദ്ധതികൾ",
-    "notifications": "അറിയിപ്പുകൾ",
+    "alerts": "Alerts",
     "help": "സഹായം",
     "logout": "ലോഗ് ഔട്ട്",
     "logoutConfirmTitle": "ലോഗ് ഔട്ട് ചെയ്യണോ?",
     "logoutConfirmBody": "വീണ്ടും ലോഗിൻ ചെയ്യാൻ ഇമെയിലും പാസ്‌വേഡും ആവശ്യമാണ്.",
     "languageEnglish": "English",
-    "languageHindi": "हिन्दी"
+    "languageHindi": "हिन्दी",
+    "notifications": "അറിയിപ്പുകൾ"
   },
   "nav": {
     "home": "ഹോം",

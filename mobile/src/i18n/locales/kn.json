@@ -29,6 +29,19 @@
     "goToLogin": "ಲಾಗಿನ್ ಆಗಿ",
     "showPassword": "ಪಾಸ್‌ವರ್ಡ್ ತೋರಿಸಿ",
     "hidePassword": "ಪಾಸ್‌ವರ್ಡ್ ಮರೆಮಾಡಿ",
+    "phoneTitle": "Welcome to KrishiNetra",
+    "phoneSubtitle": "Enter your mobile number to continue",
+    "phoneLabel": "Mobile number",
+    "phonePlaceholder": "98765 43210",
+    "otpTitle": "Verify your number",
+    "otpSentTo": "OTP sent to",
+    "otpLabel": "Enter OTP",
+    "verify": "Verify",
+    "resendOtp": "Resend OTP",
+    "resendIn": "Resend OTP in {{seconds}}s",
+    "changeNumber": "Change number",
+    "demoOtpBannerTitle": "Demo OTP — no SMS is sent",
+    "demoOtpBannerBody": "This prototype does not send real SMS. Your one-time code is {{code}}.",
     "errors": {
       "nameRequired": "ದಯವಿಟ್ಟು ನಿಮ್ಮ ಹೆಸರು ನಮೂದಿಸಿ",
       "emailRequired": "ದಯವಿಟ್ಟು ಇಮೇಲ್ ನಮೂದಿಸಿ",
@@ -41,10 +54,30 @@
       "weakPassword": "ಪಾಸ್‌ವರ್ಡ್ ತುಂಬಾ ಸುಲಭವಾಗಿದೆ — ಉದ್ದವಾದ ಪಾಸ್‌ವರ್ಡ್ ಬಳಸಿ",
       "network": "ಇಂಟರ್ನೆಟ್ ಸಂಪರ್ಕವಿಲ್ಲ. ನೆಟ್‌ವರ್ಕ್ ಪರಿಶೀಲಿಸಿ.",
       "rateLimited": "ಹೆಚ್ಚು ಬಾರಿ ಪ್ರಯತ್ನಿಸಲಾಗಿದೆ. ಸ್ವಲ್ಪ ಸಮಯದ ನಂತರ ಪ್ರಯತ್ನಿಸಿ.",
-      "generic": "ಏನೋ ತಪ್ಪಾಗಿದೆ. ದಯವಿಟ್ಟು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ."
+      "generic": "ಏನೋ ತಪ್ಪಾಗಿದೆ. ದಯವಿಟ್ಟು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.",
+      "phoneRequired": "Please enter your mobile number",
+      "phoneInvalid": "Enter a valid 10-digit mobile number",
+      "otpRequired": "Please enter the OTP",
+      "otpInvalid": "That code isn't right. Please try again.",
+      "phoneAlreadyLinkedOnAnotherDevice": "This number is already linked to an account on another device. Try a different number, or continue on that device."
     }
   },
+  "profileSetup": {
+    "title": "Complete your profile",
+    "subtitle": "Just a couple of details to get started.",
+    "emailOptional": "Optional",
+    "saveCta": "Save and continue"
+  },
   "onboarding": {
+    "methodTitle": "Register your field",
+    "methodSubtitle": "Choose how you would like to map your land boundary.",
+    "walkMethodTitle": "Walk around your field",
+    "walkMethodDesc": "Walk along the perimeter of your field with your phone. GPS records your corners in real time.",
+    "drawMethodTitle": "Mark boundary on map",
+    "drawMethodDesc": "View high-resolution satellite imagery centered on your nearby land and tap corners to draw your field.",
+    "gpsAcquired": "GPS location acquired",
+    "gpsAccuracyMeters": "±{{meters}}m accuracy",
+    "retryLocation": "Retry GPS location",
     "locationTitle": "ನಿಮ್ಮ ಜಮೀನನ್ನು ಗುರುತಿಸೋಣ",
     "locationBody": "ಗಡಿ ಗುರುತಿಸಲು ನಕ್ಷೆಯನ್ನು ನಿಮ್ಮ ಭೂಮಿಯ ಮೇಲೆ ಕೇಂದ್ರೀಕರಿಸುತ್ತೇವೆ.",
     "useLocation": "ಪ್ರಸ್ತುತ ಸ್ಥಳ ಬಳಸಿ",
@@ -88,6 +121,7 @@
     "unnamedField": "ನನ್ನ ಜಮೀನು",
     "editBoundary": "ಗಡಿ ಬದಲಾವಣೆ",
     "notYetAnalyzed": "ಇನ್ನೂ ವಿಶ್ಲೇಷಿಸಲಾಗಿಲ್ಲ",
+    "farmStatus": "Farm status",
     "growthStage": "ಬೆಳವಣಿಗೆಯ ಹಂತ",
     "weather": "ಹವಾಮಾನ",
     "viewFullAnalysis": "ಸಂಪೂರ್ಣ ವಿಶ್ಲೇಷಣೆ ನೋಡಿ",
@@ -100,6 +134,7 @@
     "farmerResources": "ರೈತರ ಸಂಪನ್ಮೂಲಗಳು",
     "schemes": "ಸರ್ಕಾರಿ ಯೋಜನೆಗಳು",
     "updates": "ಕೃಷಿ ಸಮಾಚಾರ",
+    "alerts": "Alerts",
     "askCompanion": "ಕೃಷಿ ಮಿತ್ರನಿಗೆ ಕೇಳಿ",
     "askCompanionSub": "ಶೀಘ್ರದಲ್ಲೇ ಬರಲಿರುವ ವಾಯ್ಸ್ ಅಸಿಸ್ಟೆಂಟ್",
     "loadError": "ಮಾಹಿತಿ ಲೋಡ್ ಆಗಲಿಲ್ಲ. ಕೆಳಗೆ ಎಳೆದು ಪ್ರಯತ್ನಿಸಿ.",
@@ -354,19 +389,62 @@
       "technology": "ತಂತ್ರಜ್ಞಾನ"
     }
   },
+  "alerts": {
+    "title": "Alerts",
+    "intro": "Weather, disaster, scheme and advisory alerts for your farm.",
+    "sampleBannerTitle": "Demo communication history",
+    "sampleBannerBody": "These are sample alerts — no real SMS or phone call was sent for any of them.",
+    "today": "Today",
+    "yesterday": "Yesterday",
+    "daysAgo": "{{count}} days ago",
+    "emptyTitle": "No alerts yet",
+    "notFoundTitle": "Alert not found",
+    "notFoundBody": "This alert isn't available. Go back and pick another one.",
+    "demoNotice": "Demo communication — no real SMS or phone call was sent.",
+    "priority": {
+      "high": "High priority",
+      "medium": "Important",
+      "info": "Information"
+    },
+    "categories": {
+      "weather": "Weather",
+      "disaster": "Natural disaster",
+      "government": "Government scheme",
+      "advisory": "Agricultural advisory",
+      "cropHealth": "Crop health"
+    },
+    "channels": {
+      "sms": "SMS",
+      "voice": "Voice call"
+    },
+    "status": {
+      "sent": "Sent",
+      "initiated": "Initiated",
+      "notSent": "Not sent"
+    }
+  },
   "profile": {
     "title": "ಪ್ರೊಫೈಲ್",
+    "sectionFarmer": "Farmer",
+    "sectionPreferences": "Preferences",
+    "sectionServices": "Farm & services",
+    "sectionSupport": "Support",
+    "phone": "Phone",
+    "email": "Email",
+    "emailNotAdded": "Not added",
     "language": "ಭಾಷೆ",
+    "location": "Location",
     "myFarm": "ನನ್ನ ಜಮೀನು",
     "registerLand": "ಜಮೀನು ನೋಂದಾಯಿಸಿ",
     "schemes": "ಸರ್ಕಾರಿ ಯೋಜನೆಗಳು",
-    "notifications": "ಅಧಿಸೂಚನೆಗಳು",
+    "alerts": "Alerts",
     "help": "ಸಹಾಯ",
     "logout": "ಲಾಗ್ ಔಟ್",
     "logoutConfirmTitle": "ಲಾಗ್ ಔಟ್ ಮಾಡಬೇಕೆ?",
     "logoutConfirmBody": "ಮತ್ತೆ ಲಾಗಿನ್ ಆಗಲು ಇಮೇಲ್ ಮತ್ತು ಪಾಸ್‌ವರ್ಡ್ ಬೇಕಾಗುತ್ತದೆ.",
     "languageEnglish": "English",
-    "languageHindi": "हिन्दी"
+    "languageHindi": "हिन्दी",
+    "notifications": "ಅಧಿಸೂಚನೆಗಳು"
   },
   "nav": {
     "home": "ಮುಖಪುಟ",
