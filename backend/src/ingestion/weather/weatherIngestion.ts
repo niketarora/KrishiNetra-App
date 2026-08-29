@@ -6,26 +6,19 @@ import { normalizeWeatherResponse, type RawWeatherResponse } from './weatherNorm
 import { fetchObservedWeather, weatherSourceLabel } from './weatherSource.js';
 
 /**
- * Writes observed weather into the `weather` table, one district at a time.
+ * Writes observed weather into the `weather` table, one 0.25° grid cell at a time.
  *
- * Open-Meteo needs a coordinate, but `weather` is keyed by district and the
- * `mandis` table has null coordinates by design — Phase 2 refused to guess
- * them. The sample point therefore comes from a farm that has already resolved
- * to that district: a real coordinate inside the district, not an invented
- * centre for it.
- *
- * That means this script reads farm rows through the service-role client. It is
- * an offline script, not a request path — it selects only district, state and
- * centroid, aggregates them, and returns nothing farmer-owned to any caller.
- * The rule in config/supabase.ts (never serve farmer-owned rows through the
- * admin client) is intact.
+ * Snapping farm centroids to a 0.25° ERA5 grid:
+ *   - Matches Open-Meteo's own reanalysis resolution (~750 km²).
+ *   - Groups multiple farms in the same cell into a single fetch.
+ *   - Preserves farmer privacy.
  */
 
 export type WeatherTarget = {
-  district: string;
-  state: string;
-  latitude: number;
-  longitude: number;
+  gridLat: number;
+  gridLng: number;
+  district: string | null;
+  state: string | null;
 };
 
 export type WeatherIngestionReport = {
@@ -35,35 +28,40 @@ export type WeatherIngestionReport = {
   failures: { district: string; reason: string }[];
 };
 
-/** One representative coordinate per district that at least one farm sits in. */
+/** One representative coordinate per 0.25° grid cell that at least one farm sits in. */
 export async function findWeatherTargets(db: SupabaseClient): Promise<WeatherTarget[]> {
   const { data, error } = await db
     .from('farms')
     .select('district, state, centroid_lat, centroid_lng')
-    .not('district', 'is', null)
-    .not('state', 'is', null);
+    .not('centroid_lat', 'is', null)
+    .not('centroid_lng', 'is', null);
 
-  if (error) throw new Error(`Could not read farm districts: ${error.message}`);
+  if (error) throw new Error(`Could not read farm coordinates: ${error.message}`);
 
-  const byDistrict = new Map<string, WeatherTarget>();
+  const byGrid = new Map<string, WeatherTarget>();
 
   for (const row of data ?? []) {
-    const district = String(row.district);
-    const state = String(row.state);
-    const key = `${state}|${district}`.toLowerCase();
-    if (byDistrict.has(key)) continue;
+    const lat = Number(row.centroid_lat);
+    const lng = Number(row.centroid_lng);
+    if (!Number.isFinite(lat) || !Number.isFinite(lng)) continue;
 
-    const latitude = Number(row.centroid_lat);
-    const longitude = Number(row.centroid_lng);
-    if (!Number.isFinite(latitude) || !Number.isFinite(longitude)) continue;
+    const gridLat = Math.round(lat * 4) / 4;
+    const gridLng = Math.round(lng * 4) / 4;
+    const key = `${gridLat}:${gridLng}`;
+    if (byGrid.has(key)) continue;
 
-    byDistrict.set(key, { district, state, latitude, longitude });
+    byGrid.set(key, {
+      gridLat,
+      gridLng,
+      district: row.district ? String(row.district) : null,
+      state: row.state ? String(row.state) : null,
+    });
   }
 
-  return [...byDistrict.values()];
+  return [...byGrid.values()];
 }
 
-/** Store one district's observations. Exported so a test can drive it directly. */
+/** Store one grid cell's observations. Exported so a test can drive it directly. */
 export async function ingestWeatherPayload(
   target: WeatherTarget,
   payload: RawWeatherResponse,
@@ -81,6 +79,8 @@ export async function ingestWeatherPayload(
 
   const { error, count } = await db.from('weather').upsert(
     rows.map((row) => ({
+      grid_lat: target.gridLat,
+      grid_lng: target.gridLng,
       district: target.district,
       state: target.state,
       observed_on: row.observed_on,
@@ -89,7 +89,7 @@ export async function ingestWeatherPayload(
       humidity_pct: row.humidity_pct,
       source,
     })),
-    { onConflict: 'district,state,observed_on', count: 'exact' },
+    { onConflict: 'grid_lat,grid_lng,observed_on', count: 'exact' },
   );
 
   if (error) throw new Error(`Could not write weather: ${error.message}`);
@@ -104,11 +104,7 @@ function isoDaysAgo(days: number, from = new Date()): string {
 }
 
 /**
- * Fetch and store recent observations for every district a farm sits in.
- *
- * The window starts a few days back because the ERA5 archive lags real time.
- * A district whose fetch fails is reported and skipped — one bad district never
- * aborts the run, and a total provider outage simply writes nothing.
+ * Fetch and store recent observations for every 0.25° grid cell a farm sits in.
  */
 export async function runWeatherIngestion(
   options: { days?: number; db?: SupabaseClient } = {},
@@ -130,10 +126,9 @@ export async function runWeatherIngestion(
   for (const target of targets) {
     try {
       const payload = await fetchObservedWeather({
-        latitude: target.latitude,
-        longitude: target.longitude,
+        latitude: target.gridLat,
+        longitude: target.gridLng,
         startDate: isoDaysAgo(days),
-        // The archive trails live time; asking for today returns nulls.
         endDate: isoDaysAgo(5),
       });
 
@@ -145,7 +140,7 @@ export async function runWeatherIngestion(
       }
     } catch (error) {
       report.failures.push({
-        district: `${target.state} / ${target.district}`,
+        district: target.district ? `${target.state} / ${target.district}` : `Grid (${target.gridLat}, ${target.gridLng})`,
         reason: error instanceof Error ? error.message : String(error),
       });
     }

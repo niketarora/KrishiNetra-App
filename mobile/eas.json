@@ -15,7 +15,8 @@
       },
       "env": {
         "EXPO_PUBLIC_SUPABASE_URL": "https://placeholder.supabase.co",
-        "EXPO_PUBLIC_SUPABASE_ANON_KEY": "placeholder-anon-key"
+        "EXPO_PUBLIC_SUPABASE_ANON_KEY": "placeholder-anon-key",
+        "EXPO_PUBLIC_MAPBOX_ACCESS_TOKEN": "placeholder-mapbox-token"
       }
     },
     "production": {

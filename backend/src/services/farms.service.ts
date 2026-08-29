@@ -1,7 +1,7 @@
 import { userClient } from '../config/supabase.js';
 import { reverseGeocode } from '../ingestion/geocode/reverseGeocode.js';
 import type { CreateFarmBody, UpdateFarmBody } from '../schemas/farm.schema.js';
-import { type FarmRow, toNumber } from '../types/domain.js';
+import { type FarmRow, toNullableNumber, toNumber } from '../types/domain.js';
 import { ApiError } from '../utils/ApiError.js';
 import { deriveAndVerify } from '../utils/geo.js';
 
@@ -20,6 +20,7 @@ function normalise(row: Record<string, unknown>): FarmRow {
     area_hectares: toNumber(row.area_hectares),
     centroid_lat: toNumber(row.centroid_lat),
     centroid_lng: toNumber(row.centroid_lng),
+    location_accuracy: toNullableNumber(row.location_accuracy),
   };
 }
 
@@ -114,13 +115,25 @@ export async function createFarm(
 ): Promise<FarmRow> {
   const values = verifiedValues(body);
   const location = await resolveLocation(values.centroid_lat, values.centroid_lng);
+  const locationAccuracy = body.location_accuracy !== undefined ? body.location_accuracy : null;
 
-  const { data, error } = await userClient(token)
+  let { data, error } = await userClient(token)
     .from('farms')
     // user_id comes from the verified token. The schema refuses it in the body.
-    .insert({ user_id: userId, ...values, ...location })
+    .insert({ user_id: userId, ...values, ...location, location_accuracy: locationAccuracy })
     .select()
     .single();
+
+  // If the remote Supabase database has not run migration 0005 yet, retry without location_accuracy
+  if (error && (error.code === 'PGRST204' || error.message?.includes('location_accuracy'))) {
+    const retry = await userClient(token)
+      .from('farms')
+      .insert({ user_id: userId, ...values, ...location })
+      .select()
+      .single();
+    data = retry.data;
+    error = retry.error;
+  }
 
   if (error) throw error;
   return normalise(data);
@@ -142,13 +155,36 @@ export async function updateFarm(
   // place the field is actually in now.
   const location = await resolveLocation(values.centroid_lat, values.centroid_lng);
 
-  const { data, error } = await userClient(token)
+  const updatePayload: Record<string, unknown> = {
+    ...values,
+    ...location,
+  };
+  // undefined = leave unchanged, null = explicitly clear
+  if (body.location_accuracy !== undefined) {
+    updatePayload.location_accuracy = body.location_accuracy;
+  }
+
+  let { data, error } = await userClient(token)
     .from('farms')
-    .update({ ...values, ...location })
+    .update(updatePayload)
     .eq('id', farmId)
     .eq('user_id', userId)
     .select()
     .single();
+
+  // If the remote Supabase database has not run migration 0005 yet, retry without location_accuracy
+  if (error && (error.code === 'PGRST204' || error.message?.includes('location_accuracy'))) {
+    const { location_accuracy: _, ...fallbackPayload } = updatePayload;
+    const retry = await userClient(token)
+      .from('farms')
+      .update(fallbackPayload)
+      .eq('id', farmId)
+      .eq('user_id', userId)
+      .select()
+      .single();
+    data = retry.data;
+    error = retry.error;
+  }
 
   if (error) throw error;
   return normalise(data);

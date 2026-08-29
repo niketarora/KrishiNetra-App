@@ -59,7 +59,7 @@ describe('DrawBoundaryScreen', () => {
 
       await fireEvent.press(screen.getByTestId('confirm-boundary'));
 
-      expect(props.onConfirm).toHaveBeenCalledWith(squarePoints);
+      expect(props.onConfirm).toHaveBeenCalledWith(squarePoints, null);
     });
 
     it('shows the calculated area in all three units', async () => {

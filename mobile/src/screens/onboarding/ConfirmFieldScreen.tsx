@@ -14,6 +14,7 @@ type Props = {
   points: LatLng[];
   /** Pre-fills the name when an existing farm's boundary is being edited. */
   initialName?: string | null;
+  accuracy?: number | null;
   onSaved: () => void;
   onBack: () => void;
 };
@@ -25,7 +26,7 @@ type Props = {
  * dropping them back to the map: redrawing a field they already walked is the
  * worst possible outcome of a flaky connection.
  */
-export function ConfirmFieldScreen({ points, initialName, onSaved, onBack }: Props) {
+export function ConfirmFieldScreen({ points, initialName, accuracy, onSaved, onBack }: Props) {
   const { t } = useTranslation();
   const { saveBoundary } = useFarm();
 
@@ -40,7 +41,7 @@ export function ConfirmFieldScreen({ points, initialName, onSaved, onBack }: Pro
     setErrorKey(null);
 
     try {
-      await saveBoundary(points, name);
+      await saveBoundary(points, name, accuracy);
       onSaved();
     } catch (error) {
       setErrorKey(error instanceof DataError ? error.translationKey : 'onboarding.saveError');

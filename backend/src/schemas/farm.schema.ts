@@ -41,6 +41,8 @@ const measurements = {
 
 const farmName = z.string().trim().max(120).nullish();
 
+const locationAccuracy = z.number().nonnegative().nullish();
+
 /**
  * `user_id` is deliberately absent: it comes from the verified token, never
  * from the body. `.strict()` means a client that sends it gets a 400 rather
@@ -50,14 +52,19 @@ export const createFarmSchema = z
   .object({
     name: farmName,
     boundary: boundarySchema,
+    location_accuracy: locationAccuracy,
     ...measurements,
   })
   .strict();
 
+/**
+ * Note: location_accuracy undefined means keep existing value, null explicitly clears it.
+ */
 export const updateFarmSchema = z
   .object({
     name: farmName,
     boundary: boundarySchema,
+    location_accuracy: locationAccuracy,
     ...measurements,
   })
   .strict();

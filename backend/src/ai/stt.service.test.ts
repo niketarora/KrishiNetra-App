@@ -6,6 +6,8 @@ describe('toProviderLanguage', () => {
   it('widens the app language codes to the Indian variants', () => {
     expect(toProviderLanguage('hi')).toBe('hi-IN');
     expect(toProviderLanguage('en')).toBe('en-IN');
+    expect(toProviderLanguage('mr')).toBe('mr-IN');
+    expect(toProviderLanguage('ta')).toBe('ta-IN');
   });
 
   it('accepts a full tag', () => {
@@ -13,9 +15,7 @@ describe('toProviderLanguage', () => {
   });
 
   it('asks the provider to detect anything else', () => {
-    // A farmer using the app in English may still speak Marathi. Forcing en-IN
-    // would transcribe it as nonsense and then answer the nonsense.
-    expect(toProviderLanguage('mr')).toBe('unknown');
+    expect(toProviderLanguage('xyz')).toBe('unknown');
     expect(toProviderLanguage(undefined)).toBe('unknown');
   });
 });

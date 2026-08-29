@@ -3,33 +3,19 @@ import { StyleSheet, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
 import { colors } from '@/theme';
-import type { LatLng } from '@/utils/geo';
 
 import { Text } from '../ui/Text';
-
-type Props = {
-  region: { latitude: number; longitude: number; latitudeDelta: number; longitudeDelta: number };
-  points: LatLng[];
-  onAddPoint?: (point: LatLng) => void;
-  onMovePoint?: (index: number, point: LatLng) => void;
-  onReady?: () => void;
-  editable?: boolean;
-};
+import type { BoundaryMapProps } from './BoundaryMap.types';
 
 /**
  * Web-only stand-in for `BoundaryMap.tsx`. Metro/Expo resolve `*.web.tsx`
  * ahead of `*.tsx` when bundling for the web platform, so this file exists
- * purely so nothing in the app ever imports `react-native-maps` on web —
- * that library has no web target and crashes at module load
- * ("codegenNativeComponent is not a function"). `BoundaryMap.tsx` (the real,
- * native, satellite-map implementation used on Android/iOS) is untouched.
+ * purely so nothing in the app ever imports `@rnmapbox/maps` on web.
  *
- * This is a placeholder only — no drawing/dragging on web, since there is no
- * map library backing it here. `onReady` still fires immediately so a screen
- * that times out waiting for it (see DrawBoundaryScreen's MAP_READY_TIMEOUT)
+ * `onReady` still fires immediately so a screen that times out waiting for it
  * doesn't show a false "map failed to load" error while previewing on web.
  */
-export function BoundaryMap({ onReady }: Props) {
+export function BoundaryMap({ onReady }: BoundaryMapProps) {
   const { t } = useTranslation();
 
   useEffect(() => {

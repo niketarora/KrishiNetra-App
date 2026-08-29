@@ -72,7 +72,7 @@ describe('RegisterCropScreen', () => {
     await fireEvent.press(screen.getByTestId('crop-save'));
 
     await waitFor(() => expect(props.onSaved).toHaveBeenCalled());
-    expect(mockSaveBoundary).toHaveBeenCalledWith(points, 'North plot');
+    expect(mockSaveBoundary).toHaveBeenCalledWith(points, 'North plot', undefined);
     expect(mockCreateFarmCrop).not.toHaveBeenCalled();
   });
 

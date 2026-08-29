@@ -34,6 +34,7 @@ export type IconName =
   | 'droplet'
   | 'flask'
   | 'play'
+  | 'locate'
   | 'camera'
   | 'phone'
   | 'mail';
@@ -213,6 +214,13 @@ export function Icon({ name, size = 20, color = colors.text.secondary, strokeWid
         <>
           <Circle cx="12" cy="12" r="9" {...common} />
           <Path d="M10 8.5v7l6-3.5z" {...common} />
+        </>
+      )}
+      {name === 'locate' && (
+        <>
+          <Circle cx="12" cy="12" r="7" {...common} />
+          <Path d="M12 2v3M12 19v3M2 12h3M19 12h3" {...common} />
+          <Circle cx="12" cy="12" r="2" fill={color} stroke="none" />
         </>
       )}
       {name === 'camera' && (

@@ -1,7 +1,17 @@
+import { useState } from 'react';
 import { Alert, Pressable, ScrollView, StyleSheet, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
-import { Icon, IconBadge, type IconBadgeTone, Screen, ScreenHeader, Text, type IconName } from '@/components/ui';
+import {
+  Icon,
+  IconBadge,
+  LanguagePickerModal,
+  type IconBadgeTone,
+  Screen,
+  ScreenHeader,
+  Text,
+  type IconName,
+} from '@/components/ui';
 import { useAuth } from '@/features/auth/AuthContext';
 import { useFarm } from '@/features/farm/FarmContext';
 import { useLanguage } from '@/features/language/LanguageContext';
@@ -34,14 +44,13 @@ export function ProfileScreen({ onBack, onOpenMyFarm, onOpenSchemes, onOpenAlert
   const { profile, signOut } = useAuth();
   const { farm } = useFarm();
   const { language, setLanguage } = useLanguage();
+  const [pickerVisible, setPickerVisible] = useState(false);
 
   const currentLanguage =
     SUPPORTED_LANGUAGES.find((l) => l.code === language)?.label ?? language;
 
-  const cycleLanguage = () => {
-    const index = SUPPORTED_LANGUAGES.findIndex((l) => l.code === language);
-    const next = SUPPORTED_LANGUAGES[(index + 1) % SUPPORTED_LANGUAGES.length];
-    void setLanguage(next.code);
+  const openLanguagePicker = () => {
+    setPickerVisible(true);
   };
 
   const confirmLogout = () => {
@@ -60,7 +69,7 @@ export function ProfileScreen({ onBack, onOpenMyFarm, onOpenSchemes, onOpenAlert
   ];
 
   const preferenceRows: Row[] = [
-    { key: 'language', icon: 'globe', tone: 'accent', label: t('profile.language'), value: currentLanguage, onPress: cycleLanguage },
+    { key: 'language', icon: 'globe', tone: 'accent', label: t('profile.language'), value: currentLanguage, onPress: openLanguagePicker },
     {
       key: 'location',
       icon: 'pin',
@@ -153,6 +162,13 @@ export function ProfileScreen({ onBack, onOpenMyFarm, onOpenSchemes, onOpenAlert
           </View>
         ))}
       </ScrollView>
+
+      <LanguagePickerModal
+        visible={pickerVisible}
+        selectedCode={language}
+        onSelect={(code) => void setLanguage(code)}
+        onClose={() => setPickerVisible(false)}
+      />
     </Screen>
   );
 }

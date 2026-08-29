@@ -107,6 +107,49 @@ export async function listMarketPrices(
 }
 
 /**
+ * The most recent observation for a 0.25° ERA5 grid cell, or null.
+ */
+export async function latestWeatherForGridCell(
+  token: string,
+  gridLat: number,
+  gridLng: number,
+): Promise<WeatherRow | null> {
+  try {
+    const { data, error } = await userClient(token)
+      .from('weather')
+      .select('*')
+      .eq('grid_lat', gridLat)
+      .eq('grid_lng', gridLng)
+      .order('observed_on', { ascending: false })
+      .limit(1)
+      .maybeSingle();
+
+    if (error) {
+      if (error.code === '42703' || error.message?.includes('grid_lat')) {
+        return null;
+      }
+      throw error;
+    }
+    if (!data) return null;
+
+    return {
+      ...(data as unknown as WeatherRow),
+      grid_lat: toNumber(data.grid_lat),
+      grid_lng: toNumber(data.grid_lng),
+      temperature_c: toNullableNumber(data.temperature_c),
+      rainfall_mm: toNullableNumber(data.rainfall_mm),
+      humidity_pct: toNullableNumber(data.humidity_pct),
+    };
+  } catch (err: unknown) {
+    const pgErr = err as { code?: string; message?: string };
+    if (pgErr?.code === '42703' || pgErr?.message?.includes('grid_lat')) {
+      return null;
+    }
+    throw err;
+  }
+}
+
+/**
  * The most recent observation for a district, or null.
  *
  * Null is a real answer here and the caller turns it into the unavailable
@@ -132,6 +175,8 @@ export async function latestWeatherForDistrict(
 
   return {
     ...(data as unknown as WeatherRow),
+    grid_lat: toNumber(data.grid_lat),
+    grid_lng: toNumber(data.grid_lng),
     temperature_c: toNullableNumber(data.temperature_c),
     rainfall_mm: toNullableNumber(data.rainfall_mm),
     humidity_pct: toNullableNumber(data.humidity_pct),

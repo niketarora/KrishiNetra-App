@@ -107,7 +107,7 @@ describe('WalkBoundaryScreen', () => {
 
     await fireEvent.press(screen.getByTestId('walk-continue'));
 
-    expect(props.onWalked).toHaveBeenCalledWith(SQUARE);
+    expect(props.onWalked).toHaveBeenCalledWith(SQUARE, null);
   });
 
   it('clears everything on restart', async () => {

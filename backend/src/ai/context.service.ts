@@ -58,8 +58,14 @@ export async function buildFarmerContext(token: string, userId: string): Promise
   const [plantings, catalogue, weather] = await Promise.all([
     safely(() => farmCrops.listFarmCrops(token, userId, farm.id)),
     safely(() => reference.listCrops(token)),
-    farm.district && farm.state
-      ? safely(() => reference.latestWeatherForDistrict(token, farm.district!, farm.state!))
+    farm.centroid_lat !== null && farm.centroid_lng !== null
+      ? safely(() =>
+          reference.latestWeatherForGridCell(
+            token,
+            Math.round(farm.centroid_lat * 4) / 4,
+            Math.round(farm.centroid_lng * 4) / 4,
+          ),
+        )
       : Promise.resolve(null),
   ]);
 

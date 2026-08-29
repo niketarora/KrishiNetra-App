@@ -1,11 +1,11 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
-import type { Region } from 'react-native-maps';
 import { useTranslation } from 'react-i18next';
 
 import { AreaCard } from '@/components/farm/AreaCard';
 import { BoundaryMap } from '@/components/farm/BoundaryMap';
 import { Banner, Button, Screen, ScreenHeader } from '@/components/ui';
+import { ACCURACY_WARN_METERS, getCurrentFieldFix, zoomForAccuracy, type FieldFix } from '@/services/location';
 import { layout } from '@/theme';
 import { calculateArea, isValidPolygon, MIN_VERTICES, type LatLng } from '@/utils/geo';
 
@@ -14,29 +14,70 @@ type Props = {
   initialCentre: LatLng | null;
   /** Vertices to load for an edit, empty for a fresh draw. */
   initialPoints?: LatLng[];
-  onConfirm: (points: LatLng[]) => void;
+  onConfirm: (points: LatLng[], accuracy?: number | null) => void;
   onBack: () => void;
 };
 
-/** Roughly a 400m box — tight enough that a field fills the frame. */
-const DEFAULT_DELTA = 0.004;
-
-/** Centre of India, so a map with no fix still opens somewhere sensible. */
+const EMPTY_POINTS: LatLng[] = [];
 const FALLBACK_CENTRE: LatLng = { latitude: 22.9734, longitude: 78.6569 };
-
-/** How long to wait for the native map before offering a retry. */
 const MAP_READY_TIMEOUT_MS = 12000;
 
-export function DrawBoundaryScreen({ initialCentre, initialPoints = [], onConfirm, onBack }: Props) {
+export function DrawBoundaryScreen({
+  initialCentre,
+  initialPoints = EMPTY_POINTS,
+  onConfirm,
+  onBack,
+}: Props) {
   const { t } = useTranslation();
 
   const [points, setPoints] = useState<LatLng[]>(initialPoints);
+  const [accuracy, setAccuracy] = useState<number | null>(null);
+  const [centre, setCentre] = useState<LatLng>(initialPoints[0] ?? initialCentre ?? FALLBACK_CENTRE);
+  const [zoom, setZoom] = useState<number>(16.5);
+  const [gpsFixState, setGpsFixState] = useState<FieldFix['state'] | 'idle'>('idle');
+
   const [mapReady, setMapReady] = useState(false);
   const [mapFailed, setMapFailed] = useState(false);
-  // Remounts MapView on retry — a map that failed to initialise will not
-  // recover on its own.
   const [mapAttempt, setMapAttempt] = useState(0);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const mountedRef = useRef(true);
+
+  useEffect(() => {
+    mountedRef.current = true;
+    return () => {
+      mountedRef.current = false;
+    };
+  }, []);
+
+  useEffect(() => {
+    if (initialPoints.length >= 3) {
+      setCentre(initialPoints[0]!);
+      setZoom(16.5);
+      return;
+    }
+
+    let active = true;
+    async function acquireFix() {
+      const fix = await getCurrentFieldFix();
+      if (!active || !mountedRef.current) return;
+
+      setGpsFixState(fix.state);
+      if (fix.state === 'ok') {
+        setCentre({ latitude: fix.latitude, longitude: fix.longitude });
+        setZoom(zoomForAccuracy(fix.accuracy));
+        setAccuracy(fix.accuracy);
+      } else if (initialCentre) {
+        setCentre(initialCentre);
+        setZoom(16.5);
+      }
+    }
+
+    void acquireFix();
+
+    return () => {
+      active = false;
+    };
+  }, [initialPoints, initialCentre, mapAttempt]);
 
   useEffect(() => {
     setMapFailed(false);
@@ -58,15 +99,10 @@ export function DrawBoundaryScreen({ initialCentre, initialPoints = [], onConfir
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
   }, []);
 
-  const region = useMemo<Region>(() => {
-    const centre = initialPoints[0] ?? initialCentre ?? FALLBACK_CENTRE;
-    return {
-      latitude: centre.latitude,
-      longitude: centre.longitude,
-      latitudeDelta: DEFAULT_DELTA,
-      longitudeDelta: DEFAULT_DELTA,
-    };
-  }, [initialCentre, initialPoints]);
+  const handleError = useCallback(() => {
+    setMapFailed(true);
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+  }, []);
 
   const addPoint = useCallback((point: LatLng) => {
     setPoints((current) => [...current, point]);
@@ -82,14 +118,35 @@ export function DrawBoundaryScreen({ initialCentre, initialPoints = [], onConfir
 
   const restart = useCallback(() => setPoints([]), []);
 
-  // Recomputed only when the boundary actually changes, not on every render —
-  // the geodesic calculation runs over the whole ring each time.
   const area = useMemo(() => calculateArea(points), [points]);
   const canConfirm = isValidPolygon(points);
+
+  const showAccuracyWarning =
+    gpsFixState === 'ok' && accuracy !== null && accuracy > ACCURACY_WARN_METERS && points.length === 0;
+
+  const showLocationDeniedBanner = gpsFixState === 'denied' && points.length === 0;
 
   return (
     <Screen edges={['top']}>
       <ScreenHeader title={t('onboarding.drawTitle')} onBack={onBack} />
+
+      {showAccuracyWarning ? (
+        <View style={styles.bannerSlot}>
+          <Banner
+            title={t('onboarding.gpsAccuracyWarning', 'GPS accuracy is low. You can still adjust boundary points manually.')}
+            tone="warning"
+          />
+        </View>
+      ) : null}
+
+      {showLocationDeniedBanner ? (
+        <View style={styles.bannerSlot}>
+          <Banner
+            title={t('onboarding.locationPermissionDenied', 'Location access is denied. Pan and zoom the map manually to place boundary points.')}
+            tone="neutral"
+          />
+        </View>
+      ) : null}
 
       {mapFailed ? (
         <View style={styles.mapErrorSlot}>
@@ -107,11 +164,13 @@ export function DrawBoundaryScreen({ initialCentre, initialPoints = [], onConfir
       ) : (
         <BoundaryMap
           key={mapAttempt}
-          region={region}
+          initialCentre={centre}
+          initialZoom={zoom}
           points={points}
           onAddPoint={addPoint}
           onMovePoint={movePoint}
           onReady={handleReady}
+          onError={handleError}
         />
       )}
 
@@ -141,7 +200,7 @@ export function DrawBoundaryScreen({ initialCentre, initialPoints = [], onConfir
       <View style={styles.footer}>
         <Button
           label={canConfirm ? t('onboarding.confirmBoundary') : t('onboarding.needMorePoints')}
-          onPress={() => onConfirm(points)}
+          onPress={() => onConfirm(points, accuracy)}
           disabled={!canConfirm}
           accessibilityLabel={
             canConfirm
@@ -156,6 +215,10 @@ export function DrawBoundaryScreen({ initialCentre, initialPoints = [], onConfir
 }
 
 const styles = StyleSheet.create({
+  bannerSlot: {
+    paddingHorizontal: layout.screenPadding,
+    paddingBottom: 8,
+  },
   mapErrorSlot: {
     flex: 1,
     justifyContent: 'center',

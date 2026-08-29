@@ -1,0 +1,490 @@
+{
+  "common": {
+    "continue": "برونٛہہ پکو",
+    "back": "واپس",
+    "retry": "دوبارہ کوشش کریں",
+    "cancel": "منسوخ کریں",
+    "save": "محفوظ کریں",
+    "loading": "لوڈ ہو رہا ہے…",
+    "notAvailable": "—",
+    "comingSoon": "اگلی اپ ڈیٹ میں دستیاب ہوگا",
+    "appName": "کرشی نیترا"
+  },
+  "auth": {
+    "loginTitle": "خوش آمدید",
+    "loginSubtitle": "اپنا کھیت اور آج کے منڈی کے بھاؤ دیکھنے کے لیے لاگ ان کریں۔",
+    "registerTitle": "نیا اکاؤنٹ بنائیں",
+    "registerSubtitle": "شروع کرنے کے لیے صرف ای میل اور پاس ورڈ درکار ہے۔",
+    "nameLabel": "آپ کا نام",
+    "namePlaceholder": "رمیش کمار",
+    "emailLabel": "ای میل",
+    "emailPlaceholder": "you@example.com",
+    "passwordLabel": "پاس ورڈ",
+    "passwordPlaceholder": "کم از کم 8 حروف",
+    "login": "لاگ ان کریں",
+    "register": "اکاؤنٹ بنائیں",
+    "noAccount": "کرشی نیترا پر نئے ہیں؟",
+    "haveAccount": "پہلے سے اکاؤنٹ ہے؟",
+    "goToRegister": "اکاؤنٹ بنائیں",
+    "goToLogin": "لاگ ان کریں",
+    "showPassword": "پاس ورڈ دکھائیں",
+    "hidePassword": "پاس ورڈ چھپائیں",
+    "errors": {
+      "nameRequired": "براہ کرم اپنا نام درج کریں",
+      "emailRequired": "براہ کرم اپنا ای میل درج کریں",
+      "emailInvalid": "درست ای میل ایڈریس درج کریں",
+      "passwordRequired": "براہ کرم پاس ورڈ درج کریں",
+      "passwordTooShort": "کم از کم 8 حروف استعمال کریں",
+      "invalidCredentials": "غلط ای میل یا پاس ورڈ",
+      "emailTaken": "یہ ای میل پہلے سے رجسٹرڈ ہے — لاگ ان کریں",
+      "emailNotConfirmed": "ای میل کی تصدیق کریں، پھر لاگ ان کریں",
+      "weakPassword": "پاس ورڈ بہت آسان ہے — تھوڑا طویل رکھیں",
+      "network": "انٹرنیٹ کنکشن نہیں ہے۔ نیٹ ورک چیک کریں۔",
+      "rateLimited": "بہت زیادہ کوششیں کی گئیں۔ کچھ دیر بعد کوشش کریں۔",
+      "generic": "کچھ خرابی ہو گئی۔ دوبارہ کوشش کریں۔"
+    }
+  },
+  "onboarding": {
+    "locationTitle": "آئیے آپ کا کھیت تلاش کریں",
+    "locationBody": "ہم نقشے کو آپ کی زمین پر لائیں گے تاکہ آپ حد بندی کر سکیں۔",
+    "useLocation": "موجودہ مقام استعمال کریں",
+    "locating": "مقام تلاش کیا جا رہا ہے…",
+    "locationDenied": "لوکیشن کی اجازت بند ہے۔ نیچے اپنا گاؤں تلاش کریں۔",
+    "locationFailed": "آپ کا مقام نہیں ملا۔ گاؤں کا نام تلاش کریں۔",
+    "searchLabel": "گاؤں یا علاقہ",
+    "searchPlaceholder": "مثلاً کرنال، ہریانہ",
+    "continueToMap": "نقشے پر جائیں",
+    "drawTitle": "اپنے کھیت کی سرحد بنائیں",
+    "satelliteView": "سیٹلائٹ منظر",
+    "mapHint": "کونا لگانے کے لیے نقشے پر ٹیپ کریں",
+    "mapHintDrag": "کونا درست کرنے کے لیے کھینچیں",
+    "undoPoint": "پوائنٹ واپس لیں",
+    "restart": "دوبارہ شروع کریں",
+    "acres": "ایکڑ",
+    "hectares": "ہیکٹر",
+    "squareMeters": "مربع میٹر",
+    "confirmBoundary": "سرحد کی تصدیق کریں",
+    "needMorePoints": "کم از کم 3 کونے لگائیں",
+    "mapError": "نقشہ لوڈ نہیں ہو سکا۔ دوبارہ کوشش کریں۔",
+    "mapTokenMissing": "میپ باکس ٹوکن دستیاب نہیں ہے۔",
+    "gpsAccuracyWarning": "GPS درستگی کم ہے۔ آپ دستی طور پر ٹھیک کر سکتے ہیں۔",
+    "locationPermissionDenied": "لوکیشن اجازت بند ہے۔ نقشے پر کھیت تلاش کریں۔",
+    "recenter": "دوبارہ مرکز میں لائیں",
+    "confirmTitle": "اپنے کھیت کی تصدیق کریں",
+    "fieldNameLabel": "کھیت کا نام (اختیاری)",
+    "fieldNamePlaceholder": "شمالی پلاٹ",
+    "saveField": "کھیت محفوظ کریں",
+    "saving": "محفوظ ہو رہا ہے…",
+    "saveError": "کھیت محفوظ نہیں ہو سکا۔",
+    "editBoundary": "سرحد تبدیل کریں"
+  },
+  "home": {
+    "greeting": {
+      "morning": "صبح بخیر",
+      "afternoon": "دوپہر بخیر",
+      "evening": "شام بخیر"
+    },
+    "yourField": "تُہُند کؠتھ",
+    "unnamedField": "مےٚون کؠتھ",
+    "editBoundary": "سرحد تبدیل کریں",
+    "notYetAnalyzed": "ابھی تک تجزیہ نہیں ہوا",
+    "growthStage": "نشوونما کا مرحلہ",
+    "weather": "موسم",
+    "viewFullAnalysis": "مکمل تجزیہ دیکھیں",
+    "market": "منڈی",
+    "marketUnavailable": "منڈی کی قیمتیں ابھی منسلک نہیں ہیں",
+    "learning": "کرشی اکیڈمی",
+    "learningSub": "مٹی، بوائی اور آبپاشی پر عملی رہنمائی",
+    "calendar": "اسمارٹ فارم کیلنڈر",
+    "calendarSub": "کھیت کے آنے والے کام دیکھیں",
+    "farmerResources": "کسان وسائل",
+    "schemes": "سرکاری اسکیمیں",
+    "updates": "زرعی خبریں",
+    "askCompanion": "زرعی معاون سے بات کریں",
+    "askCompanionSub": "جلد آنے والا وائس اسسٹنٹ",
+    "loadError": "کھیت کا ڈیٹا لوڈ نہیں ہو سکا۔ نیچے کھینچ کر کوشش کریں۔",
+    "crop": "فصل",
+    "cropNone": "ابھی تک کوئی فصل شامل نہیں کی گئی",
+    "msp": "کم سے کم امدادی قیمت (MSP)",
+    "mspPerQuintal": "₹{{price}}/کوئنٹل",
+    "mspYear": "امدادی قیمت {{year}}",
+    "mspNone": "کوئی امدادی قیمت ریکارڈ نہیں",
+    "weatherNone": "موسم کی معلومات دستیاب نہیں",
+    "weatherObserved": "{{date}} کو ریکارڈ ہوا",
+    "marketObserved": "{{date}} کو ریکارڈ ہوا",
+    "visualAssistantTitle": "کرشی نیترا سے پوچھیں",
+    "visualAssistantSub": "فصل کی تصویر دکھا کر مشورہ لیں۔"
+  },
+  "field": {
+    "title": "کھیت کا تجزیہ",
+    "cropHealth": "فصل کی صحت",
+    "growthStage": "نشوونما کا مرحلہ",
+    "weatherRisk": "موسمی خطرہ",
+    "emptyTitle": "آپ کے کھیت کا تجزیہ ابھی نہیں ہوا",
+    "emptyBody": "سیٹلائٹ اور موسم کا تجزیہ منسلک ہونے پر معلومات ظاہر ہوں گی۔",
+    "areaLabel": "آپ کی بنائی گئی سرحد",
+    "weatherObserved": "{{temp}}°C · {{rain}} ملی میٹر بارش",
+    "weatherNone": "آپ کے ضلع کے لیے موسم کا ریکارڈ نہیں",
+    "analysisNote": "فصل کی صحت کے لیے سیٹلائٹ ڈیٹا درکار ہے۔"
+  },
+  "market": {
+    "title": "منڈی",
+    "currentPrice": "موجودہ قیمت",
+    "msp": "امدادی قیمت (MSP)",
+    "perQuintal": "فی کوئنٹل",
+    "sevenDayTrend": "7 دن کا رجحان",
+    "recommendation": "فروخت کا مشورہ",
+    "emptyTitle": "منڈی کا ڈیٹا ابھی منسلک نہیں ہے",
+    "emptyBody": "لائیو منڈی بھاؤ اور فروخت کا مشورہ اگلی اپ ڈیٹ میں آئے گا۔",
+    "loadError": "منڈی کی معلومات لوڈ نہیں ہو سکی۔",
+    "observedOn": "{{mandi}} منڈی میں {{date}} کو ریکارڈ ہوا",
+    "priceRange": "قیمت کی حد ₹{{min}} – ₹{{max}}",
+    "noPrice": "کوئی منڈی قیمت دستیاب نہیں",
+    "noCrop": "قیمت دیکھنے کے لیے کھیت میں فصل شامل کریں",
+    "aboveMsp": "MSP سے ₹{{amount}} زیادہ",
+    "belowMsp": "MSP سے ₹{{amount}} کم",
+    "atMsp": "MSP کے برابر",
+    "trendNeedsHistory": "چند دنوں کی قیمتوں کا ریکارڈ درکار ہے",
+    "recommendationBody": "فروخت کے مشورے کا ماڈل زیر عمل ہے۔",
+    "sourceLabel": "ماخذ: {{source}}"
+  },
+  "history": {
+    "title": "کرشی میموری",
+    "emptyTitle": "پہلے تجزیے کے بعد کھیت کی تاریخ یہاں ظاہر ہوگی۔",
+    "noFarmTitle": "کوئی کھیت رجسٹرڈ نہیں",
+    "noFarmBody": "کرشی میموری شروع کرنے کے لیے زمین رجسٹر کریں۔",
+    "overviewTitle": "کھیت کا جائزہ",
+    "registeredArea": "رجسٹرڈ رقبہ",
+    "previousCrop": "پچھلی فصل",
+    "previousCropNone": "کوئی پچھلی فصل ریکارڈ نہیں",
+    "activitiesRecorded": "ریکارڈ شدہ سرگرمیاں",
+    "currentCropStage": "فصل کا موجودہ مرحلہ",
+    "sownOn": "بوائی کی تاریخ {{date}}",
+    "farmRegistered": "رجسٹریشن کی تاریخ {{date}}"
+  },
+  "myFarm": {
+    "title": "مےٚون کؠتھ",
+    "emptyTitle": "آپ نے کوئی زمین رجسٹر نہیں کی ہے",
+    "emptyBody": "کھیت کے گرد چل کر سرحد بنائیں اور فصل کی تفصیل درج کریں۔",
+    "registerCta": "زمین رجسٹر کریں",
+    "editBoundary": "سرحد تبدیل کریں",
+    "walkTitle": "کھیت کی سرحد پر چلیں",
+    "walkIntro": "کھیت کے کنارے آہستہ چلیں۔ ہم آپ کا راستہ ریکارڈ کریں گے۔",
+    "recording": "راستہ ریکارڈ ہو رہا ہے…",
+    "startWalking": "چلنا شروع کریں",
+    "continueWalking": "چلتے رہیں",
+    "stopWalking": "روکیں",
+    "pointsRecorded": "{{count}} پوائنٹس ریکارڈ ہوئے",
+    "locationDenied": "لوکیشن کی اجازت بند ہے۔ سیٹنگز میں آن کریں۔",
+    "locationFailed": "مقام تک رسائی نہیں ہو سکی۔ دوبارہ کوشش کریں۔",
+    "needMoreWalking": "سرحد کے لیے کم از کم 3 پوائنٹس درکار ہیں۔",
+    "tooSmall": "رقبہ بہت چھوٹا لگتا ہے۔ پورے کھیت کے گرد چلیں۔",
+    "cropStepTitle": "فصل کی تفصیل",
+    "cropLabel": "فصل (اختیاری)",
+    "varietyLabel": "قسم (اختیاری)",
+    "varietyPlaceholder": "شربتی / باسمتی",
+    "sownOnLabel": "بوائی کی تاریخ (اختیاری)",
+    "sownOnInvalid": "YYYY-MM-DD فارمیٹ استعمال کریں",
+    "notesLabel": "نوٹس (اختیاری)",
+    "notesPlaceholder": "آبپاشی، کھاد یا مٹی سے متعلق تفصیل",
+    "saveCta": "کھیت محفوظ کریں",
+    "saveCropError": "کھیت محفوظ ہو گیا مگر فصل کی تفصیل محفوظ نہیں ہو سکی۔"
+  },
+  "learning": {
+    "title": "کرشی اکیڈمی",
+    "intro": "مٹی، بوائی، کھاد اور کیڑوں کے کنٹرول پر آسان اسباق۔",
+    "tagline": "بہتر کاشتکاری سیکھیں، قدم بہ قدم۔",
+    "progress": "{{total}} میں سے {{completed}} اسباق مکمل",
+    "featured": "خاص اسباق",
+    "recommended": "آپ کے لیے تجویز کردہ",
+    "categories": "اقسام",
+    "durationAndDifficulty": "{{duration}} · {{difficulty}}",
+    "durationMinutes": "{{count}} منٹ",
+    "difficulty": {
+      "beginner": "ابتدائی",
+      "intermediate": "درمیانی",
+      "advanced": "اعلیٰ"
+    },
+    "watchTutorial": "ویڈیو دیکھیں",
+    "videoUnavailable": "ویڈیو لوڈ نہیں ہو سکی۔",
+    "tryArGuidance": "AR رہنمائی دیکھیں",
+    "arHint": "کیمرے کے ذریعے رہنمائی حاصل کریں۔",
+    "completed": "مکمل",
+    "markComplete": "مکمل نشان زد کریں",
+    "whyItMatters": "یہ کیوں ضروری ہے",
+    "steps": "مراحل",
+    "tips": "اہم مشورے",
+    "commonMistake": "عام غلطیاں",
+    "emptyTitle": "ابھی کوئی سبق نہیں ہے",
+    "emptyBody": "نئے اسباق جلد شامل کیے جائیں گے۔",
+    "notFoundTitle": "سبق نہیں ملا",
+    "notFoundBody": "یہ سبق دستیاب نہیں ہے۔"
+  },
+  "calendar": {
+    "title": "اسمارٹ فارم کیلنڈر",
+    "upcoming": "آنے والے",
+    "today": "آج",
+    "tomorrow": "کل",
+    "inDays": "{{count}} دنوں میں",
+    "nextWeek": "اگلے ہفتے",
+    "previousMonth": "پچھلا مہینہ",
+    "nextMonth": "اگلا مہینہ",
+    "noFarmTitle": "کوئی کھیت رجسٹرڈ نہیں",
+    "noFarmBody": "کیلنڈر کے لیے کھیت رجسٹر کریں۔",
+    "noEventsTitle": "کوئی سرگرمی درج نہیں",
+    "noEventsBody": "اگلی اپ ڈیٹ میں خودکار شیڈول شامل ہوگا۔",
+    "statusUpcoming": "آنے والے",
+    "eventNotFoundTitle": "کام نہیں ملا",
+    "eventNotFoundBody": "یہ کام دستیاب نہیں ہے۔",
+    "eventTypes": {
+      "sowing": "بوائی",
+      "irrigation": "آبپاشی",
+      "fertilizer": "کھاد ڈالنا",
+      "cropHealth": "فصل کی دیکھ بھال",
+      "harvest": "کٹائی",
+      "weather": "موسم"
+    },
+    "detail": {
+      "field": "کھیت",
+      "crop": "فصل",
+      "scheduled": "مقررہ وقت",
+      "status": "حالت",
+      "whyShown": "یہ کیوں دکھایا گیا ہے",
+      "demoNotice": "یہ صرف علامتی ڈیٹا ہے۔"
+    },
+    "events": {
+      "sowing": {
+        "title": "بوائی",
+        "reason": "موسم کی پہلی سرگرمی کا نمونہ۔"
+      },
+      "irrigation": {
+        "title": "آبپاشی",
+        "reason": "مٹی میں نمی کی بنیاد پر پانی کی تجویز۔"
+      },
+      "fertilizer": {
+        "title": "کھاد ڈالنا",
+        "reason": "فصل کی بڑھوتری کے مطابق غذائی مشورہ۔"
+      },
+      "weather": {
+        "title": "موسمی انتباہ",
+        "reason": "موسم کی تبدیلی کا امکان۔"
+      },
+      "cropHealth": {
+        "title": "فصل کی جانچ",
+        "reason": "کیڑوں اور بیماریوں کی تفتیش۔"
+      },
+      "harvest": {
+        "title": "متوقع کٹائی",
+        "reason": "پیداوار کا متوقع وقت۔"
+      }
+    }
+  },
+  "ar": {
+    "title": "AR گائیڈ",
+    "previewBadge": "AR پیش منظر",
+    "disclaimer": "یہ مستقبل کے AR تجربے کا پیش منظر ہے۔",
+    "stepLabel": "{{total}} میں سے مرحلہ {{number}}",
+    "nextStep": "اگلا مرحلہ",
+    "finish": "مکمل کریں",
+    "notAvailableTitle": "AR دستیاب نہیں",
+    "notAvailableBody": "اس سبق کے لیے AR دستیاب نہیں ہے۔",
+    "markers": {
+      "pointHere": "یہاں اشارہ کریں",
+      "walkToCorner": "ہر کونے پر جائیں"
+    },
+    "steps": {
+      "soilPreparation": {
+        "moisture": "مٹی میں نمی چیک کریں۔",
+        "residue": "فصل کی باقیات صاف کریں۔",
+        "drainage": "پانی کی نکاسی چیک کریں۔",
+        "corners": "سرحد چیک کرنے کے لیے 4 کونوں پر چلیں۔"
+      }
+    }
+  },
+  "schemes": {
+    "title": "سرکاری اسکیمیں",
+    "intro": "آپ کے لیے مفید اسکیمیں",
+    "matchSummary": "{{count}} اسکیمیں آپ کے لیے کارآمد ہو سکتی ہیں",
+    "noFarmHint": "مخصوص اسکیمیں دیکھنے کے لیے کھیت رجسٹر کریں۔",
+    "recommended": "⭐ تجویز کردہ",
+    "otherSchemes": "دیگر اسکیمیں",
+    "emptyTitle": "فی الحال کوئی اسکیم دستیاب نہیں",
+    "notFoundTitle": "اسکیم نہیں ملی",
+    "notFoundBody": "یہ اسکیم دستیاب نہیں ہے۔",
+    "disclaimer": "یہ معلومات آگاہی کے لیے ہیں۔ آفیشل ویب سائٹ پر تصدیق کریں۔",
+    "categories": {
+      "incomeSupport": "آمدنی امداد",
+      "insurance": "فصل بیمہ",
+      "soilHealth": "مٹی کی صحت",
+      "credit": "زرعی قرضہ",
+      "irrigation": "آبپاشی امداد",
+      "other": "دیگر"
+    },
+    "detail": {
+      "whatIsIt": "اسکیم کیا ہے؟",
+      "potentialBenefit": "ممکنہ فوائد",
+      "whoMayBeEligible": "کون اہل ہے؟",
+      "documents": "مطلوبہ دستاویزات",
+      "howToApply": "درخواست کا طریقہ",
+      "checkOfficialSource": "سرکاری ویب سائٹ دیکھیں"
+    },
+    "reasons": {
+      "noFarm": "اہلیت دیکھنے کے لیے کھیت رجسٹر کریں",
+      "cropMatch": "آپ کی فصل کی بنیاد پر",
+      "landSizeMatch": "زمین کے سائز کی بنیاد پر",
+      "broadlyApplicable": "تمام کسانوں کے لیے لاگو",
+      "unknown": "سرکاری سائٹ پر تفصیلات دیکھیں"
+    }
+  },
+  "updates": {
+    "title": "زرعی خبریں",
+    "intro": "کسانوں کے لیے تازہ معلومات",
+    "today": "آج",
+    "yesterday": "کل",
+    "daysAgo": "{{count}} دن پہلے",
+    "emptyTitle": "فی الحال کوئی خبر نہیں ہے",
+    "notFoundTitle": "معلومات نہیں ملیں",
+    "notFoundBody": "یہ خبر دستیاب نہیں ہے۔",
+    "officialSource": "سرکاری ماخذ دیکھیں",
+    "categories": {
+      "agriculture": "زراعت",
+      "weather": "موسم",
+      "government": "حکومت",
+      "market": "منڈی",
+      "technology": "ٹیکنالوجی"
+    }
+  },
+  "profile": {
+    "title": "پروفائل",
+    "language": "زبان",
+    "myFarm": "میرا کھیت",
+    "registerLand": "زمین رجسٹر کریں",
+    "schemes": "سرکاری اسکیمیں",
+    "notifications": "اطلاعات",
+    "help": "مدد",
+    "logout": "لاگ آؤٹ",
+    "logoutConfirmTitle": "لاگ آؤٹ کریں؟",
+    "logoutConfirmBody": "دوبارہ لاگ ان کے لیے ای میل اور پاس ورڈ درکار ہوگا۔",
+    "languageEnglish": "English",
+    "languageHindi": "हिन्दी"
+  },
+  "nav": {
+    "home": "ہوم",
+    "field": "کھیت",
+    "market": "منڈی",
+    "history": "تاریخ"
+  },
+  "avatar": {
+    "openLabel": "زرعی ساتھی سے بات کریں",
+    "headerTitle": "کرشی نیترا AI",
+    "headerSubtitle": "کھیت، فصل اور منڈی کے بارے میں پوچھیں",
+    "close": "گفتگو بند کریں",
+    "end": "ختم کریں",
+    "tryAsking": "آپ پوچھ سکتے ہیں",
+    "status": {
+      "idle": "تیار",
+      "listening": "سن رہا ہے…",
+      "thinking": "سوچ رہا ہے…",
+      "speaking": "بول رہا ہے",
+      "error": "کوئی آواز نہیں"
+    },
+    "mic": {
+      "idle": "بولنا شروع کریں",
+      "listening": "بات مکمل ہوئی",
+      "thinking": "ایک لمحہ…",
+      "speaking": "اگلا سوال پوچھیں",
+      "error": "دوبارہ کوشش کریں"
+    },
+    "footer": {
+      "idle": "آپ اردو یا کسی بھی زبان میں بول سکتے ہیں۔",
+      "listening": "آہستہ بولیں — میں سن رہا ہوں۔",
+      "thinking": "تفصیلات کا جائزہ لیا جا رہا ہے…",
+      "speaking": "آپ کسی بھی وقت روک کر پوچھ سکتے ہیں۔",
+      "error": "مائیک دبا کر دوبارہ بولیں۔"
+    },
+    "greeting": "سلام {{name}}! تُہؠ کیا چھُو زانُن یژھان؟",
+    "questions": {
+      "area": "میرا کھیت کتنا بڑا ہے؟",
+      "crop": "میری فصل کیسی ہے؟",
+      "mandi": "آج کا منڈی بھاؤ کیا ہے؟",
+      "sell": "ابھی بیچیں یا انتظار کریں؟",
+      "weather": "اس ہفتے موسم کیسا رہے گا؟"
+    },
+    "sources": {
+      "field": "آپ کے کھیت کے ریکارڈ سے",
+      "assistant": "AI ساتھی · تصدیق ضروری"
+    },
+    "errors": {
+      "micPermission": "مائیکروفون کی اجازت درکار ہے۔ سیٹنگز سے اجازت دیں۔",
+      "mic": "ریکارڈ نہیں ہو سکا۔ دوبارہ کوشش کریں۔",
+      "transcribe": "آواز سمجھ نہیں آئی۔ دوبارہ بولیں۔",
+      "reply": "معاون سے رابطہ نہیں ہو سکا۔",
+      "generic": "کچھ غلط ہو گیا۔ دوبارہ کوشش کریں۔",
+      "timeout": "وقت ختم ہو گیا۔ چھوٹا سوال پوچھیں۔",
+      "upload": "ریکارڈنگ نہیں بھیجی جا سکی۔",
+      "unreachable": "کرشی نیترا سرور سے رابطہ نہیں ہو رہا۔",
+      "tooShort": "ریکارڈنگ بہت مختصر تھی۔ دبا کر رکھیں۔",
+      "voice": "آواز تیار نہیں ہو سکی۔ جواب اوپر موجود ہے۔"
+    }
+  },
+  "errors": {
+    "sessionRestore": "سیشن بحال نہیں ہو سکا۔ دوبارہ لاگ ان کریں۔",
+    "offline": "آپ آف لائن ہیں۔ محفوظ شدہ ڈیٹا دکھایا جا رہا ہے۔",
+    "generic": "کچھ غلط ہو گیا۔ دوبارہ کوشش کریں۔"
+  },
+  "demo": {
+    "badge": "نمونہ معلومات",
+    "bannerTitle": "ڈیمو موڈ — نیچے کچھ قیمتیں فرضی ہیں",
+    "bannerBody": "نمونہ معلومات صرف سمجھانے کے لیے ہیں۔",
+    "cropHealth": {
+      "value": "اچھی",
+      "note": "سیٹلائٹ تجزیے کا نمونہ"
+    },
+    "growthStage": {
+      "value": "شاخیں نکلنے کا مرحلہ",
+      "note": "سیٹلائٹ تجزیے کا نمونہ"
+    },
+    "recommendation": {
+      "verdict": "کچھ مال بیچیں",
+      "body": "صرف رہنمائی کے لیے۔"
+    },
+    "history": {
+      "mapped": "کھیت رجسٹر",
+      "mappedDetail": "شمالی کھیت · 2.50 ایکڑ",
+      "sown": "گندم کی بوائی",
+      "sownDetail": "بہتر بیج",
+      "cropHealth": "فصل کی جانچ",
+      "cropHealthDetail": "مستقبل کے انجن کا نمونہ",
+      "fertilized": "کھاد ڈالی",
+      "fertilizedDetail": "غذائی مشورہ نمونہ",
+      "irrigated": "پانی دیا",
+      "irrigatedDetail": "آبپاشی کا شیڈول",
+      "priced": "منڈی بھاؤ دیکھا",
+      "pricedDetail": "مقامی منڈی",
+      "offer": "آفر موصول ہوئی",
+      "offerDetail": "خریدار کی پیشکش"
+    }
+  },
+  "visualAssistant": {
+    "headerTitle": "کرشی نیترا سے پوچھیں",
+    "openLabel": "کیمرے سے فصل کا مشورہ لیں",
+    "permissionTitle": "کیمرے کی اجازت درکار",
+    "permissionBody": "فصل کی تصویر دیکھ کر جواب دینے کے لیے کیمرہ ضروری ہے۔",
+    "permissionAllow": "کیمرہ آن کریں",
+    "permissionDenied": "کیمرے کی اجازت بند ہے۔ سیٹنگز میں آن کریں۔",
+    "unavailable": "اس ڈیوائس پر کیمرہ دستیاب نہیں ہے۔",
+    "captureLabel": "تصویر لیں",
+    "captureSub": "کیمرہ فصل پر رکھ کر تصویر کھینچیں۔",
+    "retake": "دوبارہ تصویر لیں",
+    "questionLabel": "آپ کا سوال",
+    "questionPlaceholder": "کیا فصل میں کوئی بیماری ہے؟",
+    "askButton": "کرشی نیترا سے پوچھیں",
+    "askAgain": "دوبارہ پوچھیں",
+    "asking": "جواب تلاش کر رہے ہیں…",
+    "answerLabel": "AI جواب",
+    "answerDisclaimer": "یہ AI ماڈل کا ابتدائی جواب ہے، سرکاری مشورہ نہیں۔",
+    "errors": {
+      "generic": "جواب نہیں مل سکا۔ نیٹ ورک چیک کر کے کوشش کریں۔"
+    }
+  }
+}

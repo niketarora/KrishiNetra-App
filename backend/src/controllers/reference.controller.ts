@@ -1,8 +1,12 @@
 import type { Request, Response } from 'express';
 
+import { adminClient } from '../config/supabase.js';
+import { normalizeWeatherResponse } from '../ingestion/weather/weatherNormalizer.js';
+import { fetchObservedWeather, weatherSourceLabel } from '../ingestion/weather/weatherSource.js';
 import { getAuth } from '../middleware/requireAuth.js';
 import * as farms from '../services/farms.service.js';
 import * as reference from '../services/reference.service.js';
+import type { WeatherRow } from '../types/domain.js';
 import { ApiError } from '../utils/ApiError.js';
 import { sendOk } from '../utils/apiResponse.js';
 
@@ -61,35 +65,129 @@ export async function marketPrices(req: Request, res: Response): Promise<void> {
   sendOk(res, data, data.length === 0 ? NOT_CONNECTED.marketPrices : 'Market prices loaded');
 }
 
+const inFlightWeather = new Map<string, Promise<WeatherRow | null>>();
+const negativeResultCache = new Map<string, number>();
+const NEGATIVE_CACHE_TTL_MS = 5 * 60 * 1000;
+
+function snapGrid(coord: number): number {
+  return Math.round(coord * 4) / 4;
+}
+
+function gridKey(lat: number, lng: number): string {
+  return `${lat}:${lng}`;
+}
+
+function isoDaysAgo(days: number): string {
+  const d = new Date();
+  d.setUTCDate(d.getUTCDate() - days);
+  return d.toISOString().slice(0, 10);
+}
+
+async function fetchAndStoreGridWeather(
+  gridLat: number,
+  gridLng: number,
+): Promise<WeatherRow | null> {
+  const payload = await fetchObservedWeather({
+    latitude: gridLat,
+    longitude: gridLng,
+    startDate: isoDaysAgo(14),
+    endDate: isoDaysAgo(0),
+  });
+
+  const { rows } = normalizeWeatherResponse(payload);
+  if (rows.length === 0) return null;
+
+  const source = weatherSourceLabel();
+  const db = adminClient();
+
+  try {
+    await db.from('weather').upsert(
+      rows.map((row) => ({
+        grid_lat: gridLat,
+        grid_lng: gridLng,
+        observed_on: row.observed_on,
+        temperature_c: row.temperature_c,
+        rainfall_mm: row.rainfall_mm,
+        humidity_pct: row.humidity_pct,
+        source,
+      })),
+      { onConflict: 'grid_lat,grid_lng,observed_on' },
+    );
+  } catch {
+    // Non-fatal if remote DB schema migration 0006 has not been executed yet
+  }
+
+  const latest = rows[rows.length - 1];
+  if (!latest) return null;
+
+  return {
+    id: `grid-${gridLat}-${gridLng}-${latest.observed_on}`,
+    grid_lat: gridLat,
+    grid_lng: gridLng,
+    district: null,
+    state: null,
+    observed_on: latest.observed_on,
+    temperature_c: latest.temperature_c,
+    rainfall_mm: latest.rainfall_mm,
+    humidity_pct: latest.humidity_pct,
+    source,
+    created_at: new Date().toISOString(),
+  };
+}
+
 /**
- * The latest observation for the farm's district.
+ * The latest observation for the farm's 0.25° grid cell.
  *
- * Phase 2.5 gave this a real provider, but the 503 path is unchanged and still
- * matters. Three things can go missing — the farm's district was never
- * resolved, no observation has been ingested for it, or the row exists but
- * carries no measurements — and every one of them answers "not connected"
- * rather than a number.
+ * If no observation is stored yet, an on-demand fetch queries Open-Meteo's
+ * archive for the grid cell centre, upserts the rows, and returns the latest.
  *
- * That asymmetry with market prices is deliberate: an empty price *list* is a
- * coherent answer, but there is no such thing as "no weather", so an empty
- * reading would read as a broken tile rather than an honest one.
+ * If no data is available from the provider, 503 SERVICE_NOT_CONNECTED is returned.
  */
 export async function weather(req: Request, res: Response): Promise<void> {
   const { token, userId } = getAuth(req);
   const { farmId } = req.query as { farmId?: string };
 
-  // No farm means no location to resolve, which is the same answer as an
-  // unresolved district: unavailable, not an invented reading.
   if (!farmId) throw ApiError.notConnected(NOT_CONNECTED.weather);
 
-  // Ownership is enforced here exactly as it is everywhere else: this throws
-  // 404 for a farm that is not the caller's.
   const farm = await farms.getFarm(token, userId, farmId);
+  if (farm.centroid_lat === null || farm.centroid_lng === null) {
+    throw ApiError.notConnected(NOT_CONNECTED.weather);
+  }
 
-  // §3.3: no district means no reliable location, and a guess is forbidden.
-  if (!farm.district || !farm.state) throw ApiError.notConnected(NOT_CONNECTED.weather);
+  const gridLat = snapGrid(farm.centroid_lat);
+  const gridLng = snapGrid(farm.centroid_lng);
+  const key = gridKey(gridLat, gridLng);
 
-  const observation = await reference.latestWeatherForDistrict(token, farm.district, farm.state);
+  let observation = await reference.latestWeatherForGridCell(token, gridLat, gridLng);
+
+  if (!observation) {
+    const lastNegative = negativeResultCache.get(key);
+    const now = Date.now();
+    if (!lastNegative || now - lastNegative > NEGATIVE_CACHE_TTL_MS) {
+      if (!inFlightWeather.has(key)) {
+        const fetchPromise = (async () => {
+          try {
+            const inMemory = await fetchAndStoreGridWeather(gridLat, gridLng);
+            const fresh = await reference.latestWeatherForGridCell(token, gridLat, gridLng);
+            const result = fresh ?? inMemory;
+            if (!result) {
+              negativeResultCache.set(key, Date.now());
+            }
+            return result;
+          } catch {
+            negativeResultCache.set(key, Date.now());
+            return null;
+          } finally {
+            inFlightWeather.delete(key);
+          }
+        })();
+        inFlightWeather.set(key, fetchPromise);
+      }
+
+      observation = await inFlightWeather.get(key)!;
+    }
+  }
+
   if (!observation) throw ApiError.notConnected(NOT_CONNECTED.weather);
 
   sendOk(res, observation, 'Weather loaded');

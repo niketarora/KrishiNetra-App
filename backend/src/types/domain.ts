@@ -52,6 +52,7 @@ export type FarmRow = {
   district: string | null;
   state: string | null;
   location_source: string | null;
+  location_accuracy: number | null;
   created_at: string;
   updated_at: string;
 };
@@ -126,8 +127,10 @@ export type MspRow = {
 
 export type WeatherRow = {
   id: string;
-  district: string;
-  state: string;
+  grid_lat: number;
+  grid_lng: number;
+  district: string | null;
+  state: string | null;
   observed_on: string;
   temperature_c: number | null;
   rainfall_mm: number | null;

@@ -16,6 +16,33 @@ export const updateProfileSchema = z
       .max(20)
       .regex(/^[0-9+\-\s()]*$/, 'Not a valid phone number.')
       .nullish(),
+    language: z
+      .enum([
+        'en',
+        'hi',
+        'bn',
+        'mr',
+        'te',
+        'ta',
+        'gu',
+        'ur',
+        'kn',
+        'or',
+        'ml',
+        'pa',
+        'as',
+        'mai',
+        'sat',
+        'ks',
+        'ne',
+        'kok',
+        'sd',
+        'doi',
+        'mni',
+        'brx',
+        'sa',
+      ])
+      .optional(),
     // Genuinely optional — an empty string is treated the same as omitting
     // it, so the client doesn't have to special-case "clear the field".
     email: z
@@ -25,7 +52,6 @@ export const updateProfileSchema = z
       .email('Not a valid email address.')
       .nullish()
       .or(z.literal('')),
-    language: z.enum(['en', 'hi']).optional(),
     in_app_alerts: z.boolean().optional(),
     sms_alerts: z.boolean().optional(),
     voice_alerts: z.boolean().optional(),

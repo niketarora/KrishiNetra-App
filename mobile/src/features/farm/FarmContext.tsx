@@ -13,7 +13,11 @@ type FarmContextValue = {
   errorKey: string | null;
   refresh: () => Promise<void>;
   /** Creates the farm, or updates the boundary if one already exists. */
-  saveBoundary: (points: LatLng[], name?: string | null) => Promise<Farm>;
+  saveBoundary: (
+    points: LatLng[],
+    name?: string | null,
+    accuracy?: number | null,
+  ) => Promise<Farm>;
 };
 
 const FarmContext = createContext<FarmContextValue | null>(null);
@@ -49,12 +53,19 @@ export function FarmProvider({ children }: { children: ReactNode }) {
   }, [refresh]);
 
   const saveBoundary = useCallback<FarmContextValue['saveBoundary']>(
-    async (points, name) => {
+    async (points, name, accuracy) => {
       if (!userId) throw new DataError('errors.sessionRestore');
 
+      const resolvedAccuracy = farm ? (accuracy ?? farm.location_accuracy) : accuracy;
+
       const saved = farm
-        ? await updateFarmBoundary(farm.id, { userId, points, name: name ?? farm.name })
-        : await createFarm({ userId, points, name });
+        ? await updateFarmBoundary(farm.id, {
+            userId,
+            points,
+            name: name ?? farm.name,
+            location_accuracy: resolvedAccuracy,
+          })
+        : await createFarm({ userId, points, name, location_accuracy: resolvedAccuracy });
 
       setFarm(saved);
       setErrorKey(null);

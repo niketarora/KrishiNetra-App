@@ -1,10 +1,9 @@
 import type { ExpoConfig } from 'expo/config';
 
 /**
- * Expo config as TypeScript so the Google Maps Android key can come from the
- * environment instead of being committed. The key still ships inside the APK
- * (unavoidable for the Maps SDK) and MUST be restricted by package name +
- * SHA-1 fingerprint in Google Cloud Console.
+ * Expo config as TypeScript.
+ *
+ * Mapbox public token comes from EXPO_PUBLIC_MAPBOX_ACCESS_TOKEN at runtime.
  */
 const config: ExpoConfig = {
   name: 'KrishiNetra',
@@ -28,17 +27,13 @@ const config: ExpoConfig = {
       monochromeImage: './assets/android-icon-monochrome.png',
     },
     predictiveBackGestureEnabled: false,
-    config: {
-      googleMaps: {
-        apiKey: process.env.GOOGLE_MAPS_ANDROID_API_KEY ?? '',
-      },
-    },
     permissions: ['ACCESS_COARSE_LOCATION', 'ACCESS_FINE_LOCATION', 'RECORD_AUDIO', 'CAMERA'],
   },
   web: {
     favicon: './assets/favicon.png',
   },
   plugins: [
+    '@rnmapbox/maps',
     'expo-secure-store',
     'expo-font',
     'expo-localization',
@@ -53,8 +48,8 @@ const config: ExpoConfig = {
     [
       'expo-location',
       {
-        locationAlwaysAndWhenInUsePermission:
-          'KrishiNetra uses your location to centre the map on your field.',
+        locationWhenInUsePermission:
+          'KrishiNetra uses your location to place you on the field boundary map and centre satellite imagery on your land.',
       },
     ],
     [
