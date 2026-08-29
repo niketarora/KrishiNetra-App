@@ -345,6 +345,22 @@ describe('PATCH /api/v1/farmers/me', () => {
     const res = await request(app).patch('/api/v1/farmers/me').set(AUTH).send({});
     expect(res.status).toBe(400);
   });
+
+  it('updates the optional email and notification preferences', async () => {
+    whenQuerying('profiles', {
+      data: { id: USER_ID, full_name: 'Asha', phone: null, email: 'asha@example.com', language: 'en', sms_alerts: false },
+      error: null,
+    });
+
+    const res = await request(app)
+      .patch('/api/v1/farmers/me')
+      .set(AUTH)
+      .send({ email: 'asha@example.com', sms_alerts: false });
+
+    expect(res.status).toBe(200);
+    expect(res.body.data.email).toBe('asha@example.com');
+    expect(res.body.data.sms_alerts).toBe(false);
+  });
 });
 
 describe('data that is not connected yet', () => {

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
-import { Card, EmptyState, Icon, SampleBanner, Screen, ScreenHeader, Text, type IconName } from '@/components/ui';
+import { Card, EmptyState, Icon, IconBadge, SampleBanner, Screen, ScreenHeader, Text, type IconName } from '@/components/ui';
 import { matchSchemes } from '@/features/schemes/matching';
 import { SCHEMES } from '@/features/schemes/demoSchemes';
 import type { GovernmentScheme, SchemeCategory } from '@/features/schemes/types';
@@ -74,7 +74,7 @@ export function SchemesScreen({ onBack, onOpenScheme }: Props) {
         style={styles.schemeCard}
         testID={`scheme-card-${scheme.id}`}
       >
-        <Icon name={CATEGORY_ICONS[scheme.category]} size={20} color={colors.text.secondary} />
+        <IconBadge icon={CATEGORY_ICONS[scheme.category]} tone="harvest" />
         <View style={styles.schemeBody}>
           <Text variant="bodyMedium">{localize(scheme.name, i18n.language)}</Text>
           <Text variant="caption" color={colors.text.muted}>
@@ -115,7 +115,10 @@ export function SchemesScreen({ onBack, onOpenScheme }: Props) {
 
             {recommended.length > 0 ? (
               <View style={styles.section}>
-                <Text variant="cardTitle">{t('schemes.recommended')}</Text>
+                <View style={styles.sectionHeadingRow}>
+                  <Icon name="check" size={16} color={colors.primary} strokeWidth={2.2} />
+                  <Text variant="cardTitle">{t('schemes.recommended')}</Text>
+                </View>
                 {recommended.map((scheme) => renderScheme(scheme, true))}
               </View>
             ) : null}
@@ -140,6 +143,7 @@ const styles = StyleSheet.create({
   },
   matchSummary: { marginTop: 2 },
   section: { gap: layout.cardGap },
+  sectionHeadingRow: { flexDirection: 'row', alignItems: 'center', gap: 6 },
   schemeCard: { flexDirection: 'row', alignItems: 'center', gap: 12 },
   schemeBody: { flex: 1, minWidth: 0, gap: 2 },
 });

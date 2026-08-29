@@ -6,7 +6,7 @@ import { AvatarFab } from '@/components/avatar/AvatarFab';
 import {
   Card,
   EmptyState,
-  Icon,
+  IconBadge,
   SampleBadge,
   SampleBanner,
   Screen,
@@ -178,27 +178,33 @@ export function HistoryScreen({ onRegisterLand }: Props) {
               <>
                 <SampleBanner />
 
-                {SAMPLE_HISTORY.map((entry) => (
-                  <Card key={entry.id} style={styles.entry}>
-                    <View style={styles.entryHeader}>
-                      <Icon name={entry.icon} size={18} color={colors.demo.fg} />
-                      <Text variant="bodyMedium" color={colors.demo.fg} style={styles.entryTitle}>
-                        {t(entry.titleKey)}
-                      </Text>
-                      <SampleBadge testID={`sample-badge-${entry.id}`} />
+                {SAMPLE_HISTORY.map((entry, index) => (
+                  <View key={entry.id} style={styles.timelineRow}>
+                    <View style={styles.timelineRail}>
+                      <IconBadge icon={entry.icon} tone="demo" size={32} iconSize={16} />
+                      {index < SAMPLE_HISTORY.length - 1 ? <View style={styles.timelineLine} /> : null}
                     </View>
 
-                    <Text variant="caption" color={colors.demo.fg}>
-                      {t(entry.detailKey)}
-                    </Text>
-                    <Text variant="micro" color={colors.demo.fg} style={styles.entryDate}>
-                      {sampleDate(entry.daysAgo).toLocaleDateString(undefined, {
-                        day: 'numeric',
-                        month: 'short',
-                        year: 'numeric',
-                      })}
-                    </Text>
-                  </Card>
+                    <Card style={styles.entry}>
+                      <View style={styles.entryHeader}>
+                        <Text variant="bodyMedium" color={colors.demo.fg} style={styles.entryTitle}>
+                          {t(entry.titleKey)}
+                        </Text>
+                        <SampleBadge testID={`sample-badge-${entry.id}`} />
+                      </View>
+
+                      <Text variant="caption" color={colors.demo.fg}>
+                        {t(entry.detailKey)}
+                      </Text>
+                      <Text variant="micro" color={colors.demo.fg} style={styles.entryDate}>
+                        {sampleDate(entry.daysAgo).toLocaleDateString(undefined, {
+                          day: 'numeric',
+                          month: 'short',
+                          year: 'numeric',
+                        })}
+                      </Text>
+                    </Card>
+                  </View>
                 ))}
               </>
             ) : (
@@ -218,7 +224,10 @@ const styles = StyleSheet.create({
   contentWithFarm: { paddingTop: 16, gap: layout.cardGap },
   overview: { gap: layout.cardGap },
   grid: { flexDirection: 'row', gap: layout.cardGap },
-  entry: { borderColor: colors.demo.border },
+  timelineRow: { flexDirection: 'row', gap: 10 },
+  timelineRail: { alignItems: 'center', width: 32 },
+  timelineLine: { flex: 1, minHeight: 8, width: 2, marginTop: 4, backgroundColor: colors.demo.border },
+  entry: { flex: 1, borderColor: colors.demo.border, marginBottom: 4 },
   entryHeader: {
     flexDirection: 'row',
     alignItems: 'center',

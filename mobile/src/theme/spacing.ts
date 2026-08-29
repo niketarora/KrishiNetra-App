@@ -19,19 +19,23 @@ export const layout = {
   headerHeight: 56,
   /** Bottom navigation bar height. */
   navHeight: 60,
-  /** Minimum touch target — design.md §7. */
-  touchTarget: 44,
+  /** Minimum touch target — bumped to 48dp for comfortable outdoor/gloved use. */
+  touchTarget: 48,
   primaryButtonHeight: 48,
-  secondaryButtonHeight: 44,
+  secondaryButtonHeight: 48,
   fabSize: 56,
 } as const;
 
 /**
- * The prototype is flat: square corners, hairline borders, no shadows. Only
- * the FAB and status dots are round. `design.md` §1.4 still describes a 12dp
- * radius — the prototype is the newer artifact and wins.
+ * Visual-refinement pass: cards/buttons/inputs now carry real corner
+ * radius and a very light elevation instead of the original flat,
+ * square-cornered, hairline-only prototype look — still restrained (no pills
+ * on buttons, no heavy shadows), just less "developer dashboard."
  */
 export const radius = {
   none: 0,
+  sm: 8,
+  md: 12,
+  lg: 16,
   pill: 999,
 } as const;

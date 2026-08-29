@@ -3,7 +3,8 @@ import { StyleSheet, View } from 'react-native';
 import { colors, layout } from '@/theme';
 
 import { Button } from './Button';
-import { Icon, type IconName } from './Icon';
+import { type IconName } from './Icon';
+import { IconBadge } from './IconBadge';
 import { Text } from './Text';
 
 type Props = {
@@ -26,7 +27,7 @@ type Props = {
 export function EmptyState({ icon, title, body, actionLabel, onAction, testID }: Props) {
   return (
     <View style={styles.wrapper} testID={testID}>
-      <Icon name={icon} size={32} color={colors.text.muted} strokeWidth={1.6} />
+      <IconBadge icon={icon} tone="neutral" size={56} iconSize={26} />
       <Text variant="body" color={colors.text.secondary} center style={styles.title}>
         {title}
       </Text>

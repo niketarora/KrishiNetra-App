@@ -34,7 +34,9 @@ export type IconName =
   | 'droplet'
   | 'flask'
   | 'play'
-  | 'camera';
+  | 'camera'
+  | 'phone'
+  | 'mail';
 
 type Props = {
   name: IconName;
@@ -217,6 +219,18 @@ export function Icon({ name, size = 20, color = colors.text.secondary, strokeWid
         <>
           <Path d="M4 8h3l2-3h6l2 3h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z" {...common} />
           <Circle cx="12" cy="13" r="3.5" {...common} />
+        </>
+      )}
+      {name === 'phone' && (
+        <Path
+          d="M6.6 10.8c1.2 2.4 3.2 4.4 5.6 5.6l1.9-1.9c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.5.6.6 0 1 .4 1 1V19c0 .6-.4 1-1 1C10.7 20 4 13.3 4 5c0-.6.4-1 1-1h3.1c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.5.1.4 0 .8-.3 1z"
+          {...common}
+        />
+      )}
+      {name === 'mail' && (
+        <>
+          <Rect x="3" y="5" width="18" height="14" rx="2" {...common} />
+          <Path d="m4 7 8 6 8-6" {...common} />
         </>
       )}
     </Svg>

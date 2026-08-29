@@ -4,6 +4,7 @@ import { AvatarOverlay } from '@/components/avatar/AvatarOverlay';
 import { AvatarProvider } from '@/features/avatar/AvatarContext';
 import { useAuth } from '@/features/auth/AuthContext';
 import { FarmProvider } from '@/features/farm/FarmContext';
+import { ProfileSetupScreen } from '@/screens/auth/ProfileSetupScreen';
 import { SplashScreen } from '@/screens/SplashScreen';
 import { colors } from '@/theme';
 
@@ -34,9 +35,16 @@ const navigationTheme: Theme = {
  * and farm registration are separate steps — a signed-in farmer goes straight
  * to `MainNavigator` whether or not they have registered any land yet, and
  * registers it later, optionally, from Profile → My Farm.
+ *
+ * One more state-driven tier sits between "session exists" and the farm
+ * gate: a farmer who just verified their phone for the first time has a
+ * profile row (created by the `handle_new_user` trigger) but no name yet.
+ * `ProfileSetupScreen` collects it; saving updates the profile, which flips
+ * this condition off and lets the farmer fall through to Onboarding/Main —
+ * no imperative navigation call is involved, same as every other tier here.
  */
 export function RootNavigator() {
-  const { initializing, session } = useAuth();
+  const { initializing, session, profile } = useAuth();
 
   if (initializing) return <SplashScreen />;
 
@@ -44,6 +52,14 @@ export function RootNavigator() {
     return (
       <NavigationContainer theme={navigationTheme}>
         <AuthNavigator />
+      </NavigationContainer>
+    );
+  }
+
+  if (profile && !profile.full_name?.trim()) {
+    return (
+      <NavigationContainer theme={navigationTheme}>
+        <ProfileSetupScreen />
       </NavigationContainer>
     );
   }

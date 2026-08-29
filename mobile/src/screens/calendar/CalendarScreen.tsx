@@ -3,7 +3,7 @@ import { Pressable, ScrollView, StyleSheet, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
 import { MonthGrid } from '@/components/calendar/MonthGrid';
-import { Card, EmptyState, Icon, Screen, ScreenHeader, SampleBanner, Text } from '@/components/ui';
+import { Card, EmptyState, Icon, IconBadge, Screen, ScreenHeader, SampleBanner, Text } from '@/components/ui';
 import { isDemoMode } from '@/features/demo/demoMode';
 import { buildDemoCalendarEvents } from '@/features/calendar/demoEvents';
 import { EVENT_TYPE_ICONS } from '@/features/calendar/eventTypeIcon';
@@ -105,7 +105,7 @@ export function CalendarScreen({ onBack, onRegisterLand, onOpenEvent }: Props) {
       style={styles.eventCard}
       testID={`calendar-event-${event.id}`}
     >
-      <Icon name={EVENT_TYPE_ICONS[event.eventType]} size={20} color={colors.demo.fg} />
+      <IconBadge icon={EVENT_TYPE_ICONS[event.eventType]} tone="demo" />
       <View style={styles.eventBody}>
         <Text variant="bodyMedium">{t(event.titleKey)}</Text>
         <Text variant="caption" color={colors.text.muted}>

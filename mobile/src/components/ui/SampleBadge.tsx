@@ -1,8 +1,9 @@
 import { StyleSheet, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
-import { colors } from '@/theme';
+import { colors, radius } from '@/theme';
 
+import { Icon } from './Icon';
 import { Text } from './Text';
 
 /**
@@ -29,22 +30,32 @@ export function SampleBadge({ testID }: { testID?: string }) {
 }
 
 /**
- * The screen-level warning that some values below are fabricated.
+ * The screen-level notice that a whole feed/list is demo content (Updates,
+ * Schemes, Alerts, Calendar, Krishi Memory).
  *
- * A per-value badge tells you which number is fake; this tells you the screen
- * is in demo mode at all, which is what someone glancing at a projector sees.
+ * This is deliberately calmer than `SampleBadge`: it uses the same
+ * informational blue the app already uses for "here's a helpful note" accents
+ * elsewhere, styled as a polished notice rather than a jarring developer
+ * alert — but it never hides or softens the actual words, which still say
+ * plainly that the content below is not real. `SampleBadge` (above) stays in
+ * the off-palette violet on purpose: its job is flagging one fabricated
+ * number sitting among real ones, which needs to look foreign at a glance in
+ * a way a whole-screen notice does not.
  */
 export function SampleBanner({ testID }: { testID?: string }) {
   const { t } = useTranslation();
 
   return (
     <View style={styles.banner} testID={testID ?? 'sample-banner'}>
-      <Text variant="microMedium" color={colors.demo.fg}>
-        {t('demo.bannerTitle')}
-      </Text>
-      <Text variant="micro" color={colors.demo.fg} style={styles.bannerBody}>
-        {t('demo.bannerBody')}
-      </Text>
+      <Icon name="help" size={18} color={colors.accent} strokeWidth={1.8} />
+      <View style={styles.bannerBody}>
+        <Text variant="microMedium" color={colors.accent}>
+          {t('demo.bannerTitle')}
+        </Text>
+        <Text variant="micro" color={colors.text.secondary} style={styles.bannerText}>
+          {t('demo.bannerBody')}
+        </Text>
+      </View>
     </View>
   );
 }
@@ -57,14 +68,19 @@ const styles = StyleSheet.create({
     backgroundColor: colors.demo.bg,
     borderWidth: 1,
     borderColor: colors.demo.border,
+    borderRadius: radius.sm,
   },
   label: { letterSpacing: 0.6 },
   banner: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    gap: 10,
     padding: 12,
-    backgroundColor: colors.demo.bg,
+    backgroundColor: colors.accentBg,
     borderWidth: 1,
-    borderColor: colors.demo.border,
-    gap: 2,
+    borderColor: colors.accentBorder,
+    borderRadius: radius.md,
   },
-  bannerBody: { opacity: 0.9 },
+  bannerBody: { flex: 1, gap: 2 },
+  bannerText: {},
 });

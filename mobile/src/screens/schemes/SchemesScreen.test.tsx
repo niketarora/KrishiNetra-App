@@ -48,7 +48,7 @@ describe('SchemesScreen', () => {
     await renderWithProviders(<SchemesScreen {...props} />);
 
     await waitFor(() => expect(screen.getByText(/schemes may be relevant to your farm/)).toBeTruthy());
-    expect(screen.getByText('⭐ Recommended')).toBeTruthy();
+    expect(screen.getByText('Recommended')).toBeTruthy();
   });
 
   it('opens a scheme with its id when its card is tapped', async () => {

@@ -7,6 +7,8 @@ export { Card } from './Card';
 export { EmptyState } from './EmptyState';
 export { Icon } from './Icon';
 export type { IconName } from './Icon';
+export { IconBadge } from './IconBadge';
+export type { IconBadgeTone } from './IconBadge';
 export { Input } from './Input';
 export { SampleBadge, SampleBanner } from './SampleBadge';
 export { Screen } from './Screen';

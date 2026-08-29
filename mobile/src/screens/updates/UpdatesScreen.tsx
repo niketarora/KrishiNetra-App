@@ -1,7 +1,17 @@
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
-import { Card, EmptyState, Icon, SampleBanner, Screen, ScreenHeader, Text, type IconName } from '@/components/ui';
+import {
+  Card,
+  EmptyState,
+  IconBadge,
+  type IconBadgeTone,
+  SampleBanner,
+  Screen,
+  ScreenHeader,
+  Text,
+  type IconName,
+} from '@/components/ui';
 import { UPDATES } from '@/features/updates/demoUpdates';
 import type { AgriUpdate, UpdateCategory } from '@/features/updates/types';
 import { localize } from '@/utils/localizedText';
@@ -18,6 +28,15 @@ const CATEGORY_ICONS: Record<UpdateCategory, IconName> = {
   government: 'help',
   market: 'market',
   technology: 'flask',
+};
+
+/** Restrained — three tones shared across five categories, not a rainbow. */
+const CATEGORY_TONES: Record<UpdateCategory, IconBadgeTone> = {
+  agriculture: 'primary',
+  weather: 'accent',
+  government: 'harvest',
+  market: 'primary',
+  technology: 'accent',
 };
 
 function relativeDate(daysAgo: number, t: (key: string, opts?: Record<string, unknown>) => string): string {
@@ -43,13 +62,15 @@ export function UpdatesScreen({ onBack, onOpenUpdate }: Props) {
       testID={`update-card-${update.id}`}
     >
       <View style={styles.updateHeader}>
-        <Icon name={CATEGORY_ICONS[update.category]} size={18} color={colors.text.secondary} />
-        <Text variant="caption" color={colors.text.muted}>
-          {t(`updates.categories.${update.category}`)} · {relativeDate(update.publishedDaysAgo, t)}
-        </Text>
+        <IconBadge icon={CATEGORY_ICONS[update.category]} tone={CATEGORY_TONES[update.category]} size={32} iconSize={16} />
+        <View style={styles.updateHeaderBody}>
+          <Text variant="bodyMedium" numberOfLines={2}>{localize(update.title, i18n.language)}</Text>
+          <Text variant="caption" color={colors.text.muted}>
+            {t(`updates.categories.${update.category}`)} · {relativeDate(update.publishedDaysAgo, t)}
+          </Text>
+        </View>
       </View>
-      <Text variant="bodyMedium">{localize(update.title, i18n.language)}</Text>
-      <Text variant="caption" color={colors.text.muted} style={styles.summary}>
+      <Text variant="caption" color={colors.text.secondary} style={styles.summary}>
         {localize(update.summary, i18n.language)}
       </Text>
     </Card>
@@ -81,6 +102,7 @@ const styles = StyleSheet.create({
     gap: layout.cardGap,
   },
   updateCard: { gap: 6 },
-  updateHeader: { flexDirection: 'row', alignItems: 'center', gap: 8 },
+  updateHeader: { flexDirection: 'row', alignItems: 'flex-start', gap: 10 },
+  updateHeaderBody: { flex: 1, minWidth: 0, gap: 2 },
   summary: { marginTop: 2 },
 });

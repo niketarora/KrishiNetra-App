@@ -29,6 +29,19 @@
     "goToLogin": "लॉग इन करें",
     "showPassword": "पासवर्ड दिखाएँ",
     "hidePassword": "पासवर्ड छिपाएँ",
+    "phoneTitle": "कृषिनेत्र में आपका स्वागत है",
+    "phoneSubtitle": "जारी रखने के लिए अपना मोबाइल नंबर लिखें",
+    "phoneLabel": "मोबाइल नंबर",
+    "phonePlaceholder": "98765 43210",
+    "otpTitle": "अपना नंबर सत्यापित करें",
+    "otpSentTo": "OTP भेजा गया",
+    "otpLabel": "OTP लिखें",
+    "verify": "सत्यापित करें",
+    "resendOtp": "OTP फिर भेजें",
+    "resendIn": "{{seconds}} सेकंड में फिर भेजें",
+    "changeNumber": "नंबर बदलें",
+    "demoOtpBannerTitle": "डेमो OTP — कोई SMS नहीं भेजा गया",
+    "demoOtpBannerBody": "यह प्रोटोटाइप असली SMS नहीं भेजता। आपका कोड है {{code}}।",
     "errors": {
       "nameRequired": "कृपया अपना नाम लिखें",
       "emailRequired": "कृपया अपना ईमेल लिखें",
@@ -41,8 +54,19 @@
       "weakPassword": "यह पासवर्ड बहुत आसान है — थोड़ा लंबा रखें",
       "network": "इंटरनेट नहीं है। नेटवर्क जाँचकर फिर कोशिश करें।",
       "rateLimited": "बहुत बार कोशिश हुई। थोड़ी देर बाद फिर कोशिश करें।",
-      "generic": "कुछ ग़लत हो गया। फिर कोशिश करें।"
+      "generic": "कुछ ग़लत हो गया। फिर कोशिश करें।",
+      "phoneRequired": "कृपया अपना मोबाइल नंबर लिखें",
+      "phoneInvalid": "सही 10 अंकों का मोबाइल नंबर लिखें",
+      "otpRequired": "कृपया OTP लिखें",
+      "otpInvalid": "यह कोड सही नहीं है। फिर कोशिश करें।",
+      "phoneAlreadyLinkedOnAnotherDevice": "यह नंबर पहले से किसी अन्य डिवाइस पर जुड़ा है। कोई और नंबर आज़माएँ, या उसी डिवाइस पर जारी रखें।"
     }
+  },
+  "profileSetup": {
+    "title": "अपनी प्रोफ़ाइल पूरी करें",
+    "subtitle": "शुरू करने के लिए बस कुछ जानकारी चाहिए।",
+    "emailOptional": "वैकल्पिक",
+    "saveCta": "सहेजें और आगे बढ़ें"
   },
   "onboarding": {
     "locationTitle": "आइए आपका खेत ढूँढें",
@@ -84,6 +108,7 @@
     "unnamedField": "मेरा खेत",
     "editBoundary": "सीमा बदलें",
     "notYetAnalyzed": "अभी जाँच नहीं हुई",
+    "farmStatus": "खेत की स्थिति",
     "growthStage": "फसल की अवस्था",
     "weather": "मौसम",
     "viewFullAnalysis": "पूरी जाँच देखें",
@@ -96,6 +121,7 @@
     "farmerResources": "किसान संसाधन",
     "schemes": "सरकारी योजनाएँ",
     "updates": "कृषि अपडेट",
+    "alerts": "सूचनाएँ",
     "askCompanion": "अपने खेती साथी से पूछें",
     "askCompanionSub": "आवाज़ सहायक की झलक — जल्द आ रहा है",
     "loadError": "आपका खेत लोड नहीं हुआ। नीचे खींचकर फिर कोशिश करें।",
@@ -302,7 +328,7 @@
     "intro": "आपसे संबंधित योजनाएँ",
     "matchSummary": "{{count}} योजनाएँ आपके खेत के लिए प्रासंगिक हो सकती हैं",
     "noFarmHint": "आपके लिए अधिक प्रासंगिक योजनाएँ देखने के लिए अपनी ज़मीन दर्ज करें।",
-    "recommended": "⭐ अनुशंसित",
+    "recommended": "अनुशंसित",
     "otherSchemes": "अन्य योजनाएँ",
     "emptyTitle": "अभी कोई योजना उपलब्ध नहीं है",
     "notFoundTitle": "योजना नहीं मिली",
@@ -350,17 +376,59 @@
       "technology": "तकनीक"
     }
   },
+  "alerts": {
+    "title": "सूचनाएँ",
+    "intro": "आपके खेत के लिए मौसम, आपदा, योजना और सलाह संबंधी सूचनाएँ।",
+    "sampleBannerTitle": "डेमो संचार इतिहास",
+    "sampleBannerBody": "ये नमूना सूचनाएँ हैं — इनमें से किसी के लिए भी असली SMS या फ़ोन कॉल नहीं भेजी गई।",
+    "today": "आज",
+    "yesterday": "कल",
+    "daysAgo": "{{count}} दिन पहले",
+    "emptyTitle": "अभी कोई सूचना नहीं है",
+    "notFoundTitle": "सूचना नहीं मिली",
+    "notFoundBody": "यह सूचना उपलब्ध नहीं है। वापस जाकर कोई और चुनें।",
+    "demoNotice": "डेमो संचार — कोई असली SMS या फ़ोन कॉल नहीं भेजी गई।",
+    "priority": {
+      "high": "उच्च प्राथमिकता",
+      "medium": "महत्वपूर्ण",
+      "info": "जानकारी"
+    },
+    "categories": {
+      "weather": "मौसम",
+      "disaster": "प्राकृतिक आपदा",
+      "government": "सरकारी योजना",
+      "advisory": "कृषि सलाह",
+      "cropHealth": "फसल स्वास्थ्य"
+    },
+    "channels": {
+      "sms": "SMS",
+      "voice": "फ़ोन कॉल"
+    },
+    "status": {
+      "sent": "भेजा गया",
+      "initiated": "शुरू किया गया",
+      "notSent": "नहीं भेजा गया"
+    }
+  },
   "profile": {
     "title": "प्रोफ़ाइल",
+    "sectionFarmer": "किसान",
+    "sectionPreferences": "प्राथमिकताएँ",
+    "sectionServices": "खेत और सेवाएँ",
+    "sectionSupport": "सहायता",
+    "phone": "फ़ोन",
+    "email": "ईमेल",
+    "emailNotAdded": "जोड़ा नहीं गया",
     "language": "भाषा",
+    "location": "स्थान",
     "myFarm": "मेरा खेत",
     "schemes": "सरकारी योजनाएँ",
     "registerLand": "अपनी ज़मीन दर्ज करें",
-    "notifications": "सूचनाएँ",
+    "alerts": "सूचनाएँ",
     "help": "मदद",
     "logout": "लॉग आउट",
     "logoutConfirmTitle": "लॉग आउट करें?",
-    "logoutConfirmBody": "वापस आने के लिए ईमेल और पासवर्ड चाहिए होगा।",
+    "logoutConfirmBody": "वापस आने के लिए आपको अपना फ़ोन नंबर फिर सत्यापित करना होगा।",
     "languageEnglish": "English",
     "languageHindi": "हिन्दी"
   },

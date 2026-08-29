@@ -61,10 +61,18 @@ export function MonthGrid({ month, selectedDate, markedDates, onSelectDate }: Pr
                 testID={`calendar-day-${iso}`}
                 accessibilityRole="button"
               >
-                <View style={[styles.dayCircle, isSelected && styles.dayCircleSelected]}>
+                <View
+                  style={[
+                    styles.dayCircle,
+                    isToday && !isSelected && styles.dayCircleToday,
+                    isSelected && styles.dayCircleSelected,
+                  ]}
+                >
                   <Text
                     variant={isToday ? 'bodyMedium' : 'body'}
-                    color={isSelected ? colors.text.onPrimary : colors.text.primary}
+                    color={
+                      isSelected ? colors.text.onPrimary : isToday ? colors.primaryDark : colors.text.primary
+                    }
                   >
                     {day.getDate()}
                   </Text>
@@ -86,11 +94,13 @@ const styles = StyleSheet.create({
   dayCircle: {
     width: 32,
     height: 32,
+    borderRadius: 16,
     alignItems: 'center',
     justifyContent: 'center',
   },
+  dayCircleToday: { borderWidth: 1.5, borderColor: colors.primary },
   dayCircleSelected: { backgroundColor: colors.primary },
-  dot: { width: 4, height: 4, backgroundColor: 'transparent' },
+  dot: { width: 4, height: 4, borderRadius: 2, backgroundColor: 'transparent' },
   // Event dots are purple: every date they mark is demo/sample data.
   dotVisible: { backgroundColor: colors.demo.fg },
 });

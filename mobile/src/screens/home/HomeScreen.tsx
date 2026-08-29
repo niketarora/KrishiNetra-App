@@ -10,17 +10,20 @@ import {
   Button,
   Card,
   Icon,
+  IconBadge,
   Screen,
   Skeleton,
   StatusCard,
   Text,
+  type IconBadgeTone,
+  type IconName,
 } from '@/components/ui';
 import { useAuth } from '@/features/auth/AuthContext';
 import { useAvatar } from '@/features/avatar/AvatarContext';
 import { isDemoMode, SAMPLE } from '@/features/demo/demoMode';
 import { useFarm } from '@/features/farm/FarmContext';
 import type { CurrentCrop } from '@/services/agronomy';
-import { colors, layout } from '@/theme';
+import { colors, layout, radius } from '@/theme';
 import { firstName, greetingKey, initials } from '@/utils/format';
 import { fromGeoJSON } from '@/utils/geo';
 
@@ -44,6 +47,15 @@ function formatShortDate(iso: string): string {
   });
 }
 
+type ResourceTile = {
+  key: string;
+  icon: IconName;
+  tone: IconBadgeTone;
+  labelKey: string;
+  testID: string;
+  onPress: () => void;
+};
+
 type Props = {
   onOpenProfile: () => void;
   onOpenAnalysis: () => void;
@@ -53,6 +65,7 @@ type Props = {
   onOpenCalendar: () => void;
   onOpenSchemes: () => void;
   onOpenUpdates: () => void;
+  onOpenAlerts: () => void;
   onOpenVisualAssistant: () => void;
 };
 
@@ -75,10 +88,11 @@ export function HomeScreen({
   onOpenCalendar,
   onOpenSchemes,
   onOpenUpdates,
+  onOpenAlerts,
   onOpenVisualAssistant,
 }: Props) {
   const { t, i18n } = useTranslation();
-  const { user, profile } = useAuth();
+  const { profile } = useAuth();
   const { farm, loading, errorKey, refresh } = useFarm();
   const { open: openAvatar } = useAvatar();
   const { crop, msp, weather, price, refresh: refreshInsights } = useHomeInsights(farm?.id ?? null);
@@ -92,8 +106,16 @@ export function HomeScreen({
   };
 
   const demo = isDemoMode();
-  const name = firstName(profile?.full_name, user?.email);
+  const name = firstName(profile?.full_name, profile?.email, profile?.phone);
   const boundaryPoints = farm ? fromGeoJSON(farm.boundary) : [];
+
+  const resourceTiles: ResourceTile[] = [
+    { key: 'learning', icon: 'book', tone: 'primary', labelKey: 'home.learning', testID: 'resource-tile-learning', onPress: onOpenLearning },
+    { key: 'calendar', icon: 'clock', tone: 'accent', labelKey: 'home.calendar', testID: 'resource-tile-calendar', onPress: onOpenCalendar },
+    { key: 'schemes', icon: 'help', tone: 'harvest', labelKey: 'home.schemes', testID: 'resource-tile-schemes', onPress: onOpenSchemes },
+    { key: 'updates', icon: 'field', tone: 'primary', labelKey: 'home.updates', testID: 'resource-tile-updates', onPress: onOpenUpdates },
+    { key: 'alerts', icon: 'bell', tone: 'warning', labelKey: 'home.alerts', testID: 'resource-tile-alerts', onPress: onOpenAlerts },
+  ];
 
   return (
     <Screen>
@@ -113,12 +135,13 @@ export function HomeScreen({
           <Pressable
             onPress={onOpenProfile}
             style={styles.avatarChip}
+            hitSlop={8}
             accessibilityRole="button"
             accessibilityLabel={t('profile.title')}
             testID="open-profile"
           >
             <Text variant="microMedium" color={colors.text.onPrimary}>
-              {initials(profile?.full_name, user?.email)}
+              {initials(profile?.full_name, profile?.email, profile?.phone)}
             </Text>
           </Pressable>
         </View>
@@ -137,24 +160,38 @@ export function HomeScreen({
               </View>
             </View>
           ) : farm ? (
-            <Card onPress={onEditBoundary} style={styles.fieldCard} testID="field-card">
-              <BoundaryThumbnail points={boundaryPoints} size={64} />
+            // The farm-context card is the single most important thing on
+            // Home, so it gets the soft agricultural-green surface reserved
+            // for "important context" rather than the plain white every
+            // other card uses — same data and same action as before.
+            <Card onPress={onEditBoundary} tone="success" style={styles.fieldCard} testID="field-card">
+              <View style={styles.fieldThumbnail}>
+                <BoundaryThumbnail points={boundaryPoints} size={64} />
+              </View>
 
               <View style={styles.fieldBody}>
                 <Text variant="cardTitle" numberOfLines={1}>
                   {farm.name?.trim() || t('home.unnamedField')}
                 </Text>
-                <Text variant="caption" color={colors.text.muted} style={styles.fieldMeta}>
+                <Text variant="stat" color={colors.primaryDark} style={styles.fieldArea}>
                   {`${Number(farm.area_acres).toFixed(2)} ${t('onboarding.acres')}`}
                 </Text>
-                <Text variant="micro" color={colors.success} style={styles.editLink}>
-                  {t('home.editBoundary')}
-                </Text>
+                <View style={styles.fieldFooter}>
+                  <Badge label={t('home.notYetAnalyzed')} tone="neutral" />
+                  <View style={styles.editLinkRow}>
+                    <Text variant="microMedium" color={colors.primaryDark}>
+                      {t('home.editBoundary')}
+                    </Text>
+                    <Icon name="chevron" size={14} color={colors.primaryDark} />
+                  </View>
+                </View>
               </View>
-
-              <Badge label={t('home.notYetAnalyzed')} tone="neutral" />
             </Card>
           ) : null}
+
+          <Text variant="cardTitle" style={styles.sectionHeading}>
+            {t('home.farmStatus')}
+          </Text>
 
           <View style={styles.grid}>
             <StatusCard
@@ -226,7 +263,7 @@ export function HomeScreen({
             <View style={styles.marketRow}>
               <View style={styles.marketValue}>
                 <Text
-                  variant="cardTitle"
+                  variant="stat"
                   color={price ? colors.text.primary : colors.text.muted}
                 >
                   {price
@@ -250,58 +287,28 @@ export function HomeScreen({
             </View>
           </Card>
 
-          <Card style={styles.resourcesCard} testID="farmer-resources">
-            <Text variant="caption">{t('home.farmerResources')}</Text>
-            <View style={styles.resourcesGrid}>
+          <Text variant="cardTitle" style={styles.sectionHeading}>
+            {t('home.farmerResources')}
+          </Text>
+          <View style={styles.resourcesGrid} testID="farmer-resources">
+            {resourceTiles.map((tile) => (
               <Pressable
-                onPress={onOpenLearning}
-                style={styles.resourceTile}
+                key={tile.key}
+                onPress={tile.onPress}
+                style={({ pressed }) => [styles.resourceTile, pressed && styles.resourceTilePressed]}
                 accessibilityRole="button"
-                testID="resource-tile-learning"
+                testID={tile.testID}
               >
-                <Icon name="book" size={20} color={colors.text.secondary} />
-                <Text variant="micro" center style={styles.resourceLabel}>
-                  {t('home.learning')}
+                <IconBadge icon={tile.icon} tone={tile.tone} />
+                <Text variant="microMedium" color={colors.text.primary} center style={styles.resourceLabel}>
+                  {t(tile.labelKey)}
                 </Text>
               </Pressable>
-              <Pressable
-                onPress={onOpenCalendar}
-                style={styles.resourceTile}
-                accessibilityRole="button"
-                testID="resource-tile-calendar"
-              >
-                <Icon name="clock" size={20} color={colors.text.secondary} />
-                <Text variant="micro" center style={styles.resourceLabel}>
-                  {t('home.calendar')}
-                </Text>
-              </Pressable>
-              <Pressable
-                onPress={onOpenSchemes}
-                style={styles.resourceTile}
-                accessibilityRole="button"
-                testID="resource-tile-schemes"
-              >
-                <Icon name="help" size={20} color={colors.text.secondary} />
-                <Text variant="micro" center style={styles.resourceLabel}>
-                  {t('home.schemes')}
-                </Text>
-              </Pressable>
-              <Pressable
-                onPress={onOpenUpdates}
-                style={styles.resourceTile}
-                accessibilityRole="button"
-                testID="resource-tile-updates"
-              >
-                <Icon name="field" size={20} color={colors.text.secondary} />
-                <Text variant="micro" center style={styles.resourceLabel}>
-                  {t('home.updates')}
-                </Text>
-              </Pressable>
-            </View>
-          </Card>
+            ))}
+          </View>
 
           <Card tone="success" onPress={openAvatar} style={styles.companionCard} testID="companion-card">
-            <Icon name="mic" size={20} color={colors.primaryDark} />
+            <IconBadge icon="mic" tone="primary" />
             <View style={styles.companionBody}>
               <Text variant="bodyMedium" color={colors.primaryDark}>
                 {t('home.askCompanion')}
@@ -324,7 +331,7 @@ export function HomeScreen({
             testID="visual-assistant-card"
             accessibilityLabel={t('visualAssistant.openLabel')}
           >
-            <Icon name="camera" size={20} color={colors.accent} />
+            <IconBadge icon="camera" tone="accent" />
             <View style={styles.companionBody}>
               <Text variant="bodyMedium" color={colors.accent}>
                 {t('home.visualAssistantTitle')}
@@ -355,8 +362,9 @@ const styles = StyleSheet.create({
   },
   greeting: { gap: 2 },
   avatarChip: {
-    width: 32,
-    height: 32,
+    width: 36,
+    height: 36,
+    borderRadius: 18,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: colors.primary,
@@ -368,9 +376,17 @@ const styles = StyleSheet.create({
   },
   loadingBlock: { gap: layout.cardGap },
   fieldCard: { flexDirection: 'row', alignItems: 'flex-start', gap: 12 },
-  fieldBody: { flex: 1, minWidth: 0 },
-  fieldMeta: { marginTop: 2 },
-  editLink: { marginTop: 6 },
+  fieldThumbnail: { borderRadius: radius.sm, overflow: 'hidden' },
+  fieldBody: { flex: 1, minWidth: 0, gap: 2 },
+  fieldArea: { marginTop: 2 },
+  fieldFooter: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginTop: 8,
+  },
+  editLinkRow: { flexDirection: 'row', alignItems: 'center', gap: 2 },
+  sectionHeading: { marginTop: 4 },
   grid: { flexDirection: 'row', gap: layout.cardGap },
   gridItem: { flex: 1 },
   marketRow: {
@@ -382,16 +398,19 @@ const styles = StyleSheet.create({
   },
   marketValue: { flex: 1 },
   marketNote: { marginTop: 2 },
-  resourcesCard: { gap: 12 },
   resourcesGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: layout.cardGap },
   resourceTile: {
     flexBasis: '47%',
     flexGrow: 1,
     alignItems: 'center',
-    gap: 6,
-    paddingVertical: 12,
-    backgroundColor: colors.neutralBg,
+    gap: 8,
+    paddingVertical: 14,
+    backgroundColor: colors.surface,
+    borderWidth: 1,
+    borderColor: colors.border,
+    borderRadius: radius.md,
   },
+  resourceTilePressed: { backgroundColor: colors.neutralBg },
   resourceLabel: {},
   companionCard: { flexDirection: 'row', alignItems: 'center', gap: 12 },
   companionBody: { flex: 1 },

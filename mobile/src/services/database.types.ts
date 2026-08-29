@@ -4,11 +4,26 @@ import type { BoundaryGeoJSON } from '@/utils/geo';
  * Hand-written to match `supabase/migrations/0001_phase1_schema.sql`.
  * When the schema changes, regenerate or update both together.
  */
+export type FarmerLocationSource = 'demo' | 'gps' | 'manual';
+
 export type ProfileRow = {
   id: string;
   full_name: string | null;
   phone: string | null;
+  /** Optional farmer-entered contact email — distinct from the demo-OTP bridge's synthetic auth email (features/auth/phoneIdentity.ts), which never reaches this column or the UI. */
+  email: string | null;
   language: string;
+  location_latitude: number | null;
+  location_longitude: number | null;
+  location_city: string | null;
+  location_district: string | null;
+  location_state: string | null;
+  location_country: string | null;
+  /** 'demo' (e.g. the Pratapgarh placeholder) until a future GPS/manual entry overwrites it. */
+  location_source: FarmerLocationSource;
+  in_app_alerts: boolean;
+  sms_alerts: boolean;
+  voice_alerts: boolean;
   created_at: string;
   updated_at: string;
 };

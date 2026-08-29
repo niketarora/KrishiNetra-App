@@ -1,8 +1,8 @@
 import type { LatLng } from '@/utils/geo';
 
 export type AuthStackParamList = {
-  Login: undefined;
-  Register: undefined;
+  PhoneEntry: undefined;
+  OtpVerify: { normalizedPhone: string; devCode: string };
 };
 
 export type OnboardingStackParamList = {
@@ -44,6 +44,9 @@ export type MainStackParamList = {
   /** Home → Krishi Updates — local demo agri-news feed. */
   Updates: undefined;
   UpdateDetail: { updateId: string };
+  /** Home/Profile → Alerts — demo communication history (weather, disaster, scheme, advisory). */
+  Alerts: undefined;
+  AlertDetail: { alertId: string };
   /**
    * Camera-first prototype (not yet wired to the Avatar or a backend — see
    * src/features/visualAssistant/demo.ts).

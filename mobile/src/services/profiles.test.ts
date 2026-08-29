@@ -1,3 +1,5 @@
+import { makeProfile } from '@/test-utils';
+
 import { apiFetch } from './api';
 import { DataError } from './errors';
 import { getProfile, updateProfile } from './profiles';
@@ -9,14 +11,7 @@ jest.mock('./api', () => ({
 
 const mockedFetch = apiFetch as jest.MockedFunction<typeof apiFetch>;
 
-const profile = {
-  id: 'user-1',
-  full_name: 'Asha',
-  phone: null,
-  language: 'hi',
-  created_at: 'now',
-  updated_at: 'now',
-};
+const profile = makeProfile({ full_name: 'Asha', language: 'hi' });
 
 beforeEach(() => jest.clearAllMocks());
 
