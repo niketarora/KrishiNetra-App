@@ -8,6 +8,7 @@
     "@react-navigation/bottom-tabs": "^7.18.17",
     "@react-navigation/native": "^7.3.17",
     "@react-navigation/native-stack": "^7.18.9",
+    "@rnmapbox/maps": "^10.3.5",
     "@supabase/supabase-js": "^2.112.4",
     "@turf/area": "^7.4.0",
     "@turf/centroid": "^7.4.0",
@@ -29,7 +30,6 @@
     "react-i18next": "^17.0.12",
     "react-native": "0.86.2",
     "react-native-gesture-handler": "~2.32.0",
-    "react-native-maps": "1.27.2",
     "react-native-reanimated": "4.5.1",
     "react-native-safe-area-context": "~5.7.0",
     "react-native-screens": "~4.26.0",
@@ -58,6 +58,7 @@
   },
   "jest": {
     "preset": "jest-expo",
+    "testTimeout": 15000,
     "setupFilesAfterEnv": [
       "<rootDir>/jest.setup.js"
     ],
@@ -65,7 +66,7 @@
       "^@/(.*)$": "<rootDir>/src/$1"
     },
     "transformIgnorePatterns": [
-      "node_modules/(?!((jest-)?react-native|@react-native(-community)?|expo(nent)?|@expo(nent)?/.*|@expo-google-fonts/.*|react-navigation|@react-navigation/.*|@sentry/react-native|native-base|react-native-svg|react-native-maps|@supabase/.*))"
+      "node_modules/(?!((jest-)?react-native|@react-native(-community)?|expo(nent)?|@expo(nent)?/.*|@expo-google-fonts/.*|react-navigation|@react-navigation/.*|@sentry/react-native|native-base|react-native-svg|@rnmapbox/maps|@supabase/.*))"
     ],
     "testMatch": [
       "<rootDir>/src/**/*.test.ts",

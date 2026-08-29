@@ -139,8 +139,12 @@ export function MainNavigator() {
           <DrawBoundaryScreen
             initialCentre={route.params.centre}
             initialPoints={route.params.points}
-            onConfirm={(points) =>
-              navigation.navigate('ConfirmEdit', { points, name: route.params.name })
+            onConfirm={(points, accuracy) =>
+              navigation.navigate('ConfirmEdit', {
+                points,
+                name: route.params.name,
+                accuracy: accuracy ?? route.params.accuracy,
+              })
             }
             onBack={() => navigation.goBack()}
           />
@@ -152,6 +156,7 @@ export function MainNavigator() {
           <ConfirmFieldScreen
             points={route.params.points}
             initialName={route.params.name}
+            accuracy={route.params.accuracy}
             // Unlike first-run setup, the farmer already has a home to return
             // to, so pop back to the tabs once the boundary is updated.
             onSaved={() => navigation.navigate('Tabs')}
@@ -181,6 +186,7 @@ export function MainNavigator() {
                 },
                 points: fromGeoJSON(farm.boundary),
                 name: farm.name,
+                accuracy: farm.location_accuracy,
               });
             }}
           />
@@ -190,8 +196,12 @@ export function MainNavigator() {
       <Stack.Screen name="RegisterLand">
         {({ navigation }) => (
           <WalkBoundaryScreen
-            onWalked={(points) =>
-              navigation.navigate('RegisterBoundary', { centre: centroid(points), points })
+            onWalked={(points, accuracy) =>
+              navigation.navigate('RegisterBoundary', {
+                centre: centroid(points),
+                points,
+                accuracy,
+              })
             }
             onBack={() => navigation.goBack()}
           />
@@ -204,7 +214,12 @@ export function MainNavigator() {
           <DrawBoundaryScreen
             initialCentre={route.params.centre}
             initialPoints={route.params.points}
-            onConfirm={(points) => navigation.navigate('RegisterCropInfo', { points })}
+            onConfirm={(points, accuracy) =>
+              navigation.navigate('RegisterCropInfo', {
+                points,
+                accuracy: accuracy ?? route.params.accuracy,
+              })
+            }
             onBack={() => navigation.goBack()}
           />
         )}
@@ -214,6 +229,7 @@ export function MainNavigator() {
         {({ navigation, route }) => (
           <RegisterCropScreen
             points={route.params.points}
+            accuracy={route.params.accuracy}
             onSaved={() =>
               navigation.reset({ index: 0, routes: [{ name: 'MyFarm' }] })
             }

@@ -29,7 +29,9 @@ export function OnboardingNavigator() {
           <DrawBoundaryScreen
             initialCentre={route.params.centre}
             initialPoints={route.params.points}
-            onConfirm={(points) => navigation.navigate('ConfirmField', { points })}
+            onConfirm={(points, accuracy) =>
+              navigation.navigate('ConfirmField', { points, accuracy })
+            }
             onBack={() => navigation.goBack()}
           />
         )}
@@ -40,6 +42,7 @@ export function OnboardingNavigator() {
           <ConfirmFieldScreen
             points={route.params.points}
             initialName={route.params.name}
+            accuracy={route.params.accuracy}
             // The FarmProvider now holds a farm, which swaps this navigator
             // out for the main app — there is nothing further to do here.
             onSaved={() => undefined}

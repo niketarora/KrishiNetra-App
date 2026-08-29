@@ -47,6 +47,10 @@ function builderFor(table: string) {
     writes.push({ table, op: 'update', payload });
     return builder;
   };
+  builder.upsert = (payload: Record<string, unknown>) => {
+    writes.push({ table, op: 'insert', payload });
+    return builder;
+  };
   builder.single = settle;
   builder.maybeSingle = settle;
   builder.then = (resolve: unknown, reject: unknown) =>
@@ -61,6 +65,19 @@ jest.unstable_mockModule('./config/supabase.js', () => ({
   authClient: () => ({ auth: { getUser } }),
   userClient: () => ({ from: (table: string) => builderFor(table) }),
   adminClient: () => ({ from: (table: string) => builderFor(table) }),
+}));
+
+jest.unstable_mockModule('./ingestion/weather/weatherSource.js', () => ({
+  fetchObservedWeather: jest.fn<any>().mockResolvedValue({
+    daily: {
+      time: ['2026-08-28'],
+      temperature_2m_mean: [29.5],
+      precipitation_sum: [0],
+      relative_humidity_2m_mean: [65],
+    },
+  }),
+  weatherSourceLabel: () => 'Open-Meteo ERA5 archive',
+  WeatherSourceError: class extends Error {},
 }));
 
 const { createApp } = await import('./app.js');

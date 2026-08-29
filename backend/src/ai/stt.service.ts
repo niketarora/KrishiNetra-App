@@ -32,14 +32,25 @@ export type Transcription = {
  * when the farmer has not told us — a farmer whose app is in English may still
  * speak Hindi, and forcing `en-IN` would transcribe it as nonsense.
  */
+const REGIONAL_STT_MAP: Record<string, string> = {
+  hi: 'hi-IN',
+  bn: 'bn-IN',
+  kn: 'kn-IN',
+  ml: 'ml-IN',
+  mr: 'mr-IN',
+  or: 'od-IN',
+  pa: 'pa-IN',
+  ta: 'ta-IN',
+  te: 'te-IN',
+  gu: 'gu-IN',
+  en: 'en-IN',
+};
+
 export function toProviderLanguage(language: string | undefined): string {
   if (!language) return 'unknown';
 
   const base = language.split('-')[0]?.toLowerCase();
-  if (base === 'hi') return 'hi-IN';
-  if (base === 'en') return 'en-IN';
-
-  return 'unknown';
+  return REGIONAL_STT_MAP[base] ?? 'unknown';
 }
 
 /** Reads the transcript out of a provider response without assuming one shape. */

@@ -28,10 +28,20 @@ export function isValidPolygon(points: LatLng[]): boolean {
   return points.length >= MIN_VERTICES;
 }
 
+/** Convert a LatLng {latitude, longitude} to a Mapbox/GeoJSON Position [longitude, latitude]. */
+export function toPosition(point: LatLng): [number, number] {
+  return [point.longitude, point.latitude];
+}
+
+/** Convert a Mapbox/GeoJSON Position [longitude, latitude] to a LatLng {latitude, longitude}. */
+export function fromPosition(position: [number, number] | number[]): LatLng {
+  return { longitude: position[0] ?? 0, latitude: position[1] ?? 0 };
+}
+
 /**
  * Convert map vertices to a closed GeoJSON ring.
  *
- * GeoJSON is [longitude, latitude] — the reverse of react-native-maps' order.
+ * GeoJSON is [longitude, latitude] — the reverse of React Native LatLng order.
  * Getting this backwards silently produces a plausible-looking but wrong area,
  * so it is done in exactly one place.
  */

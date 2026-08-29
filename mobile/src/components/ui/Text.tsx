@@ -17,28 +17,37 @@ const DEVANAGARI: Record<string, string> = {
   [fonts.semibold]: fonts.devanagariSemiBold,
 };
 
+const DEVANAGARI_LANGS = new Set(['hi', 'mr', 'mai', 'ne', 'kok', 'doi', 'brx', 'sa']);
+const INDIC_LANGS = new Set([
+  'hi', 'mr', 'mai', 'ne', 'kok', 'doi', 'brx', 'sa',
+  'bn', 'as', 'mni', 'te', 'ta', 'gu', 'kn', 'or', 'ml', 'pa', 'sat', 'ur', 'ks', 'sd'
+]);
+
 /**
  * Every string in the app renders through this component.
  *
  * Beyond the type scale it swaps in Noto Sans Devanagari when the interface is
- * in Hindi — Archivo has no Devanagari glyphs, so without this, Hindi renders
- * as tofu boxes. Line height is also nudged up, since Devanagari needs more
- * vertical room for its matras than Latin does at the same size.
+ * in a Devanagari script language — Archivo has no Devanagari glyphs, so without this,
+ * Devanagari renders as tofu boxes. Line height is also nudged up for all Indic scripts,
+ * since complex scripts need more vertical room for their matras than Latin does.
  */
 export function Text({ variant = 'body', color, center, style, ...rest }: Props) {
   const { i18n } = useTranslation();
-  const isDevanagari = i18n.language === 'hi';
+  const lang = i18n.language?.split('-')[0]?.toLowerCase() ?? 'en';
+  const isDevanagari = DEVANAGARI_LANGS.has(lang);
+  const isIndic = INDIC_LANGS.has(lang);
 
   const resolved = useMemo(() => {
     const base = type[variant];
-    if (!isDevanagari) return base;
+    const adjustedFont = isDevanagari ? (DEVANAGARI[base.fontFamily] ?? base.fontFamily) : base.fontFamily;
+    const adjustedLineHeight = isIndic ? Math.round(base.lineHeight * 1.2) : base.lineHeight;
 
     return {
       ...base,
-      fontFamily: DEVANAGARI[base.fontFamily] ?? base.fontFamily,
-      lineHeight: Math.round(base.lineHeight * 1.2),
+      fontFamily: adjustedFont,
+      lineHeight: adjustedLineHeight,
     };
-  }, [variant, isDevanagari]);
+  }, [variant, isDevanagari, isIndic]);
 
   return (
     <RNText

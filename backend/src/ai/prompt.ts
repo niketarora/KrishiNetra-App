@@ -142,7 +142,7 @@ export function buildContextBlock(context: FarmerContext): string {
     }
     if (parts.length > 0) {
       lines.push(
-        `- Observed weather in their district on ${context.weather.observedOn}: ${parts.join(', ')}` +
+        `- Observed weather for their field on ${context.weather.observedOn}: ${parts.join(', ')}` +
           ` (source: ${context.weather.source}). This is a past observation, not a forecast.`,
       );
     }

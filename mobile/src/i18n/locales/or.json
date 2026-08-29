@@ -1,0 +1,490 @@
+{
+  "common": {
+    "continue": "ଆଗକୁ ବଢ଼ନ୍ତୁ",
+    "back": "ପଛକୁ",
+    "retry": "ପୁଣି ଚେଷ୍ଟା କରନ୍ତୁ",
+    "cancel": "ବାତିଲ କରନ୍ତୁ",
+    "save": "ସଂରକ୍ଷଣ କରନ୍ତୁ",
+    "loading": "ଲୋଡ୍ ହେଉଛି…",
+    "notAvailable": "—",
+    "comingSoon": "ପରବର୍ତ୍ତୀ ଅପଡେଟରେ ଉପଲବ୍ଧ ହେବ",
+    "appName": "କୃଷିନେତ୍ର"
+  },
+  "auth": {
+    "loginTitle": "ସ୍ୱାଗତ",
+    "loginSubtitle": "ଆପଣଙ୍କ ଜମି ଓ ଆଜିର ମଣ୍ଡି ଦର ଦେଖିବାକୁ ଲଗ୍ ଇନ୍ କରନ୍ତୁ।",
+    "registerTitle": "ନୂଆ ଖାତା ଖୋଲନ୍ତୁ",
+    "registerSubtitle": "ଆରମ୍ଭ କରିବା ପାଇଁ କେବଳ ଇମେଲ୍ ଓ ପାସୱାର୍ଡ ଦରକାର।",
+    "nameLabel": "ଆପଣଙ୍କ ନାମ",
+    "namePlaceholder": "ରମେଶ କୁମାର",
+    "emailLabel": "ଇମେଲ୍",
+    "emailPlaceholder": "you@example.com",
+    "passwordLabel": "ପାସୱାର୍ଡ",
+    "passwordPlaceholder": "ଅତି କମରେ ୮ଟି ଅକ୍ଷର",
+    "login": "ଲଗ୍ ଇନ୍",
+    "register": "ଖାତା ଖୋଲନ୍ତୁ",
+    "noAccount": "କୃଷିନେତ୍ରରେ ନୂଆ ଅଛନ୍ତି କି?",
+    "haveAccount": "ପୂର୍ବରୁ ଖାତା ଅଛି କି?",
+    "goToRegister": "ଖାତା ଖୋଲନ୍ତୁ",
+    "goToLogin": "ଲଗ୍ ଇନ୍ କରନ୍ତୁ",
+    "showPassword": "ପାସୱାର୍ଡ ଦେଖାନ୍ତୁ",
+    "hidePassword": "ପାସୱାର୍ଡ ଲୁଚାନ୍ତୁ",
+    "errors": {
+      "nameRequired": "ଦୟାକରି ଆପଣଙ୍କ ନାମ ଲେଖନ୍ତୁ",
+      "emailRequired": "ଦୟାକରି ଇମେଲ୍ ଲେଖନ୍ତୁ",
+      "emailInvalid": "ସଠିକ୍ ଇମେଲ୍ ଠିକଣା ଦିଅନ୍ତୁ",
+      "passwordRequired": "ପାସୱାର୍ଡ ଦିଅନ୍ତୁ",
+      "passwordTooShort": "ଅତି କମରେ ୮ଟି ଅକ୍ଷର ରଖନ୍ତୁ",
+      "invalidCredentials": "ଭୁଲ୍ ଇମେଲ୍ କିମ୍ବା ପାସୱାର୍ଡ",
+      "emailTaken": "ଏହି ଇମେଲ୍ ପୂର୍ବରୁ ପଞ୍ଜୀକୃତ ଅଛି",
+      "emailNotConfirmed": "ଇମେଲ୍ ନିଶ୍ଚିତ କରି ଲଗ୍ ଇନ୍ କରନ୍ତୁ",
+      "weakPassword": "ପାସୱାର୍ଡ ବହୁତ ସହଜ — ଟିକେ ବଡ଼ ରଖନ୍ତୁ",
+      "network": "ଇଣ୍ଟରନେଟ୍ ସଂଯୋଗ ନାହିଁ। ନେଟୱାର୍କ ଯାଞ୍ଚ କରନ୍ତୁ।",
+      "rateLimited": "ଅଧିକ ଥର ଚେଷ୍ଟା କରାଯାଇଛି। ଟିକେ ଅପେକ୍ଷା କରନ୍ତୁ।",
+      "generic": "କିଛି ତ୍ରୁଟି ଘଟିଲା। ପୁଣି ଚେଷ୍ଟା କରନ୍ତୁ।"
+    }
+  },
+  "onboarding": {
+    "locationTitle": "ଆପଣଙ୍କ ଜମି ଚିହ୍ନଟ କରନ୍ତୁ",
+    "locationBody": "ସୀମା ଆଙ୍କିବା ପାଇଁ ମ୍ୟାପ୍ ଆପଣଙ୍କ ଜମି ଉପରେ କେନ୍ଦ୍ରିତ ହେବ।",
+    "useLocation": "ବର୍ତ୍ତମାନର ସ୍ଥାନ ବ୍ୟବହାର କରନ୍ତୁ",
+    "locating": "ସ୍ଥାନ ଖୋଜା ଚାଲିଛି…",
+    "locationDenied": "ଲୋକେସନ ଅନୁମତି ବନ୍ଦ ଅଛି। ତଳେ ଗାଁ ଖୋଜନ୍ତୁ।",
+    "locationFailed": "ସ୍ଥାନ ମିଳିଲା ନାହିଁ। ଗାଁ ନାମ ଖୋଜନ୍ତୁ।",
+    "searchLabel": "ଗାଁ ବା ଅଞ୍ଚଳ",
+    "searchPlaceholder": "ଯଥା: କଟକ, ଓଡ଼ିଶା",
+    "continueToMap": "ମ୍ୟାପକୁ ଯାଆନ୍ତୁ",
+    "drawTitle": "ଜମିର ସୀମା ଆଙ୍କନ୍ତୁ",
+    "satelliteView": "ସାଟେଲାଇଟ୍ ଦୃଶ୍ୟ",
+    "mapHint": "କୋଣ ଚିହ୍ନଟ ପାଇଁ ମ୍ୟାପରେ ଟ୍ୟାପ୍ କରନ୍ତୁ",
+    "mapHintDrag": "କୋଣ ସଂଶୋଧନ ପାଇଁ ଟାଣନ୍ତୁ",
+    "undoPoint": "ପଏଣ୍ଟ ହଟାନ୍ତୁ",
+    "restart": "ପୁନର୍ବାର ଆରମ୍ଭ କରନ୍ତୁ",
+    "acres": "ଏକର",
+    "hectares": "ହେକ୍ଟର",
+    "squareMeters": "ବର୍ଗ ମିଟର",
+    "confirmBoundary": "ଜମି ସୀମା ନିଶ୍ଚିତ କରନ୍ତୁ",
+    "needMorePoints": "ଅତି କମରେ ୩ଟି କୋଣ ଚିହ୍ନଟ କରନ୍ତୁ",
+    "mapError": "ମ୍ୟାପ୍ ଲୋଡ୍ ହେଲାନାହିଁ।",
+    "mapTokenMissing": "ମ୍ୟାପବକ୍ସ ଟୋକନ୍ ମିଳିଲାନାହିଁ।",
+    "gpsAccuracyWarning": "GPS ସଠିକତା କମ୍। ନିଜେ ସୀମା ଠିକ୍ କରନ୍ତୁ।",
+    "locationPermissionDenied": "ଲୋକେସନ ଅନୁମତି ନାହିଁ।",
+    "recenter": "କେନ୍ଦ୍ରିତ କରନ୍ତୁ",
+    "confirmTitle": "ଜମି ନିଶ୍ଚିତ କରନ୍ତୁ",
+    "fieldNameLabel": "ଜମିର ନାମ (ଇଚ୍ଛାଧୀନ)",
+    "fieldNamePlaceholder": "ଉତ୍ତର ଜମି",
+    "saveField": "ଜମି ସଂରକ୍ଷଣ କରନ୍ତୁ",
+    "saving": "ସଂରକ୍ଷଣ ହେଉଛି…",
+    "saveError": "ଜମି ସଂରକ୍ଷଣ ହୋଇପାରିଲା ନାହିଁ।",
+    "editBoundary": "ସୀମା ବଦଳାନ୍ତୁ"
+  },
+  "home": {
+    "greeting": {
+      "morning": "ଶୁଭ ସକାଳ",
+      "afternoon": "ଶୁଭ ମଧ୍ୟାହ୍ନ",
+      "evening": "ଶୁଭ ସନ୍ଧ୍ୟା"
+    },
+    "yourField": "ଆପଣଙ୍କ ଜମି",
+    "unnamedField": "ମୋ ଜମି",
+    "editBoundary": "ସୀମା ପରିବର୍ତ୍ତନ",
+    "notYetAnalyzed": "ବିଶ୍ଳେଷଣ ହୋଇନାହିଁ",
+    "growthStage": "ବୃଦ୍ଧିର ପର୍ଯ୍ୟାୟ",
+    "weather": "ପାଣିପାଗ",
+    "viewFullAnalysis": "ସମ୍ପୂର୍ଣ୍ଣ ବିଶ୍ଳେଷଣ ଦେଖନ୍ତୁ",
+    "market": "ମଣ୍ଡି / ବଜାର",
+    "marketUnavailable": "ମଣ୍ଡି ଦର ଏପର୍ଯ୍ୟନ୍ତ ସଂଯୁକ୍ତ ହୋଇନାହିଁ",
+    "learning": "କୃଷି ଏକାଡେମୀ",
+    "learningSub": "ମାଟି, ବୁଣା ଓ ଜଳସେଚନ ଉପରେ ଶିକ୍ଷଣୀୟ ତଥ୍ୟ",
+    "calendar": "ସ୍ମାର୍ଟ କୃଷି କ୍ୟାଲେଣ୍ଡର",
+    "calendarSub": "ଆଗାମୀ କାର୍ଯ୍ୟସୂଚୀ ଦେଖନ୍ତୁ",
+    "farmerResources": "କୃଷକ ସମ୍ବଳ",
+    "schemes": "ସରକାରୀ ଯୋଜନା",
+    "updates": "କୃଷି ଖବର",
+    "askCompanion": "କୃଷି ସାଥୀଙ୍କୁ ପଚାରନ୍ତୁ",
+    "askCompanionSub": "ଖୁବ୍ ଶୀଘ୍ର ଆସୁଛି ଭଏସ୍ ଆସିଷ୍ଟାଣ୍ଟ",
+    "loadError": "ଜମି ତଥ୍ୟ ଲୋଡ୍ ହୋଇପାରିଲା ନାହିଁ।",
+    "crop": "ଫସଲ",
+    "cropNone": "କୌଣସି ଫସଲ ଯୋଡ଼ାଯାଇ ନାହିଁ",
+    "msp": "ସର୍ବନିମ୍ନ ସହାୟକ ମୂଲ୍ୟ (MSP)",
+    "mspPerQuintal": "₹{{price}}/କ୍ୱିଣ୍ଟାଲ",
+    "mspYear": "ସହାୟକ ମୂଲ୍ୟ {{year}}",
+    "mspNone": "ସହାୟକ ମୂଲ୍ୟ ଉପଲବ୍ଧ ନାହିଁ",
+    "weatherNone": "ପାଣିପାଗ ତଥ୍ୟ ନାହିଁ",
+    "weatherObserved": "{{date}} ରେ ରେକର୍ଡ ହୋଇଛି",
+    "marketObserved": "{{date}} ରେ ରେକର୍ଡ ହୋଇଛି",
+    "visualAssistantTitle": "କୃଷିନେତ୍ରକୁ ପଚାରନ୍ତୁ",
+    "visualAssistantSub": "ଫସଲର ଫଟୋ ଉଠାଇ ପରାମର୍ଶ ନିଅନ୍ତୁ।"
+  },
+  "field": {
+    "title": "ଜମି ବିଶ୍ଳେଷଣ",
+    "cropHealth": "ଫସଲ ସ୍ୱାସ୍ଥ୍ୟ",
+    "growthStage": "ବୃଦ୍ଧିର ପର୍ଯ୍ୟାୟ",
+    "weatherRisk": "ପାଣିପାଗ ବିପଦ",
+    "emptyTitle": "ଜମିର ବିଶ୍ଳେଷଣ ଏପର୍ଯ୍ୟନ୍ତ ହୋଇନାହିଁ",
+    "emptyBody": "ସାଟେଲାଇଟ୍ ଓ ପାଣିପାଗ ସଂଯୋଗ ପରେ ତଥ୍ୟ ଦେଖାଯିବ।",
+    "areaLabel": "ଆପଣଙ୍କ ସୀମା",
+    "weatherObserved": "{{temp}}°C · {{rain}} ମିମି ବର୍ଷା",
+    "weatherNone": "ଜିଲ୍ଲା ପାଇଁ ପାଣିପାଗ ତଥ୍ୟ ନାହିଁ",
+    "analysisNote": "ଫସଲ ସ୍ୱାସ୍ଥ୍ୟ ପାଇଁ ସାଟେଲାଇଟ୍ ତଥ୍ୟ ଆବଶ୍ୟକ।"
+  },
+  "market": {
+    "title": "ମଣ୍ଡି / ବଜାର",
+    "currentPrice": "ବର୍ତ୍ତମାନ ଦର",
+    "msp": "ସହାୟକ ମୂଲ୍ୟ (MSP)",
+    "perQuintal": "ପ୍ରତି କ୍ୱିଣ୍ଟାଲ",
+    "sevenDayTrend": "୭ ଦିନର ଟ୍ରେଣ୍ଡ",
+    "recommendation": "ବିକ୍ରି ପରାମର୍ଶ",
+    "emptyTitle": "ମଣ୍ଡି ତଥ୍ୟ ଏପର୍ଯ୍ୟନ୍ତ ସଂଯୁକ୍ତ ନୁହେଁ",
+    "emptyBody": "ଲାଇଭ୍ ମଣ୍ଡି ଦର ଓ ବିକ୍ରି ପରାମର୍ଶ ଆଗାମୀ ଅପଡେଟରେ ଆସିବ।",
+    "loadError": "ମଣ୍ଡି ତଥ୍ୟ ଲୋଡ୍ ହୋଇପାରିଲା ନାହିଁ।",
+    "observedOn": "{{mandi}} ମଣ୍ଡିରେ {{date}} ରେ ରେକର୍ଡ ହୋଇଛି",
+    "priceRange": "ଦର ସୀମା ₹{{min}} – ₹{{max}}",
+    "noPrice": "କୌଣସି ମଣ୍ଡି ଦର ମିଳିଲାନାହିଁ",
+    "noCrop": "ଦର ଦେଖିବାକୁ ଜମିରେ ଫସଲ ଯୋଡ଼ନ୍ତୁ",
+    "aboveMsp": "MSP ଠାରୁ ₹{{amount}} ଅଧିକ",
+    "belowMsp": "MSP ଠାରୁ ₹{{amount}} କମ୍",
+    "atMsp": "MSP ସହିତ ସମାନ",
+    "trendNeedsHistory": "କିଛି ଦିନର ରେକର୍ଡ ଦର ଆବଶ୍ୟକ",
+    "recommendationBody": "ବିକ୍ରି ପରାମର୍ଶ ପ୍ରକ୍ରିୟାଧୀନ ଅଛି।",
+    "sourceLabel": "ଉତ୍ସ: {{source}}"
+  },
+  "history": {
+    "title": "କୃଷି ମେମୋରୀ",
+    "emptyTitle": "ପ୍ରଥମ ବିଶ୍ଳେଷଣ ପରେ ଜମିର ଇତିହାସ ଏଠାରେ ଦେଖାଯିବ।",
+    "noFarmTitle": "କୌଣସି ଜମି ପଞ୍ଜୀକୃତ ନାହିଁ",
+    "noFarmBody": "କୃଷି ମେମୋରୀ ପାଇଁ ଜମି ପଞ୍ଜୀକରଣ କରନ୍ତୁ।",
+    "overviewTitle": "ଜମି ସମୀକ୍ଷା",
+    "registeredArea": "ପଞ୍ଜୀକୃତ କ୍ଷେତ୍ରଫଳ",
+    "previousCrop": "ପୂର୍ବ ଫସଲ",
+    "previousCropNone": "ପୂର୍ବ ଫସଲ ରେକର୍ଡ ନାହିଁ",
+    "activitiesRecorded": "ରେକର୍ଡ ହୋଇଥିବା କାର୍ଯ୍ୟ",
+    "currentCropStage": "ଚାଲୁ ଫସଲ ପର୍ଯ୍ୟାୟ",
+    "sownOn": "ବୁଣା ତାରିଖ {{date}}",
+    "farmRegistered": "ପଞ୍ଜୀକରଣ ତାରିଖ {{date}}"
+  },
+  "myFarm": {
+    "title": "ମୋ ଜମି",
+    "emptyTitle": "ଆପଣ କୌଣସି ଜମି ପଞ୍ଜୀକରଣ କରିନାହାଁନ୍ତି",
+    "emptyBody": "ଜମି ଚାରିପାଖେ ବୁଲି ସୀମା ଆଙ୍କନ୍ତୁ ଓ ଫସଲ ବିବରଣୀ ଯୋଡ଼ନ୍ତୁ।",
+    "registerCta": "ଜମି ପଞ୍ଜୀକରଣ କରନ୍ତୁ",
+    "editBoundary": "ସୀମା ବଦଳାନ୍ତୁ",
+    "walkTitle": "ଜମି ସୀମାରେ ଚାଲନ୍ତୁ",
+    "walkIntro": "ଜମିର ଧାରେ ଧାରେ ଧୀରେ ଚାଲନ୍ତୁ। ଆମେ ଆପଣଙ୍କ ପଥ ରେକର୍ଡ କରିବୁ।",
+    "recording": "ପଥ ରେକର୍ଡ ହେଉଛି…",
+    "startWalking": "ଚାଲିବା ଆରମ୍ଭ କରନ୍ତୁ",
+    "continueWalking": "ଚାଲିବା ଜାରି ରଖନ୍ତୁ",
+    "stopWalking": "ବନ୍ଦ କରନ୍ତୁ",
+    "pointsRecorded": "{{count}} ଟି ପଏଣ୍ଟ ରେକର୍ଡ ହେଲା",
+    "locationDenied": "ଲୋକେସନ ଅନୁମତି ବନ୍ଦ ଅଛି।",
+    "locationFailed": "ସ୍ଥାନ ଜଣାପଡ଼ିଲା ନାହିଁ।",
+    "needMoreWalking": "ସୀମା ପାଇଁ ଅତି କମରେ ୩ଟି ପଏଣ୍ଟ ଦରକାର।",
+    "tooSmall": "କ୍ଷେତ୍ରଫଳ ବହୁତ କମ୍। ପୂରା ଜମି ବୁଲନ୍ତୁ।",
+    "cropStepTitle": "ଫସଲ ବିବରଣୀ",
+    "cropLabel": "ଫସଲ (ଇଚ୍ଛାଧୀନ)",
+    "varietyLabel": "କିସମ (ଇଚ୍ଛାଧୀନ)",
+    "varietyPlaceholder": "ପୂଜା / ସ୍ୱର୍ଣ୍ଣ",
+    "sownOnLabel": "ବୁଣା ତାରିଖ (ଇଚ୍ଛାଧୀନ)",
+    "sownOnInvalid": "YYYY-MM-DD ଫର୍ମାଟ୍ ବ୍ୟବହାର କରନ୍ତୁ",
+    "notesLabel": "ମନ୍ତବ୍ୟ (ଇଚ୍ଛାଧୀନ)",
+    "notesPlaceholder": "ଜଳସେଚନ, ସାର ବା ମାଟି ବିଷୟରେ",
+    "saveCta": "ସଂରକ୍ଷଣ କରନ୍ତୁ",
+    "saveCropError": "ଜମି ସଂରକ୍ଷଣ ହେଲା କିନ୍ତୁ ଫସଲ ବିବରଣୀ ହୋଇପାରିଲାନାହିଁ।"
+  },
+  "learning": {
+    "title": "କୃଷି ଏକାଡେମୀ",
+    "intro": "ମାଟି, ବୁଣା, ଜଳସେଚନ ଓ କୀଟ ନିୟନ୍ତ୍ରଣର ସରଳ ପାଠ।",
+    "tagline": "ଉନ୍ନତ ଚାଷ ଶିଖନ୍ତୁ ସହଜରେ।",
+    "progress": "{{total}} ରୁ {{completed}} ଟି ପାଠ ସମ୍ପୂର୍ଣ୍ଣ",
+    "featured": "ବିଶେଷ ପାଠ",
+    "recommended": "ଆପଣଙ୍କ ପାଇଁ ସୁପାରିଶ",
+    "categories": "ବିଭାଗ",
+    "durationAndDifficulty": "{{duration}} · {{difficulty}}",
+    "durationMinutes": "{{count}} ମିନିଟ୍",
+    "difficulty": {
+      "beginner": "ପ୍ରାଥମିକ",
+      "intermediate": "ମଧ୍ୟମ",
+      "advanced": "ଉଚ୍ଚ"
+    },
+    "watchTutorial": "ଭିଡିଓ ଦେଖନ୍ତୁ",
+    "videoUnavailable": "ଭିଡିଓ ଲୋଡ୍ ହୋଇପାରିଲା ନାହିଁ।",
+    "tryArGuidance": "AR ମାର୍ଗଦର୍ଶନ ଦେଖନ୍ତୁ",
+    "arHint": "କ୍ୟାମେରା ସାହାଯ୍ୟରେ ନିର୍ଦ୍ଦେଶ ପାଳନ କରନ୍ତୁ।",
+    "completed": "ସମ୍ପୂର୍ଣ୍ଣ",
+    "markComplete": "ସମ୍ପୂର୍ଣ୍ଣ ଚିହ୍ନଟ କରନ୍ତୁ",
+    "whyItMatters": "ଏହା କାହିଁକି ଜରୁରୀ",
+    "steps": "ପଦକ୍ଷେପ",
+    "tips": "ଟିପ୍ସ",
+    "commonMistake": "ସାଧାରଣ ଭୁଲ୍",
+    "emptyTitle": "କୌଣସି ପାଠ ନାହିଁ",
+    "emptyBody": "ଶୀଘ୍ର ନୂଆ ପାଠ ଯୋଡ଼ାଯିବ।",
+    "notFoundTitle": "ପାଠ ମିଳିଲାନାହିଁ",
+    "notFoundBody": "ଏହି ପାଠ ଉପଲବ୍ଧ ନାହିଁ।"
+  },
+  "calendar": {
+    "title": "ସ୍ମାର୍ଟ କୃଷି କ୍ୟାଲେଣ୍ଡର",
+    "upcoming": "ଆଗାମୀ",
+    "today": "ଆଜି",
+    "tomorrow": "ଆସନ୍ତାକାଲି",
+    "inDays": "{{count}} ଦିନରେ",
+    "nextWeek": "ଆସନ୍ତା ସପ୍ତାହ",
+    "previousMonth": "ଗତ ମାସ",
+    "nextMonth": "ଆସନ୍ତା ମାସ",
+    "noFarmTitle": "ଜମି ପଞ୍ଜୀକୃତ ନାହିଁ",
+    "noFarmBody": "କ୍ୟାଲେଣ୍ଡର ପାଇଁ ଜମି ପଞ୍ଜୀକରଣ କରନ୍ତୁ।",
+    "noEventsTitle": "କୌଣସି କାର୍ଯ୍ୟ ରେକର୍ଡ ନାହିଁ",
+    "noEventsBody": "ଆଗାମୀ ଅପଡେଟରେ କାର୍ଯ୍ୟସୂଚୀ ଯୋଡ଼ାଯିବ।",
+    "statusUpcoming": "ଆଗାମୀ",
+    "eventNotFoundTitle": "କାର୍ଯ୍ୟ ମିଳିଲାନାହିଁ",
+    "eventNotFoundBody": "ଏହି କାର୍ଯ୍ୟ ଉପଲବ୍ଧ ନାହିଁ।",
+    "eventTypes": {
+      "sowing": "ବୁଣା",
+      "irrigation": "ଜଳସେଚନ",
+      "fertilizer": "ସାର ପ୍ରୟୋଗ",
+      "cropHealth": "ଫସଲ ଯାଞ୍ଚ",
+      "harvest": "ଅମଳ",
+      "weather": "ପାଣିପାଗ"
+    },
+    "detail": {
+      "field": "ଜମି",
+      "crop": "ଫସଲ",
+      "scheduled": "ନିର୍ଦ୍ଧାରିତ ସମୟ",
+      "status": "ସ୍ଥିତି",
+      "whyShown": "ଏହା କାହିଁକି ଦେଖାଯାଇଛି",
+      "demoNotice": "ଏହା କେବଳ ନମୁନା ତଥ୍ୟ।"
+    },
+    "events": {
+      "sowing": {
+        "title": "ବୁଣା",
+        "reason": "ଋତୁର ପ୍ରଥମ କାର୍ଯ୍ୟର ନମୁନା।"
+      },
+      "irrigation": {
+        "title": "ଜଳସେଚନ",
+        "reason": "ମାଟି ଆର୍ଦ୍ରତା ଆଧାରରେ ପାଣି ଯୋଜନା।"
+      },
+      "fertilizer": {
+        "title": "ସାର ପ୍ରୟୋଗ",
+        "reason": "ଫସଲ ବୃଦ୍ଧି ପାଇଁ ପୋଷକ ତତ୍ତ୍ୱ ପରାମର୍ଶ।"
+      },
+      "weather": {
+        "title": "ପାଣିପାଗ ସତର୍କତା",
+        "reason": "ପାଣିପାଗ ପରିବର୍ତ୍ତନ ପୂର୍ବାନୁମାନ।"
+      },
+      "cropHealth": {
+        "title": "ଫସଲ ନିରୀକ୍ଷଣ",
+        "reason": "ରୋଗ ଓ ପୋକ ଯାଞ୍ଚ।"
+      },
+      "harvest": {
+        "title": "ଅମଳ ସମ୍ଭାବ୍ୟ ସମୟ",
+        "reason": "ଉତ୍ପାଦନର ଆନୁମାନିକ ସମୟ।"
+      }
+    }
+  },
+  "ar": {
+    "title": "AR ମାର୍ଗଦର୍ଶିକା",
+    "previewBadge": "AR ପୂର୍ବାବଲୋକନ",
+    "disclaimer": "ଏହା ଭବିଷ୍ୟତର AR ଅନୁଭୂତିର ଏକ ନମୁନା।",
+    "stepLabel": "{{total}} ରୁ ପଦକ୍ଷେପ {{number}}",
+    "nextStep": "ପରବର୍ତ୍ତୀ ପଦକ୍ଷେପ",
+    "finish": "ସମାପ୍ତ",
+    "notAvailableTitle": "AR ଉପଲବ୍ଧ ନାହିଁ",
+    "notAvailableBody": "ଏହି ପାଠରେ AR ନାହିଁ।",
+    "markers": {
+      "pointHere": "ଏଠାରେ ଦେଖାନ୍ତୁ",
+      "walkToCorner": "ପ୍ରତ୍ୟେକ କୋଣକୁ ଯାଆନ୍ତୁ"
+    },
+    "steps": {
+      "soilPreparation": {
+        "moisture": "ମାଟିର ଆର୍ଦ୍ରତା ଯାଞ୍ଚ କରନ୍ତୁ।",
+        "residue": "ପୁରୁଣା ଫସଲର ଅବଶେଷ ସଫା କରନ୍ତୁ।",
+        "drainage": "ଜଳ ନିଷ୍କାସନ ବ୍ୟବସ୍ଥା ଦେଖନ୍ତୁ।",
+        "corners": "ସୀମା ନିଶ୍ଚିତ କରିବାକୁ ୪ କୋଣ ବୁଲନ୍ତୁ।"
+      }
+    }
+  },
+  "schemes": {
+    "title": "ସରକାରୀ ଯୋଜନା",
+    "intro": "ଆପଣଙ୍କ ପାଇଁ ଉପଯୋଗୀ ଯୋଜନା",
+    "matchSummary": "{{count}} ଟି ଯୋଜନା ଆପଣଙ୍କ ପାଇଁ ଲାଭଦାୟକ ହୋଇପାରେ",
+    "noFarmHint": "ଉପଯୁକ୍ତ ଯୋଜନା ଦେଖିବାକୁ ଜମି ପଞ୍ଜୀକରଣ କରନ୍ତୁ।",
+    "recommended": "⭐ ସୁପାରିଶ କରାଯାଇଛି",
+    "otherSchemes": "ଅନ୍ୟାନ୍ୟ ଯୋଜନା",
+    "emptyTitle": "କୌଣସି ଯୋଜନା ଉପଲବ୍ଧ ନାହିଁ",
+    "notFoundTitle": "ଯୋଜନା ମିଳିଲାନାହିଁ",
+    "notFoundBody": "ଏହି ଯୋଜନା ଉପଲବ୍ଧ ନାହିଁ।",
+    "disclaimer": "ଏହି ତଥ୍ୟ ସଚେତନତା ପାଇଁ। ସରକାରୀ ସାଇଟରେ ଯାଞ୍ଚ କରନ୍ତୁ।",
+    "categories": {
+      "incomeSupport": "ଆୟ ସହାୟତା",
+      "insurance": "ଫସଲ ବୀମା",
+      "soilHealth": "ମୃତ୍ତିକା ସ୍ୱାସ୍ଥ୍ୟ",
+      "credit": "କୃଷି ଋଣ",
+      "irrigation": "ଜଳସେଚନ ସହାୟତା",
+      "other": "ଅନ୍ୟାନ୍ୟ"
+    },
+    "detail": {
+      "whatIsIt": "ଯୋଜନାଟି କ’ଣ?",
+      "potentialBenefit": "ମିଳିବାକୁ ଥିବା ସୁବିଧା",
+      "whoMayBeEligible": "କିଏ ଯୋଗ୍ୟ?",
+      "documents": "ଆବଶ୍ୟକ କାଗଜପତ୍ର",
+      "howToApply": "କିପରି ଆବେଦନ କରିବେ",
+      "checkOfficialSource": "ଅଫିସିଆଲ୍ ୱେବସାଇଟ୍ ଦେଖନ୍ତୁ"
+    },
+    "reasons": {
+      "noFarm": "ଯୋଗ୍ୟତା ଜାଣିବାକୁ ଜମି ପଞ୍ଜୀକରଣ କରନ୍ତୁ",
+      "cropMatch": "ଆପଣଙ୍କ ଫସଲ ଆଧାରରେ",
+      "landSizeMatch": "ଜମି ପରିମାଣ ଆଧାରରେ",
+      "broadlyApplicable": "ସମସ୍ତ ଚାଷୀଙ୍କ ପାଇଁ ଲାଗୁ",
+      "unknown": "ଅଫିସିଆଲ୍ ସାଇଟରେ ଯାଞ୍ଚ କରନ୍ତୁ"
+    }
+  },
+  "updates": {
+    "title": "କୃଷି ଖବର",
+    "intro": "ଚାଷୀଙ୍କ ପାଇଁ ନୂଆ ସୂଚନା",
+    "today": "ଆଜି",
+    "yesterday": "ଗତକାଲି",
+    "daysAgo": "{{count}} ଦିନ ପୂର୍ବେ",
+    "emptyTitle": "କୌଣସି ଖବର ନାହିଁ",
+    "notFoundTitle": "ତଥ୍ୟ ମିଳିଲାନାହିଁ",
+    "notFoundBody": "ଏହି ଖବର ଉପଲବ୍ଧ ନାହିଁ।",
+    "officialSource": "ଅଫିସିଆଲ୍ ଉତ୍ସ ଦେଖନ୍ତୁ",
+    "categories": {
+      "agriculture": "କୃଷି",
+      "weather": "ପାଣିପାଗ",
+      "government": "ସରକାର",
+      "market": "ମଣ୍ଡି",
+      "technology": "ପ୍ରଯୁକ୍ତିବିଦ୍ୟା"
+    }
+  },
+  "profile": {
+    "title": "ପ୍ରୋଫାଇଲ୍",
+    "language": "ଭାଷା",
+    "myFarm": "ମୋ ଜମି",
+    "registerLand": "ଜମି ପଞ୍ଜୀକରଣ କରନ୍ତୁ",
+    "schemes": "ସରକାରୀ ଯୋଜନା",
+    "notifications": "ବିଜ୍ଞପ୍ତି",
+    "help": "ସହାୟତା",
+    "logout": "ଲଗ୍ ଆଉଟ୍",
+    "logoutConfirmTitle": "ଲଗ୍ ଆଉଟ୍ କରିବେ କି?",
+    "logoutConfirmBody": "ପୁଣି ଲଗ୍ ଇନ୍ ପାଇଁ ଇମେଲ୍ ଓ ପାସୱାର୍ଡ ଦରକାର ହେବ।",
+    "languageEnglish": "English",
+    "languageHindi": "हिन्दी"
+  },
+  "nav": {
+    "home": "ମୁଖ୍ୟପୃଷ୍ଠା",
+    "field": "ଜମି",
+    "market": "ମଣ୍ଡି",
+    "history": "ଇତିହାସ"
+  },
+  "avatar": {
+    "openLabel": "କୃଷି ସାଥୀଙ୍କ ସହ କଥା ହୁଅନ୍ତୁ",
+    "headerTitle": "କୃଷିନେତ୍ର AI",
+    "headerSubtitle": "ଜମି, ଫସଲ ଓ ମଣ୍ଡି ଦର ବିଷୟରେ ପଚାରନ୍ତୁ",
+    "close": "କଥାବାର୍ତ୍ତା ବନ୍ଦ କରନ୍ତୁ",
+    "end": "ସମାପ୍ତ କରନ୍ତୁ",
+    "tryAsking": "ଆପଣ ପଚାରିପାରିବେ",
+    "status": {
+      "idle": "ପ୍ରସ୍ତୁତ",
+      "listening": "ଶୁଣୁଛି…",
+      "thinking": "ଚିନ୍ତା କରୁଛି…",
+      "speaking": "କହୁଛି",
+      "error": "ଅଡିଓ ନାହିଁ"
+    },
+    "mic": {
+      "idle": "କହିବା ଆରମ୍ଭ କରନ୍ତୁ",
+      "listening": "କହିବା ସରିଲା",
+      "thinking": "ଟିକେ ଅପେକ୍ଷା କରନ୍ତୁ…",
+      "speaking": "ପରବର୍ତ୍ତୀ ପ୍ରଶ୍ନ ପଚାରନ୍ତୁ",
+      "error": "ପୁଣି ଚେଷ୍ଟା କରନ୍ତୁ"
+    },
+    "footer": {
+      "idle": "ଆପଣ ଓଡ଼ିଆରେ କିମ୍ବା ଯେକୌଣସି ଭାଷାରେ ପଚାରିପାରିବେ।",
+      "listening": "ଧୀରେ କୁହନ୍ତୁ — ମୁଁ ଶୁଣୁଛି।",
+      "thinking": "ତଥ୍ୟ ଯାଞ୍ଚ କରାଯାଉଛି…",
+      "speaking": "ଆପଣ ମଝିରେ ଅଟକାଇ ପଚାରିପାରିବେ।",
+      "error": "ମାଇକ୍ ଦବାଇ ପୁଣି କୁହନ୍ତୁ।"
+    },
+    "greeting": "ନମସ୍କାର {{name}}! ଆପଣ କ’ଣ ଜାଣିବାକୁ ଚାହାଁନ୍ତି?",
+    "questions": {
+      "area": "ମୋ ଜମି କେତେ ବଡ଼?",
+      "crop": "ମୋ ଫସଲର ଅବସ୍ଥା କେମିତି ଅଛି?",
+      "mandi": "ଆଜିର ମଣ୍ଡି ଦର କେତେ?",
+      "sell": "ଏବେ ବିକିବି ନା ଅପେକ୍ଷା କରିବି?",
+      "weather": "ଏ ସପ୍ତାହର ପାଣିପାଗ କିପରି ରହିବ?"
+    },
+    "sources": {
+      "field": "ଆପଣଙ୍କ ଜମି ରେକର୍ଡରୁ",
+      "assistant": "AI ସାଥୀ · ଯାଞ୍ଚ ଆବଶ୍ୟକ"
+    },
+    "errors": {
+      "micPermission": "ମାଇକ୍ରୋଫୋନ୍ ଅନୁମତି ଆବଶ୍ୟକ। ସେଟିଂସରୁ ଅନୁମତି ଦିଅନ୍ତୁ।",
+      "mic": "ରେକର୍ଡ ହୋଇପାରିଲାନାହିଁ।",
+      "transcribe": "ସ୍ପଷ୍ଟ ଶୁଭିଲାନାହିଁ। ପୁଣି କୁହନ୍ତୁ।",
+      "reply": "ସହାୟକଙ୍କ ସହ ସଂଯୋଗ ହୋଇପାରିଲାନାହିଁ।",
+      "generic": "କିଛି ତ୍ରୁଟି ଘଟିଲା। ପୁଣି ଚେଷ୍ଟା କରନ୍ତୁ।",
+      "timeout": "ସମୟ ସରିଗଲା। ଛୋଟ ପ୍ରଶ୍ନ ପଚାରନ୍ତୁ।",
+      "upload": "ରେକର୍ଡିଂ ପଠାଯାଇପାରିଲାନାହିଁ।",
+      "unreachable": "କୃଷିନେତ୍ର ସର୍ଭର ସହ ସଂଯୋଗ ହେଉନାହିଁ।",
+      "tooShort": "ରେକର୍ଡିଂ ବହୁତ ଛୋଟ ଥିଲା। ଦବାଇ ରଖି କୁହନ୍ତୁ।",
+      "voice": "ସ୍ୱର ପ୍ରସ୍ତୁତ ହୋଇପାରିଲାନାହିଁ। ଉତ୍ତର ଉପରେ ଦିଆଯାଇଛି।"
+    }
+  },
+  "errors": {
+    "sessionRestore": "ସେସନ୍ ପୁନରୁଦ୍ଧାର ହୋଇପାରିଲାନାହିଁ। ପୁଣି ଲଗ୍ ଇନ୍ କରନ୍ତୁ।",
+    "offline": "ଆପଣ ଅଫଲାଇନରେ ଅଛନ୍ତି। ସଂରକ୍ଷିତ ତଥ୍ୟ ଦେଖାଯାଉଛି।",
+    "generic": "କିଛି ତ୍ରୁଟି ଘଟିଲା। ପୁଣି ଚେଷ୍ଟା କରନ୍ତୁ।"
+  },
+  "demo": {
+    "badge": "ନମୁନା ତଥ୍ୟ",
+    "bannerTitle": "ଡେମୋ ମୋଡ୍ — ତଳେ ଥିବା କିଛି ତଥ୍ୟ କାଳ୍ପନିକ",
+    "bannerBody": "ନମୁନା ତଥ୍ୟ କେବଳ ଉଦାହରଣ ପାଇଁ।",
+    "cropHealth": {
+      "value": "ଭଲ",
+      "note": "ସାଟେଲାଇଟ୍ ବିଶ୍ଳେଷଣ ନମୁନା"
+    },
+    "growthStage": {
+      "value": "ପିଲ ବାହାରିବା ଅବସ୍ଥା",
+      "note": "ସାଟେଲାଇଟ୍ ବିଶ୍ଳେଷଣ ନମୁନା"
+    },
+    "recommendation": {
+      "verdict": "କିଛି ଅଂଶ ବିକ୍ରି କରନ୍ତୁ",
+      "body": "କେବଳ ମାର୍ଗଦର୍ଶନ ପାଇଁ।"
+    },
+    "history": {
+      "mapped": "ଜମି ପଞ୍ଜୀକରଣ",
+      "mappedDetail": "ଉତ୍ତର ଜମି · ୨.୫୦ ଏକର",
+      "sown": "ଧାନ ବୁଣା",
+      "sownDetail": "ଉନ୍ନତ କିସମ",
+      "cropHealth": "ଫସଲ ଯାଞ୍ଚ",
+      "cropHealthDetail": "ଭବିଷ୍ୟତ ଇଞ୍ଜିନ୍ ଯାଞ୍ଚ ନମୁନା",
+      "fertilized": "ସାର ପ୍ରୟୋଗ",
+      "fertilizedDetail": "ପୋଷକ ତତ୍ତ୍ୱ ପରାମର୍ଶ ନମୁନା",
+      "irrigated": "ଜଳସେଚନ",
+      "irrigatedDetail": "ଜଳସେଚନ ସମୟସୂଚୀ",
+      "priced": "ମଣ୍ଡି ଦର ଯାଞ୍ଚ",
+      "pricedDetail": "ସ୍ଥାନୀୟ ମଣ୍ଡି",
+      "offer": "ଅଫର ପ୍ରାପ୍ତ",
+      "offerDetail": "ବେପାରୀ ଚାହିଦା"
+    }
+  },
+  "visualAssistant": {
+    "headerTitle": "କୃଷିନେତ୍ରକୁ ପଚାରନ୍ତୁ",
+    "openLabel": "କ୍ୟାମେରା ସାହାଯ୍ୟରେ ଫସଲ ପରାମର୍ଶ",
+    "permissionTitle": "କ୍ୟାମେରା ଅନୁମତି ଆବଶ୍ୟକ",
+    "permissionBody": "ଫସଲ ଦେଖି ଉତ୍ତର ଦେବା ପାଇଁ କ୍ୟାମେରା ଅନୁମତି ଦରକାର।",
+    "permissionAllow": "କ୍ୟାମେରା ଚାଲୁ କରନ୍ତୁ",
+    "permissionDenied": "କ୍ୟାମେରା ଅନୁମତି ବନ୍ଦ ଅଛି। ସେଟିଂସରେ ଚାଲୁ କରନ୍ତୁ।",
+    "unavailable": "ଏହି ଡିଭାଇସରେ କ୍ୟାମେରା ଉପଲବ୍ଧ ନାହିଁ।",
+    "captureLabel": "ଫଟୋ ଉଠାନ୍ତୁ",
+    "captureSub": "ଫସଲ ଆଡ଼କୁ କ୍ୟାମେରା ରଖି ଫଟୋ ଉଠାନ୍ତୁ।",
+    "retake": "ପୁଣି ଫଟୋ ଉଠାନ୍ତୁ",
+    "questionLabel": "ଆପଣଙ୍କ ପ୍ରଶ୍ନ",
+    "questionPlaceholder": "ଫସଲରେ କୌଣସି ରୋଗ ଅଛି କି?",
+    "askButton": "କୃଷିନେତ୍ରକୁ ପଚାରନ୍ତୁ",
+    "askAgain": "ପୁଣି ପଚାରନ୍ତୁ",
+    "asking": "ଉତ୍ତର ଖୋଜା ଚାଲିଛି…",
+    "answerLabel": "AI ଉତ୍ତର",
+    "answerDisclaimer": "ଏହା AI ମଡେଲର ପ୍ରାଥମିକ ଉତ୍ତର, ସରକାରୀ ପରାମର୍ଶ ନୁହେଁ।",
+    "errors": {
+      "generic": "ଉତ୍ତର ମିଳିପାରିଲାନାହିଁ। ନେଟୱାର୍କ ଯାଞ୍ଚ କରି ପୁଣି ଚେଷ୍ଟା କରନ୍ତୁ।"
+    }
+  }
+}

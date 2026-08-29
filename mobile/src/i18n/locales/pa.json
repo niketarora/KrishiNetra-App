@@ -1,0 +1,490 @@
+{
+  "common": {
+    "continue": "ਅੱਗੇ ਵਧੋ",
+    "back": "ਪਿੱਛੇ",
+    "retry": "ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ",
+    "cancel": "ਰੱਦ ਕਰੋ",
+    "save": "ਸੰਭਾਲੋ",
+    "loading": "ਲੋਡ ਹੋ ਰਿਹਾ ਹੈ…",
+    "notAvailable": "—",
+    "comingSoon": "ਅਗਲੇ ਅੱਪਡੇਟ ਵਿੱਚ ਉਪਲਬਧ ਹੋਵੇਗਾ",
+    "appName": "ਕ੍ਰਿਸ਼ੀਨੇਤਰ"
+  },
+  "auth": {
+    "loginTitle": "ਜੀ ਆਇਆਂ ਨੂੰ",
+    "loginSubtitle": "ਆਪਣਾ ਖੇਤ ਅਤੇ ਅੱਜ ਦਾ ਮੰਡੀ ਭਾਅ ਦੇਖਣ ਲਈ ਲੌਗ ਇਨ ਕਰੋ।",
+    "registerTitle": "ਨਵਾਂ ਖਾਤਾ ਬਣਾਓ",
+    "registerSubtitle": "ਸ਼ੁਰੂ ਕਰਨ ਲਈ ਸਿਰਫ਼ ਈਮੇਲ ਅਤੇ ਪਾਸਵਰਡ ਦੀ ਲੋੜ ਹੈ।",
+    "nameLabel": "ਤੁਹਾਡਾ ਨਾਮ",
+    "namePlaceholder": "ਰਮੇਸ਼ ਕੁਮਾਰ",
+    "emailLabel": "ਈਮੇਲ",
+    "emailPlaceholder": "you@example.com",
+    "passwordLabel": "ਪਾਸਵਰਡ",
+    "passwordPlaceholder": "ਘੱਟੋ-ਘੱਟ 8 ਅੱਖਰ",
+    "login": "ਲੌਗ ਇਨ ਕਰੋ",
+    "register": "ਖਾਤਾ ਬਣਾਓ",
+    "noAccount": "ਕ੍ਰਿਸ਼ੀਨੇਤਰ 'ਤੇ ਨਵੇਂ ਹੋ?",
+    "haveAccount": "ਪਹਿਲਾਂ ਹੀ ਖਾਤਾ ਹੈ?",
+    "goToRegister": "ਖਾਤਾ ਬਣਾਓ",
+    "goToLogin": "ਲੌਗ ਇਨ ਕਰੋ",
+    "showPassword": "ਪਾਸਵਰਡ ਦਿਖਾਓ",
+    "hidePassword": "ਪਾਸਵਰਡ ਛੁਪਾਓ",
+    "errors": {
+      "nameRequired": "ਕਿਰਪਾ ਕਰਕੇ ਆਪਣਾ ਨਾਮ ਦਰਜ ਕਰੋ",
+      "emailRequired": "ਕਿਰਪਾ ਕਰਕੇ ਈਮੇਲ ਦਰਜ ਕਰੋ",
+      "emailInvalid": "ਸਹੀ ਈਮੇਲ ਪਤਾ ਦਰਜ ਕਰੋ",
+      "passwordRequired": "ਕਿਰਪਾ ਕਰਕੇ ਪਾਸਵਰਡ ਦਰਜ ਕਰੋ",
+      "passwordTooShort": "ਘੱਟੋ-ਘੱਟ 8 ਅੱਖਰ ਵਰਤੋ",
+      "invalidCredentials": "ਗ਼ਲਤ ਈਮੇਲ ਜਾਂ ਪਾਸਵਰਡ",
+      "emailTaken": "ਇਹ ਈਮੇਲ ਪਹਿਲਾਂ ਹੀ ਰਜਿਸਟਰਡ ਹੈ — ਲੌਗ ਇਨ ਕਰੋ",
+      "emailNotConfirmed": "ਈਮੇਲ ਦੀ ਪੁਸ਼ਟੀ ਕਰੋ, ਫਿਰ ਲੌਗ ਇਨ ਕਰੋ",
+      "weakPassword": "ਪਾਸਵਰਡ ਬਹੁਤ ਆਸਾਨ ਹੈ — ਲੰਬਾ ਪਾਸਵਰਡ ਚੁਣੋ",
+      "network": "ਇੰਟਰਨੈੱਟ ਕਨੈਕਸ਼ਨ ਨਹੀਂ ਹੈ। ਨੈੱਟਵਰਕ ਚੈੱਕ ਕਰੋ।",
+      "rateLimited": "ਬਹੁਤ ਕੋਸ਼ਿਸ਼ਾਂ ਕੀਤੀਆਂ ਗਈਆਂ। ਕੁਝ ਦੇਰ ਉਡੀਕ ਕਰੋ।",
+      "generic": "ਕੁਝ ਗ਼ਲਤ ਹੋ ਗਿਆ। ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।"
+    }
+  },
+  "onboarding": {
+    "locationTitle": "ਆਓ ਤੁਹਾਡਾ ਖੇਤ ਲੱਭੀਏ",
+    "locationBody": "ਨਕਸ਼ੇ ਨੂੰ ਤੁਹਾਡੀ ਜ਼ਮੀਨ 'ਤੇ ਕੇਂਦਰਿਤ ਕਰਾਂਗੇ ਤਾਂ ਜੋ ਤੁਸੀਂ ਹੱਦਬੰਦੀ ਕਰ ਸਕੋ।",
+    "useLocation": "ਮੇਰੀ ਮੌਜੂਦਾ ਲੋਕੇਸ਼ਨ ਵਰਤੋ",
+    "locating": "ਲੋਕੇਸ਼ਨ ਲੱਭ ਰਹੇ ਹਾਂ…",
+    "locationDenied": "ਲੋਕੇਸ਼ਨ ਦੀ ਇਜਾਜ਼ਤ ਬੰਦ ਹੈ। ਹੇਠਾਂ ਆਪਣਾ ਪਿੰਡ ਲੱਭੋ।",
+    "locationFailed": "ਤੁਹਾਡੀ ਲੋਕੇਸ਼ਨ ਨਹੀਂ ਮਿਲੀ। ਪਿੰਡ ਦਾ ਨਾਮ ਲੱਭੋ।",
+    "searchLabel": "ਪਿੰਡ ਜਾਂ ਇਲਾਕਾ",
+    "searchPlaceholder": "ਜਿਵੇਂ ਲੁਧਿਆਣਾ, ਪੰਜਾਬ",
+    "continueToMap": "ਨਕਸ਼ੇ 'ਤੇ ਜਾਓ",
+    "drawTitle": "ਆਪਣੇ ਖੇਤ ਦੀ ਹੱਦ ਬਣਾਓ",
+    "satelliteView": "ਸੈਟੇਲਾਈਟ ਦ੍ਰਿਸ਼",
+    "mapHint": "ਕੋਨਾ ਲਗਾਉਣ ਲਈ ਨਕਸ਼ੇ 'ਤੇ ਟੈਪ ਕਰੋ",
+    "mapHintDrag": "ਕੋਨਾ ਸੁਧਾਰਨ ਲਈ ਖਿੱਚੋ",
+    "undoPoint": "ਪੁਆਇੰਟ ਹਟਾਓ",
+    "restart": "ਦੁਬਾਰਾ ਸ਼ੁਰੂ ਕਰੋ",
+    "acres": "ਏਕੜ",
+    "hectares": "ਹੈਕਟੇਅਰ",
+    "squareMeters": "ਵਰਗ ਮੀਟਰ",
+    "confirmBoundary": "ਖੇਤ ਦੀ ਹੱਦ ਪੱਕੀ ਕਰੋ",
+    "needMorePoints": "ਘੱਟੋ-ਘੱਟ 3 ਕੋਨੇ ਲਗਾਓ",
+    "mapError": "ਨਕਸ਼ਾ ਲੋਡ ਨਹੀਂ ਹੋ ਸਕਿਆ।",
+    "mapTokenMissing": "ਮੈਪਬਾਕਸ ਟੋਕਨ ਉਪਲਬਧ ਨਹੀਂ ਹੈ।",
+    "gpsAccuracyWarning": "GPS ਸ਼ੁੱਧਤਾ ਘੱਟ ਹੈ। ਤੁਸੀਂ ਖ਼ੁਦ ਹੱਦ ਠੀਕ ਕਰ ਸਕਦੇ ਹੋ।",
+    "locationPermissionDenied": "ਲੋਕੇਸ਼ਨ ਇਜਾਜ਼ਤ ਬੰਦ ਹੈ।",
+    "recenter": "ਮੁੜ ਕੇਂਦਰਿਤ ਕਰੋ",
+    "confirmTitle": "ਆਪਣਾ ਖੇਤ ਪੱਕਾ ਕਰੋ",
+    "fieldNameLabel": "ਖੇਤ ਦਾ ਨਾਮ (ਵਿਕਲਪਿਕ)",
+    "fieldNamePlaceholder": "ਉੱਤਰ ਵਾਲਾ ਖੇਤ",
+    "saveField": "ਖੇਤ ਸੰਭਾਲੋ",
+    "saving": "ਸੰਭਾਲ ਰਹੇ ਹਾਂ…",
+    "saveError": "ਖੇਤ ਸੰਭਾਲਿਆ ਨਹੀਂ ਜਾ ਸਕਿਆ।",
+    "editBoundary": "ਹੱਦ ਬਦਲੋ"
+  },
+  "home": {
+    "greeting": {
+      "morning": "ਸ਼ੁਭ ਸਵੇਰ",
+      "afternoon": "ਸ਼ੁਭ ਦੁਪਹਿਰ",
+      "evening": "ਸ਼ੁਭ ਸ਼ਾਮ"
+    },
+    "yourField": "ਤੁਹਾਡਾ ਖੇਤ",
+    "unnamedField": "ਮੇਰਾ ਖੇਤ",
+    "editBoundary": "ਹੱਦ ਬਦਲੋ",
+    "notYetAnalyzed": "ਅਜੇ ਵਿਸ਼ਲੇਸ਼ਣ ਨਹੀਂ ਹੋਇਆ",
+    "growthStage": "ਵਾਧੇ ਦਾ ਪੜਾਅ",
+    "weather": "ਮੌਸਮ",
+    "viewFullAnalysis": "ਪੂਰਾ ਵਿਸ਼ਲੇਸ਼ਣ ਦੇਖੋ",
+    "market": "ਮੰਡੀ",
+    "marketUnavailable": "ਮੰਡੀ ਭਾਅ ਅਜੇ ਜੁੜੇ ਨਹੀਂ ਹਨ",
+    "learning": "ਕ੍ਰਿਸ਼ੀ ਅਕੈਡਮੀ",
+    "learningSub": "ਮਿੱਟੀ, ਬਿਜਾਈ ਅਤੇ ਸਿੰਚਾਈ 'ਤੇ ਲਾਭਦਾਇਕ ਜਾਣਕਾਰੀ",
+    "calendar": "ਸਮਾਰਟ ਫਾਰਮ ਕੈਲੰਡਰ",
+    "calendarSub": "ਖੇਤ ਦੇ ਆਉਣ ਵਾਲੇ ਕੰਮ ਦੇਖੋ",
+    "farmerResources": "ਕਿਸਾਨ ਸਰੋਤ",
+    "schemes": "ਸਰਕਾਰੀ ਸਕੀਮਾਂ",
+    "updates": "ਖੇਤੀਬਾੜੀ ਖ਼ਬਰਾਂ",
+    "askCompanion": "ਕਿਸਾਨ ਮਿੱਤਰ ਨੂੰ ਪੁੱਛੋ",
+    "askCompanionSub": "ਜਲਦ ਆ ਰਿਹਾ ਵੌਇਸ ਅਸਿਸਟੈਂਟ",
+    "loadError": "ਖੇਤ ਦੀ ਜਾਣਕਾਰੀ ਲੋਡ ਨਹੀਂ ਹੋ ਸਕੀ।",
+    "crop": "ਫ਼ਸਲ",
+    "cropNone": "ਅਜੇ ਫ਼ਸਲ ਸ਼ਾਮਲ ਨਹੀਂ ਕੀਤੀ",
+    "msp": "ਘੱਟੋ-ਘੱਟ ਸਮਰਥਨ ਮੁੱਲ (MSP)",
+    "mspPerQuintal": "₹{{price}}/ਕੁਇੰਟਲ",
+    "mspYear": "ਸਮਰਥਨ ਮੁੱਲ {{year}}",
+    "mspNone": "ਸਮਰਥਨ ਮੁੱਲ ਦਰਜ ਨਹੀਂ",
+    "weatherNone": "ਮੌਸਮ ਦੀ ਜਾਣਕਾਰੀ ਉਪਲਬਧ ਨਹੀਂ",
+    "weatherObserved": "{{date}} ਨੂੰ ਦਰਜ ਹੋਇਆ",
+    "marketObserved": "{{date}} ਨੂੰ ਦਰਜ ਹੋਇਆ",
+    "visualAssistantTitle": "ਕ੍ਰਿਸ਼ੀਨੇਤਰ ਨੂੰ ਪੁੱਛੋ",
+    "visualAssistantSub": "ਫ਼ਸਲ ਦੀ ਫੋਟੋ ਖਿੱਚ ਕੇ ਸਲਾਹ ਲਓ।"
+  },
+  "field": {
+    "title": "ਖੇਤ ਵਿਸ਼ਲੇਸ਼ਣ",
+    "cropHealth": "ਫ਼ਸਲ ਦੀ ਸਿਹਤ",
+    "growthStage": "ਵਾਧੇ ਦਾ ਪੜਾਅ",
+    "weatherRisk": "ਮੌਸਮ ਦਾ ਖ਼ਤਰਾ",
+    "emptyTitle": "ਤੁਹਾਡੇ ਖੇਤ ਦਾ ਅਜੇ ਵਿਸ਼ਲੇਸ਼ਣ ਨਹੀਂ ਹੋਇਆ",
+    "emptyBody": "ਸੈਟੇਲਾਈਟ ਅਤੇ ਮੌਸਮ ਜੁੜਨ ਤੋਂ ਬਾਅਦ ਜਾਣਕਾਰੀ ਮਿਲੇਗੀ।",
+    "areaLabel": "ਤੁਹਾਡੀ ਬਣਾਈ ਗਈ ਹੱਦ",
+    "weatherObserved": "{{temp}}°C · {{rain}} ਮਿਮੀ ਮੀਂਹ",
+    "weatherNone": "ਤੁਹਾਡੇ ਜ਼ਿਲ੍ਹੇ ਦਾ ਮੌਸਮ ਰਿਕਾਰਡ ਨਹੀਂ ਹੈ",
+    "analysisNote": "ਫ਼ਸਲ ਦੀ ਸਿਹਤ ਲਈ ਸੈਟੇਲਾਈਟ ਡਾਟਾ ਲੋੜੀਂਦਾ ਹੈ।"
+  },
+  "market": {
+    "title": "ਮੰਡੀ",
+    "currentPrice": "ਮੌਜੂਦਾ ਭਾਅ",
+    "msp": "ਸਮਰਥਨ ਮੁੱਲ (MSP)",
+    "perQuintal": "ਪ੍ਰਤੀ ਕੁਇੰਟਲ",
+    "sevenDayTrend": "7 ਦਿਨਾਂ ਦਾ ਰੁਝਾਨ",
+    "recommendation": "ਵੇਚਣ ਦੀ ਸਲਾਹ",
+    "emptyTitle": "ਮੰਡੀ ਜਾਣਕਾਰੀ ਅਜੇ ਉਪਲਬਧ ਨਹੀਂ",
+    "emptyBody": "ਲਾਈਵ ਮੰਡੀ ਭਾਅ ਅਤੇ ਵੇਚਣ ਦੀ ਸਲਾਹ ਅਗਲੇ ਅੱਪਡੇਟ ਵਿੱਚ ਆਵੇਗੀ।",
+    "loadError": "ਮੰਡੀ ਜਾਣਕਾਰੀ ਲੋਡ ਨਹੀਂ ਹੋ ਸਕੀ।",
+    "observedOn": "{{mandi}} ਮੰਡੀ ਵਿੱਚ {{date}} ਨੂੰ ਦਰਜ",
+    "priceRange": "ਭਾਅ ਸੀਮਾ ₹{{min}} – ₹{{max}}",
+    "noPrice": "ਕੋਈ ਮੰਡੀ ਭਾਅ ਉਪਲਬਧ ਨਹੀਂ",
+    "noCrop": "ਭਾਅ ਦੇਖਣ ਲਈ ਖੇਤ ਵਿੱਚ ਫ਼ਸਲ ਜੋੜੋ",
+    "aboveMsp": "MSP ਤੋਂ ₹{{amount}} ਵੱਧ",
+    "belowMsp": "MSP ਤੋਂ ₹{{amount}} ਘੱਟ",
+    "atMsp": "MSP ਦੇ ਬਰਾਬਰ",
+    "trendNeedsHistory": "ਕੁਝ ਦਿਨਾਂ ਦੇ ਭਾਅ ਦਾ ਇਤਿਹਾਸ ਲੋੜੀਂਦਾ ਹੈ",
+    "recommendationBody": "ਵੇਚਣ ਦੀ ਸਲਾਹ ਮਾਡਲ ਤਿਆਰੀ ਅਧੀਨ ਹੈ।",
+    "sourceLabel": "ਸਰੋਤ: {{source}}"
+  },
+  "history": {
+    "title": "ਕ੍ਰਿਸ਼ੀ ਮੈਮੋਰੀ",
+    "emptyTitle": "ਪਹਿਲੇ ਵਿਸ਼ਲੇਸ਼ਣ ਤੋਂ ਬਾਅਦ ਖੇਤ ਦਾ ਇਤਿਹਾਸ ਇੱਥੇ ਦਿਖਾਈ ਦੇਵੇਗਾ।",
+    "noFarmTitle": "ਕੋਈ ਖੇਤ ਰਜਿਸਟਰਡ ਨਹੀਂ",
+    "noFarmBody": "ਕ੍ਰਿਸ਼ੀ ਮੈਮੋਰੀ ਸ਼ੁਰੂ ਕਰਨ ਲਈ ਜ਼ਮੀਨ ਰਜਿਸਟਰ ਕਰੋ।",
+    "overviewTitle": "ਖੇਤ ਦਾ ਸੰਖੇਪ ਵੇਰਵਾ",
+    "registeredArea": "ਰਜਿਸਟਰਡ ਰਕਬਾ",
+    "previousCrop": "ਪਿਛਲੀ ਫ਼ਸਲ",
+    "previousCropNone": "ਪਿਛਲੀ ਫ਼ਸਲ ਦਰਜ ਨਹੀਂ",
+    "activitiesRecorded": "ਦਰਜ ਗਤੀਵਿਧੀਆਂ",
+    "currentCropStage": "ਫ਼ਸਲ ਦਾ ਮੌਜੂਦਾ ਪੜਾਅ",
+    "sownOn": "ਬਿਜਾਈ ਦੀ ਮਿਤੀ {{date}}",
+    "farmRegistered": "ਰਜਿਸਟ੍ਰੇਸ਼ਨ ਮਿਤੀ {{date}}"
+  },
+  "myFarm": {
+    "title": "ਮੇਰਾ ਖੇਤ",
+    "emptyTitle": "ਤੁਸੀਂ ਅਜੇ ਜ਼ਮੀਨ ਰਜਿਸਟਰ ਨਹੀਂ ਕੀਤੀ",
+    "emptyBody": "ਖੇਤ ਦੇ ਆਲੇ-ਦੁਆਲੇ ਘੁੰਮ ਕੇ ਹੱਦਬੰਦੀ ਕਰੋ ਅਤੇ ਫ਼ਸਲ ਦਾ ਵੇਰਵਾ ਦਰਜ ਕਰੋ।",
+    "registerCta": "ਜ਼ਮੀਨ ਰਜਿਸਟਰ ਕਰੋ",
+    "editBoundary": "ਹੱਦ ਬਦਲੋ",
+    "walkTitle": "ਖੇਤ ਦੀ ਹੱਦ 'ਤੇ ਚੱਲੋ",
+    "walkIntro": "ਖੇਤ ਦੇ ਕੰਢੇ-ਕੰਢੇ ਹੌਲੀ-ਹੌਲੀ ਚੱਲੋ। ਅਸੀਂ ਤੁਹਾਡਾ ਰਸਤਾ ਰਿਕਾਰਡ ਕਰਾਂਗੇ।",
+    "recording": "ਰਸਤਾ ਰਿਕਾਰਡ ਹੋ ਰਿਹਾ ਹੈ…",
+    "startWalking": "ਤੁਰਨਾ ਸ਼ੁਰੂ ਕਰੋ",
+    "continueWalking": "ਤੁਰਨਾ ਜਾਰੀ ਰੱਖੋ",
+    "stopWalking": "ਰੋਕੋ",
+    "pointsRecorded": "{{count}} ਪੁਆਇੰਟ ਦਰਜ ਹੋਏ",
+    "locationDenied": "ਲੋਕੇਸ਼ਨ ਇਜਾਜ਼ਤ ਬੰਦ ਹੈ। ਸੈਟਿੰਗਾਂ ਵਿੱਚ ਚਾਲੂ ਕਰੋ।",
+    "locationFailed": "ਲੋਕੇਸ਼ਨ ਨਹੀਂ ਮਿਲ ਸਕੀ। ਮੁੜ ਕੋਸ਼ਿਸ਼ ਕਰੋ।",
+    "needMoreWalking": "ਹੱਦ ਬਣਾਉਣ ਲਈ ਘੱਟੋ-ਘੱਟ 3 ਪੁਆਇੰਟ ਚਾਹੀਦੇ ਹਨ।",
+    "tooSmall": "ਰਕਬਾ ਬਹੁਤ ਘੱਟ ਲੱਗ ਰਿਹਾ ਹੈ। ਪੂਰੇ ਖੇਤ ਦੁਆਲੇ ਘੁੰਮੋ।",
+    "cropStepTitle": "ਫ਼ਸਲ ਦਾ ਵੇਰਵਾ",
+    "cropLabel": "ਫ਼ਸਲ (ਵਿਕਲਪਿਕ)",
+    "varietyLabel": "ਕਿਸਮ (ਵਿਕਲਪਿਕ)",
+    "varietyPlaceholder": "ਪੀਬੀਡਬਲਿਊ / ਐਚਡੀ",
+    "sownOnLabel": "ਬਿਜਾਈ ਦੀ ਮਿਤੀ (ਵਿਕਲਪਿਕ)",
+    "sownOnInvalid": "YYYY-MM-DD ਫਾਰਮੈਟ ਵਰਤੋ",
+    "notesLabel": "ਨੋਟਸ (ਵਿਕਲਪਿਕ)",
+    "notesPlaceholder": "ਸਿੰਚਾਈ, ਖਾਦ ਜਾਂ ਮਿੱਟੀ ਸੰਬੰਧੀ ਵੇਰਵਾ",
+    "saveCta": "ਖੇਤ ਸੰਭਾਲੋ",
+    "saveCropError": "ਖੇਤ ਸੰਭਾਲਿਆ ਗਿਆ ਪਰ ਫ਼ਸਲ ਦਾ ਵੇਰਵਾ ਨਹੀਂ ਜੁੜ ਸਕਿਆ।"
+  },
+  "learning": {
+    "title": "ਕ੍ਰਿਸ਼ੀ ਅਕੈਡਮੀ",
+    "intro": "ਮਿੱਟੀ, ਬਿਜਾਈ, ਖਾਦ ਅਤੇ ਕੀਟ ਪ੍ਰਬੰਧਨ ਲਈ ਆਸਾਨ ਸਬਕ।",
+    "tagline": "ਬਿਹਤਰ ਖੇਤੀ ਆਸਾਨੀ ਨਾਲ ਸਿੱਖੋ।",
+    "progress": "{{total}} ਵਿੱਚੋਂ {{completed}} ਸਬਕ ਪੂਰੇ",
+    "featured": "ਖ਼ਾਸ ਸਬਕ",
+    "recommended": "ਤੁਹਾਡੇ ਲਈ ਸਿਫ਼ਾਰਸ਼ ਕੀਤੇ",
+    "categories": "ਸ਼੍ਰੇਣੀਆਂ",
+    "durationAndDifficulty": "{{duration}} · {{difficulty}}",
+    "durationMinutes": "{{count}} ਮਿੰਟ",
+    "difficulty": {
+      "beginner": "ਮੁੱਢਲਾ",
+      "intermediate": "ਦਰਮਿਆਨਾ",
+      "advanced": "ਉੱਚ"
+    },
+    "watchTutorial": "ਵੀਡੀਓ ਦੇਖੋ",
+    "videoUnavailable": "ਵੀਡੀਓ ਲੋਡ ਨਹੀਂ ਹੋ ਸਕਿਆ।",
+    "tryArGuidance": "AR ਗਾਈਡੈਂਸ ਅਜ਼ਮਾਓ",
+    "arHint": "ਕੈਮਰੇ ਦੀ ਮਦਦ ਨਾਲ ਨਿਰਦੇਸ਼ਾਂ ਦੀ ਪਾਲਣਾ ਕਰੋ।",
+    "completed": "ਮੁਕੰਮਲ",
+    "markComplete": "ਪੂਰਾ ਹੋ ਗਿਆ ਮਾਰਕ ਕਰੋ",
+    "whyItMatters": "ਇਹ ਕਿਉਂ ਜ਼ਰੂਰੀ ਹੈ",
+    "steps": "ਕਦਮ",
+    "tips": "ਮਹੱਤਵਪੂਰਨ ਸੁਝਾਅ",
+    "commonMistake": "ਆਮ ਗ਼ਲਤੀਆਂ",
+    "emptyTitle": "ਅਜੇ ਕੋਈ ਸਬਕ ਉਪਲਬਧ ਨਹੀਂ",
+    "emptyBody": "ਨਵੇਂ ਸਬਕ ਜਲਦੀ ਸ਼ਾਮਲ ਕੀਤੇ ਜਾਣਗੇ।",
+    "notFoundTitle": "ਸਬਕ ਨਹੀਂ ਮਿਲਿਆ",
+    "notFoundBody": "ਇਹ ਸਬਕ ਉਪਲਬਧ ਨਹੀਂ ਹੈ।"
+  },
+  "calendar": {
+    "title": "ਸਮਾਰਟ ਫਾਰਮ ਕੈਲੰਡਰ",
+    "upcoming": "ਆਉਣ ਵਾਲੇ",
+    "today": "ਅੱਜ",
+    "tomorrow": "ਕੱਲ੍ਹ",
+    "inDays": "{{count}} ਦਿਨਾਂ ਵਿੱਚ",
+    "nextWeek": "ਅਗਲੇ ਹਫ਼ਤੇ",
+    "previousMonth": "ਪਿਛਲੇ ਮਹੀਨੇ",
+    "nextMonth": "ਅਗਲੇ ਮਹੀਨੇ",
+    "noFarmTitle": "ਕੋਈ ਖੇਤ ਰਜਿਸਟਰਡ ਨਹੀਂ",
+    "noFarmBody": "ਕੈਲੰਡਰ ਵਰਤਣ ਲਈ ਖੇਤ ਰਜਿਸਟਰ ਕਰੋ।",
+    "noEventsTitle": "ਕੋਈ ਕੰਮ ਦਰਜ ਨਹੀਂ",
+    "noEventsBody": "ਅਗਲੇ ਅੱਪਡੇਟ ਵਿੱਚ ਕਾਰਜ ਸੂਚੀ ਜੁੜੇਗੀ।",
+    "statusUpcoming": "ਆਉਣ ਵਾਲੇ",
+    "eventNotFoundTitle": "ਕੰਮ ਨਹੀਂ ਮਿਲਿਆ",
+    "eventNotFoundBody": "ਇਹ ਕੰਮ ਉਪਲਬਧ ਨਹੀਂ ਹੈ।",
+    "eventTypes": {
+      "sowing": "ਬਿਜਾਈ",
+      "irrigation": "ਸਿੰਚਾਈ / ਪਾਣੀ ਦੇਣਾ",
+      "fertilizer": "ਖਾਦ ਪਾਉਣਾ",
+      "cropHealth": "ਫ਼ਸਲ ਜਾਂਚ",
+      "harvest": "ਵਾਢੀ",
+      "weather": "ਮੌਸਮ"
+    },
+    "detail": {
+      "field": "ਖੇਤ",
+      "crop": "ਫ਼ਸਲ",
+      "scheduled": "ਮਿਥਿਆ ਸਮਾਂ",
+      "status": "ਸਥਿਤੀ",
+      "whyShown": "ਇਹ ਕਿਉਂ ਦਿਖਾਇਆ ਗਿਆ ਹੈ",
+      "demoNotice": "ਇਹ ਸਿਰਫ਼ ਨਮੂਨਾ ਜਾਣਕਾਰੀ ਹੈ।"
+    },
+    "events": {
+      "sowing": {
+        "title": "ਬਿਜਾਈ",
+        "reason": "ਸੀਜ਼ਨ ਦੀ ਪਹਿਲੀ ਗਤੀਵਿਧੀ ਦਾ ਨਮੂਨਾ।"
+      },
+      "irrigation": {
+        "title": "ਸਿੰਚਾਈ",
+        "reason": "ਮਿੱਟੀ ਦੀ ਨਮੀ ਦੇ ਆਧਾਰ 'ਤੇ ਪਾਣੀ ਦੀ ਸਲਾਹ।"
+      },
+      "fertilizer": {
+        "title": "ਖਾਦ ਪਾਉਣਾ",
+        "reason": "ਫ਼ਸਲ ਦੇ ਵਾਧੇ ਮੁਤਾਬਕ ਖ਼ੁਰਾਕ ਪ੍ਰਬੰਧਨ।"
+      },
+      "weather": {
+        "title": "ਮੌਸਮ ਚੇਤਾਵਨੀ",
+        "reason": "ਮੌਸਮ ਵਿੱਚ ਬਦਲਾਅ ਦੀ ਭਵਿੱਖਬਾਣੀ।"
+      },
+      "cropHealth": {
+        "title": "ਫ਼ਸਲ ਨਿਰੀਖਣ",
+        "reason": "ਬਿਮਾਰੀਆਂ ਅਤੇ ਕੀੜਿਆਂ ਦੀ ਜਾਂਚ।"
+      },
+      "harvest": {
+        "title": "ਸੰਭਾਵਿਤ ਵਾਢੀ",
+        "reason": "ਝਾੜ ਦਾ ਅੰਦਾਜ਼ਾ।"
+      }
+    }
+  },
+  "ar": {
+    "title": "AR ਗਾਈਡ",
+    "previewBadge": "AR ਝਲਕ",
+    "disclaimer": "ਇਹ ਭਵਿੱਖ ਦੇ AR ਅਨੁਭਵ ਦੀ ਇੱਕ ਝਲਕ ਹੈ।",
+    "stepLabel": "{{total}} ਵਿੱਚੋਂ ਪੜਾਅ {{number}}",
+    "nextStep": "ਅਗਲਾ ਪੜਾਅ",
+    "finish": "ਮੁਕੰਮਲ ਕਰੋ",
+    "notAvailableTitle": "AR ਉਪਲਬਧ ਨਹੀਂ",
+    "notAvailableBody": "ਇਸ ਸਬਕ ਲਈ AR ਉਪਲਬਧ ਨਹੀਂ ਹੈ।",
+    "markers": {
+      "pointHere": "ਇੱਥੇ ਕੈਮਰਾ ਰੱਖੋ",
+      "walkToCorner": "ਹਰ ਕੋਨੇ 'ਤੇ ਜਾਓ"
+    },
+    "steps": {
+      "soilPreparation": {
+        "moisture": "ਮਿੱਟੀ ਦੀ ਨਮੀ ਚੈੱਕ ਕਰੋ।",
+        "residue": "ਫ਼ਸਲ ਦੀ ਰਹਿੰਦ-ਖੂੰਹਦ ਸਾਫ਼ ਕਰੋ।",
+        "drainage": "ਪਾਣੀ ਦੇ ਨਿਕਾਸ ਦਾ ਪ੍ਰਬੰਧ ਦੇਖੋ।",
+        "corners": "ਹੱਦ ਪੱਕੀ ਕਰਨ ਲਈ 4 ਕੋਨਿਆਂ 'ਤੇ ਚੱਲੋ।"
+      }
+    }
+  },
+  "schemes": {
+    "title": "ਸਰਕਾਰੀ ਸਕੀਮਾਂ",
+    "intro": "ਤੁਹਾਡੇ ਲਈ ਢੁਕਵੀਆਂ ਸਕੀਮਾਂ",
+    "matchSummary": "{{count}} ਸਕੀਮਾਂ ਤੁਹਾਡੇ ਲਈ ਲਾਭਦਾਇਕ ਹੋ ਸਕਦੀਆਂ ਹਨ",
+    "noFarmHint": "ਢੁਕਵੀਆਂ ਸਕੀਮਾਂ ਦੇਖਣ ਲਈ ਖੇਤ ਰਜਿਸਟਰ ਕਰੋ।",
+    "recommended": "⭐ ਸਿਫ਼ਾਰਸ਼ ਕੀਤੀਆਂ",
+    "otherSchemes": "ਹੋਰ ਸਕੀਮਾਂ",
+    "emptyTitle": "ਕੋਈ ਸਕੀਮ ਉਪਲਬਧ ਨਹੀਂ",
+    "notFoundTitle": "ਸਕੀਮ ਨਹੀਂ ਮਿਲੀ",
+    "notFoundBody": "ਇਹ ਸਕੀਮ ਉਪਲਬਧ ਨਹੀਂ ਹੈ।",
+    "disclaimer": "ਇਹ ਜਾਣਕਾਰੀ ਜਾਗਰੂਕਤਾ ਲਈ ਹੈ। ਸਰਕਾਰੀ ਵੈੱਬਸਾਈਟ 'ਤੇ ਤਸਦੀਕ ਕਰੋ।",
+    "categories": {
+      "incomeSupport": "ਆਮਦਨ ਸਹਾਇਤਾ",
+      "insurance": "ਫ਼ਸਲ ਬੀਮਾ",
+      "soilHealth": "ਮਿੱਟੀ ਦੀ ਸਿਹਤ",
+      "credit": "ਖੇਤੀਬਾੜੀ ਕਰਜ਼ਾ",
+      "irrigation": "ਸਿੰਚਾਈ ਸਹਾਇਤਾ",
+      "other": "ਹੋਰ"
+    },
+    "detail": {
+      "whatIsIt": "ਸਕੀਮ ਕੀ ਹੈ?",
+      "potentialBenefit": "ਮਿਲਣ ਵਾਲੇ ਲਾਭ",
+      "whoMayBeEligible": "ਕੌਣ ਯੋਗ ਹੈ?",
+      "documents": "ਲੋੜੀਂਦੇ ਦਸਤਾਵੇਜ਼",
+      "howToApply": "ਅਰਜ਼ੀ ਕਿਵੇਂ ਦੇਣੀ ਹੈ",
+      "checkOfficialSource": "ਅਧਿਕਾਰਤ ਵੈੱਬਸਾਈਟ ਦੇਖੋ"
+    },
+    "reasons": {
+      "noFarm": "ਯੋਗਤਾ ਜਾਣਨ ਲਈ ਖੇਤ ਰਜਿਸਟਰ ਕਰੋ",
+      "cropMatch": "ਤੁਹਾਡੀ ਫ਼ਸਲ ਦੇ ਆਧਾਰ 'ਤੇ",
+      "landSizeMatch": "ਜ਼ਮੀਨ ਦੇ ਆਕਾਰ ਦੇ ਆਧਾਰ 'ਤੇ",
+      "broadlyApplicable": "ਸਾਰੇ ਕਿਸਾਨਾਂ ਲਈ ਲਾਗੂ",
+      "unknown": "ਅਧਿਕਾਰਤ ਸਾਈਟ 'ਤੇ ਵੇਰਵੇ ਦੇਖੋ"
+    }
+  },
+  "updates": {
+    "title": "ਖੇਤੀਬਾੜੀ ਖ਼ਬਰਾਂ",
+    "intro": "ਕਿਸਾਨਾਂ ਲਈ ਤਾਜ਼ਾ ਜਾਣਕਾਰੀ",
+    "today": "ਅੱਜ",
+    "yesterday": "ਕੱਲ੍ਹ",
+    "daysAgo": "{{count}} ਦਿਨ ਪਹਿਲਾਂ",
+    "emptyTitle": "ਕੋਈ ਖ਼ਬਰ ਨਹੀਂ ਹੈ",
+    "notFoundTitle": "ਜਾਣਕਾਰੀ ਨਹੀਂ ਮਿਲੀ",
+    "notFoundBody": "ਇਹ ਖ਼ਬਰ ਉਪਲਬਧ ਨਹੀਂ ਹੈ।",
+    "officialSource": "ਅਧਿਕਾਰਤ ਸਰੋਤ ਦੇਖੋ",
+    "categories": {
+      "agriculture": "ਖੇਤੀਬਾੜੀ",
+      "weather": "ਮੌਸਮ",
+      "government": "ਸਰਕਾਰ",
+      "market": "ਮੰਡੀ",
+      "technology": "ਤਕਨਾਲੋਜੀ"
+    }
+  },
+  "profile": {
+    "title": "ਪ੍ਰੋਫਾਈਲ",
+    "language": "ਭਾਸ਼ਾ",
+    "myFarm": "ਮੇਰਾ ਖੇਤ",
+    "registerLand": "ਜ਼ਮੀਨ ਰਜਿਸਟਰ ਕਰੋ",
+    "schemes": "ਸਰਕਾਰੀ ਸਕੀਮਾਂ",
+    "notifications": "ਸੂਚਨਾਵਾਂ",
+    "help": "ਮਦਦ",
+    "logout": "ਲੌਗ ਆਊਟ",
+    "logoutConfirmTitle": "ਲੌਗ ਆਊਟ ਕਰਨਾ ਹੈ?",
+    "logoutConfirmBody": "ਮੁੜ ਲੌਗ ਇਨ ਕਰਨ ਲਈ ਈਮੇਲ ਅਤੇ ਪਾਸਵਰਡ ਚਾਹੀਦਾ ਹੋਵੇਗਾ।",
+    "languageEnglish": "English",
+    "languageHindi": "हिन्दी"
+  },
+  "nav": {
+    "home": "ਮੁੱਖ ਪੰਨਾ",
+    "field": "ਖੇਤ",
+    "market": "ਮੰਡੀ",
+    "history": "ਇਤਿਹਾਸ"
+  },
+  "avatar": {
+    "openLabel": "ਕਿਸਾਨ ਸਹਾਇਕ ਨਾਲ ਗੱਲ ਕਰੋ",
+    "headerTitle": "ਕ੍ਰਿਸ਼ੀਨੇਤਰ AI",
+    "headerSubtitle": "ਖੇਤ, ਫ਼ਸਲ ਅਤੇ ਮੰਡੀ ਭਾਅ ਬਾਰੇ ਪੁੱਛੋ",
+    "close": "ਗੱਲਬਾਤ ਬੰਦ ਕਰੋ",
+    "end": "ਸਮਾਪਤ ਕਰੋ",
+    "tryAsking": "ਤੁਸੀਂ ਪੁੱਛ ਸਕਦੇ ਹੋ",
+    "status": {
+      "idle": "ਤਿਆਰ",
+      "listening": "ਸੁਣ ਰਿਹਾ ਹਾਂ…",
+      "thinking": "ਸੋਚ ਰਿਹਾ ਹਾਂ…",
+      "speaking": "ਬੋਲ ਰਿਹਾ ਹਾਂ",
+      "error": "ਕੋਈ ਆਵਾਜ਼ ਨਹੀਂ"
+    },
+    "mic": {
+      "idle": "ਬੋਲਣਾ ਸ਼ੁਰੂ ਕਰੋ",
+      "listening": "ਬੋਲ ਲਿਆ",
+      "thinking": "ਇੱਕ ਪਲ…",
+      "speaking": "ਅਗਲਾ ਸਵਾਲ ਪੁੱਛੋ",
+      "error": "ਮੁੜ ਕੋਸ਼ਿਸ਼ ਕਰੋ"
+    },
+    "footer": {
+      "idle": "ਤੁਸੀਂ ਪੰਜਾਬੀ ਜਾਂ ਕਿਸੇ ਵੀ ਭਾਸ਼ਾ ਵਿੱਚ ਪੁੱਛ ਸਕਦੇ ਹੋ।",
+      "listening": "ਹੌਲੀ ਬੋਲੋ — ਮੈਂ ਸੁਣ ਰਿਹਾ ਹਾਂ।",
+      "thinking": "ਜਾਣਕਾਰੀ ਦੀ ਪੜਤਾਲ ਹੋ ਰਹੀ ਹੈ…",
+      "speaking": "ਤੁਸੀਂ ਕਿਸੇ ਵੀ ਸਮੇਂ ਰੋਕ ਕੇ ਪੁੱਛ ਸਕਦੇ ਹੋ।",
+      "error": "ਮਾਈਕ ਦਬਾ ਕੇ ਮੁੜ ਬੋਲੋ।"
+    },
+    "greeting": "ਸਤਿ ਸ੍ਰੀ ਅਕਾਲ {{name}}! ਤੁਸੀਂ ਕੀ ਜਾਣਨਾ ਚਾਹੁੰਦੇ ਹੋ?",
+    "questions": {
+      "area": "ਮੇਰਾ ਖੇਤ ਕਿੰਨਾ ਵੱਡਾ ਹੈ?",
+      "crop": "ਮੇਰੀ ਫ਼ਸਲ ਦੀ ਹਾਲਤ ਕਿਹੋ ਜਿਹੀ ਹੈ?",
+      "mandi": "ਅੱਜ ਦਾ ਮੰਡੀ ਭਾਅ ਕੀ ਹੈ?",
+      "sell": "ਹੁਣ ਵੇਚਾਂ ਜਾਂ ਉਡੀਕ ਕਰਾਂ?",
+      "weather": "ਇਸ ਹਫ਼ਤੇ ਮੌਸਮ ਕਿਵੇਂ ਰਹੇਗਾ?"
+    },
+    "sources": {
+      "field": "ਤੁਹਾਡੇ ਖੇਤ ਦੇ ਰਿਕਾਰਡ ਤੋਂ",
+      "assistant": "AI ਮਿੱਤਰ · ਪੁਸ਼ਟੀ ਜ਼ਰੂਰੀ"
+    },
+    "errors": {
+      "micPermission": "ਮਾਈਕ੍ਰੋਫੋਨ ਇਜਾਜ਼ਤ ਲੋੜੀਂਦੀ ਹੈ। ਸੈਟਿੰਗਾਂ ਵਿੱਚ ਦਿਓ।",
+      "mic": "ਰਿਕਾਰਡ ਨਹੀਂ ਹੋ ਸਕਿਆ।",
+      "transcribe": "ਆਵਾਜ਼ ਸਾਫ਼ ਨਹੀਂ ਸੀ। ਮੁੜ ਬੋਲੋ।",
+      "reply": "ਸਹਾਇਕ ਨਾਲ ਸੰਪਰਕ ਨਹੀਂ ਹੋ ਸਕਿਆ।",
+      "generic": "ਕੁਝ ਗ਼ਲਤ ਹੋ ਗਿਆ। ਮੁੜ ਕੋਸ਼ਿਸ਼ ਕਰੋ।",
+      "timeout": "ਸਮਾਂ ਸਮਾਪਤ ਹੋ ਗਿਆ। ਛੋਟਾ ਸਵਾਲ ਪੁੱਛੋ।",
+      "upload": "ਰਿਕਾਰਡਿੰਗ ਨਹੀਂ ਭੇਜੀ ਜਾ ਸਕੀ।",
+      "unreachable": "ਕ੍ਰਿਸ਼ੀਨੇਤਰ ਸਰਵਰ ਨਾਲ ਸੰਪਰਕ ਨਹੀਂ ਹੋ ਰਿਹਾ।",
+      "tooShort": "ਰਿਕਾਰਡਿੰਗ ਬਹੁਤ ਛੋਟੀ ਸੀ। ਦਬਾ ਕੇ ਰੱਖੋ।",
+      "voice": "ਆਵਾਜ਼ ਤਿਆਰ ਨਹੀਂ ਹੋ ਸਕੀ। ਜਵਾਬ ਉੱਪਰ ਦਿੱਤਾ ਗਿਆ ਹੈ।"
+    }
+  },
+  "errors": {
+    "sessionRestore": "ਸੈਸ਼ਨ ਬਹਾਲ ਨਹੀਂ ਹੋ ਸਕਿਆ। ਮੁੜ ਲੌਗ ਇਨ ਕਰੋ।",
+    "offline": "ਤੁਸੀਂ ਔਫਲਾਈਨ ਹੋ। ਸੰਭਾਲੀ ਹੋਈ ਜਾਣਕਾਰੀ ਦਿਖਾਈ ਜਾ ਰਹੀ ਹੈ।",
+    "generic": "ਕੁਝ ਗ਼ਲਤ ਹੋ ਗਿਆ। ਮੁੜ ਕੋਸ਼ਿਸ਼ ਕਰੋ।"
+  },
+  "demo": {
+    "badge": "ਨਮੂਨਾ ਜਾਣਕਾਰੀ",
+    "bannerTitle": "ਡੈਮੋ ਮੋਡ — ਹੇਠਾਂ ਕੁਝ ਅੰਕੜੇ ਕਾਲਪਨਿਕ ਹਨ",
+    "bannerBody": "ਨਮੂਨਾ ਜਾਣਕਾਰੀ ਸਿਰਫ਼ ਸਮਝਾਉਣ ਲਈ ਹੈ।",
+    "cropHealth": {
+      "value": "ਵਧੀਆ",
+      "note": "ਸੈਟੇਲਾਈਟ ਵਿਸ਼ਲੇਸ਼ਣ ਦਾ ਨਮੂਨਾ"
+    },
+    "growthStage": {
+      "value": "ਫੁੱਟਣ ਦਾ ਪੜਾਅ",
+      "note": "ਸੈਟੇਲਾਈਟ ਵਿਸ਼ਲੇਸ਼ਣ ਦਾ ਨਮੂਨਾ"
+    },
+    "recommendation": {
+      "verdict": "ਕੁਝ ਮਾਲ ਵੇਚੋ",
+      "body": "ਸਿਰਫ਼ ਮਾਰਗਦਰਸ਼ਨ ਲਈ।"
+    },
+    "history": {
+      "mapped": "ਖੇਤ ਰਜਿਸਟ੍ਰੇਸ਼ਨ",
+      "mappedDetail": "ਉੱਤਰ ਵਾਲਾ ਖੇਤ · 2.50 ਏਕੜ",
+      "sown": "ਕਣਕ ਬਿਜਾਈ",
+      "sownDetail": "ਉੱਨਤ ਬੀਜ",
+      "cropHealth": "ਫ਼ਸਲ ਜਾਂਚ",
+      "cropHealthDetail": "ਭਵਿੱਖ ਦੇ ਇੰਜਣ ਦਾ ਨਮੂਨਾ",
+      "fertilized": "ਖਾਦ ਪਾਈ",
+      "fertilizedDetail": "ਖ਼ੁਰਾਕ ਸਲਾਹ ਨਮੂਨਾ",
+      "irrigated": "ਪਾਣੀ ਦਿੱਤਾ",
+      "irrigatedDetail": "ਸਿੰਚਾਈ ਸਮਾਂ ਸਾਰਣੀ",
+      "priced": "ਮੰਡੀ ਭਾਅ ਦੇਖਿਆ",
+      "pricedDetail": "ਸਥਾਨਕ ਮੰਡੀ",
+      "offer": "ਆਫਰ ਮਿਲਿਆ",
+      "offerDetail": "ਵਪਾਰੀ ਮੰਗ"
+    }
+  },
+  "visualAssistant": {
+    "headerTitle": "ਕ੍ਰਿਸ਼ੀਨੇਤਰ ਨੂੰ ਪੁੱਛੋ",
+    "openLabel": "ਕੈਮਰੇ ਨਾਲ ਫ਼ਸਲ ਦੀ ਸਲਾਹ ਲਓ",
+    "permissionTitle": "ਕੈਮਰਾ ਇਜਾਜ਼ਤ ਚਾਹੀਦੀ ਹੈ",
+    "permissionBody": "ਫ਼ਸਲ ਦੇਖ ਕੇ ਜਵਾਬ ਦੇਣ ਲਈ ਕੈਮਰਾ ਜ਼ਰੂਰੀ ਹੈ।",
+    "permissionAllow": "ਕੈਮਰਾ ਚਾਲੂ ਕਰੋ",
+    "permissionDenied": "ਕੈਮਰਾ ਇਜਾਜ਼ਤ ਬੰਦ ਹੈ। ਸੈਟਿੰਗਾਂ ਵਿੱਚ ਚਾਲੂ ਕਰੋ।",
+    "unavailable": "ਇਸ ਡਿਵਾਈਸ 'ਤੇ ਕੈਮਰਾ ਉਪਲਬਧ ਨਹੀਂ ਹੈ।",
+    "captureLabel": "ਫੋਟੋ ਖਿੱਚੋ",
+    "captureSub": "ਕੈਮਰਾ ਫ਼ਸਲ ਵੱਲ ਕਰ ਕੇ ਫੋਟੋ ਲਓ।",
+    "retake": "ਦੁਬਾਰਾ ਫੋਟੋ ਲਓ",
+    "questionLabel": "ਤੁਹਾਡਾ ਸਵਾਲ",
+    "questionPlaceholder": "ਕੀ ਫ਼ਸਲ ਨੂੰ ਕੋਈ ਬਿਮਾਰੀ ਲੱਗੀ ਹੈ?",
+    "askButton": "ਕ੍ਰਿਸ਼ੀਨੇਤਰ ਨੂੰ ਪੁੱਛੋ",
+    "askAgain": "ਮੁੜ ਪੁੱਛੋ",
+    "asking": "ਜਵਾਬ ਲੱਭ ਰਹੇ ਹਾਂ…",
+    "answerLabel": "AI ਜਵਾਬ",
+    "answerDisclaimer": "ਇਹ AI ਮਾਡਲ ਦਾ ਜਵਾਬ ਹੈ, ਅਧਿਕਾਰਤ ਸਲਾਹ ਨਹੀਂ।",
+    "errors": {
+      "generic": "ਜਵਾਬ ਨਹੀਂ ਮਿਲ ਸਕਿਆ। ਨੈੱਟਵਰਕ ਚੈੱਕ ਕਰਕੇ ਕੋਸ਼ਿਸ਼ ਕਰੋ।"
+    }
+  }
+}
