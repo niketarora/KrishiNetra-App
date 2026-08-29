@@ -24,4 +24,9 @@ export type MainStackParamList = {
   /** Re-drawing an existing boundary reuses the onboarding screens. */
   EditBoundary: { centre: LatLng | null; points: LatLng[]; name: string | null };
   ConfirmEdit: { points: LatLng[]; name: string | null };
+  /**
+   * Camera-first prototype (not yet wired to the Avatar or a backend — see
+   * src/features/visualAssistant/demo.ts).
+   */
+  VisualAssistant: undefined;
 };

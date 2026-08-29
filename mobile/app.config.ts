@@ -33,7 +33,7 @@ const config: ExpoConfig = {
         apiKey: process.env.GOOGLE_MAPS_ANDROID_API_KEY ?? '',
       },
     },
-    permissions: ['ACCESS_COARSE_LOCATION', 'ACCESS_FINE_LOCATION', 'RECORD_AUDIO'],
+    permissions: ['ACCESS_COARSE_LOCATION', 'ACCESS_FINE_LOCATION', 'RECORD_AUDIO', 'CAMERA'],
   },
   web: {
     favicon: './assets/favicon.png',
@@ -66,6 +66,15 @@ const config: ExpoConfig = {
         // The avatar only listens while the farmer holds the mic button, so
         // there is no reason to keep recording in the background.
         enableBackgroundRecording: false,
+      },
+    ],
+    [
+      'expo-camera',
+      {
+        cameraPermission: 'KrishiNetra uses your camera so you can show it your crop.',
+        // The Visual Assistant prototype doesn't record audio yet (its mic is a
+        // scripted UI mock, not real capture) — the avatar owns real voice input.
+        recordAudioAndroid: false,
       },
     ],
   ],

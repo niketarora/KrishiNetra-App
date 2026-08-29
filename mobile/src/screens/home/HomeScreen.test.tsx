@@ -112,6 +112,7 @@ const props = {
   onOpenAnalysis: jest.fn(),
   onOpenMarket: jest.fn(),
   onEditBoundary: jest.fn(),
+  onOpenVisualAssistant: jest.fn(),
 };
 
 describe('HomeScreen', () => {

@@ -49,6 +49,7 @@ type Props = {
   onOpenAnalysis: () => void;
   onOpenMarket: () => void;
   onEditBoundary: () => void;
+  onOpenVisualAssistant: () => void;
 };
 
 /**
@@ -61,7 +62,13 @@ type Props = {
  * "coming later" note rather than a plausible sample number — a farmer must
  * never make a selling decision on a value the app invented.
  */
-export function HomeScreen({ onOpenProfile, onOpenAnalysis, onOpenMarket, onEditBoundary }: Props) {
+export function HomeScreen({
+  onOpenProfile,
+  onOpenAnalysis,
+  onOpenMarket,
+  onEditBoundary,
+  onOpenVisualAssistant,
+}: Props) {
   const { t, i18n } = useTranslation();
   const { user, profile } = useAuth();
   const { farm, loading, errorKey, refresh } = useFarm();
@@ -245,6 +252,30 @@ export function HomeScreen({ onOpenProfile, onOpenAnalysis, onOpenMarket, onEdit
                 {t('home.askCompanionSub')}
               </Text>
             </View>
+          </Card>
+
+          {/*
+            Visual Assistant entry point — a standalone camera-first prototype
+            (src/screens/visualAssistant/VisualAssistantScreen.tsx). Deliberately
+            not routed through the avatar yet: see that screen's own doc comment.
+          */}
+          <Card
+            tone="accent"
+            onPress={onOpenVisualAssistant}
+            style={styles.companionCard}
+            testID="visual-assistant-card"
+            accessibilityLabel={t('visualAssistant.openLabel')}
+          >
+            <Icon name="camera" size={20} color={colors.accent} />
+            <View style={styles.companionBody}>
+              <Text variant="bodyMedium" color={colors.accent}>
+                {t('home.visualAssistantTitle')}
+              </Text>
+              <Text variant="micro" color={colors.text.secondary} style={styles.companionSub}>
+                {t('home.visualAssistantSub')}
+              </Text>
+            </View>
+            <Icon name="chevron" size={20} color={colors.accent} />
           </Card>
         </View>
       </ScrollView>
