@@ -26,6 +26,7 @@ import { SchemeDetailScreen } from '@/screens/schemes/SchemeDetailScreen';
 import { SchemesScreen } from '@/screens/schemes/SchemesScreen';
 import { UpdateDetailScreen } from '@/screens/updates/UpdateDetailScreen';
 import { UpdatesScreen } from '@/screens/updates/UpdatesScreen';
+import { VisualAssistantScreen } from '@/screens/visualAssistant/VisualAssistantScreen';
 import { colors, fonts, layout } from '@/theme';
 import { centroid, fromGeoJSON } from '@/utils/geo';
 
@@ -87,6 +88,7 @@ function MainTabs() {
             onOpenCalendar={() => navigation.navigate('Calendar')}
             onOpenSchemes={() => navigation.navigate('Schemes')}
             onOpenUpdates={() => navigation.navigate('Updates')}
+            onOpenVisualAssistant={() => navigation.navigate('VisualAssistant')}
           />
         )}
       </Tab.Screen>
@@ -310,6 +312,10 @@ export function MainNavigator() {
             onBack={() => navigation.goBack()}
           />
         )}
+      </Stack.Screen>
+
+      <Stack.Screen name="VisualAssistant">
+        {({ navigation }) => <VisualAssistantScreen onBack={() => navigation.goBack()} />}
       </Stack.Screen>
     </Stack.Navigator>
   );

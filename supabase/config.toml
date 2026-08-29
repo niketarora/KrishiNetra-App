@@ -1,0 +1,11 @@
+# Minimal Supabase CLI config — just enough to develop/deploy the Edge
+# Function in functions/. The project itself was set up manually against an
+# existing Supabase project (see ../README.md "Supabase Setup"); this file
+# does not attempt to describe the whole project, only what the CLI needs to
+# find this function.
+#
+# First-time setup:
+#   supabase link --project-ref <your-project-ref>
+#
+# `supabase link` fills in project_id below automatically.
+project_id = ""

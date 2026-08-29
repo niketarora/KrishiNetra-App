@@ -44,4 +44,9 @@ export type MainStackParamList = {
   /** Home → Krishi Updates — local demo agri-news feed. */
   Updates: undefined;
   UpdateDetail: { updateId: string };
+  /**
+   * Camera-first prototype (not yet wired to the Avatar or a backend — see
+   * src/features/visualAssistant/demo.ts).
+   */
+  VisualAssistant: undefined;
 };

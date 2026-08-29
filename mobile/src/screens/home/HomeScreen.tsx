@@ -53,6 +53,7 @@ type Props = {
   onOpenCalendar: () => void;
   onOpenSchemes: () => void;
   onOpenUpdates: () => void;
+  onOpenVisualAssistant: () => void;
 };
 
 /**
@@ -74,6 +75,7 @@ export function HomeScreen({
   onOpenCalendar,
   onOpenSchemes,
   onOpenUpdates,
+  onOpenVisualAssistant,
 }: Props) {
   const { t, i18n } = useTranslation();
   const { user, profile } = useAuth();
@@ -308,6 +310,30 @@ export function HomeScreen({
                 {t('home.askCompanionSub')}
               </Text>
             </View>
+          </Card>
+
+          {/*
+            Visual Assistant entry point — a standalone camera-first prototype
+            (src/screens/visualAssistant/VisualAssistantScreen.tsx). Deliberately
+            not routed through the avatar yet: see that screen's own doc comment.
+          */}
+          <Card
+            tone="accent"
+            onPress={onOpenVisualAssistant}
+            style={styles.companionCard}
+            testID="visual-assistant-card"
+            accessibilityLabel={t('visualAssistant.openLabel')}
+          >
+            <Icon name="camera" size={20} color={colors.accent} />
+            <View style={styles.companionBody}>
+              <Text variant="bodyMedium" color={colors.accent}>
+                {t('home.visualAssistantTitle')}
+              </Text>
+              <Text variant="micro" color={colors.text.secondary} style={styles.companionSub}>
+                {t('home.visualAssistantSub')}
+              </Text>
+            </View>
+            <Icon name="chevron" size={20} color={colors.accent} />
           </Card>
         </View>
       </ScrollView>

@@ -116,6 +116,7 @@ const props = {
   onOpenCalendar: jest.fn(),
   onOpenSchemes: jest.fn(),
   onOpenUpdates: jest.fn(),
+  onOpenVisualAssistant: jest.fn(),
 };
 
 describe('HomeScreen', () => {

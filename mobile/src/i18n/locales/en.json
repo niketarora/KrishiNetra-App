@@ -107,7 +107,9 @@
     "mspNone": "No support price recorded",
     "weatherNone": "Weather data unavailable",
     "weatherObserved": "Observed {{date}}",
-    "marketObserved": "Recorded {{date}}"
+    "marketObserved": "Recorded {{date}}",
+    "visualAssistantTitle": "Ask KrishiNetra",
+    "visualAssistantSub": "Show us your crop and ask what's happening."
   },
   "field": {
     "title": "Field analysis",
@@ -457,6 +459,28 @@
       "pricedDetail": "Alwar mandi",
       "offer": "Offer received",
       "offerDetail": "Illustration of a Phase 4 buyer offer"
+    }
+  },
+  "visualAssistant": {
+    "headerTitle": "Ask KrishiNetra",
+    "openLabel": "Ask KrishiNetra with your camera",
+    "permissionTitle": "Camera access needed",
+    "permissionBody": "KrishiNetra needs your camera to see your crop and answer your question.",
+    "permissionAllow": "Allow camera",
+    "permissionDenied": "Camera permission is off. Turn it on in your phone's settings to use this feature.",
+    "unavailable": "Camera isn't available on this device.",
+    "captureLabel": "Take a photo",
+    "captureSub": "Point your camera at your crop, then take a photo.",
+    "retake": "Retake photo",
+    "questionLabel": "Your question",
+    "questionPlaceholder": "Are these tomatoes ripe?",
+    "askButton": "Ask KrishiNetra",
+    "askAgain": "Ask again",
+    "asking": "Asking KrishiNetra…",
+    "answerLabel": "AI answer",
+    "answerDisclaimer": "This answer comes directly from an AI model and is not yet checked by KrishiNetra — a preview, not official advice.",
+    "errors": {
+      "generic": "We couldn't get an answer. Check your connection and try again."
     }
   }
 }
