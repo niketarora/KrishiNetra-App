@@ -1,4 +1,5 @@
 import type { IconName } from '@/components/ui';
+import { localize, type LocalizedText } from '@/utils/localizedText';
 
 /**
  * Feature #14, v1: local/static tutorial content.
@@ -10,7 +11,8 @@ import type { IconName } from '@/components/ui';
  * This file is exactly what a future CMS/backend/AI-generated-content source
  * would replace; nothing else reads anything but the shapes below.
  */
-export type LocalizedText = { en: string; hi: string };
+export type { LocalizedText };
+export { localize };
 
 export type TutorialCategoryId =
   | 'soilPreparation'
@@ -28,6 +30,26 @@ export type TutorialCategory = {
   label: LocalizedText;
 };
 
+export type TutorialDifficulty = 'beginner' | 'intermediate' | 'advanced';
+
+/**
+ * A video attached to a tutorial (Feature #14 v2). `videoUrl` points at a
+ * safe, publicly-hosted, Creative-Commons-licensed placeholder clip — see
+ * `TUTORIALS` below — never a copied or copyrighted file bundled with the
+ * app. `thumbnailUrl` is kept for a future real CDN thumbnail; the current
+ * UI (`components/learning/VideoPreview.tsx`) renders a generated
+ * placeholder instead of loading it, so a missing/broken URL never shows a
+ * broken image.
+ */
+export type TutorialVideo = {
+  id: string;
+  title: LocalizedText;
+  thumbnailUrl: string;
+  videoUrl: string;
+  durationSeconds: number;
+  language: 'en' | 'hi' | 'both';
+};
+
 export type Tutorial = {
   id: string;
   categoryId: TutorialCategoryId;
@@ -38,10 +60,19 @@ export type Tutorial = {
   tips: LocalizedText[];
   /** Not every tutorial needs one — rendered only when present. */
   commonMistake?: LocalizedText;
+  durationMinutes: number;
+  difficulty: TutorialDifficulty;
+  /** Shown ahead of "Recommended for you" on Learning Home. At most one. */
+  featured?: boolean;
+  /** Optional — only these tutorials show a "Try AR guidance" button. */
+  hasArGuide?: boolean;
+  /** Optional — most tutorials stay text-only, and that must keep working. */
+  video?: TutorialVideo;
   /**
-   * Lightweight, unused-for-now metadata. No screen filters or recommends by
-   * this in v1 — it exists only so a later phase can add "recommended for
-   * your wheat crop" style filtering without changing this shape.
+   * Lightweight metadata. `crops` now drives the simple "matches your crop"
+   * filter in `features/learning/recommendations.ts` — still not a real
+   * recommendation engine, just a transparent match against the farmer's
+   * real registered crop.
    */
   metadata: {
     crops?: string[];
@@ -50,11 +81,6 @@ export type Tutorial = {
     regions?: string[];
   };
 };
-
-/** Picks the farmer's language the same way `cropName()` picks a crop name. */
-export function localize(text: LocalizedText, language: string): string {
-  return language.startsWith('hi') ? text.hi : text.en;
-}
 
 export const TUTORIAL_CATEGORIES: TutorialCategory[] = [
   { id: 'soilPreparation', icon: 'field', label: { en: 'Soil Preparation', hi: 'मिट्टी की तैयारी' } },
@@ -91,6 +117,21 @@ export const TUTORIALS: Tutorial[] = [
       en: 'Excessive tillage can damage soil structure and long-term fertility.',
       hi: 'अत्यधिक जुताई मिट्टी की संरचना और दीर्घकालिक उर्वरता को नुकसान पहुँचा सकती है।',
     },
+    durationMinutes: 5,
+    difficulty: 'beginner',
+    featured: true,
+    hasArGuide: true,
+    video: {
+      id: 'video-soil-preparation',
+      title: { en: 'Soil Preparation Before Sowing', hi: 'बुवाई से पहले मिट्टी की तैयारी' },
+      // Google's public, Creative-Commons-licensed demo clip — a safe
+      // placeholder, not real tutorial footage. Swap for a real hosted
+      // video when one exists; nothing else needs to change.
+      thumbnailUrl: 'https://storage.googleapis.com/gtv-videos-bucket/sample/images/BigBuckBunny.jpg',
+      videoUrl: 'https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+      durationSeconds: 300,
+      language: 'both',
+    },
     metadata: { seasons: ['kharif', 'rabi'] },
   },
   {
@@ -115,6 +156,8 @@ export const TUTORIALS: Tutorial[] = [
       en: 'Sowing right after heavy rain, into waterlogged soil, often rots the seed.',
       hi: 'भारी बारिश के तुरंत बाद, जलभराव वाली मिट्टी में बुवाई करने से अक्सर बीज सड़ जाता है।',
     },
+    durationMinutes: 6,
+    difficulty: 'beginner',
     metadata: { seasons: ['kharif', 'rabi'] },
   },
   {
@@ -139,7 +182,17 @@ export const TUTORIALS: Tutorial[] = [
       en: 'Overwatering is as harmful as underwatering — it starves roots of oxygen and invites root disease.',
       hi: 'अधिक पानी देना उतना ही हानिकारक है जितना कम देना — इससे जड़ों को ऑक्सीजन नहीं मिलती और जड़ रोग का खतरा बढ़ता है।',
     },
-    metadata: {},
+    durationMinutes: 7,
+    difficulty: 'beginner',
+    video: {
+      id: 'video-irrigation-scheduling',
+      title: { en: 'Efficient Irrigation', hi: 'कुशल सिंचाई' },
+      thumbnailUrl: 'https://storage.googleapis.com/gtv-videos-bucket/sample/images/ForBiggerBlazes.jpg',
+      videoUrl: 'https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
+      durationSeconds: 420,
+      language: 'both',
+    },
+    metadata: { crops: ['wheat'] },
   },
   {
     id: 'fertilizer-basics-npk',
@@ -163,7 +216,9 @@ export const TUTORIALS: Tutorial[] = [
       en: 'Applying too much nitrogen late in the season can delay maturity and weaken stems.',
       hi: 'सीजन के अंत में बहुत अधिक नाइट्रोजन डालने से पकने में देरी हो सकती है और तना कमजोर हो सकता है।',
     },
-    metadata: {},
+    durationMinutes: 8,
+    difficulty: 'intermediate',
+    metadata: { crops: ['wheat'] },
   },
   {
     id: 'pest-prevention-early-signs',
@@ -187,6 +242,8 @@ export const TUTORIALS: Tutorial[] = [
       en: 'Spraying pesticide before identifying the actual pest often kills helpful insects without solving the problem.',
       hi: 'वास्तविक कीट की पहचान किए बिना कीटनाशक छिड़कने से अक्सर लाभकारी कीट भी मर जाते हैं और समस्या हल नहीं होती।',
     },
+    durationMinutes: 6,
+    difficulty: 'intermediate',
     metadata: {},
   },
   {
@@ -211,6 +268,8 @@ export const TUTORIALS: Tutorial[] = [
       en: 'Ignoring early weed growth because it looks minor lets weeds establish roots that are far harder to remove later.',
       hi: 'शुरुआती खरपतवार को मामूली समझकर नजरअंदाज करने से उसकी जड़ें जम जाती हैं, जिन्हें बाद में हटाना कहीं अधिक मुश्किल होता है।',
     },
+    durationMinutes: 7,
+    difficulty: 'intermediate',
     metadata: {},
   },
   {
@@ -235,6 +294,8 @@ export const TUTORIALS: Tutorial[] = [
       en: 'Delaying harvest past maturity to wait for a better price often loses more to shattering, pests or weather than the price gain.',
       hi: 'बेहतर कीमत के इंतजार में पकने के बाद कटाई में देरी करने से अक्सर दाना झड़ने, कीट या मौसम से कीमत के फायदे से कहीं ज्यादा नुकसान होता है।',
     },
+    durationMinutes: 8,
+    difficulty: 'intermediate',
     metadata: {},
   },
   {
@@ -255,6 +316,8 @@ export const TUTORIALS: Tutorial[] = [
       { en: 'Your local Krishi Vigyan Kendra or agriculture extension officer can usually help with paperwork.', hi: 'आपका स्थानीय कृषि विज्ञान केंद्र या कृषि विस्तार अधिकारी आमतौर पर कागजी कार्रवाई में मदद कर सकता है।' },
       { en: 'Be cautious of anyone asking for payment to "guarantee" a government scheme benefit — genuine schemes don’t work that way.', hi: 'सरकारी योजना का लाभ "गारंटी" देने के नाम पर भुगतान माँगने वाले किसी भी व्यक्ति से सावधान रहें — असली योजनाएँ इस तरह काम नहीं करतीं।' },
     ],
+    durationMinutes: 5,
+    difficulty: 'beginner',
     metadata: {},
   },
 ];

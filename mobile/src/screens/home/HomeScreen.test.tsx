@@ -114,6 +114,8 @@ const props = {
   onEditBoundary: jest.fn(),
   onOpenLearning: jest.fn(),
   onOpenCalendar: jest.fn(),
+  onOpenSchemes: jest.fn(),
+  onOpenUpdates: jest.fn(),
 };
 
 describe('HomeScreen', () => {
@@ -284,18 +286,32 @@ describe('HomeScreen', () => {
       expect(props.onEditBoundary).toHaveBeenCalled();
     });
 
-    it('opens Krishi Academy from the learning card', async () => {
+    it('opens Krishi Academy from the Farmer Resources grid', async () => {
       await renderWithProviders(<HomeScreen {...props} />);
-      await fireEvent.press(screen.getByTestId('learning-card'));
+      await fireEvent.press(screen.getByTestId('resource-tile-learning'));
 
       expect(props.onOpenLearning).toHaveBeenCalled();
     });
 
-    it('opens the Smart Farm Calendar from the calendar card', async () => {
+    it('opens the Smart Farm Calendar from the Farmer Resources grid', async () => {
       await renderWithProviders(<HomeScreen {...props} />);
-      await fireEvent.press(screen.getByTestId('calendar-card'));
+      await fireEvent.press(screen.getByTestId('resource-tile-calendar'));
 
       expect(props.onOpenCalendar).toHaveBeenCalled();
+    });
+
+    it('opens Government Schemes from the Farmer Resources grid', async () => {
+      await renderWithProviders(<HomeScreen {...props} />);
+      await fireEvent.press(screen.getByTestId('resource-tile-schemes'));
+
+      expect(props.onOpenSchemes).toHaveBeenCalled();
+    });
+
+    it('opens Krishi Updates from the Farmer Resources grid', async () => {
+      await renderWithProviders(<HomeScreen {...props} />);
+      await fireEvent.press(screen.getByTestId('resource-tile-updates'));
+
+      expect(props.onOpenUpdates).toHaveBeenCalled();
     });
 
     it('opens the avatar from the companion card', async () => {

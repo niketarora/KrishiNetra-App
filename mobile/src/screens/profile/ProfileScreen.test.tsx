@@ -23,7 +23,7 @@ jest.mock('@/features/language/LanguageContext', () => ({
   useLanguage: () => ({ language: 'en', setLanguage: jest.fn() }),
 }));
 
-const props = { onBack: jest.fn(), onOpenMyFarm: jest.fn() };
+const props = { onBack: jest.fn(), onOpenMyFarm: jest.fn(), onOpenSchemes: jest.fn() };
 
 describe('ProfileScreen', () => {
   beforeEach(() => {
@@ -67,6 +67,14 @@ describe('ProfileScreen', () => {
 
       expect(props.onOpenMyFarm).toHaveBeenCalled();
     });
+  });
+
+  it('opens Government Schemes from its own row', async () => {
+    await renderWithProviders(<ProfileScreen {...props} />);
+
+    await fireEvent.press(screen.getByTestId('profile-schemes'));
+
+    expect(props.onOpenSchemes).toHaveBeenCalled();
   });
 
   it('shows the signed-in farmer\'s identity', async () => {

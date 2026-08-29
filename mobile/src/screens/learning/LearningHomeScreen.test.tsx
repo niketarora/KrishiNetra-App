@@ -1,6 +1,7 @@
 import { fireEvent, screen, waitFor } from '@testing-library/react-native';
 
-import { renderWithProviders } from '@/test-utils';
+import type { Farm } from '@/services/farms';
+import { makeFarm, renderWithProviders } from '@/test-utils';
 
 import { LearningHomeScreen } from './LearningHomeScreen';
 
@@ -15,12 +16,31 @@ jest.mock('@/features/auth/AuthContext', () => ({
   useAuth: () => ({ user: { id: 'user-1' } }),
 }));
 
+const mockFarmState: { farm: Farm | null } = { farm: null };
+
+jest.mock('@/features/farm/FarmContext', () => ({
+  useFarm: () => mockFarmState,
+}));
+
+const mockGetCurrentCrop = jest.fn();
+
+jest.mock('@/services/agronomy', () => ({
+  getCurrentCrop: (...args: unknown[]) => mockGetCurrentCrop(...args),
+}));
+
+const wheat = {
+  crop: { id: 'crop-wheat', code: 'wheat', name_en: 'Wheat', name_hi: 'गेहूँ', category: 'cereal', default_unit: 'quintal' },
+  planting: { id: 'planting-1', farm_id: 'farm-1', crop_id: 'crop-wheat', variety: null, sown_on: null, expected_harvest_on: null, area_acres: null, status: 'growing', notes: null },
+};
+
 const props = { onBack: jest.fn(), onOpenTutorial: jest.fn() };
 
 describe('LearningHomeScreen', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     mockGetCompleted.mockResolvedValue([]);
+    mockFarmState.farm = null;
+    mockGetCurrentCrop.mockResolvedValue(null);
   });
 
   it('lists all eight categories as tutorial cards', async () => {
@@ -62,5 +82,32 @@ describe('LearningHomeScreen', () => {
 
     resolveGet([]);
     await waitFor(() => expect(screen.getByTestId('learning-progress')).toBeTruthy());
+  });
+
+  describe('richer cards', () => {
+    it('shows duration, difficulty and a video indicator', async () => {
+      await renderWithProviders(<LearningHomeScreen {...props} />);
+      await waitFor(() => expect(screen.getByTestId('tutorial-card-sowing-seed-depth-and-spacing')).toBeTruthy());
+
+      expect(screen.getAllByText('6 min · Beginner').length).toBeGreaterThan(0);
+    });
+
+    it('shows the featured tutorial above everything else', async () => {
+      await renderWithProviders(<LearningHomeScreen {...props} />);
+
+      expect(await screen.findByText('Featured')).toBeTruthy();
+      expect(screen.getByTestId('tutorial-card-soil-preparation-before-sowing')).toBeTruthy();
+    });
+
+    it('recommends tutorials that match the farmer’s real registered crop', async () => {
+      mockFarmState.farm = makeFarm();
+      mockGetCurrentCrop.mockResolvedValue(wheat);
+
+      await renderWithProviders(<LearningHomeScreen {...props} />);
+
+      expect(await screen.findByText('Recommended for you')).toBeTruthy();
+      expect(screen.getByTestId('recommended-card-irrigation-scheduling-basics')).toBeTruthy();
+      expect(screen.getByTestId('recommended-card-fertilizer-basics-npk')).toBeTruthy();
+    });
   });
 });

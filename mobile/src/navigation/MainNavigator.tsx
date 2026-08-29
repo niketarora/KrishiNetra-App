@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 
 import { Icon, type IconName } from '@/components/ui';
 import { useFarm } from '@/features/farm/FarmContext';
+import { ARLearningScreen } from '@/screens/ar/ARLearningScreen';
 import { CalendarEventDetailScreen } from '@/screens/calendar/CalendarEventDetailScreen';
 import { CalendarScreen } from '@/screens/calendar/CalendarScreen';
 import { FieldAnalysisScreen } from '@/screens/field/FieldAnalysisScreen';
@@ -21,6 +22,10 @@ import { MarketScreen } from '@/screens/market/MarketScreen';
 import { ProfileScreen } from '@/screens/profile/ProfileScreen';
 import { ConfirmFieldScreen } from '@/screens/onboarding/ConfirmFieldScreen';
 import { DrawBoundaryScreen } from '@/screens/onboarding/DrawBoundaryScreen';
+import { SchemeDetailScreen } from '@/screens/schemes/SchemeDetailScreen';
+import { SchemesScreen } from '@/screens/schemes/SchemesScreen';
+import { UpdateDetailScreen } from '@/screens/updates/UpdateDetailScreen';
+import { UpdatesScreen } from '@/screens/updates/UpdatesScreen';
 import { colors, fonts, layout } from '@/theme';
 import { centroid, fromGeoJSON } from '@/utils/geo';
 
@@ -80,6 +85,8 @@ function MainTabs() {
             onEditBoundary={openEditBoundary}
             onOpenLearning={() => navigation.navigate('Learning')}
             onOpenCalendar={() => navigation.navigate('Calendar')}
+            onOpenSchemes={() => navigation.navigate('Schemes')}
+            onOpenUpdates={() => navigation.navigate('Updates')}
           />
         )}
       </Tab.Screen>
@@ -120,6 +127,7 @@ export function MainNavigator() {
           <ProfileScreen
             onBack={() => navigation.goBack()}
             onOpenMyFarm={() => navigation.navigate('MyFarm')}
+            onOpenSchemes={() => navigation.navigate('Schemes')}
           />
         )}
       </Stack.Screen>
@@ -231,6 +239,17 @@ export function MainNavigator() {
           <TutorialDetailScreen
             tutorialId={route.params.tutorialId}
             onBack={() => navigation.goBack()}
+            onOpenAr={(tutorialId) => navigation.navigate('ARGuide', { tutorialId })}
+          />
+        )}
+      </Stack.Screen>
+
+      {/* Tutorial detail → AR Learning Preview — a UI-only prototype, not real CV. */}
+      <Stack.Screen name="ARGuide">
+        {({ navigation, route }) => (
+          <ARLearningScreen
+            tutorialId={route.params.tutorialId}
+            onBack={() => navigation.goBack()}
           />
         )}
       </Stack.Screen>
@@ -250,6 +269,44 @@ export function MainNavigator() {
         {({ navigation, route }) => (
           <CalendarEventDetailScreen
             eventId={route.params.eventId}
+            onBack={() => navigation.goBack()}
+          />
+        )}
+      </Stack.Screen>
+
+      {/* Home/Profile → Government Schemes — local demo scheme directory. */}
+      <Stack.Screen name="Schemes">
+        {({ navigation }) => (
+          <SchemesScreen
+            onBack={() => navigation.goBack()}
+            onOpenScheme={(schemeId) => navigation.navigate('SchemeDetail', { schemeId })}
+          />
+        )}
+      </Stack.Screen>
+
+      <Stack.Screen name="SchemeDetail">
+        {({ navigation, route }) => (
+          <SchemeDetailScreen
+            schemeId={route.params.schemeId}
+            onBack={() => navigation.goBack()}
+          />
+        )}
+      </Stack.Screen>
+
+      {/* Home → Krishi Updates — local demo agri-news feed. */}
+      <Stack.Screen name="Updates">
+        {({ navigation }) => (
+          <UpdatesScreen
+            onBack={() => navigation.goBack()}
+            onOpenUpdate={(updateId) => navigation.navigate('UpdateDetail', { updateId })}
+          />
+        )}
+      </Stack.Screen>
+
+      <Stack.Screen name="UpdateDetail">
+        {({ navigation, route }) => (
+          <UpdateDetailScreen
+            updateId={route.params.updateId}
             onBack={() => navigation.goBack()}
           />
         )}

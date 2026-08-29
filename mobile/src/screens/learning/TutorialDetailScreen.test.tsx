@@ -16,6 +16,9 @@ jest.mock('@/features/auth/AuthContext', () => ({
   useAuth: () => ({ user: { id: 'user-1' } }),
 }));
 
+const onBack = jest.fn();
+const onOpenAr = jest.fn();
+
 describe('TutorialDetailScreen', () => {
   beforeEach(() => {
     jest.clearAllMocks();
@@ -24,7 +27,7 @@ describe('TutorialDetailScreen', () => {
 
   it('renders the title, category, why-it-matters, steps and tips', async () => {
     await renderWithProviders(
-      <TutorialDetailScreen tutorialId="soil-preparation-before-sowing" onBack={jest.fn()} />,
+      <TutorialDetailScreen tutorialId="soil-preparation-before-sowing" onBack={onBack} onOpenAr={onOpenAr} />,
     );
 
     expect(await screen.findByText('Soil Preparation Before Sowing')).toBeTruthy();
@@ -40,7 +43,7 @@ describe('TutorialDetailScreen', () => {
 
   it('shows the common-mistake warning when the tutorial has one', async () => {
     await renderWithProviders(
-      <TutorialDetailScreen tutorialId="soil-preparation-before-sowing" onBack={jest.fn()} />,
+      <TutorialDetailScreen tutorialId="soil-preparation-before-sowing" onBack={onBack} onOpenAr={onOpenAr} />,
     );
 
     expect(await screen.findByText('Common mistake')).toBeTruthy();
@@ -51,7 +54,7 @@ describe('TutorialDetailScreen', () => {
 
   it('omits the common-mistake section when the tutorial has none', async () => {
     await renderWithProviders(
-      <TutorialDetailScreen tutorialId="government-schemes-overview" onBack={jest.fn()} />,
+      <TutorialDetailScreen tutorialId="government-schemes-overview" onBack={onBack} onOpenAr={onOpenAr} />,
     );
 
     expect(await screen.findByText('Government Schemes: What to Check')).toBeTruthy();
@@ -62,7 +65,7 @@ describe('TutorialDetailScreen', () => {
     mockMarkComplete.mockResolvedValue(['soil-preparation-before-sowing']);
 
     await renderWithProviders(
-      <TutorialDetailScreen tutorialId="soil-preparation-before-sowing" onBack={jest.fn()} />,
+      <TutorialDetailScreen tutorialId="soil-preparation-before-sowing" onBack={onBack} onOpenAr={onOpenAr} />,
     );
 
     await waitFor(() => expect(screen.getByTestId('mark-complete')).toBeTruthy());
@@ -77,7 +80,7 @@ describe('TutorialDetailScreen', () => {
     mockGetCompleted.mockResolvedValue(['soil-preparation-before-sowing']);
 
     await renderWithProviders(
-      <TutorialDetailScreen tutorialId="soil-preparation-before-sowing" onBack={jest.fn()} />,
+      <TutorialDetailScreen tutorialId="soil-preparation-before-sowing" onBack={onBack} onOpenAr={onOpenAr} />,
     );
 
     expect(await screen.findByText('Completed')).toBeTruthy();
@@ -85,8 +88,69 @@ describe('TutorialDetailScreen', () => {
   });
 
   it('shows a not-found state for an unknown tutorial id instead of crashing', async () => {
-    await renderWithProviders(<TutorialDetailScreen tutorialId="does-not-exist" onBack={jest.fn()} />);
+    await renderWithProviders(
+      <TutorialDetailScreen tutorialId="does-not-exist" onBack={onBack} onOpenAr={onOpenAr} />,
+    );
 
     expect(screen.getByTestId('tutorial-not-found')).toBeTruthy();
+  });
+
+  describe('video', () => {
+    it('shows a video thumbnail for a tutorial that has one', async () => {
+      await renderWithProviders(
+        <TutorialDetailScreen tutorialId="soil-preparation-before-sowing" onBack={onBack} onOpenAr={onOpenAr} />,
+      );
+
+      expect(await screen.findByTestId('video-thumbnail')).toBeTruthy();
+    });
+
+    it('swaps to the player when the thumbnail is tapped', async () => {
+      await renderWithProviders(
+        <TutorialDetailScreen tutorialId="soil-preparation-before-sowing" onBack={onBack} onOpenAr={onOpenAr} />,
+      );
+
+      await fireEvent.press(await screen.findByTestId('video-thumbnail'));
+
+      expect(screen.getByTestId('video-webview')).toBeTruthy();
+    });
+
+    it('renders every other section normally for a tutorial with no video', async () => {
+      await renderWithProviders(
+        <TutorialDetailScreen tutorialId="crop-care-through-growth-stages" onBack={onBack} onOpenAr={onOpenAr} />,
+      );
+
+      expect(screen.queryByTestId('video-thumbnail')).toBeNull();
+      expect(await screen.findByText('Crop Care Through the Growth Stages')).toBeTruthy();
+      expect(screen.getByText('Why it matters')).toBeTruthy();
+    });
+  });
+
+  describe('AR guidance', () => {
+    it('shows the Try AR guidance button only for a tutorial that supports it', async () => {
+      await renderWithProviders(
+        <TutorialDetailScreen tutorialId="soil-preparation-before-sowing" onBack={onBack} onOpenAr={onOpenAr} />,
+      );
+
+      expect(await screen.findByTestId('try-ar-guidance')).toBeTruthy();
+    });
+
+    it('hides the Try AR guidance button for a tutorial without one', async () => {
+      await renderWithProviders(
+        <TutorialDetailScreen tutorialId="sowing-seed-depth-and-spacing" onBack={onBack} onOpenAr={onOpenAr} />,
+      );
+
+      expect(await screen.findByText('Sowing: Seed Depth and Spacing')).toBeTruthy();
+      expect(screen.queryByTestId('try-ar-guidance')).toBeNull();
+    });
+
+    it('opens the AR guide with this tutorial’s id', async () => {
+      await renderWithProviders(
+        <TutorialDetailScreen tutorialId="soil-preparation-before-sowing" onBack={onBack} onOpenAr={onOpenAr} />,
+      );
+
+      await fireEvent.press(await screen.findByTestId('try-ar-guidance'));
+
+      expect(onOpenAr).toHaveBeenCalledWith('soil-preparation-before-sowing');
+    });
   });
 });

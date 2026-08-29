@@ -2,6 +2,7 @@ import { ScrollView, StyleSheet, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
 import { Badge, Banner, Button, Card, EmptyState, Screen, ScreenHeader, Text } from '@/components/ui';
+import { VideoPreview } from '@/components/learning/VideoPreview';
 import { useAuth } from '@/features/auth/AuthContext';
 import { getCategory, getTutorial, localize } from '@/features/learning/tutorials';
 import { useLearningProgress } from '@/features/learning/useLearningProgress';
@@ -10,15 +11,18 @@ import { colors, layout } from '@/theme';
 type Props = {
   tutorialId: string;
   onBack: () => void;
+  onOpenAr: (tutorialId: string) => void;
 };
 
 /**
- * One tutorial, read top to bottom: why it matters, steps, tips, and — where
- * the content has one — a common mistake to avoid, styled as a warning
- * banner since that is exactly the semantics `Banner` already carries
- * elsewhere in the app.
+ * One tutorial, read top to bottom: an optional video, why it matters,
+ * steps, tips, a common mistake to avoid (styled as a warning banner, the
+ * semantics `Banner` already carries elsewhere), and an optional "Try AR
+ * guidance" entry. Every section but the video/AR ones always renders
+ * regardless of whether this tutorial has either — most tutorials have
+ * neither, and that must keep working exactly as before.
  */
-export function TutorialDetailScreen({ tutorialId, onBack }: Props) {
+export function TutorialDetailScreen({ tutorialId, onBack, onOpenAr }: Props) {
   const { t, i18n } = useTranslation();
   const { user } = useAuth();
   const { isComplete, markComplete } = useLearningProgress(user?.id ?? null);
@@ -48,6 +52,8 @@ export function TutorialDetailScreen({ tutorialId, onBack }: Props) {
       <ScreenHeader title={localize(tutorial.title, language)} onBack={onBack} />
 
       <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
+        {tutorial.video ? <VideoPreview video={tutorial.video} /> : null}
+
         {category ? <Badge label={localize(category.label, language)} tone="accent" /> : null}
 
         <Card>
@@ -97,6 +103,21 @@ export function TutorialDetailScreen({ tutorialId, onBack }: Props) {
           />
         ) : null}
 
+        {tutorial.hasArGuide ? (
+          <View style={styles.arBlock}>
+            <Button
+              label={t('learning.tryArGuidance')}
+              onPress={() => onOpenAr(tutorial.id)}
+              variant="secondary"
+              icon="camera"
+              testID="try-ar-guidance"
+            />
+            <Text variant="micro" color={colors.text.muted} style={styles.arHint}>
+              {t('learning.arHint')}
+            </Text>
+          </View>
+        ) : null}
+
         {complete ? (
           <Badge label={t('learning.completed')} tone="success" />
         ) : (
@@ -122,4 +143,6 @@ const styles = StyleSheet.create({
   sectionBody: { marginTop: 6 },
   listRow: { flexDirection: 'row', gap: 8, marginTop: 8 },
   listText: { flex: 1 },
+  arBlock: { gap: 6 },
+  arHint: { fontStyle: 'italic' },
 });

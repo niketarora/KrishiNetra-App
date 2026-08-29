@@ -93,6 +93,9 @@
     "learningSub": "Practical tutorials on soil, sowing, irrigation and more",
     "calendar": "Smart Farm Calendar",
     "calendarSub": "See what's coming up on your farm",
+    "farmerResources": "Farmer Resources",
+    "schemes": "Government Schemes",
+    "updates": "Krishi Updates",
     "askCompanion": "Ask your farmer companion",
     "askCompanionSub": "A preview of the voice assistant arriving soon",
     "loadError": "We couldn't load your field. Pull down to try again.",
@@ -184,7 +187,22 @@
   "learning": {
     "title": "Krishi Academy",
     "intro": "Practical, step-by-step guidance for everyday farm decisions — soil, sowing, irrigation, pests and more.",
+    "tagline": "Learn better farming, one step at a time.",
     "progress": "{{completed}} of {{total}} tutorials completed",
+    "featured": "Featured",
+    "recommended": "Recommended for you",
+    "categories": "Categories",
+    "durationAndDifficulty": "{{duration}} · {{difficulty}}",
+    "durationMinutes": "{{count}} min",
+    "difficulty": {
+      "beginner": "Beginner",
+      "intermediate": "Intermediate",
+      "advanced": "Advanced"
+    },
+    "watchTutorial": "Watch tutorial",
+    "videoUnavailable": "We couldn't load the video. Please try again.",
+    "tryArGuidance": "Try AR guidance",
+    "arHint": "Use your camera to follow the step-by-step field guide.",
     "completed": "Completed",
     "markComplete": "Mark as complete",
     "whyItMatters": "Why it matters",
@@ -255,11 +273,87 @@
       }
     }
   },
+  "ar": {
+    "title": "AR Guide",
+    "previewBadge": "AR Learning Preview",
+    "disclaimer": "This is a preview of a future AR-guided experience. It does not analyse your camera image yet.",
+    "stepLabel": "Step {{number}} of {{total}}",
+    "nextStep": "Next step",
+    "finish": "Finish",
+    "notAvailableTitle": "AR guide not available",
+    "notAvailableBody": "This tutorial doesn't have an AR guide yet.",
+    "markers": {
+      "pointHere": "Point here",
+      "walkToCorner": "Walk to each corner"
+    },
+    "steps": {
+      "soilPreparation": {
+        "moisture": "Check soil moisture — a handful that crumbles rather than balls up is ready to work.",
+        "residue": "Look for leftover crop residue that may need clearing before sowing.",
+        "drainage": "Check for any low spots where water could collect after rain.",
+        "corners": "Walk to each corner of your field to confirm the boundary you registered."
+      }
+    }
+  },
+  "schemes": {
+    "title": "Government Schemes",
+    "intro": "Schemes relevant to you",
+    "matchSummary": "{{count}} schemes may be relevant to your farm",
+    "noFarmHint": "Register your land to see schemes that may be more relevant to you.",
+    "recommended": "⭐ Recommended",
+    "otherSchemes": "Other schemes",
+    "emptyTitle": "No schemes available right now",
+    "notFoundTitle": "Scheme not found",
+    "notFoundBody": "This scheme isn't available. Go back and pick another one.",
+    "disclaimer": "This information is for illustration and general awareness only. Always verify current eligibility and application details on the scheme's official website.",
+    "categories": {
+      "incomeSupport": "Income Support",
+      "insurance": "Insurance",
+      "soilHealth": "Soil Health",
+      "credit": "Credit",
+      "irrigation": "Irrigation",
+      "other": "Other"
+    },
+    "detail": {
+      "whatIsIt": "What is it?",
+      "potentialBenefit": "Potential benefit",
+      "whoMayBeEligible": "Who may be eligible?",
+      "documents": "Documents typically required",
+      "howToApply": "How to apply",
+      "checkOfficialSource": "Check official source"
+    },
+    "reasons": {
+      "noFarm": "Check eligibility — register your land to see a personalised match",
+      "cropMatch": "Based on the crop currently registered on your farm",
+      "landSizeMatch": "Based on your registered land size",
+      "broadlyApplicable": "May be relevant based on the information currently available",
+      "unknown": "Check eligibility on the official site"
+    }
+  },
+  "updates": {
+    "title": "Krishi Updates",
+    "intro": "Latest for farmers",
+    "today": "Today",
+    "yesterday": "Yesterday",
+    "daysAgo": "{{count}} days ago",
+    "emptyTitle": "No updates available right now",
+    "notFoundTitle": "Update not found",
+    "notFoundBody": "This update isn't available. Go back and pick another one.",
+    "officialSource": "Check official source",
+    "categories": {
+      "agriculture": "Agriculture",
+      "weather": "Weather",
+      "government": "Government",
+      "market": "Market",
+      "technology": "Technology"
+    }
+  },
   "profile": {
     "title": "Profile",
     "language": "Language",
     "myFarm": "My Farm",
     "registerLand": "Register your land",
+    "schemes": "Government Schemes",
     "notifications": "Notifications",
     "help": "Help",
     "logout": "Log out",
