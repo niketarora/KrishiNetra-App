@@ -29,6 +29,19 @@
     "goToLogin": "உள்நுழையவும்",
     "showPassword": "கடவுச்சொல்லைக் காட்டு",
     "hidePassword": "கடவுச்சொல்லை மறை",
+    "phoneTitle": "கிருஷிநேத்ராவிற்கு நல்வரவு",
+    "phoneSubtitle": "தொடர மொபைல் எண்ணை உள்ளிடவும்",
+    "phoneLabel": "மொபைல் எண்",
+    "phonePlaceholder": "98765 43210",
+    "otpTitle": "எண்ணைச் சரிபார்க்கவும்",
+    "otpSentTo": "OTP அனுப்பப்பட்டது",
+    "otpLabel": "OTP ஐ உள்ளிடவும்",
+    "verify": "சரிபார்",
+    "resendOtp": "OTP மீண்டும் அனுப்பு",
+    "resendIn": "{{seconds}} வினாடிகளில் மீண்டும் அனுப்பு",
+    "changeNumber": "எண் மாற்று",
+    "demoOtpBannerTitle": "டெமோ OTP — SMS அனுப்பப்படவில்லை",
+    "demoOtpBannerBody": "இது மாதிரி மட்டுமே. உங்கள் குறியீடு {{code}}.",
     "errors": {
       "nameRequired": "தயவுசெய்து உங்கள் பெயரை உள்ளிடவும்",
       "emailRequired": "தயவுசெய்து மின்னஞ்சலை உள்ளிடவும்",
@@ -41,10 +54,30 @@
       "weakPassword": "கடவுச்சொல் எளிதாக உள்ளது — நீளமானதை அமைக்கவும்",
       "network": "இணைய இணைப்பு இல்லை. நெட்வொர்க்கை சரிபார்க்கவும்.",
       "rateLimited": "பலமுறை முயற்சி செய்துள்ளீர்கள். சிறிது நேரம் காத்திருக்கவும்.",
-      "generic": "ஏதோ தவறு நடந்துவிட்டது. மீண்டும் முயற்சிக்கவும்."
+      "generic": "ஏதோ தவறு நடந்துவிட்டது. மீண்டும் முயற்சிக்கவும்.",
+      "phoneRequired": "மொபைல் எண்ணை உள்ளிடவும்",
+      "phoneInvalid": "சரியான 10 இலக்க மொபைல் எண்ணை உள்ளிடவும்",
+      "otpRequired": "OTP ஐ உள்ளிடவும்",
+      "otpInvalid": "தவறான குறியீடு. மீண்டும் முயற்சிக்கவும்.",
+      "phoneAlreadyLinkedOnAnotherDevice": "இந்த எண் வேறு சாதனத்தில் இணைக்கப்பட்டுள்ளது."
     }
   },
+  "profileSetup": {
+    "title": "சுயவிவரத்தை நிரப்பவும்",
+    "subtitle": "தொடங்குவதற்கு சில விவரங்களை உள்ளிடவும்.",
+    "emailOptional": "விருப்பத்திற்குரியது",
+    "saveCta": "சேமித்து தொடரவும்"
+  },
   "onboarding": {
+    "methodTitle": "Register your field",
+    "methodSubtitle": "Choose how you would like to map your land boundary.",
+    "walkMethodTitle": "Walk around your field",
+    "walkMethodDesc": "Walk along the perimeter of your field with your phone. GPS records your corners in real time.",
+    "drawMethodTitle": "Mark boundary on map",
+    "drawMethodDesc": "View high-resolution satellite imagery centered on your nearby land and tap corners to draw your field.",
+    "gpsAcquired": "GPS location acquired",
+    "gpsAccuracyMeters": "±{{meters}}m accuracy",
+    "retryLocation": "Retry GPS location",
     "locationTitle": "உங்கள் நிலத்தைக் கண்டறிவோம்",
     "locationBody": "எல்லை வரைய வசதியாக வரைபடம் உங்கள் நிலத்தை மையப்படுத்தும்.",
     "useLocation": "தற்போதைய இருப்பிடத்தைப் பயன்படுத்து",
@@ -88,6 +121,7 @@
     "unnamedField": "என் நிலம்",
     "editBoundary": "எல்லை மாற்றம்",
     "notYetAnalyzed": "இன்னும் பகுப்பாய்வு செய்யப்படவில்லை",
+    "farmStatus": "நில நிலை",
     "growthStage": "வளர்ச்சி நிலை",
     "weather": "வானிலை",
     "viewFullAnalysis": "முழு பகுப்பாய்வைக் காண்க",
@@ -100,6 +134,7 @@
     "farmerResources": "விவசாயிகள் வளங்கள்",
     "schemes": "அரசு திட்டங்கள்",
     "updates": "விவசாயச் செய்திகள்",
+    "alerts": "எச்சரிக்கைகள்",
     "askCompanion": "விவசாயத் தோழனிடம் கேளுங்கள்",
     "askCompanionSub": "விரைவில் வரும் குரல் வழி உதவியாளர்",
     "loadError": "நிலத் தகவலை ஏற்ற முடியவில்லை. கீழே இழுத்து புதுப்பிக்கவும்.",
@@ -354,19 +389,62 @@
       "technology": "தொழில்நுட்பம்"
     }
   },
+  "alerts": {
+    "title": "எச்சரிக்கைகள்",
+    "intro": "வானிலை, பேரிடர் மற்றும் திட்ட எச்சரிக்கைகள்.",
+    "sampleBannerTitle": "மாதிரி எச்சரிக்கை வரலாறு",
+    "sampleBannerBody": "இவை மாதிரி எச்சரிக்கைகளே.",
+    "today": "இன்று",
+    "yesterday": "நேற்று",
+    "daysAgo": "{{count}} நாட்களுக்கு முன்",
+    "emptyTitle": "எச்சரிக்கைகள் இல்லை",
+    "notFoundTitle": "எச்சரிக்கை கிடைக்கவில்லை",
+    "notFoundBody": "இந்த எச்சரிக்கை கிடைக்கவில்லை.",
+    "demoNotice": "மாதிரி தகவல் மட்டுமே.",
+    "priority": {
+      "high": "முக்கியமானது",
+      "medium": "கவனிக்கத்தக்கது",
+      "info": "தகவல்"
+    },
+    "categories": {
+      "weather": "வானிலை",
+      "disaster": "இயற்கை பேரிடர்",
+      "government": "அரசு திட்டம்",
+      "advisory": "விவசாய ஆலோசனை",
+      "cropHealth": "பயிர் நலம்"
+    },
+    "channels": {
+      "sms": "SMS",
+      "voice": "குரல் அழைப்பு"
+    },
+    "status": {
+      "sent": "அனுப்பப்பட்டது",
+      "initiated": "தொடங்கப்பட்டது",
+      "notSent": "அனுப்பப்படவில்லை"
+    }
+  },
   "profile": {
     "title": "சுயவிவரம்",
+    "sectionFarmer": "விவசாயி",
+    "sectionPreferences": "விருப்பத்தேர்வுகள்",
+    "sectionServices": "பண்ணை & சேவைகள்",
+    "sectionSupport": "உதவி",
+    "phone": "தொலைபேசி",
+    "email": "மின்னஞ்சல்",
+    "emailNotAdded": "சேர்க்கப்படவில்லை",
     "language": "மொழி",
+    "location": "இருப்பிடம்",
     "myFarm": "என் நிலம்",
     "registerLand": "நிலத்தைப் பதிவு செய்",
     "schemes": "அரசு திட்டங்கள்",
-    "notifications": "அறிவிப்புகள்",
+    "alerts": "எச்சரிக்கைகள்",
     "help": "உதவி",
     "logout": "வெளியேறு",
     "logoutConfirmTitle": "வெளியேறவா?",
-    "logoutConfirmBody": "மீண்டும் நுழைய மின்னஞ்சல், கடவுச்சொல் தேவைப்படும்.",
+    "logoutConfirmBody": "மீண்டும் நுழைய தொலைபேசி எண்ணை சரிபார்க்க வேண்டும்.",
     "languageEnglish": "English",
-    "languageHindi": "हिन्दी"
+    "languageHindi": "हिन्दी",
+    "notifications": "அறிவிப்புகள்"
   },
   "nav": {
     "home": "முகப்பு",

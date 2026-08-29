@@ -61,6 +61,7 @@ type Props = {
   onOpenAnalysis: () => void;
   onOpenMarket: () => void;
   onEditBoundary: () => void;
+  onOpenRegisterCrop?: () => void;
   onOpenLearning: () => void;
   onOpenCalendar: () => void;
   onOpenSchemes: () => void;
@@ -84,6 +85,7 @@ export function HomeScreen({
   onOpenAnalysis,
   onOpenMarket,
   onEditBoundary,
+  onOpenRegisterCrop,
   onOpenLearning,
   onOpenCalendar,
   onOpenSchemes,
@@ -123,7 +125,12 @@ export function HomeScreen({
         contentContainerStyle={styles.content}
         showsVerticalScrollIndicator={false}
         refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} tintColor={colors.primary} />
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={() => void handleRefresh()}
+            tintColor={colors.primary}
+            colors={[colors.primary]}
+          />
         }
       >
         <View style={styles.header}>
@@ -189,17 +196,18 @@ export function HomeScreen({
             </Card>
           ) : null}
 
-          <Text variant="cardTitle" style={styles.sectionHeading}>
+          <Text variant="caption" color={colors.text.muted} style={styles.sectionHeading}>
             {t('home.farmStatus')}
           </Text>
 
           <View style={styles.grid}>
             <StatusCard
-              icon="plant"
+              icon="sprout"
               label={t('home.crop')}
               value={crop ? cropName(crop, i18n.language) : t('common.notAvailable')}
-              note={crop?.planting.variety ?? t('home.cropNone')}
+              note={crop ? (crop.planting.variety || undefined) : t('home.cropNone')}
               muted={!crop}
+              onPress={onOpenRegisterCrop}
               testID="crop-card"
             />
             <StatusCard
@@ -214,6 +222,7 @@ export function HomeScreen({
                 msp ? t('home.mspYear', { year: msp.marketing_year }) : t('home.mspNone')
               }
               muted={!msp}
+              onPress={onOpenRegisterCrop}
               testID="msp-card"
             />
           </View>

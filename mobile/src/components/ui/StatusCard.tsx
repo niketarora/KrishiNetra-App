@@ -19,6 +19,7 @@ type Props = {
    * plus a badge, so it cannot be read as a real measurement.
    */
   sample?: boolean;
+  onPress?: () => void;
   testID?: string;
 };
 
@@ -27,9 +28,9 @@ type Props = {
  * In Phase 1 both tiles render `muted` with an em dash, because no analysis
  * service is connected yet and inventing a value would mislead the farmer.
  */
-export function StatusCard({ icon, label, value, note, muted = false, sample = false, testID }: Props) {
+export function StatusCard({ icon, label, value, note, muted = false, sample = false, onPress, testID }: Props) {
   return (
-    <Card style={[styles.card, sample && styles.sampleCard]} testID={testID}>
+    <Card style={[styles.card, sample && styles.sampleCard]} onPress={onPress} testID={testID}>
       <IconBadge icon={icon} tone={sample ? 'demo' : muted ? 'neutral' : 'primary'} size={32} iconSize={16} />
       <Text variant="caption" style={styles.label}>
         {label}

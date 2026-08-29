@@ -29,6 +29,19 @@
     "goToLogin": "लॉग इन करें",
     "showPassword": "पासवर्ड दिखाएँ",
     "hidePassword": "पासवर्ड छिपाएँ",
+    "phoneTitle": "Welcome to KrishiNetra",
+    "phoneSubtitle": "Enter your mobile number to continue",
+    "phoneLabel": "Mobile number",
+    "phonePlaceholder": "98765 43210",
+    "otpTitle": "Verify your number",
+    "otpSentTo": "OTP sent to",
+    "otpLabel": "Enter OTP",
+    "verify": "Verify",
+    "resendOtp": "Resend OTP",
+    "resendIn": "Resend OTP in {{seconds}}s",
+    "changeNumber": "Change number",
+    "demoOtpBannerTitle": "Demo OTP — no SMS is sent",
+    "demoOtpBannerBody": "This prototype does not send real SMS. Your one-time code is {{code}}.",
     "errors": {
       "nameRequired": "कृपया अपना नाम लिखें",
       "emailRequired": "कृपया अपना ईमेल लिखें",
@@ -41,10 +54,30 @@
       "weakPassword": "यह पासवर्ड बहुत आसान है — थोड़ा लंबा रखें",
       "network": "इंटरनेट नहीं है। नेटवर्क जाँचकर फिर कोशिश करें।",
       "rateLimited": "बहुत बार कोशिश हुई। थोड़ी देर बाद फिर कोशिश करें।",
-      "generic": "कुछ ग़लत हो गया। फिर कोशिश करें।"
+      "generic": "कुछ ग़लत हो गया। फिर कोशिश करें।",
+      "phoneRequired": "Please enter your mobile number",
+      "phoneInvalid": "Enter a valid 10-digit mobile number",
+      "otpRequired": "Please enter the OTP",
+      "otpInvalid": "That code isn't right. Please try again.",
+      "phoneAlreadyLinkedOnAnotherDevice": "This number is already linked to an account on another device. Try a different number, or continue on that device."
     }
   },
+  "profileSetup": {
+    "title": "Complete your profile",
+    "subtitle": "Just a couple of details to get started.",
+    "emailOptional": "Optional",
+    "saveCta": "Save and continue"
+  },
   "onboarding": {
+    "methodTitle": "Register your field",
+    "methodSubtitle": "Choose how you would like to map your land boundary.",
+    "walkMethodTitle": "Walk around your field",
+    "walkMethodDesc": "Walk along the perimeter of your field with your phone. GPS records your corners in real time.",
+    "drawMethodTitle": "Mark boundary on map",
+    "drawMethodDesc": "View high-resolution satellite imagery centered on your nearby land and tap corners to draw your field.",
+    "gpsAcquired": "GPS location acquired",
+    "gpsAccuracyMeters": "±{{meters}}m accuracy",
+    "retryLocation": "Retry GPS location",
     "locationTitle": "आइए आपका खेत ढूँढें",
     "locationBody": "हम नक्शे को आपकी ज़मीन पर लाएँगे ताकि आप उसकी सीमा बना सकें।",
     "useLocation": "मेरी अभी की जगह लें",
@@ -88,6 +121,7 @@
     "unnamedField": "हमर खेत",
     "editBoundary": "सीमा बदलें",
     "notYetAnalyzed": "अभी जाँच नहीं हुई",
+    "farmStatus": "Farm status",
     "growthStage": "फसल की अवस्था",
     "weather": "मौसम",
     "viewFullAnalysis": "पूरी जाँच देखें",
@@ -100,6 +134,7 @@
     "farmerResources": "किसान संसाधन",
     "schemes": "सरकारी योजनाएँ",
     "updates": "कृषि अपडेट",
+    "alerts": "Alerts",
     "askCompanion": "अपने खेती साथी से पूछें",
     "askCompanionSub": "आवाज़ सहायक की झलक — जल्द आ रहा है",
     "loadError": "आपका खेत लोड नहीं हुआ। नीचे खींचकर फिर कोशिश करें।",
@@ -354,19 +389,62 @@
       "technology": "तकनीक"
     }
   },
+  "alerts": {
+    "title": "Alerts",
+    "intro": "Weather, disaster, scheme and advisory alerts for your farm.",
+    "sampleBannerTitle": "Demo communication history",
+    "sampleBannerBody": "These are sample alerts — no real SMS or phone call was sent for any of them.",
+    "today": "Today",
+    "yesterday": "Yesterday",
+    "daysAgo": "{{count}} days ago",
+    "emptyTitle": "No alerts yet",
+    "notFoundTitle": "Alert not found",
+    "notFoundBody": "This alert isn't available. Go back and pick another one.",
+    "demoNotice": "Demo communication — no real SMS or phone call was sent.",
+    "priority": {
+      "high": "High priority",
+      "medium": "Important",
+      "info": "Information"
+    },
+    "categories": {
+      "weather": "Weather",
+      "disaster": "Natural disaster",
+      "government": "Government scheme",
+      "advisory": "Agricultural advisory",
+      "cropHealth": "Crop health"
+    },
+    "channels": {
+      "sms": "SMS",
+      "voice": "Voice call"
+    },
+    "status": {
+      "sent": "Sent",
+      "initiated": "Initiated",
+      "notSent": "Not sent"
+    }
+  },
   "profile": {
     "title": "प्रोफ़ाइल",
+    "sectionFarmer": "Farmer",
+    "sectionPreferences": "Preferences",
+    "sectionServices": "Farm & services",
+    "sectionSupport": "Support",
+    "phone": "Phone",
+    "email": "Email",
+    "emailNotAdded": "Not added",
     "language": "भाषा",
+    "location": "Location",
     "myFarm": "मेरा खेत",
-    "schemes": "सरकारी योजनाएँ",
     "registerLand": "अपनी ज़मीन दर्ज करें",
-    "notifications": "सूचनाएँ",
+    "schemes": "सरकारी योजनाएँ",
+    "alerts": "Alerts",
     "help": "मदद",
     "logout": "लॉग आउट",
     "logoutConfirmTitle": "लॉग आउट करें?",
     "logoutConfirmBody": "वापस आने के लिए ईमेल और पासवर्ड चाहिए होगा।",
     "languageEnglish": "English",
-    "languageHindi": "हिन्दी"
+    "languageHindi": "हिन्दी",
+    "notifications": "सूचनाएँ"
   },
   "nav": {
     "home": "होम",

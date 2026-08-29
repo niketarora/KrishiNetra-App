@@ -35,6 +35,8 @@ import { centroid, fromGeoJSON } from '@/utils/geo';
 
 import type { MainStackParamList, MainTabParamList } from './types';
 
+import { RegisterFieldMethodScreen } from '@/screens/onboarding/RegisterFieldMethodScreen';
+
 const Tab = createBottomTabNavigator<MainTabParamList>();
 const Stack = createNativeStackNavigator<MainStackParamList>();
 
@@ -60,6 +62,17 @@ function MainTabs() {
       points,
       name: farm.name,
     });
+  };
+
+  const openRegisterCrop = () => {
+    if (farm) {
+      navigation.navigate('RegisterCropInfo', {
+        points: fromGeoJSON(farm.boundary),
+        accuracy: farm.location_accuracy,
+      });
+    } else {
+      navigation.navigate('RegisterLandMethod');
+    }
   };
 
   return (
@@ -101,6 +114,7 @@ function MainTabs() {
             onOpenAnalysis={() => tabNavigation.navigate('Field')}
             onOpenMarket={() => tabNavigation.navigate('Market')}
             onEditBoundary={openEditBoundary}
+            onOpenRegisterCrop={openRegisterCrop}
             onOpenLearning={() => navigation.navigate('Learning')}
             onOpenCalendar={() => navigation.navigate('Calendar')}
             onOpenSchemes={() => navigation.navigate('Schemes')}
@@ -118,7 +132,7 @@ function MainTabs() {
       <Tab.Screen name="Market" component={MarketScreen} options={{ title: t('nav.market') }} />
 
       <Tab.Screen name="History" options={{ title: t('nav.history') }}>
-        {() => <HistoryScreen onRegisterLand={() => navigation.navigate('MyFarm')} />}
+        {() => <HistoryScreen onRegisterLand={() => navigation.navigate('RegisterLandMethod')} />}
       </Tab.Screen>
     </Tab.Navigator>
   );
@@ -194,8 +208,8 @@ export function MainNavigator() {
       <Stack.Screen name="MyFarm">
         {({ navigation }) => (
           <MyFarmScreen
-            onBack={() => navigation.goBack()}
-            onRegisterLand={() => navigation.navigate('RegisterLand')}
+            onBack={() => (navigation.canGoBack() ? navigation.goBack() : navigation.navigate('Tabs'))}
+            onRegisterLand={() => navigation.navigate('RegisterLandMethod')}
             onEditBoundary={() => {
               if (!farm) return;
               navigation.navigate('EditBoundary', {
@@ -212,14 +226,33 @@ export function MainNavigator() {
         )}
       </Stack.Screen>
 
-      <Stack.Screen name="RegisterLand">
+      <Stack.Screen name="RegisterLandMethod">
         {({ navigation }) => (
+          <RegisterFieldMethodScreen
+            onSelectWalk={(centre, accuracy) =>
+              navigation.navigate('RegisterLand', { centre, accuracy })
+            }
+            onSelectDraw={(centre, accuracy) =>
+              navigation.navigate('RegisterBoundary', {
+                centre,
+                points: [],
+                accuracy,
+              })
+            }
+            onBack={() => navigation.goBack()}
+          />
+        )}
+      </Stack.Screen>
+
+      <Stack.Screen name="RegisterLand">
+        {({ navigation, route }) => (
           <WalkBoundaryScreen
+            initialCentre={route.params?.centre}
             onWalked={(points, accuracy) =>
               navigation.navigate('RegisterBoundary', {
                 centre: centroid(points),
                 points,
-                accuracy,
+                accuracy: accuracy ?? route.params?.accuracy,
               })
             }
             onBack={() => navigation.goBack()}
@@ -250,7 +283,7 @@ export function MainNavigator() {
             points={route.params.points}
             accuracy={route.params.accuracy}
             onSaved={() =>
-              navigation.reset({ index: 0, routes: [{ name: 'MyFarm' }] })
+              navigation.reset({ index: 0, routes: [{ name: 'Tabs' }] })
             }
             onBack={() => navigation.goBack()}
           />

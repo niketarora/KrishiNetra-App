@@ -29,6 +29,19 @@
     "goToLogin": "లాగిన్ అవ్వండి",
     "showPassword": "పాస్‌వర్డ్ చూపించు",
     "hidePassword": "పాస్‌వర్డ్ దాచు",
+    "phoneTitle": "కృషినేత్రకు స్వాగతం",
+    "phoneSubtitle": "కొనసాగడానికి మొబైల్ నంబర్ నమోదు చేయండి",
+    "phoneLabel": "మొబైల్ నంబర్",
+    "phonePlaceholder": "98765 43210",
+    "otpTitle": "నంబర్‌ను ధృవీకరించండి",
+    "otpSentTo": "OTP పంపబడింది",
+    "otpLabel": "OTP నమోదు చేయండి",
+    "verify": "ధృవీకరించండి",
+    "resendOtp": "OTP మళ్ళీ పంపండి",
+    "resendIn": "{{seconds}} సెకన్లలో మళ్ళీ పంపండి",
+    "changeNumber": "నంబర్ మార్చండి",
+    "demoOtpBannerTitle": "డెమో OTP — నిజమైన SMS పంపబడదు",
+    "demoOtpBannerBody": "ఇది డెమో మాత్రమే. మీ కోడ్ {{code}}.",
     "errors": {
       "nameRequired": "దయచేసి మీ పేరు నమోదు చేయండి",
       "emailRequired": "దయచేసి మీ ఈమెయిల్ నమోదు చేయండి",
@@ -41,10 +54,30 @@
       "weakPassword": "పాస్‌వర్డ్ చాలా సులభంగా ఉంది — కాస్త పెద్దది ఇవ్వండి",
       "network": "ఇంటర్నెట్ కనెక్షన్ లేదు. నెట్‌వర్క్ తనిఖీ చేసి మళ్ళీ ప్రయత్నించండి.",
       "rateLimited": "చాలా సార్లు ప్రయత్నించారు. కొద్దిసేపు ఆగి ప్రయత్నించండి.",
-      "generic": "ఏదో తప్పు జరిగింది. మళ్ళీ ప్రయత్నించండి."
+      "generic": "ఏదో తప్పు జరిగింది. మళ్ళీ ప్రయత్నించండి.",
+      "phoneRequired": "దయచేసి మొబైల్ నంబర్ నమోదు చేయండి",
+      "phoneInvalid": "సరైన 10 అంకెల మొబైల్ నంబర్ ఇవ్వండి",
+      "otpRequired": "దయచేసి OTP నమోదు చేయండి",
+      "otpInvalid": "తప్పుడు OTP. మళ్ళీ ప్రయత్నించండి.",
+      "phoneAlreadyLinkedOnAnotherDevice": "ఈ నంబర్ వేరే పరికరంలో అనుసంధానించబడింది."
     }
   },
+  "profileSetup": {
+    "title": "ప్రొఫైల్ పూర్తి చేయండి",
+    "subtitle": "ప్రారంభించడానికి కొన్ని వివరాలు ఇవ్వండి.",
+    "emailOptional": "ఐచ్ఛికం",
+    "saveCta": "సేవ్ చేసి కొనసాగించండి"
+  },
   "onboarding": {
+    "methodTitle": "Register your field",
+    "methodSubtitle": "Choose how you would like to map your land boundary.",
+    "walkMethodTitle": "Walk around your field",
+    "walkMethodDesc": "Walk along the perimeter of your field with your phone. GPS records your corners in real time.",
+    "drawMethodTitle": "Mark boundary on map",
+    "drawMethodDesc": "View high-resolution satellite imagery centered on your nearby land and tap corners to draw your field.",
+    "gpsAcquired": "GPS location acquired",
+    "gpsAccuracyMeters": "±{{meters}}m accuracy",
+    "retryLocation": "Retry GPS location",
     "locationTitle": "మీ పొలాన్ని గుర్తిద్దాం",
     "locationBody": "సరిహద్దును గీయడానికి మ్యాప్‌ను మీ భూమిపై కేంద్రీకరిస్తాము.",
     "useLocation": "ప్రస్తుత స్థానాన్ని ఉపయోగించు",
@@ -88,6 +121,7 @@
     "unnamedField": "నా పొలం",
     "editBoundary": "సరిహద్దు మార్పు",
     "notYetAnalyzed": "ఇంకా విశ్లేషించబడలేదు",
+    "farmStatus": "పొలం పరిస్థితి",
     "growthStage": "ఎదుగుదల దశ",
     "weather": "వాతావరణం",
     "viewFullAnalysis": "పూర్తి విశ్లేషణ చూడండి",
@@ -100,6 +134,7 @@
     "farmerResources": "రైతు వనరులు",
     "schemes": "ప్రభుత్వ పథకాలు",
     "updates": "వ్యవసాయ వార్తలు",
+    "alerts": "హెచ్చరికలు",
     "askCompanion": "వ్యవసాయ మిత్రుడిని అడగండి",
     "askCompanionSub": "త్వరలో రాబోయే వాయిస్ అసిస్టెంట్",
     "loadError": "పొలం వివరాలు లోడ్ కాలేదు. క్రిందికి లాగి ప్రయత్నించండి.",
@@ -354,19 +389,62 @@
       "technology": "సాంకేతికత"
     }
   },
+  "alerts": {
+    "title": "హెచ్చరికలు",
+    "intro": "వాతావరణం, విపత్తు మరియు పథకాల హెచ్చరికలు.",
+    "sampleBannerTitle": "డెమో హెచ్చరికల చరిత్ర",
+    "sampleBannerBody": "ఇవి నమూనా హెచ్చరికలు మాత్రమే.",
+    "today": "ఈరోజు",
+    "yesterday": "నిన్న",
+    "daysAgo": "{{count}} రోజుల క్రితం",
+    "emptyTitle": "హెచ్చరికలు లేవు",
+    "notFoundTitle": "హెచ్చరిక కనుగొనబడలేదు",
+    "notFoundBody": "ఈ హెచ్చరిక అందుబాటులో లేదు.",
+    "demoNotice": "డెమో సమాచారం మాత్రమే.",
+    "priority": {
+      "high": "అత్యవసరం",
+      "medium": "ముఖ్యమైనది",
+      "info": "సమాచారం"
+    },
+    "categories": {
+      "weather": "వాతావరణం",
+      "disaster": "సహజ విపత్తు",
+      "government": "ప్రభుత్వ పథకం",
+      "advisory": "వ్యవసాయ సలహా",
+      "cropHealth": "పంట ఆరోగ్యం"
+    },
+    "channels": {
+      "sms": "SMS",
+      "voice": "వాయిస్ కాల్"
+    },
+    "status": {
+      "sent": "పంపబడింది",
+      "initiated": "ప్రారంభమైంది",
+      "notSent": "పంపలేదు"
+    }
+  },
   "profile": {
     "title": "ప్రొఫైల్",
+    "sectionFarmer": "రైతు",
+    "sectionPreferences": "ప్రాధాన్యతలు",
+    "sectionServices": "పొలం & సేవలు",
+    "sectionSupport": "సహాయం",
+    "phone": "ఫోన్",
+    "email": "ఈమెయిల్",
+    "emailNotAdded": "జోడించలేదు",
     "language": "భాష",
+    "location": "స్థానం",
     "myFarm": "నా పొలం",
     "registerLand": "భూమిని నమోదు చేయండి",
     "schemes": "ప్రభుత్వ పథకాలు",
-    "notifications": "నోటిఫికేషన్లు",
+    "alerts": "హెచ్చరికలు",
     "help": "సహాయం",
     "logout": "లాగ్ అవుట్",
     "logoutConfirmTitle": "లాగ్ అవుట్ చేయాలా?",
-    "logoutConfirmBody": "మళ్ళీ లాగిన్ కావడానికి ఈమెయిల్, పాస్‌వర్డ్ అవసరం.",
+    "logoutConfirmBody": "మళ్ళీ లాగిన్ కావడానికి ఫోన్ నంబర్ ధృవీకరించాలి.",
     "languageEnglish": "English",
-    "languageHindi": "हिन्दी"
+    "languageHindi": "हिन्दी",
+    "notifications": "నోటిఫికేషన్లు"
   },
   "nav": {
     "home": "హోమ్",
