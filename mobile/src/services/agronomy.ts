@@ -54,6 +54,34 @@ export async function listFarmCrops(farmId: string): Promise<FarmCrop[]> {
   }));
 }
 
+/** What Land Registration collects for a newly-registered field's crop. */
+export type CreateFarmCropInput = {
+  crop_id: string;
+  variety?: string | null;
+  sown_on?: string | null;
+  notes?: string | null;
+};
+
+/**
+ * Records the crop a farmer is growing on a field.
+ *
+ * The endpoint has existed since Phase 2 (`POST /api/v1/farms/:farmId/crops`)
+ * but no screen called it until Land Registration — see that endpoint's
+ * comment: "Phase 3 has somewhere to read the farmer's crop and variety from."
+ */
+export async function createFarmCrop(
+  farmId: string,
+  input: CreateFarmCropInput,
+): Promise<FarmCrop> {
+  const crop = await apiFetch<FarmCrop>(`/api/v1/farms/${farmId}/crops`, {
+    method: 'POST',
+    body: input,
+    fallbackKey: 'myFarm.saveCropError',
+  });
+
+  return { ...crop, area_acres: crop.area_acres === null ? null : asNumber(crop.area_acres) };
+}
+
 /**
  * The crop the farmer is growing now, or null.
  *

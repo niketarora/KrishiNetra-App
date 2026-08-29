@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 import { Icon, Screen, ScreenHeader, Text, type IconName } from '@/components/ui';
 import { useAuth } from '@/features/auth/AuthContext';
+import { useFarm } from '@/features/farm/FarmContext';
 import { useLanguage } from '@/features/language/LanguageContext';
 import { SUPPORTED_LANGUAGES } from '@/i18n';
 import { colors, layout } from '@/theme';
@@ -10,7 +11,8 @@ import { initials } from '@/utils/format';
 
 type Props = {
   onBack: () => void;
-  onEditField: () => void;
+  /** Always goes to the same place — My Farm decides what to show. */
+  onOpenMyFarm: () => void;
 };
 
 type Row = {
@@ -24,9 +26,10 @@ type Row = {
 };
 
 /** design.md §4.12 — reached from the header avatar, never a bottom-nav slot. */
-export function ProfileScreen({ onBack, onEditField }: Props) {
+export function ProfileScreen({ onBack, onOpenMyFarm }: Props) {
   const { t } = useTranslation();
   const { user, profile, signOut } = useAuth();
+  const { farm } = useFarm();
   const { language, setLanguage } = useLanguage();
 
   const currentLanguage =
@@ -53,7 +56,12 @@ export function ProfileScreen({ onBack, onEditField }: Props) {
       value: currentLanguage,
       onPress: cycleLanguage,
     },
-    { key: 'editField', icon: 'map', label: t('profile.editField'), onPress: onEditField },
+    {
+      key: 'myFarm',
+      icon: 'field',
+      label: t(farm ? 'profile.myFarm' : 'profile.registerLand'),
+      onPress: onOpenMyFarm,
+    },
     // Notifications and Help have nothing behind them in Phase 1. They are
     // shown disabled rather than hidden so the farmer sees where the app is
     // going, but tapping them can't lead to a dead screen.

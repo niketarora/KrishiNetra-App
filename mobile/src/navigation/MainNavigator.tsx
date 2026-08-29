@@ -7,6 +7,9 @@ import { useTranslation } from 'react-i18next';
 import { Icon, type IconName } from '@/components/ui';
 import { useFarm } from '@/features/farm/FarmContext';
 import { FieldAnalysisScreen } from '@/screens/field/FieldAnalysisScreen';
+import { MyFarmScreen } from '@/screens/farm/MyFarmScreen';
+import { RegisterCropScreen } from '@/screens/farm/RegisterCropScreen';
+import { WalkBoundaryScreen } from '@/screens/farm/WalkBoundaryScreen';
 import { HistoryScreen } from '@/screens/history/HistoryScreen';
 import { HomeScreen } from '@/screens/home/HomeScreen';
 import { MarketScreen } from '@/screens/market/MarketScreen';
@@ -14,7 +17,7 @@ import { ProfileScreen } from '@/screens/profile/ProfileScreen';
 import { ConfirmFieldScreen } from '@/screens/onboarding/ConfirmFieldScreen';
 import { DrawBoundaryScreen } from '@/screens/onboarding/DrawBoundaryScreen';
 import { colors, fonts, layout } from '@/theme';
-import { fromGeoJSON } from '@/utils/geo';
+import { centroid, fromGeoJSON } from '@/utils/geo';
 
 import type { MainStackParamList, MainTabParamList } from './types';
 
@@ -100,17 +103,7 @@ export function MainNavigator() {
         {({ navigation }) => (
           <ProfileScreen
             onBack={() => navigation.goBack()}
-            onEditField={() => {
-              if (!farm) return;
-              navigation.navigate('EditBoundary', {
-                centre: {
-                  latitude: Number(farm.centroid_lat),
-                  longitude: Number(farm.centroid_lng),
-                },
-                points: fromGeoJSON(farm.boundary),
-                name: farm.name,
-              });
-            }}
+            onOpenMyFarm={() => navigation.navigate('MyFarm')}
           />
         )}
       </Stack.Screen>
@@ -136,6 +129,68 @@ export function MainNavigator() {
             // Unlike first-run setup, the farmer already has a home to return
             // to, so pop back to the tabs once the boundary is updated.
             onSaved={() => navigation.navigate('Tabs')}
+            onBack={() => navigation.goBack()}
+          />
+        )}
+      </Stack.Screen>
+
+      {/*
+        Profile → My Farm — Feature #1's optional land-registration flow.
+        Reachable any time from Profile, never from signup. MyFarm shows
+        either the registered farm's summary or a "Register your land" empty
+        state; editing an existing farm's boundary from here reuses the exact
+        EditBoundary/ConfirmEdit route pair above.
+      */}
+      <Stack.Screen name="MyFarm">
+        {({ navigation }) => (
+          <MyFarmScreen
+            onBack={() => navigation.goBack()}
+            onRegisterLand={() => navigation.navigate('RegisterLand')}
+            onEditBoundary={() => {
+              if (!farm) return;
+              navigation.navigate('EditBoundary', {
+                centre: {
+                  latitude: Number(farm.centroid_lat),
+                  longitude: Number(farm.centroid_lng),
+                },
+                points: fromGeoJSON(farm.boundary),
+                name: farm.name,
+              });
+            }}
+          />
+        )}
+      </Stack.Screen>
+
+      <Stack.Screen name="RegisterLand">
+        {({ navigation }) => (
+          <WalkBoundaryScreen
+            onWalked={(points) =>
+              navigation.navigate('RegisterBoundary', { centre: centroid(points), points })
+            }
+            onBack={() => navigation.goBack()}
+          />
+        )}
+      </Stack.Screen>
+
+      {/* Same DrawBoundaryScreen the edit flow uses, reused unmodified. */}
+      <Stack.Screen name="RegisterBoundary">
+        {({ navigation, route }) => (
+          <DrawBoundaryScreen
+            initialCentre={route.params.centre}
+            initialPoints={route.params.points}
+            onConfirm={(points) => navigation.navigate('RegisterCropInfo', { points })}
+            onBack={() => navigation.goBack()}
+          />
+        )}
+      </Stack.Screen>
+
+      <Stack.Screen name="RegisterCropInfo">
+        {({ navigation, route }) => (
+          <RegisterCropScreen
+            points={route.params.points}
+            onSaved={() =>
+              navigation.reset({ index: 0, routes: [{ name: 'MyFarm' }] })
+            }
             onBack={() => navigation.goBack()}
           />
         )}

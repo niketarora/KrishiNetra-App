@@ -1,5 +1,11 @@
 import { apiFetch } from './api';
-import { getCurrentCrop, getLatestMsp, getWeather, selectCurrentPlanting } from './agronomy';
+import {
+  createFarmCrop,
+  getCurrentCrop,
+  getLatestMsp,
+  getWeather,
+  selectCurrentPlanting,
+} from './agronomy';
 import type { FarmCrop } from './agronomy';
 import { DataError } from './errors';
 
@@ -157,5 +163,36 @@ describe('getWeather', () => {
     mockedFetch.mockRejectedValueOnce(new DataError('auth.errors.network'));
 
     await expect(getWeather('farm-1')).rejects.toBeInstanceOf(DataError);
+  });
+});
+
+describe('createFarmCrop', () => {
+  it('posts the crop to the field-scoped endpoint', async () => {
+    mockedFetch.mockResolvedValue(planting() as never);
+
+    await createFarmCrop('farm-1', {
+      crop_id: 'crop-wheat',
+      variety: 'Dara',
+      sown_on: '2026-08-01',
+      notes: null,
+    });
+
+    const [path, init] = mockedFetch.mock.calls[0];
+    expect(path).toBe('/api/v1/farms/farm-1/crops');
+    expect(init.method).toBe('POST');
+    expect(init.body).toEqual({
+      crop_id: 'crop-wheat',
+      variety: 'Dara',
+      sown_on: '2026-08-01',
+      notes: null,
+    });
+  });
+
+  it('coerces a numeric area_acres that arrived as a string', async () => {
+    mockedFetch.mockResolvedValue({ ...planting(), area_acres: '2.5' } as never);
+
+    const crop = await createFarmCrop('farm-1', { crop_id: 'crop-wheat' });
+
+    expect(crop.area_acres).toBe(2.5);
   });
 });

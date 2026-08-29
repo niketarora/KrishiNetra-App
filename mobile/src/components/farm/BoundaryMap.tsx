@@ -17,6 +17,8 @@ type Props = {
   /** Fires once the native map is up — the screen uses it to clear its timeout. */
   onReady?: () => void;
   editable?: boolean;
+  /** Shows the device's live position as a blue dot. Off by default. */
+  showsUserLocation?: boolean;
 };
 
 /**
@@ -35,6 +37,7 @@ function BoundaryMapComponent({
   onMovePoint,
   onReady,
   editable = true,
+  showsUserLocation = false,
 }: Props) {
   const { t } = useTranslation();
 
@@ -55,6 +58,8 @@ function BoundaryMapComponent({
         initialRegion={region}
         onPress={handlePress}
         onMapReady={onReady}
+        showsUserLocation={showsUserLocation}
+        showsMyLocationButton={false}
         loadingEnabled
         loadingBackgroundColor={colors.mapBase}
         toolbarEnabled={false}

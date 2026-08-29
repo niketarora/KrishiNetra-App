@@ -24,4 +24,10 @@ export type MainStackParamList = {
   /** Re-drawing an existing boundary reuses the onboarding screens. */
   EditBoundary: { centre: LatLng | null; points: LatLng[]; name: string | null };
   ConfirmEdit: { points: LatLng[]; name: string | null };
+  /** Profile → My Farm — optional land registration, reachable any time. */
+  MyFarm: undefined;
+  RegisterLand: undefined;
+  /** Boundary review after a GPS walk, reusing the onboarding draw screen. */
+  RegisterBoundary: { centre: LatLng | null; points: LatLng[] };
+  RegisterCropInfo: { points: LatLng[] };
 };
