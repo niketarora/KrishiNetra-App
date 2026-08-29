@@ -90,4 +90,12 @@ describe('createFarmSchema', () => {
     const { name: _name, ...withoutName } = validBody;
     expect(createFarmSchema.safeParse({ ...withoutName, name: null }).success).toBe(true);
   });
+
+  it('accepts omitted, valid number, or null location_accuracy, but rejects negative or string', () => {
+    expect(createFarmSchema.safeParse(validBody).success).toBe(true);
+    expect(createFarmSchema.safeParse({ ...validBody, location_accuracy: 12.5 }).success).toBe(true);
+    expect(createFarmSchema.safeParse({ ...validBody, location_accuracy: null }).success).toBe(true);
+    expect(createFarmSchema.safeParse({ ...validBody, location_accuracy: -5 }).success).toBe(false);
+    expect(createFarmSchema.safeParse({ ...validBody, location_accuracy: '12' }).success).toBe(false);
+  });
 });

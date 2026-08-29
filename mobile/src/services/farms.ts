@@ -9,6 +9,7 @@ export type SaveFarmInput = {
   userId: string;
   points: LatLng[];
   name?: string | null;
+  location_accuracy?: number | null;
 };
 
 /**
@@ -28,6 +29,10 @@ function normalise(farm: Farm): Farm {
     area_hectares: asNumber(farm.area_hectares),
     centroid_lat: asNumber(farm.centroid_lat),
     centroid_lng: asNumber(farm.centroid_lng),
+    location_accuracy:
+      farm.location_accuracy !== null && farm.location_accuracy !== undefined
+        ? asNumber(farm.location_accuracy)
+        : null,
   };
 }
 
@@ -54,11 +59,11 @@ export async function getCurrentFarm(_userId: string): Promise<Farm | null> {
  * if the two disagree by more than 1%, so these numbers are what the map showed
  * the farmer rather than what the database ends up trusting.
  */
-function toFarmValues({ points, name }: SaveFarmInput) {
+function toFarmValues({ points, name, location_accuracy }: SaveFarmInput) {
   const area = calculateArea(points);
   const centre = centroid(points);
 
-  return {
+  const values: Record<string, unknown> = {
     name: name?.trim() ? name.trim() : null,
     boundary: toGeoJSON(points),
     area_sq_meters: area.squareMeters,
@@ -67,6 +72,12 @@ function toFarmValues({ points, name }: SaveFarmInput) {
     centroid_lat: centre.latitude,
     centroid_lng: centre.longitude,
   };
+
+  if (location_accuracy !== undefined) {
+    values.location_accuracy = location_accuracy;
+  }
+
+  return values;
 }
 
 export async function createFarm(input: SaveFarmInput): Promise<Farm> {

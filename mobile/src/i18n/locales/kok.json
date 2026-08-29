@@ -1,0 +1,490 @@
+{
+  "common": {
+    "continue": "फुडे वचात",
+    "back": "फाटी",
+    "retry": "पुन्हा प्रयत्न करा",
+    "cancel": "रद्द करा",
+    "save": "सांबाळात",
+    "loading": "लोड होत आहे…",
+    "notAvailable": "—",
+    "comingSoon": "पुढील अपडेटमध्ये उपलब्ध होईल",
+    "appName": "कृषिनेत्र"
+  },
+  "auth": {
+    "loginTitle": "येवकार",
+    "loginSubtitle": "तुमचे शेत आणि आजचा बाजारभाव पाहण्यासाठी लॉग इन करा.",
+    "registerTitle": "नवीन खाते तयार करा",
+    "registerSubtitle": "सुरू करण्यासाठी फक्त ईमेल आणि पासवर्ड आवश्यक आहे.",
+    "nameLabel": "तुमचे नाव",
+    "namePlaceholder": "रमेश कुमार",
+    "emailLabel": "ईमेल",
+    "emailPlaceholder": "you@example.com",
+    "passwordLabel": "पासवर्ड",
+    "passwordPlaceholder": "किमान ८ अक्षरे",
+    "login": "लॉग इन करा",
+    "register": "खाते तयार करा",
+    "noAccount": "कृषिनेत्रवर नवीन आहात?",
+    "haveAccount": "आधीपासून खाते आहे?",
+    "goToRegister": "खाते तयार करा",
+    "goToLogin": "लॉग इन करा",
+    "showPassword": "पासवर्ड दाखवा",
+    "hidePassword": "पासवर्ड लपवा",
+    "errors": {
+      "nameRequired": "कृपया तुमचे नाव प्रविष्ट करा",
+      "emailRequired": "कृपया तुमचा ईमेल प्रविष्ट करा",
+      "emailInvalid": "वैध ईमेल पत्ता प्रविष्ट करा",
+      "passwordRequired": "कृपया पासवर्ड प्रविष्ट करा",
+      "passwordTooShort": "किमान ८ अक्षरे वापरा",
+      "invalidCredentials": "चुकीचा ईमेल किंवा पासवर्ड",
+      "emailTaken": "हा ईमेल आधीच नोंदणीकृत आहे — लॉग इन करा",
+      "emailNotConfirmed": "कृपया ईमेल सत्यापित करा, नंतर लॉग इन करा",
+      "weakPassword": "हा पासवर्ड खूप सोपा आहे — थोडा मोठा ठेवा",
+      "network": "इंटरनेट कनेक्शन नाही. नेटवर्क तपासा आणि पुन्हा प्रयत्न करा.",
+      "rateLimited": "खूप जास्त प्रयत्न झाले. कृपया थोडा वेळ थांबा.",
+      "generic": "काहीतरी चूक झाली. पुन्हा प्रयत्न करा."
+    }
+  },
+  "onboarding": {
+    "locationTitle": "तुमचे शेत शोधूया",
+    "locationBody": "नकाशा तुमच्या जमिनीवर केंद्रित केला जाईल जेणेकरून तुम्ही सीमा आखू शकाल.",
+    "useLocation": "माझे चालू स्थान वापरा",
+    "locating": "स्थान शोधत आहे…",
+    "locationDenied": "स्थान परवानगी बंद आहे. तुम्ही खाली तुमचे गाव शोधू शकता.",
+    "locationFailed": "स्थान शोधता आले नाही. तुमचे गाव शोधा.",
+    "searchLabel": "गाव किंवा परिसर",
+    "searchPlaceholder": "उदा. बारामती, पुणे",
+    "continueToMap": "नकाशावर जा",
+    "drawTitle": "शेताची सीमा आखा",
+    "satelliteView": "सॅटेलाइट दृश्य",
+    "mapHint": "कोपरा निश्चित करण्यासाठी नकाशावर टॅप करा",
+    "mapHintDrag": "कोना दुरुस्त करण्यासाठी ड्रॅग करा",
+    "undoPoint": "बिंदू मागे घ्या",
+    "restart": "पुन्हा सुरू करा",
+    "acres": "एकर",
+    "hectares": "हेक्टर",
+    "squareMeters": "चौ. मीटर",
+    "confirmBoundary": "शेताची सीमा निश्चित करा",
+    "needMorePoints": "किमान ३ कोपरे निश्चित करा",
+    "mapError": "नकाशा लोड करणे शक्य नाही. पुन्हा प्रयत्न करा.",
+    "mapTokenMissing": "मॅपबॉक्स टोकन उपलब्ध नाही.",
+    "gpsAccuracyWarning": "GPS अचूकता कमी आहे. तुम्ही स्वतः कोपरे जुळवू शकता.",
+    "locationPermissionDenied": "स्थान परवानगी बंद आहे. शेत शोधण्यासाठी नकाशा झूम करा.",
+    "recenter": "केंद्रीत करा",
+    "confirmTitle": "तुमचे शेत निश्चित करा",
+    "fieldNameLabel": "शेताचे नाव (पर्यायी)",
+    "fieldNamePlaceholder": "उत्तर वावर",
+    "saveField": "शेत जतन करा",
+    "saving": "जतन करत आहे…",
+    "saveError": "शेत जतन करता आले नाही. पुन्हा प्रयत्न करा.",
+    "editBoundary": "सीमा बदला"
+  },
+  "home": {
+    "greeting": {
+      "morning": "शुभ प्रभात",
+      "afternoon": "शुभ दुपार",
+      "evening": "शुभ संध्याकाळ"
+    },
+    "yourField": "तुमचें शेत",
+    "unnamedField": "म्हजें शेत",
+    "editBoundary": "सीमा बदला",
+    "notYetAnalyzed": "अद्याप विश्लेषण केलेले नाही",
+    "growthStage": "वाढीचा टप्पा",
+    "weather": "हवामान",
+    "viewFullAnalysis": "संपूर्ण विश्लेषण पहा",
+    "market": "बाजार",
+    "marketUnavailable": "बाजारभाव अद्याप जोडलेले नाहीत",
+    "learning": "कृषी अकादमी",
+    "learningSub": "माती, पेरणी आणि सिंचनाविषयी उपयुक्त मार्गदर्शक",
+    "calendar": "स्मार्ट कृषी दिनदर्शिका",
+    "calendarSub": "शेतातील आगामी कामे पहा",
+    "farmerResources": "शेतकरी संसाधने",
+    "schemes": "सरकारी योजना",
+    "updates": "कृषी वार्ता",
+    "askCompanion": "कृषी मित्राशी बोला",
+    "askCompanionSub": "लवकरच येत असलेला व्हॉइस असिस्टंट",
+    "loadError": "शेताची माहिती लोड झाली नाही. पुन्हा प्रयत्न करा.",
+    "crop": "पीक",
+    "cropNone": "अद्याप पीक जोडलेले नाही",
+    "msp": "हमीभाव (MSP)",
+    "mspPerQuintal": "₹{{price}}/क्विंटल",
+    "mspYear": "आधारभूत किंमत {{year}}",
+    "mspNone": "हमीभाव उपलब्ध नाही",
+    "weatherNone": "हवामानाची माहिती उपलब्ध नाही",
+    "weatherObserved": "{{date}} रोजी नोंदवलेले",
+    "marketObserved": "{{date}} रोजी नोंदवलेले",
+    "visualAssistantTitle": "कृषिनेत्रला विचारा",
+    "visualAssistantSub": "पिकाचा फोटो दाखवून सल्ला मिळवा."
+  },
+  "field": {
+    "title": "शेत विश्लेषण",
+    "cropHealth": "पिकाचे आरोग्य",
+    "growthStage": "वाढीचा टप्पा",
+    "weatherRisk": "हवामान जोखीम",
+    "emptyTitle": "तुमच्या शेताचे अद्याप विश्लेषण झालेले नाही",
+    "emptyBody": "सॅटेलाइट आणि हवामान विश्लेषण जोडल्यानंतर पिकाचे आरोग्य दिसेल.",
+    "areaLabel": "तुम्ही आखलेली सीमा",
+    "weatherObserved": "{{temp}}°C · {{rain}} मिमी पाऊस",
+    "weatherNone": "तुमच्या जिल्ह्यासाठी हवामान नोंद नाही",
+    "analysisNote": "पीक आरोग्यासाठी सॅटेलाइट डेटा आवश्यक आहे."
+  },
+  "market": {
+    "title": "बाजार",
+    "currentPrice": "चालू दर",
+    "msp": "हमीभाव (MSP)",
+    "perQuintal": "प्रति क्विंटल",
+    "sevenDayTrend": "७ दिवसांचा कल",
+    "recommendation": "विक्री सल्ला",
+    "emptyTitle": "बाजार माहिती अद्याप जोडलेली नाही",
+    "emptyBody": "थेट बाजारभाव, हमीभाव तुलना आणि विक्री सल्ला पुढील अपडेटमध्ये येईल.",
+    "loadError": "बाजार माहिती लोड झाली नाही.",
+    "observedOn": "{{mandi}} बाजार समितीमध्ये {{date}} रोजी नोंद",
+    "priceRange": "दर ₹{{min}} – ₹{{max}}",
+    "noPrice": "पिकाचा बाजारभाव उपलब्ध नाही",
+    "noCrop": "बाजारभाव पाहण्यासाठी शेतात पीक जोडा",
+    "aboveMsp": "MSP पेक्षा ₹{{amount}} जास्त",
+    "belowMsp": "MSP पेक्षा ₹{{amount}} कमी",
+    "atMsp": "MSP च्या बरोबरीने",
+    "trendNeedsHistory": "काही दिवसांचे भाव नोंदवणे आवश्यक आहे",
+    "recommendationBody": "विक्री सल्ला मॉडेल प्रक्रिया सुरू आहे.",
+    "sourceLabel": "स्रोत: {{source}}"
+  },
+  "history": {
+    "title": "कृषी मेमरी",
+    "emptyTitle": "पहिल्या विश्लेषणानंतर तुमच्या शेताचा इतिहास येथे दिसेल.",
+    "noFarmTitle": "शेत नोंदणीकृत नाही",
+    "noFarmBody": "कृषी मेमरी सुरू करण्यासाठी तुमच्या जमिनीची नोंदणी करा.",
+    "overviewTitle": "शेत विहंगावलोकन",
+    "registeredArea": "नोंदणीकृत क्षेत्र",
+    "previousCrop": "मागील पीक",
+    "previousCropNone": "मागील पीक नोंद नाही",
+    "activitiesRecorded": "नोंदवलेली कामे",
+    "currentCropStage": "पिकाचा चालू टप्पा",
+    "sownOn": "पेरणी तारीख {{date}}",
+    "farmRegistered": "नोंदणी तारीख {{date}}"
+  },
+  "myFarm": {
+    "title": "म्हजें शेत",
+    "emptyTitle": "तुम्ही कोणत्याही जमिनीची नोंदणी केलेली नाही",
+    "emptyBody": "शेताभोवती फिरून सीमा आखा आणि पिकांची नोंद करा.",
+    "registerCta": "शेत नोंदणी करा",
+    "editBoundary": "सीमा बदला",
+    "walkTitle": "शेताच्या सीमेवरून चाला",
+    "walkIntro": "शेताच्या कडेने सावकाश चाला. आम्ही तुमचा मार्ग नोंदवू.",
+    "recording": "मार्ग नोंदवला जात आहे…",
+    "startWalking": "चालणे सुरू करा",
+    "continueWalking": "चालणे चालू ठेवा",
+    "stopWalking": "थांबा",
+    "pointsRecorded": "{{count}} बिंदू नोंदवले",
+    "locationDenied": "स्थान परवानगी बंद आहे. सेटिंग्जमधून ती सुरू करा.",
+    "locationFailed": "स्थान शोधता आले नाही. पुन्हा प्रयत्न करा.",
+    "needMoreWalking": "सीमा तयार करण्यासाठी किमान ३ बिंदू आवश्यक आहेत.",
+    "tooSmall": "क्षेत्रफळ खूप कमी वाटते. कृपया संपूर्ण शेताभोवती चाला.",
+    "cropStepTitle": "पिकाचा तपशील",
+    "cropLabel": "पीक (पर्यायी)",
+    "varietyLabel": "वाण/जात (पर्यायी)",
+    "varietyPlaceholder": "शरबती / फुले",
+    "sownOnLabel": "पेरणीची तारीख (पर्यायी)",
+    "sownOnInvalid": "YYYY-MM-DD फॉरमॅट वापरा",
+    "notesLabel": "टीपा (पर्यायी)",
+    "notesPlaceholder": "सिंचन, खत किंवा माती विषयी माहिती",
+    "saveCta": "शेत जतन करा",
+    "saveCropError": "शेत जतन झाले, पण पीक तपशील जतन करता आले नाही."
+  },
+  "learning": {
+    "title": "कृषी अकादमी",
+    "intro": "माती, पेरणी, खत आणि कीड व्यवस्थापनासाठी सोपे धडे.",
+    "tagline": "उत्तम शेती शिका, एक पाऊल पुढे.",
+    "progress": "{{total}} पैकी {{completed}} धडे पूर्ण",
+    "featured": "खास निवडलेले",
+    "recommended": "तुमच्यासाठी शिफारस केलेले",
+    "categories": "श्रेण्या",
+    "durationAndDifficulty": "{{duration}} · {{difficulty}}",
+    "durationMinutes": "{{count}} मिनिटे",
+    "difficulty": {
+      "beginner": "प्राथमिक",
+      "intermediate": "मध्यम",
+      "advanced": "प्रगत"
+    },
+    "watchTutorial": "व्हिडिओ पहा",
+    "videoUnavailable": "व्हिडिओ लोड करता आला नाही.",
+    "tryArGuidance": "AR मार्गदर्शन पहा",
+    "arHint": "कॅमेऱ्याच्या साहाय्याने सूचनांचे पालन करा.",
+    "completed": "पूर्ण झाले",
+    "markComplete": "पूर्ण म्हणून खूण करा",
+    "whyItMatters": "हे का महत्त्वाचे आहे",
+    "steps": "टप्पे",
+    "tips": "महत्त्वाच्या टिप्स",
+    "commonMistake": "नेहमी होणाऱ्या चुका",
+    "emptyTitle": "अद्याप धडे नाहीत",
+    "emptyBody": "नवीन धडे लवकरच जोडले जातील.",
+    "notFoundTitle": "धडा सापडला नाही",
+    "notFoundBody": "हा धडा उपलब्ध नाही."
+  },
+  "calendar": {
+    "title": "स्मार्ट कृषी दिनदर्शिका",
+    "upcoming": "आगामी",
+    "today": "आज",
+    "tomorrow": "उद्या",
+    "inDays": "{{count}} दिवसांत",
+    "nextWeek": "पुढील आठवडा",
+    "previousMonth": "मागील महिना",
+    "nextMonth": "पुढील महिना",
+    "noFarmTitle": "शेत नोंदणीकृत नाही",
+    "noFarmBody": "दिनदर्शिकेसाठी शेताची नोंदणी करा.",
+    "noEventsTitle": "कोणतीही कामे नोंदवलेली नाहीत",
+    "noEventsBody": "पुढील अपडेटमध्ये स्वयंचलित वेळापत्रक जोडले जाईल.",
+    "statusUpcoming": "आगामी",
+    "eventNotFoundTitle": "काम सापडले नाही",
+    "eventNotFoundBody": "हे काम उपलब्ध नाही.",
+    "eventTypes": {
+      "sowing": "पेरणी",
+      "irrigation": "पाणी देणे / सिंचन",
+      "fertilizer": "खत व्यवस्थापन",
+      "cropHealth": "पीक तपासणी",
+      "harvest": "कापणी",
+      "weather": "हवामान"
+    },
+    "detail": {
+      "field": "शेत",
+      "crop": "पीक",
+      "scheduled": "नियोजित वेळ",
+      "status": "स्थिती",
+      "whyShown": "हे का दाखवले आहे",
+      "demoNotice": "ही केवळ नमुना माहिती आहे."
+    },
+    "events": {
+      "sowing": {
+        "title": "पेरणी",
+        "reason": "हंगामातील पहिल्या कामाचे उदाहरण."
+      },
+      "irrigation": {
+        "title": "सिंचन",
+        "reason": "मातीतील ओलाव्यावर आधारित पाण्याचे नियोजन."
+      },
+      "fertilizer": {
+        "title": "खत देणे",
+        "reason": "पिकाच्या वाढीनुसार पोषण सल्ला."
+      },
+      "weather": {
+        "title": "हवामान इशारा",
+        "reason": "हवामानातील बदलाचा अंदाज."
+      },
+      "cropHealth": {
+        "title": "पीक आरोग्य तपासणी",
+        "reason": "कीड व रोगांची पाहणी."
+      },
+      "harvest": {
+        "title": "अपेक्षित कापणी",
+        "reason": "उत्पादनाचा अंदाजित वेळ."
+      }
+    }
+  },
+  "ar": {
+    "title": "AR मार्गदर्शक",
+    "previewBadge": "AR पूर्वावलोकन",
+    "disclaimer": "हे आगामी AR अनुभवाचे पूर्वावलोकन आहे.",
+    "stepLabel": "{{total}} पैकी टप्पा {{number}}",
+    "nextStep": "पुढचा टप्पा",
+    "finish": "पूर्ण करा",
+    "notAvailableTitle": "AR उपलब्ध नाही",
+    "notAvailableBody": "या धड्यासाठी AR उपलब्ध नाही.",
+    "markers": {
+      "pointHere": "येथे कॅमेरा दाखवा",
+      "walkToCorner": "प्रत्येक कोपऱ्यावर जा"
+    },
+    "steps": {
+      "soilPreparation": {
+        "moisture": "मातीतील ओलावा तपासा.",
+        "residue": "कचरा व काडीकचरा साफ करा.",
+        "drainage": "पाणी साचणार नाही याची खात्री करा.",
+        "corners": "नोंदवलेली सीमा तपासण्यासाठी चारही कोपऱ्यांवर चाला."
+      }
+    }
+  },
+  "schemes": {
+    "title": "सरकारी योजना",
+    "intro": "तुमच्यासाठी उपयुक्त योजना",
+    "matchSummary": "{{count}} योजना तुमच्यासाठी फायदेशीर ठरू शकतात",
+    "noFarmHint": "वैयक्तिक योजना पाहण्यासाठी शेताची नोंदणी करा.",
+    "recommended": "⭐ शिफारस केलेल्या",
+    "otherSchemes": "इतर योजना",
+    "emptyTitle": "सध्या योजना उपलब्ध नाहीत",
+    "notFoundTitle": "योजना सापडली नाही",
+    "notFoundBody": "ही योजना उपलब्ध नाही.",
+    "disclaimer": "ही माहिती जनजागृतीसाठी आहे. अधिकृत संकेतस्थळावर खात्री करा.",
+    "categories": {
+      "incomeSupport": "उत्पन्न साहाय्य",
+      "insurance": "पीक विमा",
+      "soilHealth": "मृदा आरोग्य",
+      "credit": "कृषी कर्ज",
+      "irrigation": "सिंचन योजना",
+      "other": "इतर"
+    },
+    "detail": {
+      "whatIsIt": "योजना काय आहे?",
+      "potentialBenefit": "संभाव्य फायदे",
+      "whoMayBeEligible": "पात्रता कोणाची आहे?",
+      "documents": "आवश्यक कागदपत्रे",
+      "howToApply": "अर्ज कसा करावा",
+      "checkOfficialSource": "अधिकृत स्रोत तपासा"
+    },
+    "reasons": {
+      "noFarm": "पात्रता तपासण्यासाठी शेत नोंदणी करा",
+      "cropMatch": "तुमच्या पिकावर आधारित",
+      "landSizeMatch": "जमीन धारणेवर आधारित",
+      "broadlyApplicable": "सर्व शेतकऱ्यांसाठी लागू",
+      "unknown": "अधिकृत संकेतस्थळावर तपासा"
+    }
+  },
+  "updates": {
+    "title": "कृषी वार्ता",
+    "intro": "शेतकऱ्यांसाठी ताज्या बातम्या",
+    "today": "आज",
+    "yesterday": "काल",
+    "daysAgo": "{{count}} दिवसांपूर्वी",
+    "emptyTitle": "सध्या बातम्या उपलब्ध नाहीत",
+    "notFoundTitle": "माहिती सापडली नाही",
+    "notFoundBody": "ही बातमी उपलब्ध नाही.",
+    "officialSource": "अधिकृत स्रोत पहा",
+    "categories": {
+      "agriculture": "शेती",
+      "weather": "हवामान",
+      "government": "शासन",
+      "market": "बाजार",
+      "technology": "तंत्रज्ञान"
+    }
+  },
+  "profile": {
+    "title": "प्रोफाइल",
+    "language": "भाषा",
+    "myFarm": "माझे शेत",
+    "registerLand": "शेत नोंदणी करा",
+    "schemes": "सरकारी योजना",
+    "notifications": "सूचना",
+    "help": "मदत",
+    "logout": "लॉग आउट",
+    "logoutConfirmTitle": "लॉग आउट करायचे?",
+    "logoutConfirmBody": "पुन्हा लॉग इन करण्यासाठी ईमेल आणि पासवर्ड लागेल.",
+    "languageEnglish": "English",
+    "languageHindi": "हिन्दी"
+  },
+  "nav": {
+    "home": "मुख्यपृष्ठ",
+    "field": "शेत",
+    "market": "बाजार",
+    "history": "इतिहास"
+  },
+  "avatar": {
+    "openLabel": "कृषी सहाय्यकाशी बोला",
+    "headerTitle": "कृषिनेत्र AI",
+    "headerSubtitle": "शेत, पीक आणि बाजारभावाबद्दल विचारा",
+    "close": "संभाषण बंद करा",
+    "end": "समाप्त करा",
+    "tryAsking": "तुम्ही विचारू शकता",
+    "status": {
+      "idle": "तयार",
+      "listening": "ऐकत आहे…",
+      "thinking": "विचार करत आहे…",
+      "speaking": "बोलत आहे",
+      "error": "ऑडिओ नाही"
+    },
+    "mic": {
+      "idle": "बोलणे सुरू करा",
+      "listening": "बोलणे पूर्ण झाले",
+      "thinking": "एक क्षण थांबा…",
+      "speaking": "पुढचा प्रश्न विचारा",
+      "error": "पुन्हा प्रयत्न करा"
+    },
+    "footer": {
+      "idle": "तुम्ही मराठीत किंवा कोणत्याही भाषेत विचारू शकता.",
+      "listening": "सावकाश बोला — मी ऐकत आहे.",
+      "thinking": "माहिती तपासत आहे…",
+      "speaking": "तुम्ही कधीही थांबवून विचारू शकता.",
+      "error": "माइकवर टॅप करून पुन्हा बोला."
+    },
+    "greeting": "नमस्कार {{name}}! तुमकां कितें जाणून घेवंक जाय?",
+    "questions": {
+      "area": "माझे शेत किती मोठे आहे?",
+      "crop": "माझे पीक कसे आहे?",
+      "mandi": "आजचा बाजारभाव काय आहे?",
+      "sell": "आता विकावे की थांबावे?",
+      "weather": "या आठवड्यात हवामान कसे असेल?"
+    },
+    "sources": {
+      "field": "तुमच्या शेताच्या नोंदीवरून",
+      "assistant": "AI मित्र · पडताळणी आवश्यक"
+    },
+    "errors": {
+      "micPermission": "मायक्रोफोन परवानगी आवश्यक आहे. कृपया सेटिंग्जमधून द्या.",
+      "mic": "रेकॉर्ड करता आले नाही. पुन्हा प्रयत्न करा.",
+      "transcribe": "आवाज समजला नाही. पुन्हा बोला.",
+      "reply": "संपर्क होऊ शकला नाही. पुन्हा प्रयत्न करा.",
+      "generic": "काहीतरी चूक झाली. पुन्हा प्रयत्न करा.",
+      "timeout": "वेळ संपली. लहान प्रश्न विचारा.",
+      "upload": "रेकॉर्डिंग पाठवता आले नाही.",
+      "unreachable": "कृषिनेत्रशी संपर्क होत नाही.",
+      "tooShort": "रेकॉर्डिंग खूप लहान होते. दाबून ठेवून बोला.",
+      "voice": "आवाज तयार करता आला नाही. उत्तर वर दिले आहे."
+    }
+  },
+  "errors": {
+    "sessionRestore": "सत्र पुनर्संचयित करता आले नाही. पुन्हा लॉग इन करा.",
+    "offline": "तुम्ही ऑफलाइन आहात. जतन केलेली माहिती दाखवत आहे.",
+    "generic": "काहीतरी चूक झाली. पुन्हा प्रयत्न करा."
+  },
+  "demo": {
+    "badge": "नमुना माहिती",
+    "bannerTitle": "डेमो मोड — खालील काही आकडे काल्पनिक आहेत",
+    "bannerBody": "नमुना माहिती केवळ मार्गदर्शनासाठी आहे.",
+    "cropHealth": {
+      "value": "उत्तम",
+      "note": "सॅटेलाइट विश्लेषणाचा नमुना"
+    },
+    "growthStage": {
+      "value": "फुटवे फुटण्याची अवस्था",
+      "note": "सॅटेलाइट विश्लेषणाचा नमुना"
+    },
+    "recommendation": {
+      "verdict": "काही माल विका",
+      "body": "केवळ मार्गदर्शनासाठी."
+    },
+    "history": {
+      "mapped": "शेत नोंदणी",
+      "mappedDetail": "उत्तर शेत · २.५० एकर",
+      "sown": "गहू पेरणी",
+      "sownDetail": "सुधारित वाण",
+      "cropHealth": "आरोग्य तपासणी",
+      "cropHealthDetail": "भविष्यातील इंजिनचा नमुना",
+      "fertilized": "खत दिले",
+      "fertilizedDetail": "पोषण सल्ला नमुना",
+      "irrigated": "पाणी दिले",
+      "irrigatedDetail": "सिंचन वेळापत्रक",
+      "priced": "बाजारभाव तपासला",
+      "pricedDetail": "स्थानिक कृषी उत्पन्न बाजार समिती",
+      "offer": "खरेदीदार ऑफर",
+      "offerDetail": "व्यापारी मागणी"
+    }
+  },
+  "visualAssistant": {
+    "headerTitle": "कृषिनेत्रला विचारा",
+    "openLabel": "कॅमेऱ्याने पिकाचा सल्ला मिळवा",
+    "permissionTitle": "कॅमेरा परवानगी आवश्यक",
+    "permissionBody": "पिकाचा फोटो पाहून सल्ला देण्यासाठी कॅमेरा आवश्यक आहे.",
+    "permissionAllow": "कॅमेरा सुरू करा",
+    "permissionDenied": "कॅमेरा परवानगी बंद आहे. सेटिंग्जमध्ये जाऊन सुरू करा.",
+    "unavailable": "कॅमेरा या डिव्हाइसवर उपलब्ध नाही.",
+    "captureLabel": "फोटो घ्या",
+    "captureSub": "कॅमेरा पिकाकडे रोखून फोटो काढा.",
+    "retake": "पुन्हा फोटो घ्या",
+    "questionLabel": "तुमचा प्रश्न",
+    "questionPlaceholder": "पिकावर कोणता रोग आला आहे?",
+    "askButton": "कृषिनेत्रला विचारा",
+    "askAgain": "पुन्हा विचारा",
+    "asking": "विचार करत आहे…",
+    "answerLabel": "AI उत्तर",
+    "answerDisclaimer": "हे AI मॉडेलचे उत्तर आहे, अधिकृत सल्ला नाही.",
+    "errors": {
+      "generic": "उत्तर मिळाले नाही. नेटवर्क तपासा आणि पुन्हा प्रयत्न करा."
+    }
+  }
+}

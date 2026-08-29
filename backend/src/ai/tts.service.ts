@@ -51,14 +51,28 @@ export function trimForSpeech(text: string): string {
 
 /**
  * Sarvam wants a BCP-47 tag and, unlike transcription, has no `unknown` to
- * fall back on — it must be told which language to read the text in. English
- * is the safer default: an English sentence read by the Hindi voice is
- * understandable, while the reverse is not.
+ * fall back on — it must be told which language to read the text in.
  */
+const REGIONAL_TTS_MAP: Record<string, string> = {
+  hi: 'hi-IN',
+  bn: 'bn-IN',
+  kn: 'kn-IN',
+  ml: 'ml-IN',
+  mr: 'mr-IN',
+  or: 'od-IN',
+  pa: 'pa-IN',
+  ta: 'ta-IN',
+  te: 'te-IN',
+  gu: 'gu-IN',
+  en: 'en-IN',
+};
+
 export function toSpeechLanguage(language: string | undefined): string {
-  const base = language?.split('-')[0]?.toLowerCase();
-  return base === 'hi' ? 'hi-IN' : 'en-IN';
+  if (!language) return 'en-IN';
+  const base = language.split('-')[0]?.toLowerCase();
+  return REGIONAL_TTS_MAP[base] ?? 'en-IN';
 }
+
 
 /** Pulls the base64 audio chunks out of a provider response. */
 export function parseAudioChunks(payload: unknown): string[] | null {

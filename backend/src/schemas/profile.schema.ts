@@ -13,7 +13,33 @@ export const updateProfileSchema = z
       .max(20)
       .regex(/^[0-9+\-\s()]*$/, 'Not a valid phone number.')
       .nullish(),
-    language: z.enum(['en', 'hi']).optional(),
+    language: z
+      .enum([
+        'en',
+        'hi',
+        'bn',
+        'mr',
+        'te',
+        'ta',
+        'gu',
+        'ur',
+        'kn',
+        'or',
+        'ml',
+        'pa',
+        'as',
+        'mai',
+        'sat',
+        'ks',
+        'ne',
+        'kok',
+        'sd',
+        'doi',
+        'mni',
+        'brx',
+        'sa',
+      ])
+      .optional(),
   })
   .strict()
   .refine((body) => Object.keys(body).length > 0, 'Nothing to update.');

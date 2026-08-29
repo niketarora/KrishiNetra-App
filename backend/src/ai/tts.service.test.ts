@@ -7,13 +7,12 @@ describe('toSpeechLanguage', () => {
     expect(toSpeechLanguage('hi')).toBe('hi-IN');
     expect(toSpeechLanguage('en')).toBe('en-IN');
     expect(toSpeechLanguage('hi-IN')).toBe('hi-IN');
+    expect(toSpeechLanguage('mr')).toBe('mr-IN');
+    expect(toSpeechLanguage('bn')).toBe('bn-IN');
   });
 
-  it('falls back to English rather than guessing', () => {
-    // Unlike transcription there is no `unknown` here — the provider has to be
-    // told which voice to read in. An English sentence in the Hindi voice is
-    // understandable; Devanagari read by the English voice is not.
-    expect(toSpeechLanguage('mr')).toBe('en-IN');
+  it('falls back to English for unmapped codes', () => {
+    expect(toSpeechLanguage('xyz')).toBe('en-IN');
     expect(toSpeechLanguage(undefined)).toBe('en-IN');
   });
 });

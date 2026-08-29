@@ -4,6 +4,7 @@
 // tests should never reach a real project regardless.
 process.env.EXPO_PUBLIC_SUPABASE_URL = 'https://test.supabase.co';
 process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY = 'test-anon-key';
+process.env.EXPO_PUBLIC_MAPBOX_ACCESS_TOKEN = 'pk.test-token';
 
 jest.mock('expo-secure-store', () => ({
   getItemAsync: jest.fn(async () => null),
@@ -17,32 +18,60 @@ jest.mock('expo-localization', () => ({
 
 jest.mock('expo-location', () => ({
   requestForegroundPermissionsAsync: jest.fn(async () => ({ status: 'granted' })),
+  getForegroundPermissionsAsync: jest.fn(async () => ({ status: 'granted' })),
+  hasServicesEnabledAsync: jest.fn(async () => true),
   getCurrentPositionAsync: jest.fn(async () => ({
-    coords: { latitude: 29.6857, longitude: 76.9905 },
+    coords: { latitude: 29.6857, longitude: 76.9905, accuracy: 10 },
   })),
   // WalkBoundaryScreen streams points through this instead of a one-shot fix.
   // The default never calls back — tests that need points drive it by
   // grabbing the callback off `.mock.calls` and invoking it themselves.
   watchPositionAsync: jest.fn(async () => ({ remove: jest.fn() })),
-  Accuracy: { Balanced: 3, High: 4 },
+  Accuracy: { Lowest: 1, Low: 2, Balanced: 3, High: 4, Highest: 5, BestForNavigation: 6 },
 }));
 
-// react-native-maps needs a native module; component tests only care that the
-// map and its polygon render, not that Google Maps initialises.
-jest.mock('react-native-maps', () => {
+jest.mock('@rnmapbox/maps', () => {
   const React = require('react');
   const { View } = require('react-native');
 
-  const MockMapView = React.forwardRef((props, ref) =>
-    React.createElement(View, { ...props, ref }, props.children),
-  );
+  const MockMapView = React.forwardRef((props, ref) => {
+    React.useEffect(() => {
+      props.onDidFinishLoadingMap?.();
+    }, []);
+    return React.createElement(View, { ...props, ref, testID: props.testID ?? 'boundary-map' }, props.children);
+  });
+
+  const MockCamera = React.forwardRef((props, ref) => {
+    React.useImperativeHandle(ref, () => ({
+      setCamera: jest.fn(),
+      fitBounds: jest.fn(),
+      flyTo: jest.fn(),
+    }));
+    return React.createElement(View, { testID: 'mapbox-camera', ...props });
+  });
 
   return {
     __esModule: true,
-    default: MockMapView,
-    Marker: (props) => React.createElement(View, props, props.children),
-    Polygon: (props) => React.createElement(View, props, props.children),
-    PROVIDER_GOOGLE: 'google',
+    default: {
+      setAccessToken: jest.fn(),
+      StyleURL: {
+        Satellite: 'mapbox://styles/mapbox/satellite-v9',
+        SatelliteStreet: 'mapbox://styles/mapbox/satellite-streets-v12',
+        Street: 'mapbox://styles/mapbox/streets-v12',
+      },
+    },
+    MapView: MockMapView,
+    Camera: MockCamera,
+    ShapeSource: (props) => React.createElement(View, { testID: 'mapbox-shape-source', ...props }, props.children),
+    FillLayer: (props) => React.createElement(View, { testID: 'mapbox-fill-layer', ...props }),
+    LineLayer: (props) => React.createElement(View, { testID: 'mapbox-line-layer', ...props }),
+    PointAnnotation: (props) => React.createElement(View, { testID: 'mapbox-point-annotation', ...props }, props.children),
+    LocationPuck: (props) => React.createElement(View, { testID: 'mapbox-location-puck', ...props }),
+    StyleURL: {
+      Satellite: 'mapbox://styles/mapbox/satellite-v9',
+      SatelliteStreet: 'mapbox://styles/mapbox/satellite-streets-v12',
+      Street: 'mapbox://styles/mapbox/streets-v12',
+    },
   };
 });
 

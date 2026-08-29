@@ -1,7 +1,6 @@
 import * as Location from 'expo-location';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
-import type { Region } from 'react-native-maps';
 import { useTranslation } from 'react-i18next';
 
 import { AreaCard } from '@/components/farm/AreaCard';
@@ -11,37 +10,18 @@ import { colors, layout } from '@/theme';
 import { calculateArea, isValidPolygon, type LatLng } from '@/utils/geo';
 
 type Props = {
-  onWalked: (points: LatLng[]) => void;
+  onWalked: (points: LatLng[], accuracy: number | null) => void;
   onBack: () => void;
 };
 
-/** Roughly a 400m box, same framing as the draw screen. */
-const DEFAULT_DELTA = 0.004;
-const FALLBACK_CENTRE: LatLng = { latitude: 22.9734, longitude: 78.6569 };
-
-/**
- * Below this, a "boundary" is GPS noise from standing still, not a field — a
- * farmer who barely moved should be asked to walk again rather than have a
- * sliver saved as their land. Real fields in this app run to fractions of an
- * acre at minimum (thousands of square metres), so 10 m² only ever rejects a
- * walk that didn't really happen.
- */
 const MIN_WALK_AREA_SQ_METERS = 10;
-
-/** How far the farmer must move before a new point is recorded. */
 const DISTANCE_INTERVAL_METERS = 3;
 
-/**
- * "Walk around your field" boundary capture — Feature #1's one genuinely new
- * mechanism. Everything else (the map, the polygon, the area maths, the
- * confirm/retry footer) reuses the same pieces `DrawBoundaryScreen` uses; this
- * screen's only job is turning a walk into the same `LatLng[]` that screen
- * already knows how to review.
- */
 export function WalkBoundaryScreen({ onWalked, onBack }: Props) {
   const { t } = useTranslation();
 
   const [points, setPoints] = useState<LatLng[]>([]);
+  const [accuracies, setAccuracies] = useState<number[]>([]);
   const [recording, setRecording] = useState(false);
   const [starting, setStarting] = useState(false);
   const [errorKey, setErrorKey] = useState<string | null>(null);
@@ -54,7 +34,6 @@ export function WalkBoundaryScreen({ onWalked, onBack }: Props) {
     setRecording(false);
   }, []);
 
-  // Never leave a location watcher running after the farmer navigates away.
   useEffect(() => stopWatching, [stopWatching]);
 
   const startWalking = async () => {
@@ -75,6 +54,9 @@ export function WalkBoundaryScreen({ onWalked, onBack }: Props) {
             ...current,
             { latitude: position.coords.latitude, longitude: position.coords.longitude },
           ]);
+          if (position.coords.accuracy !== null && position.coords.accuracy !== undefined) {
+            setAccuracies((prev) => [...prev, position.coords.accuracy!]);
+          }
         },
       );
 
@@ -92,18 +74,9 @@ export function WalkBoundaryScreen({ onWalked, onBack }: Props) {
   const restart = () => {
     stopWatching();
     setPoints([]);
+    setAccuracies([]);
     setErrorKey(null);
   };
-
-  const region = useMemo<Region>(() => {
-    const centre = points[0] ?? FALLBACK_CENTRE;
-    return {
-      latitude: centre.latitude,
-      longitude: centre.longitude,
-      latitudeDelta: DEFAULT_DELTA,
-      longitudeDelta: DEFAULT_DELTA,
-    };
-  }, [points]);
 
   const area = useMemo(() => calculateArea(points), [points]);
   const hasEnoughPoints = isValidPolygon(points);
@@ -111,6 +84,12 @@ export function WalkBoundaryScreen({ onWalked, onBack }: Props) {
   const stoppedWithBoundary = !recording && points.length > 0;
   const canContinue = stoppedWithBoundary && hasEnoughPoints && hasEnoughArea;
   const needsMoreWalking = stoppedWithBoundary && !canContinue;
+
+  const averageAccuracy = useMemo(() => {
+    if (accuracies.length === 0) return null;
+    const sum = accuracies.reduce((a, b) => a + b, 0);
+    return Math.round((sum / accuracies.length) * 10) / 10;
+  }, [accuracies]);
 
   return (
     <Screen edges={['top']}>
@@ -137,7 +116,12 @@ export function WalkBoundaryScreen({ onWalked, onBack }: Props) {
         </View>
       ) : null}
 
-      <BoundaryMap region={region} points={points} editable={false} showsUserLocation />
+      <BoundaryMap
+        points={points}
+        initialCentre={points[0] ?? null}
+        editable={false}
+        showsUserLocation
+      />
 
       <View style={styles.footer}>
         {points.length > 0 ? (
@@ -189,7 +173,7 @@ export function WalkBoundaryScreen({ onWalked, onBack }: Props) {
         {canContinue ? (
           <Button
             label={t('common.continue')}
-            onPress={() => onWalked(points)}
+            onPress={() => onWalked(points, averageAccuracy)}
             accessibilityLabel={t('common.continue')}
             testID="walk-continue"
           />

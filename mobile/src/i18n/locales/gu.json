@@ -1,0 +1,490 @@
+{
+  "common": {
+    "continue": "આગળ વધો",
+    "back": "પાછળ",
+    "retry": "ફરી પ્રયાસ કરો",
+    "cancel": "રદ કરો",
+    "save": "સાચવો",
+    "loading": "લોડ થઈ રહ્યું છે…",
+    "notAvailable": "—",
+    "comingSoon": "આગામી અપડેટમાં ઉપલબ્ધ થશે",
+    "appName": "કૃષિનેત્ર"
+  },
+  "auth": {
+    "loginTitle": "સ્વાગત છે",
+    "loginSubtitle": "તમારું ખેતર અને આજના બજારભાવ જોવા માટે લોગ ઇન કરો.",
+    "registerTitle": "નવું ખાતું બનાવો",
+    "registerSubtitle": "શરૂ કરવા માટે ફક્ત ઇમેઇલ અને પાસવર્ડ જરૂરી છે.",
+    "nameLabel": "તમારું નામ",
+    "namePlaceholder": "રમેશ કુમાર",
+    "emailLabel": "ઇમેઇલ",
+    "emailPlaceholder": "you@example.com",
+    "passwordLabel": "પાસવર્ડ",
+    "passwordPlaceholder": "ઓછામાં ઓછા 8 અક્ષરો",
+    "login": "લોગ ઇન કરો",
+    "register": "ખાતું બનાવો",
+    "noAccount": "કૃષિનેત્ર પર નવા છો?",
+    "haveAccount": "પહેલેથી ખાતું છે?",
+    "goToRegister": "ખાતું બનાવો",
+    "goToLogin": "લોગ ઇન કરો",
+    "showPassword": "પાસવર્ડ બતાવો",
+    "hidePassword": "પાસવર્ડ છુપાવો",
+    "errors": {
+      "nameRequired": "કૃપા કરીને તમારું નામ લખો",
+      "emailRequired": "કૃપા કરીને ઇમેઇલ લખો",
+      "emailInvalid": "સાચું ઇમેઇલ સરનામું લખો",
+      "passwordRequired": "પાસવર્ડ દાખલ કરો",
+      "passwordTooShort": "ઓછામાં ઓછા 8 અક્ષરો રાખો",
+      "invalidCredentials": "ખોટો ઇમેઇલ અથવા પાસવર્ડ",
+      "emailTaken": "આ ઇમેઇલ પહેલેથી નોંધાયેલ છે — લોગ ઇન કરો",
+      "emailNotConfirmed": "કૃપા કરીને ઇમેઇલ કન્ફર્મ કરો, પછી લોગ ઇન કરો",
+      "weakPassword": "પાસવર્ડ ખૂબ સરળ છે — લાંબો પાસવર્ડ રાખો",
+      "network": "ઇન્ટરનેટ કનેક્શન નથી. નેટવર્ક તપાસો અને ફરી પ્રયાસ કરો.",
+      "rateLimited": "ઘણા પ્રયાસો થયા. કૃપા કરીને થોડીવાર રાહ જુઓ.",
+      "generic": "કંઈક ખોટું થયું. ફરી પ્રયાસ કરો."
+    }
+  },
+  "onboarding": {
+    "locationTitle": "ચાલો તમારું ખેતર શોધીએ",
+    "locationBody": "અમે નકશાને તમારી જમીન પર કેન્દ્રિત કરીશું જેથી તમે સીમારેખા દોરી શકો.",
+    "useLocation": "મારું વર્તમાન સ્થાન વાપરો",
+    "locating": "સ્થાન શોધી રહ્યા છીએ…",
+    "locationDenied": "સ્થાન પરવાનગી બંધ છે. તમે નીચે તમારું ગામ શોધી શકો છો.",
+    "locationFailed": "સ્થાન મળ્યું નથી. તમારા ગામનું નામ શોધો.",
+    "searchLabel": "ગામ અથવા વિસ્તાર",
+    "searchPlaceholder": "દા.ત. આણંદ, ગુજરાત",
+    "continueToMap": "નકશા પર જાઓ",
+    "drawTitle": "ખેતરની સીમા દોરો",
+    "satelliteView": "સેટેલાઇટ વ્યૂ",
+    "mapHint": "ખૂણો નક્કી કરવા નકશા પર ટેપ કરો",
+    "mapHintDrag": "ખૂણો સુધારવા માટે ખેંચો",
+    "undoPoint": "બિંદુ પાછું લો",
+    "restart": "ફરીથી શરૂ કરો",
+    "acres": "એકર",
+    "hectares": "હેક્ટર",
+    "squareMeters": "ચો.મીટર",
+    "confirmBoundary": "ખેતરની સીમા કન્ફર્મ કરો",
+    "needMorePoints": "ઓછામાં ઓછા 3 ખૂણા નક્કી કરો",
+    "mapError": "નકશો લોડ થઈ શક્યો નથી. ફરી પ્રયાસ કરો.",
+    "mapTokenMissing": "મેપબોક્સ ટોકન ઉપલબ્ધ નથી.",
+    "gpsAccuracyWarning": "GPS ચોકસાઈ ઓછી છે. તમે જાતે સીમા સુધારી શકો છો.",
+    "locationPermissionDenied": "સ્થાન પરવાનગી બંધ છે. ખેતર શોધવા નકશાને ઝૂમ કરો.",
+    "recenter": "કેન્દ્રિત કરો",
+    "confirmTitle": "તમારું ખેતર કન્ફર્મ કરો",
+    "fieldNameLabel": "ખેતરનું નામ (વૈકલ્પિક)",
+    "fieldNamePlaceholder": "ઉત્તર વાળું ખેતર",
+    "saveField": "ખેતર સાચવો",
+    "saving": "સાચવી રહ્યા છીએ…",
+    "saveError": "ખેતર સાચવી શકાયું નથી.",
+    "editBoundary": "સીમા બદલો"
+  },
+  "home": {
+    "greeting": {
+      "morning": "શુભ સવાર",
+      "afternoon": "શુભ બપોર",
+      "evening": "શુભ સાંજ"
+    },
+    "yourField": "તમારું ખેતર",
+    "unnamedField": "મારું ખેતર",
+    "editBoundary": "સીમા બદલો",
+    "notYetAnalyzed": "હજુ સુધી વિશ્લેષણ થયું નથી",
+    "growthStage": "વિકાસનો તબક્કો",
+    "weather": "હવામાન",
+    "viewFullAnalysis": "સંપૂર્ણ વિશ્લેષણ જુઓ",
+    "market": "બજાર",
+    "marketUnavailable": "બજારભાવ હજુ જોડાયેલા નથી",
+    "learning": "કૃષિ એકેડેમી",
+    "learningSub": "માટી, વાવણી અને સિંચાઈ અંગે માર્ગદર્શન",
+    "calendar": "સ્માર્ટ ફાર્મ કેલેન્ડર",
+    "calendarSub": "ખેતરના આગામી કાર્યો જુઓ",
+    "farmerResources": "ખેડૂત સંસાધનો",
+    "schemes": "સરકારી યોજનાઓ",
+    "updates": "કૃષિ સમાચાર",
+    "askCompanion": "કૃષિ સહાયક સાથે વાત કરો",
+    "askCompanionSub": "ટૂંક સમયમાં આવી રહેલ વોઈસ આસિસ્ટન્ટ",
+    "loadError": "ખેતરની વિગત લોડ થઈ શકી નથી. ફરી પ્રયાસ કરો.",
+    "crop": "પાક",
+    "cropNone": "હજુ સુધી પાક ઉમેર્યો નથી",
+    "msp": "ટેકાના ભાવ (MSP)",
+    "mspPerQuintal": "₹{{price}}/ક્વિન્ટલ",
+    "mspYear": "ટેકાનો ભાવ {{year}}",
+    "mspNone": "ટેકાનો ભાવ નોંધાયેલ નથી",
+    "weatherNone": "હવામાન માહિતી ઉપલબ્ધ નથી",
+    "weatherObserved": "{{date}} ના રોજ નોંધાયેલ",
+    "marketObserved": "{{date}} ના રોજ નોંધાયેલ",
+    "visualAssistantTitle": "કૃષિનેત્રને પૂછો",
+    "visualAssistantSub": "પાકનો ફોટો પાડીને સલાહ મેળવો."
+  },
+  "field": {
+    "title": "ખેતર વિશ્લેષણ",
+    "cropHealth": "પાકનું સ્વાસ્થ્ય",
+    "growthStage": "વિકાસનો તબક્કો",
+    "weatherRisk": "હવામાન જોખમ",
+    "emptyTitle": "તમારા ખેતરનું હજુ વિશ્લેષણ થયું નથી",
+    "emptyBody": "સેટેલાઇટ અને હવામાન જોડાણ પછી પાકની વિગતો દેખાશે.",
+    "areaLabel": "તમે દોરેલી સીમા",
+    "weatherObserved": "{{temp}}°C · {{rain}} મીમી વરસાદ",
+    "weatherNone": "તમારા જિલ્લા માટે હવામાન નોંધ નથી",
+    "analysisNote": "પાકના સ્વાસ્થ્ય માટે સેટેલાઇટ ડેટા જરૂરી છે."
+  },
+  "market": {
+    "title": "બજાર",
+    "currentPrice": "વર્તમાન ભાવ",
+    "msp": "ટેકાનો ભાવ (MSP)",
+    "perQuintal": "પ્રતિ ક્વિન્ટલ",
+    "sevenDayTrend": "7 દિવસનો ટ્રેન્ડ",
+    "recommendation": "વેચાણ સલાહ",
+    "emptyTitle": "બજાર માહિતી હજુ જોડાયેલ નથી",
+    "emptyBody": "લાઇવ માર્કેટ યાર્ડના ભાવ અને વેચાણ સલાહ આગામી અપડેટમાં આવશે.",
+    "loadError": "બજાર માહિતી લોડ થઈ શકી નથી.",
+    "observedOn": "{{mandi}} માર્કેટિંગ યાર્ડમાં {{date}} ના રોજ નોંધાયેલ",
+    "priceRange": "ભાવ શ્રેણી ₹{{min}} – ₹{{max}}",
+    "noPrice": "કોઈ બજારભાવ ઉપલબ્ધ નથી",
+    "noCrop": "ભાવ જોવા માટે ખેતરમાં પાક ઉમેરો",
+    "aboveMsp": "MSP કરતાં ₹{{amount}} વધુ",
+    "belowMsp": "MSP કરતાં ₹{{amount}} ઓછો",
+    "atMsp": "MSP જેટલો જ ભાવ",
+    "trendNeedsHistory": "થોડા દિવસોના ભાવનો ઇતિહાસ જરૂરી છે",
+    "recommendationBody": "વેચાણ સલાહ મોડલ પ્રક્રિયા ચાલુ છે.",
+    "sourceLabel": "સ્ત્રોત: {{source}}"
+  },
+  "history": {
+    "title": "કૃષિ મેમરી",
+    "emptyTitle": "પ્રથમ વિશ્લેષણ પછી તમારા ખેતરનો ઇતિહાસ અહીં દેખાશે.",
+    "noFarmTitle": "કોઈ ખેતર નોંધાયેલ નથી",
+    "noFarmBody": "કૃષિ મેમરી શરૂ કરવા માટે તમારી જમીન નોંધાવો.",
+    "overviewTitle": "ખેતરનું વિહંગાવલોકન",
+    "registeredArea": "નોંધાયેલ વિસ્તાર",
+    "previousCrop": "અગાઉનો પાક",
+    "previousCropNone": "અગાઉનો પાક નોંધાયેલ નથી",
+    "activitiesRecorded": "નોંધાયેલ પ્રવૃત્તિઓ",
+    "currentCropStage": "પાકનો વર્તમાન તબક્કો",
+    "sownOn": "વાવણી તારીખ {{date}}",
+    "farmRegistered": "નોંધણી તારીખ {{date}}"
+  },
+  "myFarm": {
+    "title": "મારું ખેતર",
+    "emptyTitle": "તમે હજુ સુધી જમીન નોંધાવી નથી",
+    "emptyBody": "ખેતરની આસપાસ ચાલીને સીમા નક્કી કરો અને પાકની વિગતો ઉમેરો.",
+    "registerCta": "જમીન નોંધાવો",
+    "editBoundary": "સીમા બદલો",
+    "walkTitle": "ખેતરની સીમા પર ચાલો",
+    "walkIntro": "ખેતરની કિનારી પર ધીમેથી ચાલો. અમે તમારો રસ્તો રેકોર્ડ કરીશું.",
+    "recording": "રસ્તો રેકોર્ડ થઈ રહ્યો છે…",
+    "startWalking": "ચાલવાનું શરૂ કરો",
+    "continueWalking": "ચાલવાનું ચાલુ રાખો",
+    "stopWalking": "રોકો",
+    "pointsRecorded": "{{count}} પોઇન્ટ્સ નોંધાયા",
+    "locationDenied": "સ્થાન પરવાનગી બંધ છે. સેટિંગ્સમાંથી ચાલુ કરો.",
+    "locationFailed": "સ્થાન શોધી શકાયું નથી. ફરી પ્રયાસ કરો.",
+    "needMoreWalking": "સીમા બનાવવા ઓછામાં ઓછા 3 પોઇન્ટ્સ જરૂરી છે.",
+    "tooSmall": "વિસ્તાર ખૂબ નાનો લાગે છે. કૃપા કરીને આખા ખેતર ફરતે ચાલો.",
+    "cropStepTitle": "પાકની વિગત",
+    "cropLabel": "પાક (વૈકલ્પિક)",
+    "varietyLabel": "જાત / બિયારણ (વૈકલ્પિક)",
+    "varietyPlaceholder": "ગુજરાત-૪ / દેશી",
+    "sownOnLabel": "વાવણી તારીખ (વૈકલ્પિક)",
+    "sownOnInvalid": "YYYY-MM-DD ફોર્મેટ વાપરો",
+    "notesLabel": "નોંધ (વૈકલ્પિક)",
+    "notesPlaceholder": "ખાતર, સિંચાઈ અથવા જમીન વિશે વિગત",
+    "saveCta": "સાચવો",
+    "saveCropError": "ખેતર સાચવ્યું, પણ પાકની વિગત સાચવી શકાઈ નથી."
+  },
+  "learning": {
+    "title": "કૃષિ એકેડેમી",
+    "intro": "માટી, વાવણી, ખાતર અને જીવાત નિયંત્રણ માટે સરળ પાઠ.",
+    "tagline": "આધુનિક ખેતી પદ્ધતિઓ સરળતાથી શીખો.",
+    "progress": "{{total}} માંથી {{completed}} પાઠ પૂર્ણ",
+    "featured": "ખાસ પસંદ કરેલ",
+    "recommended": "તમારા માટે ભલામણ કરેલ",
+    "categories": "શ્રેણીઓ",
+    "durationAndDifficulty": "{{duration}} · {{difficulty}}",
+    "durationMinutes": "{{count}} મિનિટ",
+    "difficulty": {
+      "beginner": "શરૂઆત",
+      "intermediate": "મધ્યમ",
+      "advanced": "ઉચ્ચ"
+    },
+    "watchTutorial": "વિડિયો જુઓ",
+    "videoUnavailable": "વિડિયો લોડ થઈ શક્યો નથી.",
+    "tryArGuidance": "AR માર્ગદર્શન અજમાવો",
+    "arHint": "કેમેરાની મદદથી પગલાં અનુસરો.",
+    "completed": "પૂર્ણ થયું",
+    "markComplete": "પૂર્ણ તરીકે ચિહ્નિત કરો",
+    "whyItMatters": "આ કેમ જરૂરી છે",
+    "steps": "પગલાં",
+    "tips": "મહત્વપૂર્ણ ટિપ્સ",
+    "commonMistake": "સામાન્ય ભૂલો",
+    "emptyTitle": "હજુ કોઈ પાઠ ઉપલબ્ધ નથી",
+    "emptyBody": "નવા પાઠ ટૂંક સમયમાં ઉમેરવામાં આવશે.",
+    "notFoundTitle": "પાઠ મળ્યો નથી",
+    "notFoundBody": "આ પાઠ ઉપલબ્ધ નથી."
+  },
+  "calendar": {
+    "title": "સ્માર્ટ ફાર્મ કેલેન્ડર",
+    "upcoming": "આગામી",
+    "today": "આજે",
+    "tomorrow": "આવતીકાલે",
+    "inDays": "{{count}} દિવસમાં",
+    "nextWeek": "આવતા અઠવાડિયે",
+    "previousMonth": "ગયે મહિને",
+    "nextMonth": "આવતા મહિને",
+    "noFarmTitle": "કોઈ ખેતર નોંધાયેલ નથી",
+    "noFarmBody": "કેલેન્ડર વાપરવા ખેતર નોંધાવો.",
+    "noEventsTitle": "કોઈ પ્રવૃત્તિ નોંધાયેલ નથી",
+    "noEventsBody": "આગામી અપડેટમાં આપોઆપ સમયપત્રક ઉમેરાશે.",
+    "statusUpcoming": "આગામી",
+    "eventNotFoundTitle": "કાર્ય મળ્યું નથી",
+    "eventNotFoundBody": "આ કાર્ય ઉપલબ્ધ નથી.",
+    "eventTypes": {
+      "sowing": "વાવણી",
+      "irrigation": "પિયત / સિંચાઈ",
+      "fertilizer": "ખાતર વ્યવસ્થાપન",
+      "cropHealth": "પાક નિરીક્ષણ",
+      "harvest": "લણણી / કાપણી",
+      "weather": "હવામાન"
+    },
+    "detail": {
+      "field": "ખેતર",
+      "crop": "પાક",
+      "scheduled": "નિયત સમય",
+      "status": "સ્થિતિ",
+      "whyShown": "આ કેમ દર્શાવવામાં આવ્યું છે",
+      "demoNotice": "આ માત્ર નમૂના માહિતી છે."
+    },
+    "events": {
+      "sowing": {
+        "title": "વાવણી",
+        "reason": "સિઝનની પ્રથમ પ્રવૃત્તિનો નમૂનો."
+      },
+      "irrigation": {
+        "title": "પિયત",
+        "reason": "જમીનના ભેજના આધારે પાણીનું આયોજન."
+      },
+      "fertilizer": {
+        "title": "ખાતર આપવું",
+        "reason": "પાકના વિકાસ અનુસાર પોષણ વ્યવસ્થાપન."
+      },
+      "weather": {
+        "title": "હવામાન ચેતવણી",
+        "reason": "હવામાનમાં ફેરફારની આગાહી."
+      },
+      "cropHealth": {
+        "title": "પાક નિરીક્ષણ",
+        "reason": "રોગ અને જીવાત તપાસ."
+      },
+      "harvest": {
+        "title": "અંદાજિત લણણી",
+        "reason": "ઉત્પાદનનો અંદાજિત સમય."
+      }
+    }
+  },
+  "ar": {
+    "title": "AR માર્ગદર્શિકા",
+    "previewBadge": "AR પૂર્વાવલોકન",
+    "disclaimer": "આ આગામી AR અનુભવનું પૂર્વાવલોકન છે.",
+    "stepLabel": "{{total}} માંથી પગલું {{number}}",
+    "nextStep": "આગલું પગલું",
+    "finish": "સમાપ્ત કરો",
+    "notAvailableTitle": "AR ઉપલબ્ધ નથી",
+    "notAvailableBody": "આ પાઠ માટે AR ઉપલબ્ધ નથી.",
+    "markers": {
+      "pointHere": "અહીં કેમેરો રાખો",
+      "walkToCorner": "દરેક ખૂણા પર જાઓ"
+    },
+    "steps": {
+      "soilPreparation": {
+        "moisture": "જમીનનો ભેજ તપાસો.",
+        "residue": "પાકના અવશેષો સાફ કરો.",
+        "drainage": "પાણી ભરાઈ ન રહે તે જુઓ.",
+        "corners": "સીમા ચકાસવા 4 ખૂણા પર ચાલો."
+      }
+    }
+  },
+  "schemes": {
+    "title": "સરકારી યોજનાઓ",
+    "intro": "તમારા માટે ઉપયોગી યોજનાઓ",
+    "matchSummary": "{{count}} યોજનાઓ તમારા માટે ફાયદાકારક હોઈ શકે છે",
+    "noFarmHint": "વ્યક્તિગત યોજનાઓ જોવા માટે ખેતર નોંધાવો.",
+    "recommended": "⭐ ભલામણ કરેલ",
+    "otherSchemes": "અન્ય યોજનાઓ",
+    "emptyTitle": "હાલમાં કોઈ યોજના ઉપલબ્ધ નથી",
+    "notFoundTitle": "યોજના મળી નથી",
+    "notFoundBody": "આ યોજના ઉપલબ્ધ નથી.",
+    "disclaimer": "આ માહિતી જાગૃતિ માટે છે. સત્તાવાર વેબસાઇટ પર ચકાસણી કરો.",
+    "categories": {
+      "incomeSupport": "આવક સહાય",
+      "insurance": "પાક વીમો",
+      "soilHealth": "જમીન સ્વાસ્થ્ય",
+      "credit": "કૃષિ ધિરાણ",
+      "irrigation": "સિંચાઈ સહાય",
+      "other": "અન્ય"
+    },
+    "detail": {
+      "whatIsIt": "યોજના શું છે?",
+      "potentialBenefit": "સંભવિત લાભો",
+      "whoMayBeEligible": "કોણ પાત્ર છે?",
+      "documents": "જરૂરી દસ્તાવેજો",
+      "howToApply": "અરજી કેવી રીતે કરવી",
+      "checkOfficialSource": "સત્તાવાર વેબસાઇટ જુઓ"
+    },
+    "reasons": {
+      "noFarm": "પાત્રતા તપાસવા ખેતર નોંધાવો",
+      "cropMatch": "તમારા પાક અનુસાર",
+      "landSizeMatch": "જમીન ધારણા અનુસાર",
+      "broadlyApplicable": "બધા ખેડૂતો માટે લાગુ",
+      "unknown": "સત્તાવાર સાઇટ પર તપાસો"
+    }
+  },
+  "updates": {
+    "title": "કૃષિ સમાચાર",
+    "intro": "ખેડૂતો માટે તાજા સમાચાર",
+    "today": "આજે",
+    "yesterday": "ગઈકાલે",
+    "daysAgo": "{{count}} દિવસ પહેલાં",
+    "emptyTitle": "હાલ કોઈ સમાચાર નથી",
+    "notFoundTitle": "માહિતી મળી નથી",
+    "notFoundBody": "આ સમાચાર ઉપલબ્ધ નથી.",
+    "officialSource": "સત્તાવાર સ્ત્રોત જુઓ",
+    "categories": {
+      "agriculture": "ખેતી",
+      "weather": "હવામાન",
+      "government": "સરકાર",
+      "market": "બજાર",
+      "technology": "ટેકનોલોજી"
+    }
+  },
+  "profile": {
+    "title": "પ્રોફાઇલ",
+    "language": "ભાષા",
+    "myFarm": "મારું ખેતર",
+    "registerLand": "જમીન નોંધાવો",
+    "schemes": "સરકારી યોજનાઓ",
+    "notifications": "સૂચનાઓ",
+    "help": "મદદ",
+    "logout": "લોગ આઉટ",
+    "logoutConfirmTitle": "લોગ આઉટ કરવું છે?",
+    "logoutConfirmBody": "ફરી લોગ ઇન કરવા ઇમેઇલ અને પાસવર્ડ જોઈશે.",
+    "languageEnglish": "English",
+    "languageHindi": "हिन्दी"
+  },
+  "nav": {
+    "home": "હોમ",
+    "field": "ખેતર",
+    "market": "બજાર",
+    "history": "ઇતિહાસ"
+  },
+  "avatar": {
+    "openLabel": "કૃષિ સહાયક સાથે વાત કરો",
+    "headerTitle": "કૃષિનેત્ર AI",
+    "headerSubtitle": "ખેતર, પાક અને બજારભાવ વિશે પૂછો",
+    "close": "વાતચીત બંધ કરો",
+    "end": "સમાપ્ત કરો",
+    "tryAsking": "તમે પૂછી શકો છો",
+    "status": {
+      "idle": "તૈયાર",
+      "listening": "સાંભળી રહ્યા છીએ…",
+      "thinking": "વિચારી રહ્યા છીએ…",
+      "speaking": "બોલી રહ્યા છીએ",
+      "error": "ઓડિયો નથી"
+    },
+    "mic": {
+      "idle": "બોલવાનું શરૂ કરો",
+      "listening": "બોલવાનું પૂરું થયું",
+      "thinking": "એક ક્ષણ…",
+      "speaking": "બીજો પ્રશ્ન પૂછો",
+      "error": "ફરી પ્રયાસ કરો"
+    },
+    "footer": {
+      "idle": "તમે ગુજરાતીમાં અથવા કોઈપણ ભાષામાં પૂછી શકો છો.",
+      "listening": "ધીમેથી બોલો — હું સાંભળી રહ્યો છું.",
+      "thinking": "માહિતી ચકાસી રહ્યા છીએ…",
+      "speaking": "તમે વચ્ચે રોકીને પણ પૂછી શકો છો.",
+      "error": "માઇક દબાવી ફરી બોલો."
+    },
+    "greeting": "નમસ્તે {{name}}! તમે શું જાણવા માંગો છો?",
+    "questions": {
+      "area": "મારું ખેતર કેટલું મોટું છે?",
+      "crop": "મારા પાકની સ્થિતિ કેવી છે?",
+      "mandi": "આજનો બજારભાવ શું છે?",
+      "sell": "હમણાં વેચવું કે રાહ જોવી?",
+      "weather": "આ અઠવાડિયે હવામાન કેવું રહેશે?"
+    },
+    "sources": {
+      "field": "તમારા ખેતરના રેકોર્ડમાંથી",
+      "assistant": "AI મિત્ર · ચકાસણી જરૂરી"
+    },
+    "errors": {
+      "micPermission": "માઇક્રોફોન પરવાનગી જરૂરી છે. સેટિંગ્સમાંથી આપો.",
+      "mic": "રેકોર્ડ થઈ શક્યું નથી. ફરી પ્રયાસ કરો.",
+      "transcribe": "અવાજ સ્પષ્ટ નહોતો. ફરી બોલો.",
+      "reply": "સહાયક સાથે સંપર્ક થઈ શક્યો નથી.",
+      "generic": "કંઈક ખોટું થયું. ફરી પ્રયાસ કરો.",
+      "timeout": "સમય પૂરો થયો. નાનો પ્રશ્ન પૂછો.",
+      "upload": "રેકોર્ડિંગ મોકલી શકાયું નથી.",
+      "unreachable": "કૃષિનેત્ર સર્વર સાથે જોડાણ નથી.",
+      "tooShort": "રેકોર્ડિંગ ખૂબ નાનું હતું. દબાવી રાખીને બોલો.",
+      "voice": "અવાજ બનાવી શકાયો નથી. જવાબ ઉપર આપેલ છે."
+    }
+  },
+  "errors": {
+    "sessionRestore": "સત્ર પુનઃસ્થાપિત થયું નથી. ફરી લોગ ઇન કરો.",
+    "offline": "તમે ઓફલાઇન છો. સાચવેલી માહિતી બતાવી રહ્યા છીએ.",
+    "generic": "કંઈક ખોટું થયું. ફરી પ્રયાસ કરો."
+  },
+  "demo": {
+    "badge": "નમૂના માહિતી",
+    "bannerTitle": "ડેમો મોડ — નીચેના કેટલાક આંકડા કાલ્પનિક છે",
+    "bannerBody": "નમૂના માહિતી માત્ર માર્ગદર્શન માટે છે.",
+    "cropHealth": {
+      "value": "સારું",
+      "note": "સેટેલાઇટ વિશ્લેષણ નમૂનો"
+    },
+    "growthStage": {
+      "value": "ફૂટવાનો તબક્કો",
+      "note": "સેટેલાઇટ વિશ્લેષણ નમૂનો"
+    },
+    "recommendation": {
+      "verdict": "થોડો માલ વેચો",
+      "body": "માત્ર માર્ગદર્શન માટે."
+    },
+    "history": {
+      "mapped": "ખેતર નોંધણી",
+      "mappedDetail": "ઉત્તર ખેતર · 2.50 એકર",
+      "sown": "ઘઉં/કપાસ વાવણી",
+      "sownDetail": "ઉન્નત બિયારણ",
+      "cropHealth": "પાક આરોગ્ય તપાસ",
+      "cropHealthDetail": "ભાવિ એન્જિન તપાસ નમૂનો",
+      "fertilized": "ખાતર આપ્યું",
+      "fertilizedDetail": "પોષણ સલાહ નમૂનો",
+      "irrigated": "પિયત આપ્યું",
+      "irrigatedDetail": "સિંચાઈ સમયપત્રક નમૂનો",
+      "priced": "બજારભાવ તપાસ્યો",
+      "pricedDetail": "સ્થાનિક માર્કેટ યાર્ડ",
+      "offer": "ઓફર મળી",
+      "offerDetail": "વેપારી માંગ"
+    }
+  },
+  "visualAssistant": {
+    "headerTitle": "કૃષિનેત્રને પૂછો",
+    "openLabel": "કેમેરા વડે પાકની સલાહ મેળવો",
+    "permissionTitle": "કેમેરા પરવાનગી જરૂરી",
+    "permissionBody": "પાકનો ફોટો જોઈ સલાહ આપવા કેમેરા જરૂરી છે.",
+    "permissionAllow": "કેમેરા ચાલુ કરો",
+    "permissionDenied": "કેમેરા પરવાનગી બંધ છે. સેટિંગ્સમાં જઈ ચાલુ કરો.",
+    "unavailable": "આ ઉપકરણ પર કેમેરા ઉપલબ્ધ નથી.",
+    "captureLabel": "ફોટો લો",
+    "captureSub": "કેમેરા પાક તરફ રાખી ફોટો પાડો.",
+    "retake": "ફરી ફોટો લો",
+    "questionLabel": "તમારો પ્રશ્ન",
+    "questionPlaceholder": "પાકમાં કોઈ રોગ છે?",
+    "askButton": "કૃષિનેત્રને પૂછો",
+    "askAgain": "ફરી પૂછો",
+    "asking": "જવાબ શોધી રહ્યા છીએ…",
+    "answerLabel": "AI જવાબ",
+    "answerDisclaimer": "આ AI મોડેલનો પ્રાથમિક જવાબ છે, સત્તાવાર સલાહ નથી.",
+    "errors": {
+      "generic": "જવાબ મળ્યો નથી. નેટવર્ક તપાસો અને ફરી પ્રયાસ કરો."
+    }
+  }
+}

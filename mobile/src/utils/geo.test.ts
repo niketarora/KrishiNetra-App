@@ -3,12 +3,14 @@ import {
   calculateArea,
   centroid,
   fromGeoJSON,
+  fromPosition,
   isValidPolygon,
   normalizeForThumbnail,
   SQ_METERS_PER_ACRE,
   toAcres,
   toGeoJSON,
   toHectares,
+  toPosition,
   type LatLng,
 } from './geo';
 
@@ -36,6 +38,24 @@ describe('isValidPolygon', () => {
 
   it('accepts a triangle', () => {
     expect(isValidPolygon(square(KARNAL, 0.001).slice(0, 3))).toBe(true);
+  });
+});
+
+describe('toPosition and fromPosition', () => {
+  it('converts LatLng to [longitude, latitude] Position', () => {
+    const pos = toPosition(KARNAL);
+    expect(pos[0]).toBe(KARNAL.longitude);
+    expect(pos[1]).toBe(KARNAL.latitude);
+  });
+
+  it('converts [longitude, latitude] Position back to LatLng', () => {
+    const point = fromPosition([76.9905, 29.6857]);
+    expect(point.longitude).toBe(76.9905);
+    expect(point.latitude).toBe(29.6857);
+  });
+
+  it('round-trips safely', () => {
+    expect(fromPosition(toPosition(KARNAL))).toEqual(KARNAL);
   });
 });
 

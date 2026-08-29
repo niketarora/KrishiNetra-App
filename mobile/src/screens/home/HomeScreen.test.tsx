@@ -83,6 +83,8 @@ const mandiPrice: MarketPrice = {
 
 const observation: Weather = {
   id: 'weather-1',
+  grid_lat: 29.75,
+  grid_lng: 77.0,
   district: 'Karnal',
   state: 'Haryana',
   observed_on: '2026-08-21',

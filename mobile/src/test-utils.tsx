@@ -54,6 +54,7 @@ export function makeFarm(overrides: Partial<Farm> = {}): Farm {
     district: 'Karnal',
     state: 'Haryana',
     location_source: 'OpenStreetMap Nominatim, 2026-08-01',
+    location_accuracy: 10.5,
     created_at: '2026-08-01T06:00:00.000Z',
     updated_at: '2026-08-01T06:00:00.000Z',
     ...overrides,

@@ -1,26 +1,62 @@
+import React, { useMemo } from 'react';
 import { StyleSheet, View } from 'react-native';
+import Mapbox, {
+  Camera,
+  FillLayer,
+  LineLayer,
+  MapView,
+  ShapeSource,
+  StyleURL,
+} from '@rnmapbox/maps';
 import Svg, { Path } from 'react-native-svg';
 
 import { colors } from '@/theme';
-import { normalizeForThumbnail, type LatLng } from '@/utils/geo';
+import { bounds, isValidPolygon, normalizeForThumbnail, toGeoJSON, type LatLng } from '@/utils/geo';
+
+const MAPBOX_ACCESS_TOKEN = process.env.EXPO_PUBLIC_MAPBOX_ACCESS_TOKEN ?? '';
+
+if (MAPBOX_ACCESS_TOKEN) {
+  Mapbox.setAccessToken(MAPBOX_ACCESS_TOKEN);
+}
 
 type Props = {
   points: LatLng[];
   size?: number;
+  borderRadius?: number;
 };
 
 /**
- * A small preview of the farmer's actual drawn boundary, rendered as SVG from
- * the saved coordinates. Used on the Home field card and the confirm screen.
- *
- * Drawn from real data rather than a stock image, so the card shows the shape
- * the farmer walked — the field summary is one of the few genuinely populated
- * surfaces in Phase 1.
+ * A preview of the farmer's drawn boundary. On native platforms with Mapbox,
+ * renders a mini satellite-streets map fitted to the boundary polygon with
+ * pointer events disabled. Falls back to an SVG path on web or missing token.
  */
-export function BoundaryThumbnail({ points, size = 64 }: Props) {
-  const normalized = normalizeForThumbnail(points);
+export function BoundaryThumbnail({ points, size = 64, borderRadius = 8 }: Props) {
+  const hasValidBoundary = isValidPolygon(points);
 
-  const path =
+  const geojson = useMemo(() => {
+    if (!hasValidBoundary) return null;
+    try {
+      return toGeoJSON(points);
+    } catch {
+      return null;
+    }
+  }, [points, hasValidBoundary]);
+
+  const mapBounds = useMemo(() => {
+    if (!hasValidBoundary) return null;
+    const b = bounds(points);
+    return {
+      ne: [b.maxLng, b.maxLat] as [number, number],
+      sw: [b.minLng, b.minLat] as [number, number],
+      paddingBottom: 6,
+      paddingLeft: 6,
+      paddingRight: 6,
+      paddingTop: 6,
+    };
+  }, [points, hasValidBoundary]);
+
+  const normalized = normalizeForThumbnail(points);
+  const svgPath =
     normalized.length >= 3
       ? `${normalized
           .map((p, i) => `${i === 0 ? 'M' : 'L'}${(p.x * 80 + 10).toFixed(2)} ${(p.y * 80 + 10).toFixed(2)}`)
@@ -28,11 +64,47 @@ export function BoundaryThumbnail({ points, size = 64 }: Props) {
       : null;
 
   return (
-    <View style={[styles.frame, { width: size, height: size }]}>
-      {path ? (
+    <View
+      style={[styles.frame, { width: size, height: size, borderRadius }]}
+      pointerEvents="none"
+      testID="boundary-thumbnail"
+    >
+      {hasValidBoundary && MAPBOX_ACCESS_TOKEN && geojson && mapBounds ? (
+        <MapView
+          style={StyleSheet.absoluteFill}
+          styleURL={StyleURL.SatelliteStreet}
+          scrollEnabled={false}
+          zoomEnabled={false}
+          pitchEnabled={false}
+          rotateEnabled={false}
+          compassEnabled={false}
+          scaleBarEnabled={false}
+          attributionEnabled={false}
+          logoEnabled={false}
+        >
+          <Camera defaultSettings={{ bounds: mapBounds }} />
+          <ShapeSource id="thumb-polygon" shape={geojson}>
+            <FillLayer
+              id="thumb-fill"
+              style={{
+                fillColor: colors.polygonFillThumb,
+                fillOpacity: 0.65,
+              }}
+            />
+            <LineLayer
+              id="thumb-stroke"
+              style={{
+                lineColor: '#FFFFFF',
+                lineWidth: 2,
+                lineJoin: 'round',
+              }}
+            />
+          </ShapeSource>
+        </MapView>
+      ) : svgPath ? (
         <Svg width={size} height={size} viewBox="0 0 100 100">
           <Path
-            d={path}
+            d={svgPath}
             fill={colors.polygonFillThumb}
             stroke="#FFFFFF"
             strokeWidth={2}
@@ -48,7 +120,8 @@ export function BoundaryThumbnail({ points, size = 64 }: Props) {
 const styles = StyleSheet.create({
   frame: {
     overflow: 'hidden',
-    // Stands in for the satellite tile behind the boundary in the prototype.
     backgroundColor: colors.mapBase,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
