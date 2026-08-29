@@ -1,26 +1,33 @@
 import { ReactNode } from 'react';
 import { Pressable, StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 
-import { colors, layout } from '@/theme';
+import { colors, layout, radius } from '@/theme';
 
 type Props = {
   children: ReactNode;
   onPress?: () => void;
   style?: StyleProp<ViewStyle>;
-  /** Tinted variants for advisory and market cards. */
-  tone?: 'surface' | 'accent' | 'success';
+  /** Tinted variants for advisory, market and highlighted farm-context cards. */
+  tone?: 'surface' | 'accent' | 'success' | 'harvest';
   accessibilityLabel?: string;
   testID?: string;
 };
 
 /**
- * design.md §3.3: white surface, hairline border, 14dp padding.
- * Square corners and no elevation — flat separation keeps rendering cheap on
- * low-end devices and legible in bright outdoor light.
+ * design.md §3.3, refined: 12dp rounded surface, hairline border, 14dp
+ * padding, and a very light elevation so cards read as grouped, intentional
+ * surfaces rather than flat rectangles — still restrained (no heavy shadow),
+ * and still cheap to render on a low-end device.
  */
 export function Card({ children, onPress, style, tone = 'surface', accessibilityLabel, testID }: Props) {
   const toneStyle =
-    tone === 'accent' ? styles.accent : tone === 'success' ? styles.success : styles.surface;
+    tone === 'accent'
+      ? styles.accent
+      : tone === 'success'
+        ? styles.success
+        : tone === 'harvest'
+          ? styles.harvest
+          : styles.surface;
 
   if (!onPress) {
     return (
@@ -46,6 +53,15 @@ export function Card({ children, onPress, style, tone = 'surface', accessibility
 const styles = StyleSheet.create({
   base: {
     padding: layout.cardPadding,
+    borderRadius: radius.md,
+    // A very light lift instead of the original zero-elevation flatness —
+    // subtle on purpose, so it still reads well in bright outdoor light and
+    // costs nothing noticeable on a low-end device.
+    elevation: 1,
+    shadowColor: '#1C1F1A',
+    shadowOpacity: 0.05,
+    shadowRadius: 3,
+    shadowOffset: { width: 0, height: 1 },
   },
   surface: {
     backgroundColor: colors.surface,
@@ -54,11 +70,18 @@ const styles = StyleSheet.create({
   },
   accent: {
     backgroundColor: colors.accentBg,
+    borderWidth: 1,
+    borderColor: colors.accentBorder,
   },
   success: {
     backgroundColor: colors.successBg,
     borderWidth: 1,
     borderColor: colors.successBorder,
+  },
+  harvest: {
+    backgroundColor: colors.harvestBg,
+    borderWidth: 1,
+    borderColor: colors.harvestBorder,
   },
   pressed: { opacity: 0.75 },
 });

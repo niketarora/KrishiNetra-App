@@ -71,16 +71,29 @@ Create a Supabase project, then in the SQL editor run:
 supabase/migrations/0001_phase1_schema.sql
 supabase/migrations/0002_phase2_schema.sql
 supabase/migrations/0003_seed_reference_data.sql
+supabase/migrations/0004_farm_location.sql
+supabase/migrations/0005_farmer_identity.sql
 ```
 
 `0001` creates `profiles` and `farms`, their triggers, and Row Level Security
 (RLS) policies. `0002` adds `crops`, `farm_crops`, `mandis`, `market_prices`,
 `msp` and `weather`. `0003` seeds the crop catalogue, the Rajasthan mandi list
 and the published wheat MSP — it is idempotent, so re-running it is safe.
+`0004` resolves each farm's district/state from its centroid. `0005` adds an
+optional farmer email, a `FarmerLocation` (seeded to a Pratapgarh, Rajasthan
+demo placeholder until a future GPS/manual entry replaces it), and
+notification preferences to `profiles`.
 
 Under **Authentication → Providers → Email**:
 - Enable email/password.
 - Turn off "Confirm email" for Phase 1 development.
+
+The mobile app's farmer-facing signup/login flow is phone-first and uses a
+local **demo OTP** (see `mobile/src/features/auth/demoOtp.ts`) rather than
+Supabase Phone Auth, so no Phone provider needs to be configured for this
+prototype — enabling one later (Twilio/MessageBird/Vonage, under
+**Authentication → Providers → Phone**) is the only step needed before
+swapping the demo OTP for a real one; see that file's header comment.
 
 ### 3. Google Maps Key
 

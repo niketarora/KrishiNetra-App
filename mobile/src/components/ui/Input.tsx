@@ -2,7 +2,7 @@ import { forwardRef, useState } from 'react';
 import { Pressable, StyleSheet, TextInput, TextInputProps, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
-import { colors, fonts, layout } from '@/theme';
+import { colors, fonts, layout, radius } from '@/theme';
 
 import { Text } from './Text';
 
@@ -94,6 +94,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.surface,
     borderWidth: 1,
     borderColor: colors.border,
+    borderRadius: radius.md,
     paddingHorizontal: 12,
   },
   fieldFocused: { borderColor: colors.primary },

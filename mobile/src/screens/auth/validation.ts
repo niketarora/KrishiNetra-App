@@ -29,3 +29,23 @@ export function validateName(value: string): string | null {
   if (!value.trim()) return 'auth.errors.nameRequired';
   return null;
 }
+
+/** Indian mobile numbers: 10 digits, starting 6–9. A leading +91/91/0 is stripped before checking. */
+const PHONE_PATTERN = /^[6-9]\d{9}$/;
+
+export function normalizePhone(value: string): string {
+  return value.replace(/\D/g, '').replace(/^(91|0)/, '');
+}
+
+export function validatePhone(value: string): string | null {
+  if (!value.trim()) return 'auth.errors.phoneRequired';
+  if (!PHONE_PATTERN.test(normalizePhone(value))) return 'auth.errors.phoneInvalid';
+  return null;
+}
+
+export function validateOtp(value: string): string | null {
+  const digits = value.replace(/\D/g, '');
+  if (!digits) return 'auth.errors.otpRequired';
+  if (digits.length !== 6) return 'auth.errors.otpInvalid';
+  return null;
+}

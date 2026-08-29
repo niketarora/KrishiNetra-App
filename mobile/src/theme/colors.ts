@@ -31,10 +31,23 @@ export const colors = {
   accentBadgeBg: '#D3E4F2',
   accentBadgeFg: '#15537D',
 
+  /**
+   * Earth/harvest accent — used sparingly for a featured highlight or a farm
+   * context card border, never as a primary action colour. Deliberately a
+   * warmer, browner tone than `warning` so the two don't read as the same
+   * signal when they appear near each other.
+   */
+  harvest: '#A9682E',
+  harvestBg: '#F5E9D8',
+  harvestBorder: '#E6CFA8',
+
   text: {
     primary: '#1C1F1A',
     secondary: '#5B6058',
-    muted: '#8B8F86',
+    // Darkened from the original #8B8F86 — that was borderline low-contrast
+    // on `bg`/`surface` for a field-under-sunlight prototype. Still visibly
+    // lighter than `secondary`, just no longer faint.
+    muted: '#70766C',
     onPrimary: '#FFFFFF',
   },
 

@@ -3,7 +3,8 @@ import { StyleSheet, View } from 'react-native';
 import { colors } from '@/theme';
 
 import { Card } from './Card';
-import { Icon, type IconName } from './Icon';
+import { type IconName } from './Icon';
+import { IconBadge } from './IconBadge';
 import { Text } from './Text';
 
 type Props = {
@@ -29,13 +30,13 @@ type Props = {
 export function StatusCard({ icon, label, value, note, muted = false, sample = false, testID }: Props) {
   return (
     <Card style={[styles.card, sample && styles.sampleCard]} testID={testID}>
-      <Icon name={icon} size={20} color={sample ? colors.demo.fg : colors.text.secondary} />
+      <IconBadge icon={icon} tone={sample ? 'demo' : muted ? 'neutral' : 'primary'} size={32} iconSize={16} />
       <Text variant="caption" style={styles.label}>
         {label}
       </Text>
       <View style={styles.valueRow}>
         <Text
-          variant="cardTitle"
+          variant="stat"
           color={sample ? colors.demo.fg : muted ? colors.text.muted : colors.text.primary}
         >
           {value}

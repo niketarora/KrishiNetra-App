@@ -118,6 +118,7 @@ const props = {
   onOpenCalendar: jest.fn(),
   onOpenSchemes: jest.fn(),
   onOpenUpdates: jest.fn(),
+  onOpenAlerts: jest.fn(),
   onOpenVisualAssistant: jest.fn(),
 };
 
@@ -315,6 +316,13 @@ describe('HomeScreen', () => {
       await fireEvent.press(screen.getByTestId('resource-tile-updates'));
 
       expect(props.onOpenUpdates).toHaveBeenCalled();
+    });
+
+    it('opens Alerts from the Farmer Resources grid', async () => {
+      await renderWithProviders(<HomeScreen {...props} />);
+      await fireEvent.press(screen.getByTestId('resource-tile-alerts'));
+
+      expect(props.onOpenAlerts).toHaveBeenCalled();
     });
 
     it('opens the avatar from the companion card', async () => {

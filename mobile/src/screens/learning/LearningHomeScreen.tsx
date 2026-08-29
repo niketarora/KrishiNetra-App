@@ -2,14 +2,14 @@ import { useEffect, useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
-import { Badge, Card, EmptyState, Icon, Screen, ScreenHeader, Skeleton, Text } from '@/components/ui';
+import { Badge, Card, EmptyState, Icon, IconBadge, Screen, ScreenHeader, Skeleton, Text } from '@/components/ui';
 import { useAuth } from '@/features/auth/AuthContext';
 import { useFarm } from '@/features/farm/FarmContext';
 import { recommendTutorials } from '@/features/learning/recommendations';
 import { localize, TUTORIALS, TUTORIAL_CATEGORIES, type Tutorial } from '@/features/learning/tutorials';
 import { useLearningProgress } from '@/features/learning/useLearningProgress';
 import { getCurrentCrop, type CurrentCrop } from '@/services/agronomy';
-import { colors, layout } from '@/theme';
+import { colors, layout, radius } from '@/theme';
 
 type Props = {
   onBack: () => void;
@@ -90,7 +90,7 @@ export function LearningHomeScreen({ onBack, onOpenTutorial }: Props) {
         style={styles.tutorialCard}
         testID={`${testIdPrefix}-${tutorial.id}`}
       >
-        <Icon name={categoryIcon(tutorial)} size={20} color={colors.text.secondary} />
+        <IconBadge icon={categoryIcon(tutorial)} tone="primary" />
         <View style={styles.tutorialBody}>
           <Text variant="caption">{categoryLabel(tutorial)}</Text>
           <Text variant="cardTitle" numberOfLines={2}>
@@ -141,12 +141,12 @@ export function LearningHomeScreen({ onBack, onOpenTutorial }: Props) {
             {featured ? (
               <View style={styles.section}>
                 <Text variant="cardTitle">{t('learning.featured')}</Text>
-                <Card tone="accent" onPress={() => onOpenTutorial(featured.id)} style={styles.featuredCard} testID={`tutorial-card-${featured.id}`}>
+                <Card tone="harvest" onPress={() => onOpenTutorial(featured.id)} style={styles.featuredCard} testID={`tutorial-card-${featured.id}`}>
                   <View style={styles.featuredHeader}>
-                    <Icon name={categoryIcon(featured)} size={22} color={colors.primaryDark} />
+                    <IconBadge icon={categoryIcon(featured)} tone="harvest" size={40} iconSize={20} />
                     {isComplete(featured.id) ? <Badge label={t('learning.completed')} tone="success" /> : null}
                   </View>
-                  <Text variant="caption" color={colors.primaryDark}>
+                  <Text variant="caption" color={colors.harvest}>
                     {categoryLabel(featured)}
                   </Text>
                   <Text variant="cardTitle">{localize(featured.title, i18n.language)}</Text>
@@ -187,11 +187,13 @@ const styles = StyleSheet.create({
   progressBlock: { gap: 6 },
   progressTrack: {
     height: 6,
+    borderRadius: radius.pill,
     backgroundColor: colors.neutralBg,
     overflow: 'hidden',
   },
   progressFill: {
     height: 6,
+    borderRadius: radius.pill,
     backgroundColor: colors.primary,
   },
   section: { gap: layout.cardGap },

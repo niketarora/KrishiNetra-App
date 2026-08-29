@@ -204,9 +204,18 @@ RootNavigator
 ## Supabase / Backend Integration
 
 - **Auth**: sign-up/sign-in/sign-out go straight from the mobile app to
-  Supabase Auth (email/password only in Phase 1). The resulting Supabase
-  session/JWT is what `services/api.ts` attaches as a Bearer token on
-  every backend call.
+  Supabase Auth. The resulting Supabase session/JWT is what `services/api.ts`
+  attaches as a Bearer token on every backend call. As of the farmer-identity
+  foundation stage, the farmer-facing flow is **phone-first**: Phone → demo
+  OTP → authenticated Supabase user (`screens/auth/PhoneEntryScreen.tsx` →
+  `OtpVerifyScreen.tsx`). Since Supabase Phone Auth needs a paid SMS provider
+  this prototype does not configure, `features/auth/demoOtp.ts` generates and
+  verifies a local, in-memory OTP (shown on screen, never persisted or SMSed),
+  and `features/auth/phoneIdentity.ts` bridges a verified phone number to a
+  real `auth.users` row via a synthetic email + device-local password — see
+  both files' header comments for the swap path to real Supabase Phone OTP.
+  The original email/password `LoginScreen`/`RegisterScreen` still exist
+  (unit-tested) but are no longer wired into `AuthNavigator`.
 - **Data access**: since Phase 2, farm and profile data flows
   `mobile → backend (Express) → Supabase`, never `mobile → Supabase`
   directly. The backend forwards the farmer's JWT so Postgres RLS applies
@@ -222,6 +231,13 @@ RootNavigator
     the top-level README's setup steps**; check its contents before
     assuming it's applied on an existing Supabase project, and update the
     README if you rely on it.
+  - `0005_farmer_identity.sql` — adds `profiles.email` (optional, distinct
+    from the demo-OTP bridge's synthetic auth email), a `FarmerLocation`
+    (`location_latitude/longitude/city/district/state/country/source`,
+    seeded to a Pratapgarh, Rajasthan demo placeholder —
+    `location_source: 'demo'|'gps'|'manual'`), and notification preferences
+    (`in_app_alerts`/`sms_alerts`/`voice_alerts`, all default `true`). Also
+    present in the repo but not yet listed in the README's setup steps.
 - **Real data sources wired up in Phase 2.5**: mandi prices from
   data.gov.in AGMARKNET, weather from Open-Meteo — both ingested
   server-side via `npm run ingest:market` / `npm run ingest:weather` in

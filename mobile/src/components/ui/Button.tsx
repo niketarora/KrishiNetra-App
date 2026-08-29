@@ -1,6 +1,6 @@
 import { ActivityIndicator, Pressable, StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 
-import { colors, layout } from '@/theme';
+import { colors, layout, radius } from '@/theme';
 
 import { Icon, type IconName } from './Icon';
 import { Text } from './Text';
@@ -84,6 +84,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: 14,
+    // A comfortable rounded rectangle, not a full pill — restrained, matching
+    // the card/input radius rather than a separate "buttons are extra round"
+    // convention.
+    borderRadius: radius.md,
   },
   content: { flexDirection: 'row', alignItems: 'center', gap: 8 },
   primary: {

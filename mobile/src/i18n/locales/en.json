@@ -29,6 +29,19 @@
     "goToLogin": "Log in",
     "showPassword": "Show password",
     "hidePassword": "Hide password",
+    "phoneTitle": "Welcome to KrishiNetra",
+    "phoneSubtitle": "Enter your mobile number to continue",
+    "phoneLabel": "Mobile number",
+    "phonePlaceholder": "98765 43210",
+    "otpTitle": "Verify your number",
+    "otpSentTo": "OTP sent to",
+    "otpLabel": "Enter OTP",
+    "verify": "Verify",
+    "resendOtp": "Resend OTP",
+    "resendIn": "Resend OTP in {{seconds}}s",
+    "changeNumber": "Change number",
+    "demoOtpBannerTitle": "Demo OTP — no SMS is sent",
+    "demoOtpBannerBody": "This prototype does not send real SMS. Your one-time code is {{code}}.",
     "errors": {
       "nameRequired": "Please enter your name",
       "emailRequired": "Please enter your email",
@@ -41,8 +54,19 @@
       "weakPassword": "That password is too easy to guess — try a longer one",
       "network": "No internet connection. Check your network and try again.",
       "rateLimited": "Too many attempts. Please wait a moment and try again.",
-      "generic": "Something went wrong. Please try again."
+      "generic": "Something went wrong. Please try again.",
+      "phoneRequired": "Please enter your mobile number",
+      "phoneInvalid": "Enter a valid 10-digit mobile number",
+      "otpRequired": "Please enter the OTP",
+      "otpInvalid": "That code isn't right. Please try again.",
+      "phoneAlreadyLinkedOnAnotherDevice": "This number is already linked to an account on another device. Try a different number, or continue on that device."
     }
+  },
+  "profileSetup": {
+    "title": "Complete your profile",
+    "subtitle": "Just a couple of details to get started.",
+    "emailOptional": "Optional",
+    "saveCta": "Save and continue"
   },
   "onboarding": {
     "locationTitle": "Let's find your field",
@@ -88,6 +112,7 @@
     "unnamedField": "My field",
     "editBoundary": "Edit boundary",
     "notYetAnalyzed": "Not yet analysed",
+    "farmStatus": "Farm status",
     "growthStage": "Growth stage",
     "weather": "Weather",
     "viewFullAnalysis": "View full analysis",
@@ -100,6 +125,7 @@
     "farmerResources": "Farmer Resources",
     "schemes": "Government Schemes",
     "updates": "Krishi Updates",
+    "alerts": "Alerts",
     "askCompanion": "Ask your farmer companion",
     "askCompanionSub": "A preview of the voice assistant arriving soon",
     "loadError": "We couldn't load your field. Pull down to try again.",
@@ -306,7 +332,7 @@
     "intro": "Schemes relevant to you",
     "matchSummary": "{{count}} schemes may be relevant to your farm",
     "noFarmHint": "Register your land to see schemes that may be more relevant to you.",
-    "recommended": "⭐ Recommended",
+    "recommended": "Recommended",
     "otherSchemes": "Other schemes",
     "emptyTitle": "No schemes available right now",
     "notFoundTitle": "Scheme not found",
@@ -354,17 +380,59 @@
       "technology": "Technology"
     }
   },
+  "alerts": {
+    "title": "Alerts",
+    "intro": "Weather, disaster, scheme and advisory alerts for your farm.",
+    "sampleBannerTitle": "Demo communication history",
+    "sampleBannerBody": "These are sample alerts — no real SMS or phone call was sent for any of them.",
+    "today": "Today",
+    "yesterday": "Yesterday",
+    "daysAgo": "{{count}} days ago",
+    "emptyTitle": "No alerts yet",
+    "notFoundTitle": "Alert not found",
+    "notFoundBody": "This alert isn't available. Go back and pick another one.",
+    "demoNotice": "Demo communication — no real SMS or phone call was sent.",
+    "priority": {
+      "high": "High priority",
+      "medium": "Important",
+      "info": "Information"
+    },
+    "categories": {
+      "weather": "Weather",
+      "disaster": "Natural disaster",
+      "government": "Government scheme",
+      "advisory": "Agricultural advisory",
+      "cropHealth": "Crop health"
+    },
+    "channels": {
+      "sms": "SMS",
+      "voice": "Voice call"
+    },
+    "status": {
+      "sent": "Sent",
+      "initiated": "Initiated",
+      "notSent": "Not sent"
+    }
+  },
   "profile": {
     "title": "Profile",
+    "sectionFarmer": "Farmer",
+    "sectionPreferences": "Preferences",
+    "sectionServices": "Farm & services",
+    "sectionSupport": "Support",
+    "phone": "Phone",
+    "email": "Email",
+    "emailNotAdded": "Not added",
     "language": "Language",
+    "location": "Location",
     "myFarm": "My Farm",
     "registerLand": "Register your land",
     "schemes": "Government Schemes",
-    "notifications": "Notifications",
+    "alerts": "Alerts",
     "help": "Help",
     "logout": "Log out",
     "logoutConfirmTitle": "Log out?",
-    "logoutConfirmBody": "You'll need your email and password to log back in.",
+    "logoutConfirmBody": "You'll need to verify your phone number to log back in.",
     "languageEnglish": "English",
     "languageHindi": "हिन्दी"
   },

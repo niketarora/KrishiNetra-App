@@ -28,6 +28,17 @@ export const type = {
     lineHeight: 24,
     color: colors.text.primary,
   },
+  /**
+   * A primary farm value that needs to read at a glance in bright light —
+   * a temperature, an area, a price. Bigger and bolder than `title`, used
+   * sparingly (StatusCard's value, the farm-context card's headline number).
+   */
+  stat: {
+    fontFamily: fonts.semibold,
+    fontSize: 22,
+    lineHeight: 27,
+    color: colors.text.primary,
+  },
   cardTitle: {
     fontFamily: fonts.semibold,
     fontSize: 16,

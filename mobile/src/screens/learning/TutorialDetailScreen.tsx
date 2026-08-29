@@ -56,9 +56,13 @@ export function TutorialDetailScreen({ tutorialId, onBack, onOpenAr }: Props) {
 
         {category ? <Badge label={localize(category.label, language)} tone="accent" /> : null}
 
-        <Card>
-          <Text variant="caption">{t('learning.whyItMatters')}</Text>
-          <Text variant="body" style={styles.sectionBody}>
+        {/* "Why it matters" reads as introductory motivation, not a data
+            field, so it gets the soft agricultural-green tint the rest of
+            the app reserves for important context rather than a plain white
+            bordered box. */}
+        <Card tone="success">
+          <Text variant="caption" color={colors.primaryDark}>{t('learning.whyItMatters')}</Text>
+          <Text variant="body" color={colors.primaryDark} style={styles.sectionBody}>
             {localize(tutorial.why, language)}
           </Text>
         </Card>
@@ -69,9 +73,11 @@ export function TutorialDetailScreen({ tutorialId, onBack, onOpenAr }: Props) {
           </Text>
           {tutorial.steps.map((step, index) => (
             <View key={index} style={styles.listRow}>
-              <Text variant="bodyMedium" color={colors.text.secondary}>
-                {`${index + 1}.`}
-              </Text>
+              <View style={styles.stepNumber}>
+                <Text variant="microMedium" color={colors.text.onPrimary}>
+                  {index + 1}
+                </Text>
+              </View>
               <Text variant="body" style={styles.listText}>
                 {localize(step, language)}
               </Text>
@@ -141,7 +147,16 @@ const styles = StyleSheet.create({
   },
   sectionTitle: { marginBottom: 8 },
   sectionBody: { marginTop: 6 },
-  listRow: { flexDirection: 'row', gap: 8, marginTop: 8 },
+  listRow: { flexDirection: 'row', gap: 10, marginTop: 8 },
+  stepNumber: {
+    width: 22,
+    height: 22,
+    borderRadius: 11,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: colors.primary,
+    marginTop: 1,
+  },
   listText: { flex: 1 },
   arBlock: { gap: 6 },
   arHint: { fontStyle: 'italic' },

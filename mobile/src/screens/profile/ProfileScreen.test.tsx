@@ -1,7 +1,7 @@
 import { fireEvent, screen } from '@testing-library/react-native';
 
 import type { Farm } from '@/services/farms';
-import { makeFarm, renderWithProviders } from '@/test-utils';
+import { makeFarm, makeProfile, renderWithProviders } from '@/test-utils';
 
 import { ProfileScreen } from './ProfileScreen';
 
@@ -11,10 +11,12 @@ jest.mock('@/features/farm/FarmContext', () => ({
   useFarm: () => mockFarmState,
 }));
 
+const mockProfile = makeProfile({ full_name: 'Ramesh Kumar', phone: '+919876543210', email: null });
+
 jest.mock('@/features/auth/AuthContext', () => ({
   useAuth: () => ({
-    user: { email: 'ramesh@example.com' },
-    profile: { full_name: 'Ramesh Kumar' },
+    user: { id: 'user-1' },
+    profile: mockProfile,
     signOut: jest.fn(),
   }),
 }));
@@ -23,12 +25,18 @@ jest.mock('@/features/language/LanguageContext', () => ({
   useLanguage: () => ({ language: 'en', setLanguage: jest.fn() }),
 }));
 
-const props = { onBack: jest.fn(), onOpenMyFarm: jest.fn(), onOpenSchemes: jest.fn() };
+const props = {
+  onBack: jest.fn(),
+  onOpenMyFarm: jest.fn(),
+  onOpenSchemes: jest.fn(),
+  onOpenAlerts: jest.fn(),
+};
 
 describe('ProfileScreen', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     mockFarmState.farm = null;
+    mockProfile.email = null;
   });
 
   describe('with no farm registered', () => {
@@ -77,10 +85,45 @@ describe('ProfileScreen', () => {
     expect(props.onOpenSchemes).toHaveBeenCalled();
   });
 
-  it('shows the signed-in farmer\'s identity', async () => {
+  it('opens Alerts from its own row', async () => {
+    await renderWithProviders(<ProfileScreen {...props} />);
+
+    await fireEvent.press(screen.getByTestId('profile-alerts'));
+
+    expect(props.onOpenAlerts).toHaveBeenCalled();
+  });
+
+  it("shows the signed-in farmer's identity", async () => {
     await renderWithProviders(<ProfileScreen {...props} />);
 
     expect(screen.getByText('Ramesh Kumar')).toBeTruthy();
+  });
+
+  it('masks the phone number rather than showing it in full', async () => {
+    await renderWithProviders(<ProfileScreen {...props} />);
+
+    // Shown twice by design — once under the name, once in the info row.
+    expect(screen.getAllByText('+91 XXXXX 43210').length).toBeGreaterThan(0);
+    expect(screen.queryByText('+919876543210')).toBeNull();
+  });
+
+  it('shows "Not added" when the optional email is missing', async () => {
+    await renderWithProviders(<ProfileScreen {...props} />);
+
+    expect(screen.getByText('Not added')).toBeTruthy();
+  });
+
+  it('shows the real email once the farmer has added one', async () => {
+    mockProfile.email = 'ramesh@example.com';
+
+    await renderWithProviders(<ProfileScreen {...props} />);
+
     expect(screen.getByText('ramesh@example.com')).toBeTruthy();
+  });
+
+  it('shows the demo Pratapgarh location', async () => {
+    await renderWithProviders(<ProfileScreen {...props} />);
+
+    expect(screen.getByText('Pratapgarh')).toBeTruthy();
   });
 });

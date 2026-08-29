@@ -4,6 +4,7 @@ import { I18nextProvider } from 'react-i18next';
 
 import i18n from '@/i18n';
 import type { Farm } from '@/services/farms';
+import type { Profile } from '@/services/profiles';
 import type { BoundaryGeoJSON } from '@/utils/geo';
 
 function Providers({ children }: { children: ReactNode }) {
@@ -55,6 +56,30 @@ export function makeFarm(overrides: Partial<Farm> = {}): Farm {
     state: 'Haryana',
     location_source: 'OpenStreetMap Nominatim, 2026-08-01',
     location_accuracy: 10.5,
+    created_at: '2026-08-01T06:00:00.000Z',
+    updated_at: '2026-08-01T06:00:00.000Z',
+    ...overrides,
+  };
+}
+
+/** The demo Pratapgarh placeholder every new profile is seeded with (0005_farmer_identity.sql). */
+export function makeProfile(overrides: Partial<Profile> = {}): Profile {
+  return {
+    id: 'user-1',
+    full_name: 'Ramesh Kumar',
+    phone: '+919876543210',
+    email: null,
+    language: 'en',
+    location_latitude: 24.031111,
+    location_longitude: 74.779444,
+    location_city: 'Pratapgarh',
+    location_district: 'Pratapgarh',
+    location_state: 'Rajasthan',
+    location_country: 'India',
+    location_source: 'demo',
+    in_app_alerts: true,
+    sms_alerts: true,
+    voice_alerts: true,
     created_at: '2026-08-01T06:00:00.000Z',
     updated_at: '2026-08-01T06:00:00.000Z',
     ...overrides,

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { StyleSheet, View } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
@@ -7,6 +8,8 @@ import { useTranslation } from 'react-i18next';
 
 import { Icon, type IconName } from '@/components/ui';
 import { useFarm } from '@/features/farm/FarmContext';
+import { AlertDetailScreen } from '@/screens/alerts/AlertDetailScreen';
+import { AlertsScreen } from '@/screens/alerts/AlertsScreen';
 import { ARLearningScreen } from '@/screens/ar/ARLearningScreen';
 import { CalendarEventDetailScreen } from '@/screens/calendar/CalendarEventDetailScreen';
 import { CalendarScreen } from '@/screens/calendar/CalendarScreen';
@@ -27,7 +30,7 @@ import { SchemesScreen } from '@/screens/schemes/SchemesScreen';
 import { UpdateDetailScreen } from '@/screens/updates/UpdateDetailScreen';
 import { UpdatesScreen } from '@/screens/updates/UpdatesScreen';
 import { VisualAssistantScreen } from '@/screens/visualAssistant/VisualAssistantScreen';
-import { colors, fonts, layout } from '@/theme';
+import { colors, fonts, layout, radius } from '@/theme';
 import { centroid, fromGeoJSON } from '@/utils/geo';
 
 import type { MainStackParamList, MainTabParamList } from './types';
@@ -64,15 +67,29 @@ function MainTabs() {
       screenOptions={({ route }) => ({
         headerShown: false,
         tabBarActiveTintColor: colors.primary,
-        tabBarInactiveTintColor: colors.text.muted,
+        tabBarInactiveTintColor: colors.text.secondary,
         tabBarStyle: {
           height: layout.navHeight,
           backgroundColor: colors.surface,
           borderTopWidth: 1,
           borderTopColor: colors.border,
+          // A light lift so the bar reads as sitting above the content
+          // rather than a hairline dividing two flat surfaces.
+          elevation: 8,
+          shadowColor: '#1C1F1A',
+          shadowOpacity: 0.06,
+          shadowRadius: 6,
+          shadowOffset: { width: 0, height: -2 },
         },
-        tabBarLabelStyle: { fontFamily: fonts.regular, fontSize: 12 },
-        tabBarIcon: ({ color }) => <Icon name={TAB_ICONS[route.name]} size={20} color={color} />,
+        tabBarLabelStyle: { fontFamily: fonts.medium, fontSize: 12 },
+        // The active destination gets a soft pill behind its icon, on top of
+        // the colour change — "unmistakable" per the visual-refinement brief,
+        // not just a slightly different shade of green.
+        tabBarIcon: ({ color, focused }) => (
+          <View style={[styles.tabIcon, focused && styles.tabIconActive]}>
+            <Icon name={TAB_ICONS[route.name]} size={20} color={color} />
+          </View>
+        ),
       })}
     >
       <Tab.Screen name="Home" options={{ title: t('nav.home') }}>
@@ -88,6 +105,7 @@ function MainTabs() {
             onOpenCalendar={() => navigation.navigate('Calendar')}
             onOpenSchemes={() => navigation.navigate('Schemes')}
             onOpenUpdates={() => navigation.navigate('Updates')}
+            onOpenAlerts={() => navigation.navigate('Alerts')}
             onOpenVisualAssistant={() => navigation.navigate('VisualAssistant')}
           />
         )}
@@ -130,6 +148,7 @@ export function MainNavigator() {
             onBack={() => navigation.goBack()}
             onOpenMyFarm={() => navigation.navigate('MyFarm')}
             onOpenSchemes={() => navigation.navigate('Schemes')}
+            onOpenAlerts={() => navigation.navigate('Alerts')}
           />
         )}
       </Stack.Screen>
@@ -333,6 +352,33 @@ export function MainNavigator() {
       <Stack.Screen name="VisualAssistant">
         {({ navigation }) => <VisualAssistantScreen onBack={() => navigation.goBack()} />}
       </Stack.Screen>
+
+      {/* Home/Profile → Alerts — demo communication history, reused from both entry points. */}
+      <Stack.Screen name="Alerts">
+        {({ navigation }) => (
+          <AlertsScreen
+            onBack={() => navigation.goBack()}
+            onOpenAlert={(alertId) => navigation.navigate('AlertDetail', { alertId })}
+          />
+        )}
+      </Stack.Screen>
+
+      <Stack.Screen name="AlertDetail">
+        {({ navigation, route }) => (
+          <AlertDetailScreen alertId={route.params.alertId} onBack={() => navigation.goBack()} />
+        )}
+      </Stack.Screen>
     </Stack.Navigator>
   );
 }
+
+const styles = StyleSheet.create({
+  tabIcon: {
+    width: 40,
+    height: 28,
+    borderRadius: radius.pill,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  tabIconActive: { backgroundColor: colors.successBg },
+});
