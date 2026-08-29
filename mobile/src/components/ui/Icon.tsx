@@ -29,7 +29,8 @@ export type IconName =
   | 'undo'
   | 'restart'
   | 'offline'
-  | 'map';
+  | 'map'
+  | 'camera';
 
 type Props = {
   name: IconName;
@@ -182,6 +183,12 @@ export function Icon({ name, size = 20, color = colors.text.secondary, strokeWid
           <Path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2z" {...common} />
           <Path d="M9 4v14" {...common} />
           <Path d="M15 6v14" {...common} />
+        </>
+      )}
+      {name === 'camera' && (
+        <>
+          <Path d="M4 8h3l2-3h6l2 3h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z" {...common} />
+          <Circle cx="12" cy="13" r="3.5" {...common} />
         </>
       )}
     </Svg>

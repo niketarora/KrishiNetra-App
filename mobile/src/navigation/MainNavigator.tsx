@@ -13,6 +13,7 @@ import { MarketScreen } from '@/screens/market/MarketScreen';
 import { ProfileScreen } from '@/screens/profile/ProfileScreen';
 import { ConfirmFieldScreen } from '@/screens/onboarding/ConfirmFieldScreen';
 import { DrawBoundaryScreen } from '@/screens/onboarding/DrawBoundaryScreen';
+import { VisualAssistantScreen } from '@/screens/visualAssistant/VisualAssistantScreen';
 import { colors, fonts, layout } from '@/theme';
 import { fromGeoJSON } from '@/utils/geo';
 
@@ -70,6 +71,7 @@ function MainTabs() {
             onOpenAnalysis={() => tabNavigation.navigate('Field')}
             onOpenMarket={() => tabNavigation.navigate('Market')}
             onEditBoundary={openEditBoundary}
+            onOpenVisualAssistant={() => navigation.navigate('VisualAssistant')}
           />
         )}
       </Tab.Screen>
@@ -139,6 +141,10 @@ export function MainNavigator() {
             onBack={() => navigation.goBack()}
           />
         )}
+      </Stack.Screen>
+
+      <Stack.Screen name="VisualAssistant">
+        {({ navigation }) => <VisualAssistantScreen onBack={() => navigation.goBack()} />}
       </Stack.Screen>
     </Stack.Navigator>
   );
