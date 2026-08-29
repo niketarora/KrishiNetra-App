@@ -89,6 +89,13 @@
     "viewFullAnalysis": "View full analysis",
     "market": "Market",
     "marketUnavailable": "Market prices are not connected yet",
+    "learning": "Krishi Academy",
+    "learningSub": "Practical tutorials on soil, sowing, irrigation and more",
+    "calendar": "Smart Farm Calendar",
+    "calendarSub": "See what's coming up on your farm",
+    "farmerResources": "Farmer Resources",
+    "schemes": "Government Schemes",
+    "updates": "Krishi Updates",
     "askCompanion": "Ask your farmer companion",
     "askCompanionSub": "A preview of the voice assistant arriving soon",
     "loadError": "We couldn't load your field. Pull down to try again.",
@@ -138,13 +145,217 @@
     "sourceLabel": "Source: {{source}}"
   },
   "history": {
-    "title": "History",
-    "emptyTitle": "Your field's history will appear here after its first analysis."
+    "title": "Krishi Memory",
+    "emptyTitle": "Your field's history will appear here after its first analysis.",
+    "noFarmTitle": "No farm registered yet",
+    "noFarmBody": "Register your land to start building your Krishi Memory — a record of your farm's journey.",
+    "overviewTitle": "Farm Overview",
+    "registeredArea": "Registered Area",
+    "previousCrop": "Previous crop",
+    "previousCropNone": "No previous crop recorded",
+    "activitiesRecorded": "Activities recorded",
+    "currentCropStage": "Current crop stage",
+    "sownOn": "Sown {{date}}",
+    "farmRegistered": "Farm registered {{date}}"
+  },
+  "myFarm": {
+    "title": "My Farm",
+    "emptyTitle": "You haven't registered any land yet",
+    "emptyBody": "Walk around your field to map its boundary and record what you're growing. This is entirely optional — you can use KrishiNetra without it.",
+    "registerCta": "Register your land",
+    "editBoundary": "Edit boundary",
+    "walkTitle": "Walk your field boundary",
+    "walkIntro": "Walk slowly around the edge of your field. We'll record your path as you go — start whenever you're ready.",
+    "recording": "Recording your path…",
+    "startWalking": "Start walking",
+    "continueWalking": "Continue walking",
+    "stopWalking": "Stop",
+    "pointsRecorded": "{{count}} points recorded",
+    "locationDenied": "Location permission is off. Turn it on in your phone's settings to walk your field.",
+    "locationFailed": "We couldn't access your location. Please try again.",
+    "needMoreWalking": "Walk a little further — at least 3 points are needed to make a boundary.",
+    "tooSmall": "That area looks too small. Please walk all the way around your field.",
+    "cropStepTitle": "About your field",
+    "cropLabel": "Crop (optional)",
+    "varietyLabel": "Variety (optional)",
+    "varietyPlaceholder": "Sharbati",
+    "sownOnLabel": "Sowing date (optional)",
+    "sownOnInvalid": "Use the format YYYY-MM-DD",
+    "notesLabel": "Notes (optional)",
+    "notesPlaceholder": "Irrigation, soil, previous crop — anything worth remembering",
+    "saveCta": "Save my farm",
+    "saveCropError": "Your field saved, but we couldn't save the crop details. You can add them later from My Farm."
+  },
+  "learning": {
+    "title": "Krishi Academy",
+    "intro": "Practical, step-by-step guidance for everyday farm decisions — soil, sowing, irrigation, pests and more.",
+    "tagline": "Learn better farming, one step at a time.",
+    "progress": "{{completed}} of {{total}} tutorials completed",
+    "featured": "Featured",
+    "recommended": "Recommended for you",
+    "categories": "Categories",
+    "durationAndDifficulty": "{{duration}} · {{difficulty}}",
+    "durationMinutes": "{{count}} min",
+    "difficulty": {
+      "beginner": "Beginner",
+      "intermediate": "Intermediate",
+      "advanced": "Advanced"
+    },
+    "watchTutorial": "Watch tutorial",
+    "videoUnavailable": "We couldn't load the video. Please try again.",
+    "tryArGuidance": "Try AR guidance",
+    "arHint": "Use your camera to follow the step-by-step field guide.",
+    "completed": "Completed",
+    "markComplete": "Mark as complete",
+    "whyItMatters": "Why it matters",
+    "steps": "Steps",
+    "tips": "Tips",
+    "commonMistake": "Common mistake",
+    "emptyTitle": "No tutorials yet",
+    "emptyBody": "Tutorials will appear here once they're added.",
+    "notFoundTitle": "Tutorial not found",
+    "notFoundBody": "This tutorial isn't available. Go back and pick another one."
+  },
+  "calendar": {
+    "title": "Smart Farm Calendar",
+    "upcoming": "Upcoming",
+    "today": "Today",
+    "tomorrow": "Tomorrow",
+    "inDays": "In {{count}} days",
+    "nextWeek": "Next week",
+    "previousMonth": "Previous month",
+    "nextMonth": "Next month",
+    "noFarmTitle": "No farm registered yet",
+    "noFarmBody": "Register your land to start tracking activities on your farm calendar.",
+    "noEventsTitle": "No activities recorded yet",
+    "noEventsBody": "This calendar will connect to real farm intelligence in a future update.",
+    "statusUpcoming": "Upcoming",
+    "eventNotFoundTitle": "Activity not found",
+    "eventNotFoundBody": "This activity isn't available. Go back and pick another one.",
+    "eventTypes": {
+      "sowing": "Sowing",
+      "irrigation": "Irrigation",
+      "fertilizer": "Fertilizer",
+      "cropHealth": "Crop health check",
+      "harvest": "Harvest",
+      "weather": "Weather"
+    },
+    "detail": {
+      "field": "Field",
+      "crop": "Crop",
+      "scheduled": "Scheduled",
+      "status": "Status",
+      "whyShown": "Why it is shown",
+      "demoNotice": "This schedule is illustrative demo data. It is not generated by a connected irrigation, weather or crop-health engine yet."
+    },
+    "events": {
+      "sowing": {
+        "title": "Sowing",
+        "reason": "Illustration of a season's first recorded activity."
+      },
+      "irrigation": {
+        "title": "Irrigation",
+        "reason": "Illustration of what a connected irrigation engine will one day recommend, based on soil moisture and crop stage."
+      },
+      "fertilizer": {
+        "title": "Fertilizer",
+        "reason": "Illustration of what a connected nutrient advisory will one day recommend for this crop's growth stage."
+      },
+      "weather": {
+        "title": "Weather-related activity",
+        "reason": "Illustration of what a connected weather/disaster intelligence engine will one day flag."
+      },
+      "cropHealth": {
+        "title": "Crop health check",
+        "reason": "Illustration of what a connected crop-health engine will one day suggest checking for."
+      },
+      "harvest": {
+        "title": "Expected harvest",
+        "reason": "Illustration of what a connected yield/harvest intelligence engine will one day estimate."
+      }
+    }
+  },
+  "ar": {
+    "title": "AR Guide",
+    "previewBadge": "AR Learning Preview",
+    "disclaimer": "This is a preview of a future AR-guided experience. It does not analyse your camera image yet.",
+    "stepLabel": "Step {{number}} of {{total}}",
+    "nextStep": "Next step",
+    "finish": "Finish",
+    "notAvailableTitle": "AR guide not available",
+    "notAvailableBody": "This tutorial doesn't have an AR guide yet.",
+    "markers": {
+      "pointHere": "Point here",
+      "walkToCorner": "Walk to each corner"
+    },
+    "steps": {
+      "soilPreparation": {
+        "moisture": "Check soil moisture — a handful that crumbles rather than balls up is ready to work.",
+        "residue": "Look for leftover crop residue that may need clearing before sowing.",
+        "drainage": "Check for any low spots where water could collect after rain.",
+        "corners": "Walk to each corner of your field to confirm the boundary you registered."
+      }
+    }
+  },
+  "schemes": {
+    "title": "Government Schemes",
+    "intro": "Schemes relevant to you",
+    "matchSummary": "{{count}} schemes may be relevant to your farm",
+    "noFarmHint": "Register your land to see schemes that may be more relevant to you.",
+    "recommended": "⭐ Recommended",
+    "otherSchemes": "Other schemes",
+    "emptyTitle": "No schemes available right now",
+    "notFoundTitle": "Scheme not found",
+    "notFoundBody": "This scheme isn't available. Go back and pick another one.",
+    "disclaimer": "This information is for illustration and general awareness only. Always verify current eligibility and application details on the scheme's official website.",
+    "categories": {
+      "incomeSupport": "Income Support",
+      "insurance": "Insurance",
+      "soilHealth": "Soil Health",
+      "credit": "Credit",
+      "irrigation": "Irrigation",
+      "other": "Other"
+    },
+    "detail": {
+      "whatIsIt": "What is it?",
+      "potentialBenefit": "Potential benefit",
+      "whoMayBeEligible": "Who may be eligible?",
+      "documents": "Documents typically required",
+      "howToApply": "How to apply",
+      "checkOfficialSource": "Check official source"
+    },
+    "reasons": {
+      "noFarm": "Check eligibility — register your land to see a personalised match",
+      "cropMatch": "Based on the crop currently registered on your farm",
+      "landSizeMatch": "Based on your registered land size",
+      "broadlyApplicable": "May be relevant based on the information currently available",
+      "unknown": "Check eligibility on the official site"
+    }
+  },
+  "updates": {
+    "title": "Krishi Updates",
+    "intro": "Latest for farmers",
+    "today": "Today",
+    "yesterday": "Yesterday",
+    "daysAgo": "{{count}} days ago",
+    "emptyTitle": "No updates available right now",
+    "notFoundTitle": "Update not found",
+    "notFoundBody": "This update isn't available. Go back and pick another one.",
+    "officialSource": "Check official source",
+    "categories": {
+      "agriculture": "Agriculture",
+      "weather": "Weather",
+      "government": "Government",
+      "market": "Market",
+      "technology": "Technology"
+    }
   },
   "profile": {
     "title": "Profile",
     "language": "Language",
-    "editField": "Edit field boundary",
+    "myFarm": "My Farm",
+    "registerLand": "Register your land",
+    "schemes": "Government Schemes",
     "notifications": "Notifications",
     "help": "Help",
     "logout": "Log out",
@@ -238,6 +449,12 @@
       "mappedDetail": "North Field · 2.50 acres",
       "sown": "Wheat sown",
       "sownDetail": "Sharbati variety",
+      "cropHealth": "Crop health check",
+      "cropHealthDetail": "Illustration of a future crop-health engine's check-in",
+      "fertilized": "Fertilizer applied",
+      "fertilizedDetail": "Illustration of a future nutrient advisory's recommendation",
+      "irrigated": "Irrigated",
+      "irrigatedDetail": "Illustration of a future irrigation engine's schedule",
       "priced": "Mandi price checked",
       "pricedDetail": "Alwar mandi",
       "offer": "Offer received",

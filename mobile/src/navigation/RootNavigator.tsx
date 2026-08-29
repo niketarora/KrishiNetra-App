@@ -3,13 +3,12 @@ import { NavigationContainer, DefaultTheme, type Theme } from '@react-navigation
 import { AvatarOverlay } from '@/components/avatar/AvatarOverlay';
 import { AvatarProvider } from '@/features/avatar/AvatarContext';
 import { useAuth } from '@/features/auth/AuthContext';
-import { FarmProvider, useFarm } from '@/features/farm/FarmContext';
+import { FarmProvider } from '@/features/farm/FarmContext';
 import { SplashScreen } from '@/screens/SplashScreen';
 import { colors } from '@/theme';
 
 import { AuthNavigator } from './AuthNavigator';
 import { MainNavigator } from './MainNavigator';
-import { OnboardingNavigator } from './OnboardingNavigator';
 
 const navigationTheme: Theme = {
   ...DefaultTheme,
@@ -24,23 +23,18 @@ const navigationTheme: Theme = {
 };
 
 /**
- * Decides which of the three worlds the farmer is in.
+ * Decides which of the two worlds the farmer is in.
  *
- * Gating on state rather than imperative navigation is what makes protected
- * screens actually protected: there is no route to the main app while
- * `session` is null, so a signed-out user cannot reach it by any navigation
- * action, and signing out anywhere unmounts it immediately.
+ * Gating on state rather than imperative navigation is what makes the main
+ * app actually protected: there is no route to it while `session` is null,
+ * so a signed-out user cannot reach it by any navigation action, and signing
+ * out anywhere unmounts it immediately.
+ *
+ * Farm registration is deliberately not part of this gate. Account creation
+ * and farm registration are separate steps — a signed-in farmer goes straight
+ * to `MainNavigator` whether or not they have registered any land yet, and
+ * registers it later, optionally, from Profile → My Farm.
  */
-function SignedInApp() {
-  const { farm, loading } = useFarm();
-
-  // Hold the splash while the farm loads, so a farmer who already has a field
-  // never sees field setup flash past on the way to Home.
-  if (loading && !farm) return <SplashScreen />;
-
-  return farm ? <MainNavigator /> : <OnboardingNavigator />;
-}
-
 export function RootNavigator() {
   const { initializing, session } = useAuth();
 
@@ -58,7 +52,7 @@ export function RootNavigator() {
     <FarmProvider>
       <AvatarProvider>
         <NavigationContainer theme={navigationTheme}>
-          <SignedInApp />
+          <MainNavigator />
         </NavigationContainer>
         {/*
           Rendered outside the NavigationContainer so the avatar can be opened

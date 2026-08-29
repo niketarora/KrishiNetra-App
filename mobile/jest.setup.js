@@ -20,7 +20,11 @@ jest.mock('expo-location', () => ({
   getCurrentPositionAsync: jest.fn(async () => ({
     coords: { latitude: 29.6857, longitude: 76.9905 },
   })),
-  Accuracy: { Balanced: 3 },
+  // WalkBoundaryScreen streams points through this instead of a one-shot fix.
+  // The default never calls back — tests that need points drive it by
+  // grabbing the callback off `.mock.calls` and invoking it themselves.
+  watchPositionAsync: jest.fn(async () => ({ remove: jest.fn() })),
+  Accuracy: { Balanced: 3, High: 4 },
 }));
 
 // react-native-maps needs a native module; component tests only care that the

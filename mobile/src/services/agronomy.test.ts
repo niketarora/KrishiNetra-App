@@ -1,5 +1,13 @@
 import { apiFetch } from './api';
-import { getCurrentCrop, getLatestMsp, getWeather, selectCurrentPlanting } from './agronomy';
+import {
+  createFarmCrop,
+  getCropHistory,
+  getCurrentCrop,
+  getLatestMsp,
+  getWeather,
+  selectCurrentPlanting,
+  selectPreviousPlanting,
+} from './agronomy';
 import type { FarmCrop } from './agronomy';
 import { DataError } from './errors';
 
@@ -98,6 +106,63 @@ describe('getCurrentCrop', () => {
   });
 });
 
+describe('selectPreviousPlanting', () => {
+  it('returns the most recently harvested planting', () => {
+    const previous = selectPreviousPlanting([
+      planting({ id: 'older', sown_on: '2024-11-15', status: 'harvested' }),
+      planting({ id: 'newer', sown_on: '2025-04-15', status: 'harvested' }),
+    ]);
+
+    expect(previous?.id).toBe('newer');
+  });
+
+  it('ignores a crop still growing, because it is not "previous" yet', () => {
+    const previous = selectPreviousPlanting([
+      planting({ id: 'growing', sown_on: '2025-11-15', status: 'growing' }),
+    ]);
+
+    expect(previous).toBeNull();
+  });
+
+  it('returns null for a field with no harvest on record', () => {
+    expect(selectPreviousPlanting([])).toBeNull();
+  });
+});
+
+describe('getCropHistory', () => {
+  const mustard = {
+    id: 'crop-mustard',
+    code: 'mustard',
+    name_en: 'Mustard',
+    name_hi: 'सरसों',
+    category: 'oilseed',
+    default_unit: 'quintal',
+  };
+
+  it('resolves the current and previous crop from one set of plantings', async () => {
+    mockedFetch
+      .mockResolvedValueOnce([
+        planting({ id: 'current', crop_id: 'crop-wheat', status: 'growing', sown_on: '2026-11-01' }),
+        planting({ id: 'previous', crop_id: 'crop-mustard', status: 'harvested', sown_on: '2026-04-01' }),
+      ])
+      .mockResolvedValueOnce([...catalogue, mustard]);
+
+    const history = await getCropHistory('farm-1');
+
+    expect(history.current?.crop.name_en).toBe('Wheat');
+    expect(history.previous?.crop.name_en).toBe('Mustard');
+  });
+
+  it('leaves previous crop null when nothing has been harvested yet', async () => {
+    mockedFetch.mockResolvedValueOnce([planting({ status: 'sown' })]).mockResolvedValueOnce(catalogue);
+
+    const history = await getCropHistory('farm-1');
+
+    expect(history.current).not.toBeNull();
+    expect(history.previous).toBeNull();
+  });
+});
+
 describe('getLatestMsp', () => {
   it('takes the newest marketing year the API returned', async () => {
     mockedFetch.mockResolvedValueOnce([
@@ -157,5 +222,36 @@ describe('getWeather', () => {
     mockedFetch.mockRejectedValueOnce(new DataError('auth.errors.network'));
 
     await expect(getWeather('farm-1')).rejects.toBeInstanceOf(DataError);
+  });
+});
+
+describe('createFarmCrop', () => {
+  it('posts the crop to the field-scoped endpoint', async () => {
+    mockedFetch.mockResolvedValue(planting() as never);
+
+    await createFarmCrop('farm-1', {
+      crop_id: 'crop-wheat',
+      variety: 'Dara',
+      sown_on: '2026-08-01',
+      notes: null,
+    });
+
+    const [path, init] = mockedFetch.mock.calls[0];
+    expect(path).toBe('/api/v1/farms/farm-1/crops');
+    expect(init.method).toBe('POST');
+    expect(init.body).toEqual({
+      crop_id: 'crop-wheat',
+      variety: 'Dara',
+      sown_on: '2026-08-01',
+      notes: null,
+    });
+  });
+
+  it('coerces a numeric area_acres that arrived as a string', async () => {
+    mockedFetch.mockResolvedValue({ ...planting(), area_acres: '2.5' } as never);
+
+    const crop = await createFarmCrop('farm-1', { crop_id: 'crop-wheat' });
+
+    expect(crop.area_acres).toBe(2.5);
   });
 });

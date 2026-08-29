@@ -30,6 +30,10 @@ export type IconName =
   | 'restart'
   | 'offline'
   | 'map'
+  | 'book'
+  | 'droplet'
+  | 'flask'
+  | 'play'
   | 'camera';
 
 type Props = {
@@ -183,6 +187,30 @@ export function Icon({ name, size = 20, color = colors.text.secondary, strokeWid
           <Path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2z" {...common} />
           <Path d="M9 4v14" {...common} />
           <Path d="M15 6v14" {...common} />
+        </>
+      )}
+      {name === 'book' && (
+        <>
+          <Path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5z" {...common} />
+          <Path d="M4 5.5v15" {...common} />
+          <Path d="M8 8h8" {...common} />
+          <Path d="M8 12h8" {...common} />
+        </>
+      )}
+      {name === 'droplet' && (
+        <Path d="M12 2s7 8.5 7 13a7 7 0 0 1-14 0c0-4.5 7-13 7-13z" {...common} />
+      )}
+      {name === 'flask' && (
+        <>
+          <Path d="M9 2h6" {...common} />
+          <Path d="M10 2v6.5L4.5 18a2 2 0 0 0 1.7 3h11.6a2 2 0 0 0 1.7-3L14 8.5V2" {...common} />
+          <Path d="M6.5 15h11" {...common} />
+        </>
+      )}
+      {name === 'play' && (
+        <>
+          <Circle cx="12" cy="12" r="9" {...common} />
+          <Path d="M10 8.5v7l6-3.5z" {...common} />
         </>
       )}
       {name === 'camera' && (

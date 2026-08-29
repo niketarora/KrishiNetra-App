@@ -49,6 +49,10 @@ type Props = {
   onOpenAnalysis: () => void;
   onOpenMarket: () => void;
   onEditBoundary: () => void;
+  onOpenLearning: () => void;
+  onOpenCalendar: () => void;
+  onOpenSchemes: () => void;
+  onOpenUpdates: () => void;
   onOpenVisualAssistant: () => void;
 };
 
@@ -67,6 +71,10 @@ export function HomeScreen({
   onOpenAnalysis,
   onOpenMarket,
   onEditBoundary,
+  onOpenLearning,
+  onOpenCalendar,
+  onOpenSchemes,
+  onOpenUpdates,
   onOpenVisualAssistant,
 }: Props) {
   const { t, i18n } = useTranslation();
@@ -242,6 +250,56 @@ export function HomeScreen({
             </View>
           </Card>
 
+          <Card style={styles.resourcesCard} testID="farmer-resources">
+            <Text variant="caption">{t('home.farmerResources')}</Text>
+            <View style={styles.resourcesGrid}>
+              <Pressable
+                onPress={onOpenLearning}
+                style={styles.resourceTile}
+                accessibilityRole="button"
+                testID="resource-tile-learning"
+              >
+                <Icon name="book" size={20} color={colors.text.secondary} />
+                <Text variant="micro" center style={styles.resourceLabel}>
+                  {t('home.learning')}
+                </Text>
+              </Pressable>
+              <Pressable
+                onPress={onOpenCalendar}
+                style={styles.resourceTile}
+                accessibilityRole="button"
+                testID="resource-tile-calendar"
+              >
+                <Icon name="clock" size={20} color={colors.text.secondary} />
+                <Text variant="micro" center style={styles.resourceLabel}>
+                  {t('home.calendar')}
+                </Text>
+              </Pressable>
+              <Pressable
+                onPress={onOpenSchemes}
+                style={styles.resourceTile}
+                accessibilityRole="button"
+                testID="resource-tile-schemes"
+              >
+                <Icon name="help" size={20} color={colors.text.secondary} />
+                <Text variant="micro" center style={styles.resourceLabel}>
+                  {t('home.schemes')}
+                </Text>
+              </Pressable>
+              <Pressable
+                onPress={onOpenUpdates}
+                style={styles.resourceTile}
+                accessibilityRole="button"
+                testID="resource-tile-updates"
+              >
+                <Icon name="field" size={20} color={colors.text.secondary} />
+                <Text variant="micro" center style={styles.resourceLabel}>
+                  {t('home.updates')}
+                </Text>
+              </Pressable>
+            </View>
+          </Card>
+
           <Card tone="success" onPress={openAvatar} style={styles.companionCard} testID="companion-card">
             <Icon name="mic" size={20} color={colors.primaryDark} />
             <View style={styles.companionBody}>
@@ -324,6 +382,17 @@ const styles = StyleSheet.create({
   },
   marketValue: { flex: 1 },
   marketNote: { marginTop: 2 },
+  resourcesCard: { gap: 12 },
+  resourcesGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: layout.cardGap },
+  resourceTile: {
+    flexBasis: '47%',
+    flexGrow: 1,
+    alignItems: 'center',
+    gap: 6,
+    paddingVertical: 12,
+    backgroundColor: colors.neutralBg,
+  },
+  resourceLabel: {},
   companionCard: { flexDirection: 'row', alignItems: 'center', gap: 12 },
   companionBody: { flex: 1 },
   companionSub: { marginTop: 2 },

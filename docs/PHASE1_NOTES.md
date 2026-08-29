@@ -13,7 +13,7 @@ These surfaces are backed by live data and work end to end:
 |---|---|
 | Email/password registration and login | `src/features/auth/AuthContext.tsx`, `src/screens/auth/` |
 | Session persistence across app restarts | `src/services/sessionStorage.ts` |
-| Protected navigation (auth → onboarding → main) | `src/navigation/RootNavigator.tsx` |
+| Protected navigation (auth → main) | `src/navigation/RootNavigator.tsx` |
 | Satellite map, tap to add corners, drag to correct | `src/components/farm/BoundaryMap.tsx` |
 | Geodesic area in m² / acres / hectares | `src/utils/geo.ts` |
 | Saving the farm to Supabase under RLS | `src/services/farms.ts`, `supabase/migrations/0001_phase1_schema.sql` |

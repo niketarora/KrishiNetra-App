@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
@@ -6,16 +7,28 @@ import { useTranslation } from 'react-i18next';
 
 import { Icon, type IconName } from '@/components/ui';
 import { useFarm } from '@/features/farm/FarmContext';
+import { ARLearningScreen } from '@/screens/ar/ARLearningScreen';
+import { CalendarEventDetailScreen } from '@/screens/calendar/CalendarEventDetailScreen';
+import { CalendarScreen } from '@/screens/calendar/CalendarScreen';
 import { FieldAnalysisScreen } from '@/screens/field/FieldAnalysisScreen';
+import { MyFarmScreen } from '@/screens/farm/MyFarmScreen';
+import { RegisterCropScreen } from '@/screens/farm/RegisterCropScreen';
+import { WalkBoundaryScreen } from '@/screens/farm/WalkBoundaryScreen';
 import { HistoryScreen } from '@/screens/history/HistoryScreen';
 import { HomeScreen } from '@/screens/home/HomeScreen';
+import { LearningHomeScreen } from '@/screens/learning/LearningHomeScreen';
+import { TutorialDetailScreen } from '@/screens/learning/TutorialDetailScreen';
 import { MarketScreen } from '@/screens/market/MarketScreen';
 import { ProfileScreen } from '@/screens/profile/ProfileScreen';
 import { ConfirmFieldScreen } from '@/screens/onboarding/ConfirmFieldScreen';
 import { DrawBoundaryScreen } from '@/screens/onboarding/DrawBoundaryScreen';
+import { SchemeDetailScreen } from '@/screens/schemes/SchemeDetailScreen';
+import { SchemesScreen } from '@/screens/schemes/SchemesScreen';
+import { UpdateDetailScreen } from '@/screens/updates/UpdateDetailScreen';
+import { UpdatesScreen } from '@/screens/updates/UpdatesScreen';
 import { VisualAssistantScreen } from '@/screens/visualAssistant/VisualAssistantScreen';
 import { colors, fonts, layout } from '@/theme';
-import { fromGeoJSON } from '@/utils/geo';
+import { centroid, fromGeoJSON } from '@/utils/geo';
 
 import type { MainStackParamList, MainTabParamList } from './types';
 
@@ -71,6 +84,10 @@ function MainTabs() {
             onOpenAnalysis={() => tabNavigation.navigate('Field')}
             onOpenMarket={() => tabNavigation.navigate('Market')}
             onEditBoundary={openEditBoundary}
+            onOpenLearning={() => navigation.navigate('Learning')}
+            onOpenCalendar={() => navigation.navigate('Calendar')}
+            onOpenSchemes={() => navigation.navigate('Schemes')}
+            onOpenUpdates={() => navigation.navigate('Updates')}
             onOpenVisualAssistant={() => navigation.navigate('VisualAssistant')}
           />
         )}
@@ -81,7 +98,10 @@ function MainTabs() {
       </Tab.Screen>
 
       <Tab.Screen name="Market" component={MarketScreen} options={{ title: t('nav.market') }} />
-      <Tab.Screen name="History" component={HistoryScreen} options={{ title: t('nav.history') }} />
+
+      <Tab.Screen name="History" options={{ title: t('nav.history') }}>
+        {() => <HistoryScreen onRegisterLand={() => navigation.navigate('MyFarm')} />}
+      </Tab.Screen>
     </Tab.Navigator>
   );
 }
@@ -94,6 +114,12 @@ function MainTabs() {
 export function MainNavigator() {
   const { farm } = useFarm();
 
+  // LearningHomeScreen takes no navigation hooks of its own (see its file
+  // comment) — it just re-fetches progress on mount, so remounting it here
+  // whenever it regains focus is what makes "1 of 8 completed" show up
+  // immediately after marking a tutorial complete and coming back.
+  const [learningKey, setLearningKey] = useState(0);
+
   return (
     <Stack.Navigator screenOptions={{ headerShown: false, animation: 'slide_from_right' }}>
       <Stack.Screen name="Tabs" component={MainTabs} />
@@ -102,17 +128,8 @@ export function MainNavigator() {
         {({ navigation }) => (
           <ProfileScreen
             onBack={() => navigation.goBack()}
-            onEditField={() => {
-              if (!farm) return;
-              navigation.navigate('EditBoundary', {
-                centre: {
-                  latitude: Number(farm.centroid_lat),
-                  longitude: Number(farm.centroid_lng),
-                },
-                points: fromGeoJSON(farm.boundary),
-                name: farm.name,
-              });
-            }}
+            onOpenMyFarm={() => navigation.navigate('MyFarm')}
+            onOpenSchemes={() => navigation.navigate('Schemes')}
           />
         )}
       </Stack.Screen>
@@ -138,6 +155,160 @@ export function MainNavigator() {
             // Unlike first-run setup, the farmer already has a home to return
             // to, so pop back to the tabs once the boundary is updated.
             onSaved={() => navigation.navigate('Tabs')}
+            onBack={() => navigation.goBack()}
+          />
+        )}
+      </Stack.Screen>
+
+      {/*
+        Profile → My Farm — Feature #1's optional land-registration flow.
+        Reachable any time from Profile, never from signup. MyFarm shows
+        either the registered farm's summary or a "Register your land" empty
+        state; editing an existing farm's boundary from here reuses the exact
+        EditBoundary/ConfirmEdit route pair above.
+      */}
+      <Stack.Screen name="MyFarm">
+        {({ navigation }) => (
+          <MyFarmScreen
+            onBack={() => navigation.goBack()}
+            onRegisterLand={() => navigation.navigate('RegisterLand')}
+            onEditBoundary={() => {
+              if (!farm) return;
+              navigation.navigate('EditBoundary', {
+                centre: {
+                  latitude: Number(farm.centroid_lat),
+                  longitude: Number(farm.centroid_lng),
+                },
+                points: fromGeoJSON(farm.boundary),
+                name: farm.name,
+              });
+            }}
+          />
+        )}
+      </Stack.Screen>
+
+      <Stack.Screen name="RegisterLand">
+        {({ navigation }) => (
+          <WalkBoundaryScreen
+            onWalked={(points) =>
+              navigation.navigate('RegisterBoundary', { centre: centroid(points), points })
+            }
+            onBack={() => navigation.goBack()}
+          />
+        )}
+      </Stack.Screen>
+
+      {/* Same DrawBoundaryScreen the edit flow uses, reused unmodified. */}
+      <Stack.Screen name="RegisterBoundary">
+        {({ navigation, route }) => (
+          <DrawBoundaryScreen
+            initialCentre={route.params.centre}
+            initialPoints={route.params.points}
+            onConfirm={(points) => navigation.navigate('RegisterCropInfo', { points })}
+            onBack={() => navigation.goBack()}
+          />
+        )}
+      </Stack.Screen>
+
+      <Stack.Screen name="RegisterCropInfo">
+        {({ navigation, route }) => (
+          <RegisterCropScreen
+            points={route.params.points}
+            onSaved={() =>
+              navigation.reset({ index: 0, routes: [{ name: 'MyFarm' }] })
+            }
+            onBack={() => navigation.goBack()}
+          />
+        )}
+      </Stack.Screen>
+
+      {/* Home → Krishi Academy — Feature #14's local tutorial library. */}
+      <Stack.Screen
+        name="Learning"
+        listeners={{ focus: () => setLearningKey((key) => key + 1) }}
+      >
+        {({ navigation }) => (
+          <LearningHomeScreen
+            key={learningKey}
+            onBack={() => navigation.goBack()}
+            onOpenTutorial={(tutorialId) => navigation.navigate('TutorialDetail', { tutorialId })}
+          />
+        )}
+      </Stack.Screen>
+
+      <Stack.Screen name="TutorialDetail">
+        {({ navigation, route }) => (
+          <TutorialDetailScreen
+            tutorialId={route.params.tutorialId}
+            onBack={() => navigation.goBack()}
+            onOpenAr={(tutorialId) => navigation.navigate('ARGuide', { tutorialId })}
+          />
+        )}
+      </Stack.Screen>
+
+      {/* Tutorial detail → AR Learning Preview — a UI-only prototype, not real CV. */}
+      <Stack.Screen name="ARGuide">
+        {({ navigation, route }) => (
+          <ARLearningScreen
+            tutorialId={route.params.tutorialId}
+            onBack={() => navigation.goBack()}
+          />
+        )}
+      </Stack.Screen>
+
+      {/* Home → Smart Farm Calendar — Feature #10's forward-looking demo UI. */}
+      <Stack.Screen name="Calendar">
+        {({ navigation }) => (
+          <CalendarScreen
+            onBack={() => navigation.goBack()}
+            onRegisterLand={() => navigation.navigate('MyFarm')}
+            onOpenEvent={(eventId) => navigation.navigate('CalendarEventDetail', { eventId })}
+          />
+        )}
+      </Stack.Screen>
+
+      <Stack.Screen name="CalendarEventDetail">
+        {({ navigation, route }) => (
+          <CalendarEventDetailScreen
+            eventId={route.params.eventId}
+            onBack={() => navigation.goBack()}
+          />
+        )}
+      </Stack.Screen>
+
+      {/* Home/Profile → Government Schemes — local demo scheme directory. */}
+      <Stack.Screen name="Schemes">
+        {({ navigation }) => (
+          <SchemesScreen
+            onBack={() => navigation.goBack()}
+            onOpenScheme={(schemeId) => navigation.navigate('SchemeDetail', { schemeId })}
+          />
+        )}
+      </Stack.Screen>
+
+      <Stack.Screen name="SchemeDetail">
+        {({ navigation, route }) => (
+          <SchemeDetailScreen
+            schemeId={route.params.schemeId}
+            onBack={() => navigation.goBack()}
+          />
+        )}
+      </Stack.Screen>
+
+      {/* Home → Krishi Updates — local demo agri-news feed. */}
+      <Stack.Screen name="Updates">
+        {({ navigation }) => (
+          <UpdatesScreen
+            onBack={() => navigation.goBack()}
+            onOpenUpdate={(updateId) => navigation.navigate('UpdateDetail', { updateId })}
+          />
+        )}
+      </Stack.Screen>
+
+      <Stack.Screen name="UpdateDetail">
+        {({ navigation, route }) => (
+          <UpdateDetailScreen
+            updateId={route.params.updateId}
             onBack={() => navigation.goBack()}
           />
         )}
