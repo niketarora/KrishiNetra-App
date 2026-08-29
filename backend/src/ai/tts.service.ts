@@ -69,7 +69,7 @@ const REGIONAL_TTS_MAP: Record<string, string> = {
 
 export function toSpeechLanguage(language: string | undefined): string {
   if (!language) return 'en-IN';
-  const base = language.split('-')[0]?.toLowerCase();
+  const base = language.split('-')[0]?.toLowerCase() ?? '';
   return REGIONAL_TTS_MAP[base] ?? 'en-IN';
 }
 

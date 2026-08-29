@@ -49,7 +49,7 @@ const REGIONAL_STT_MAP: Record<string, string> = {
 export function toProviderLanguage(language: string | undefined): string {
   if (!language) return 'unknown';
 
-  const base = language.split('-')[0]?.toLowerCase();
+  const base = language.split('-')[0]?.toLowerCase() ?? '';
   return REGIONAL_STT_MAP[base] ?? 'unknown';
 }
 
