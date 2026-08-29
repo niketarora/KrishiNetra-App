@@ -36,4 +36,12 @@ export type MainStackParamList = {
   /** Home → Smart Farm Calendar — Feature #10's forward-looking demo UI. */
   Calendar: undefined;
   CalendarEventDetail: { eventId: string };
+  /** Tutorial detail → AR Learning Preview, a UI-only prototype. */
+  ARGuide: { tutorialId: string };
+  /** Home → Government Schemes — local demo scheme directory. */
+  Schemes: undefined;
+  SchemeDetail: { schemeId: string };
+  /** Home → Krishi Updates — local demo agri-news feed. */
+  Updates: undefined;
+  UpdateDetail: { updateId: string };
 };

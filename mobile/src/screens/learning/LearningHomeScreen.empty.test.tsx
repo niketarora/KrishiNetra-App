@@ -21,6 +21,14 @@ jest.mock('@/features/auth/AuthContext', () => ({
   useAuth: () => ({ user: { id: 'user-1' } }),
 }));
 
+jest.mock('@/features/farm/FarmContext', () => ({
+  useFarm: () => ({ farm: null }),
+}));
+
+jest.mock('@/services/agronomy', () => ({
+  getCurrentCrop: jest.fn(async () => null),
+}));
+
 const props = { onBack: jest.fn(), onOpenTutorial: jest.fn() };
 
 describe('LearningHomeScreen with no tutorials', () => {

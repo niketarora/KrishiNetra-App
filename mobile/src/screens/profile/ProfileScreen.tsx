@@ -13,6 +13,7 @@ type Props = {
   onBack: () => void;
   /** Always goes to the same place — My Farm decides what to show. */
   onOpenMyFarm: () => void;
+  onOpenSchemes: () => void;
 };
 
 type Row = {
@@ -26,7 +27,7 @@ type Row = {
 };
 
 /** design.md §4.12 — reached from the header avatar, never a bottom-nav slot. */
-export function ProfileScreen({ onBack, onOpenMyFarm }: Props) {
+export function ProfileScreen({ onBack, onOpenMyFarm, onOpenSchemes }: Props) {
   const { t } = useTranslation();
   const { user, profile, signOut } = useAuth();
   const { farm } = useFarm();
@@ -61,6 +62,12 @@ export function ProfileScreen({ onBack, onOpenMyFarm }: Props) {
       icon: 'field',
       label: t(farm ? 'profile.myFarm' : 'profile.registerLand'),
       onPress: onOpenMyFarm,
+    },
+    {
+      key: 'schemes',
+      icon: 'check',
+      label: t('profile.schemes'),
+      onPress: onOpenSchemes,
     },
     // Notifications and Help have nothing behind them in Phase 1. They are
     // shown disabled rather than hidden so the farmer sees where the app is
