@@ -361,7 +361,8 @@
       "whoMayBeEligible": "कौन पात्र हो सकता है?",
       "documents": "आमतौर पर आवश्यक दस्तावेज़",
       "howToApply": "आवेदन कैसे करें",
-      "checkOfficialSource": "आधिकारिक स्रोत देखें"
+      "checkOfficialSource": "आधिकारिक स्रोत देखें",
+      "viewOnMyScheme": "View on myScheme Portal"
     },
     "reasons": {
       "noFarm": "पात्रता जाँचें — व्यक्तिगत मिलान देखने के लिए अपनी ज़मीन दर्ज करें",
@@ -369,7 +370,15 @@
       "landSizeMatch": "आपके दर्ज भूमि आकार के आधार पर",
       "broadlyApplicable": "वर्तमान में उपलब्ध जानकारी के आधार पर प्रासंगिक हो सकती है",
       "unknown": "आधिकारिक साइट पर पात्रता जाँचें"
-    }
+    },
+    "emptyBody": "No schemes found for the selected state.",
+    "selectState": "Select your state",
+    "searchState": "Search state...",
+    "selectStatePrompt": "Choose your state to see matching government schemes.",
+    "changeState": "Change",
+    "stateScope": "State Scheme",
+    "centralScope": "Central Scheme",
+    "loadError": "Could not load schemes. Please try again."
   },
   "updates": {
     "title": "कृषि अपडेट",
@@ -378,10 +387,20 @@
     "yesterday": "कल",
     "daysAgo": "{{count}} दिन पहले",
     "emptyTitle": "अभी कोई अपडेट उपलब्ध नहीं है",
+    "loadError": "अपडेट लोड नहीं हुए। नीचे खींचकर फिर कोशिश करें।",
     "notFoundTitle": "अपडेट नहीं मिला",
     "notFoundBody": "यह अपडेट उपलब्ध नहीं है। वापस जाकर कोई और चुनें।",
     "officialSource": "आधिकारिक स्रोत देखें",
+    "readSource": "स्रोत देखें",
+    "whyRelevant": "यह क्यों महत्वपूर्ण है",
+    "officialAlert": "आधिकारिक चेतावनी",
+    "governmentUpdate": "सरकारी अपडेट",
+    "officialSourceBadge": "आधिकारिक स्रोत",
+    "regionalNews": "क्षेत्रीय समाचार",
+    "unnamedField": "खेत {{number}}",
+    "locationUnknown": "स्थान दर्ज नहीं है",
     "categories": {
+      "risk": "जोखिम व आपदा",
       "agriculture": "कृषि",
       "weather": "मौसम",
       "government": "सरकार",
@@ -444,7 +463,8 @@
     "logoutConfirmBody": "वापस आने के लिए ईमेल और पासवर्ड चाहिए होगा।",
     "languageEnglish": "English",
     "languageHindi": "हिन्दी",
-    "notifications": "सूचनाएँ"
+    "notifications": "सूचनाएँ",
+    "state": "State"
   },
   "nav": {
     "home": "होम",
@@ -564,5 +584,16 @@
     "errors": {
       "generic": "हम जवाब नहीं ला पाए। अपना इंटरनेट जाँचें और फिर कोशिश करें।"
     }
+  },
+  "myLands": {
+    "title": "My Lands",
+    "emptyTitle": "No lands registered yet",
+    "emptyBody": "Register your fields to view personalized weather, crop advisories and government schemes.",
+    "addLand": "Register Land",
+    "addAnotherLand": "+ Add Another Land",
+    "landLabel": "Land",
+    "selected": "Selected",
+    "deleteConfirmTitle": "Delete {{name}}?",
+    "deleteConfirmBody": "This will permanently delete this land and all crop records associated with it."
   }
 }

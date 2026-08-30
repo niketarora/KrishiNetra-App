@@ -1,7 +1,7 @@
 import type { LatLng } from '@/utils/geo';
 
 import { apiFetch } from './api';
-import { createFarm, getCurrentFarm, updateFarmBoundary } from './farms';
+import { createFarm, deleteFarm, listFarms, updateFarmBoundary, updateLandName } from './farms';
 
 jest.mock('./api', () => ({
   apiFetch: jest.fn(),
@@ -30,22 +30,24 @@ const savedFarm = {
 
 beforeEach(() => jest.clearAllMocks());
 
-describe('getCurrentFarm', () => {
-  it('asks the API for the single newest field', async () => {
+describe('listFarms', () => {
+  it('asks the API for all fields without limit', async () => {
     mockedFetch.mockResolvedValue([savedFarm] as never);
 
-    await getCurrentFarm('user-1');
+    const result = await listFarms();
 
     expect(mockedFetch).toHaveBeenCalledWith(
-      '/api/v1/farms?limit=1',
+      '/api/v1/farms',
       expect.objectContaining({ fallbackKey: 'home.loadError' }),
     );
+    expect(result).toHaveLength(1);
+    expect(result[0].id).toBe('farm-1');
   });
 
-  it('returns null when the farmer has not drawn a field yet', async () => {
+  it('returns empty array when the farmer has not drawn a field yet', async () => {
     mockedFetch.mockResolvedValue([] as never);
 
-    await expect(getCurrentFarm('user-1')).resolves.toBeNull();
+    await expect(listFarms()).resolves.toEqual([]);
   });
 
   it('coerces numeric fields that arrived as strings', async () => {
@@ -53,11 +55,39 @@ describe('getCurrentFarm', () => {
       { ...savedFarm, area_acres: '2.7205', centroid_lat: '26.912500' },
     ] as never);
 
-    const farm = await getCurrentFarm('user-1');
+    const farms = await listFarms();
+    const farm = farms[0];
 
     expect(typeof farm?.area_acres).toBe('number');
     expect(typeof farm?.centroid_lat).toBe('number');
     expect(farm?.area_acres).toBeCloseTo(2.7205, 6);
+  });
+});
+
+describe('listFarms', () => {
+  it('asks the API for every field, not just the newest', async () => {
+    mockedFetch.mockResolvedValue([savedFarm] as never);
+
+    await listFarms();
+
+    expect(mockedFetch).toHaveBeenCalledWith('/api/v1/farms', expect.objectContaining({ fallbackKey: 'home.loadError' }));
+  });
+
+  it('returns every field the farmer has registered', async () => {
+    const second = { ...savedFarm, id: 'farm-2', name: 'South field' };
+    mockedFetch.mockResolvedValue([savedFarm, second] as never);
+
+    const farms = await listFarms();
+
+    expect(farms.map((f) => f.id)).toEqual(['farm-1', 'farm-2']);
+  });
+
+  it('coerces numeric fields the same way getCurrentFarm does', async () => {
+    mockedFetch.mockResolvedValue([{ ...savedFarm, area_acres: '2.7205' }] as never);
+
+    const [farm] = await listFarms();
+
+    expect(typeof farm?.area_acres).toBe('number');
   });
 });
 
@@ -100,11 +130,35 @@ describe('updateFarmBoundary', () => {
   it('patches the specific field', async () => {
     mockedFetch.mockResolvedValue(savedFarm as never);
 
-    await updateFarmBoundary('farm-1', { userId: 'user-1', points });
+    await updateFarmBoundary('farm-1', { userId: 'user-1', points, name: 'Updated name' });
 
     const [path, init] = mockedFetch.mock.calls[0];
     expect(path).toBe('/api/v1/farms/farm-1');
     expect(init.method).toBe('PATCH');
-    expect(init.fallbackKey).toBe('onboarding.saveError');
+  });
+});
+
+describe('updateLandName', () => {
+  it('patches only the name of the specified land', async () => {
+    mockedFetch.mockResolvedValue({ ...savedFarm, name: 'New Name' } as never);
+
+    await updateLandName('farm-1', 'New Name');
+
+    const [path, init] = mockedFetch.mock.calls[0];
+    expect(path).toBe('/api/v1/farms/farm-1');
+    expect(init.method).toBe('PATCH');
+    expect(init.body).toEqual({ name: 'New Name' });
+  });
+});
+
+describe('deleteFarm', () => {
+  it('calls DELETE on the specific farm endpoint', async () => {
+    mockedFetch.mockResolvedValue(undefined as never);
+
+    await deleteFarm('farm-1');
+
+    const [path, init] = mockedFetch.mock.calls[0];
+    expect(path).toBe('/api/v1/farms/farm-1');
+    expect(init.method).toBe('DELETE');
   });
 });

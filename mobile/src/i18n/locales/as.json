@@ -361,7 +361,8 @@
       "whoMayBeEligible": "কারা আবেদন করতে পারবেন?",
       "documents": "প্রয়োজনীয় কাগজপত্র",
       "howToApply": "আবেদনের নিয়ম",
-      "checkOfficialSource": "অফিসিয়াল ওয়েবসাইট দেখুন"
+      "checkOfficialSource": "অফিসিয়াল ওয়েবসাইট দেখুন",
+      "viewOnMyScheme": "View on myScheme Portal"
     },
     "reasons": {
       "noFarm": "যোগ্যতা যাচাই করতে জমি নিবন্ধন করুন",
@@ -369,7 +370,15 @@
       "landSizeMatch": "জমির পরিমাণের ভিত্তিতে",
       "broadlyApplicable": "সকল কৃষকদের জন্য প্রযোজ্য",
       "unknown": "অফিসিয়াল সাইটে বিস্তারিত জানুন"
-    }
+    },
+    "emptyBody": "No schemes found for the selected state.",
+    "selectState": "Select your state",
+    "searchState": "Search state...",
+    "selectStatePrompt": "Choose your state to see matching government schemes.",
+    "changeState": "Change",
+    "stateScope": "State Scheme",
+    "centralScope": "Central Scheme",
+    "loadError": "Could not load schemes. Please try again."
   },
   "updates": {
     "title": "কৃষি বার্তা",
@@ -378,10 +387,20 @@
     "yesterday": "গতকাল",
     "daysAgo": "{{count}} দিন আগে",
     "emptyTitle": "কোনো আপডেট নেই",
+    "loadError": "আপডেট লোড করা যায়নি। পুনরায় চেষ্টা করতে নিচে টানুন।",
     "notFoundTitle": "তথ্য পাওয়া যায়নি",
     "notFoundBody": "এই আপডেটটি উপলব্ধ নয়।",
     "officialSource": "অফিসিয়াল উৎস দেখুন",
+    "readSource": "উৎস দেখুন",
+    "whyRelevant": "এটি কেন গুরুত্বপূর্ণ",
+    "officialAlert": "অফিসিয়াল সতর্কতা",
+    "governmentUpdate": "সরকারি আপডেট",
+    "officialSourceBadge": "অফিসিয়াল উৎস",
+    "regionalNews": "আঞ্চলিক সংবাদ",
+    "unnamedField": "জমি {{number}}",
+    "locationUnknown": "অবস্থান নির্ধারিত নয়",
     "categories": {
+      "risk": "ঝুঁকি ও দুর্যোগ",
       "agriculture": "কৃষি",
       "weather": "আবহাওয়া",
       "government": "সরকারি",
@@ -444,7 +463,8 @@
     "logoutConfirmBody": "আবার লগ ইন করতে ইমেল এবং পাসওয়ার্ড লাগবে।",
     "languageEnglish": "English",
     "languageHindi": "हिन्दी",
-    "notifications": "বিজ্ঞপ্তি"
+    "notifications": "বিজ্ঞপ্তি",
+    "state": "State"
   },
   "nav": {
     "home": "হোম",
@@ -564,5 +584,16 @@
     "errors": {
       "generic": "উত্তর পাওয়া যায়নি। নেটওয়ার্ক চেক করে আবার চেষ্টা করুন।"
     }
+  },
+  "myLands": {
+    "title": "My Lands",
+    "emptyTitle": "No lands registered yet",
+    "emptyBody": "Register your fields to view personalized weather, crop advisories and government schemes.",
+    "addLand": "Register Land",
+    "addAnotherLand": "+ Add Another Land",
+    "landLabel": "Land",
+    "selected": "Selected",
+    "deleteConfirmTitle": "Delete {{name}}?",
+    "deleteConfirmBody": "This will permanently delete this land and all crop records associated with it."
   }
 }

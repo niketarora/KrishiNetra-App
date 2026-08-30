@@ -1,41 +1,56 @@
-import { useEffect, useState } from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { useCallback, useEffect, useState } from 'react';
+import {
+  ActivityIndicator,
+  FlatList,
+  Pressable,
+  RefreshControl,
+  StyleSheet,
+  View,
+} from 'react-native';
 import { useTranslation } from 'react-i18next';
 
-import { Card, EmptyState, Icon, IconBadge, SampleBanner, Screen, ScreenHeader, Text, type IconName } from '@/components/ui';
-import { matchSchemes } from '@/features/schemes/matching';
-import { SCHEMES } from '@/features/schemes/demoSchemes';
-import type { GovernmentScheme, SchemeCategory } from '@/features/schemes/types';
-import { localize } from '@/utils/localizedText';
+import {
+  Badge,
+  Button,
+  Card,
+  EmptyState,
+  Icon,
+  IconBadge,
+  Screen,
+  ScreenHeader,
+  Skeleton,
+  StatePickerModal,
+  Text,
+} from '@/components/ui';
+import { useAuth } from '@/features/auth/AuthContext';
 import { useFarm } from '@/features/farm/FarmContext';
 import { getCurrentCrop, type CurrentCrop } from '@/services/agronomy';
-import { colors, layout } from '@/theme';
+import { updateProfile } from '@/services/profiles';
+import { listSchemes, type SchemeCard } from '@/services/schemes';
+import { colors, layout, radius, spacing } from '@/theme';
 
 type Props = {
   onBack: () => void;
   onOpenScheme: (schemeId: string) => void;
 };
 
-const CATEGORY_ICONS: Record<SchemeCategory, IconName> = {
-  incomeSupport: 'market',
-  insurance: 'alert',
-  soilHealth: 'field',
-  credit: 'check',
-  irrigation: 'droplet',
-  other: 'help',
-};
+const PAGE_SIZE = 30;
 
-/**
- * Government Schemes — local demo directory (see
- * `features/schemes/demoSchemes.ts`). Schemes are shown regardless of
- * whether a farm is registered — they're public information — but the
- * personalised "may be relevant" framing only applies once there's a real
- * farm to match against, via `matchSchemes`.
- */
 export function SchemesScreen({ onBack, onOpenScheme }: Props) {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
+  const { profile, refreshProfile } = useAuth();
   const { farm } = useFarm();
+
   const [crop, setCrop] = useState<CurrentCrop | null>(null);
+  const [schemes, setSchemes] = useState<SchemeCard[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [loadingMore, setLoadingMore] = useState(false);
+  const [hasMore, setHasMore] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
+  const [statePickerVisible, setStatePickerVisible] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const selectedState = profile?.location_state ?? farm?.state ?? null;
 
   useEffect(() => {
     if (!farm) {
@@ -57,32 +72,147 @@ export function SchemesScreen({ onBack, onOpenScheme }: Props) {
     };
   }, [farm]);
 
-  const eligibility = matchSchemes(SCHEMES, farm, crop?.crop.code ?? null);
-  const recommended = farm
-    ? SCHEMES.filter((scheme) =>
-        eligibility.find((e) => e.schemeId === scheme.id)?.status === 'mayBeEligible',
-      )
-    : [];
-  const others = farm ? SCHEMES.filter((scheme) => !recommended.includes(scheme)) : SCHEMES;
+  const loadInitialSchemes = useCallback(async () => {
+    if (!selectedState) {
+      setSchemes([]);
+      setLoading(false);
+      return;
+    }
 
-  const renderScheme = (scheme: GovernmentScheme, showReason = false) => {
-    const reasonKey = eligibility.find((e) => e.schemeId === scheme.id)?.reasonKey;
+    setLoading(true);
+    setError(null);
+    try {
+      const data = await listSchemes({
+        state: selectedState,
+        cropCode: crop?.crop.code,
+        limit: PAGE_SIZE,
+        offset: 0,
+      });
+      setSchemes(data);
+      setHasMore(data.length >= PAGE_SIZE);
+    } catch {
+      setError('schemes.loadError');
+    } finally {
+      setLoading(false);
+    }
+  }, [crop?.crop.code, selectedState]);
+
+  useEffect(() => {
+    void loadInitialSchemes();
+  }, [loadInitialSchemes]);
+
+  const handleRefresh = async () => {
+    setRefreshing(true);
+    await loadInitialSchemes();
+    setRefreshing(false);
+  };
+
+  const handleLoadMore = async () => {
+    if (loading || loadingMore || !hasMore || !selectedState) return;
+
+    setLoadingMore(true);
+    try {
+      const nextBatch = await listSchemes({
+        state: selectedState,
+        cropCode: crop?.crop.code,
+        limit: PAGE_SIZE,
+        offset: schemes.length,
+      });
+      if (nextBatch.length > 0) {
+        setSchemes((prev) => [...prev, ...nextBatch]);
+      }
+      setHasMore(nextBatch.length >= PAGE_SIZE);
+    } catch {
+      // Non-fatal pagination failure
+    } finally {
+      setLoadingMore(false);
+    }
+  };
+
+  const handleSelectState = async (stateName: string) => {
+    if (profile?.id) {
+      try {
+        await updateProfile(profile.id, { location_state: stateName });
+        await refreshProfile();
+      } catch {
+        // Non-fatal
+      }
+    }
+  };
+
+  const renderHeader = () => (
+    <View style={styles.headerBlock}>
+      <Text variant="caption" color={colors.text.secondary}>
+        {t('schemes.intro')}
+      </Text>
+
+      {selectedState ? (
+        <View style={styles.filterChipRow}>
+          <View style={styles.filterChip}>
+            <Icon name="pin" size={14} color={colors.primary} />
+            <Text variant="microMedium" color={colors.text.primary}>
+              {selectedState}
+            </Text>
+          </View>
+          <Pressable
+            onPress={() => setStatePickerVisible(true)}
+            hitSlop={8}
+            accessibilityRole="button"
+            testID="change-state-btn"
+          >
+            <Text variant="microMedium" color={colors.primaryDark}>
+              {t('schemes.changeState')}
+            </Text>
+          </Pressable>
+        </View>
+      ) : (
+        <View style={styles.noStateBanner}>
+          <Text variant="bodyMedium" color={colors.text.primary}>
+            {t('schemes.selectStatePrompt')}
+          </Text>
+          <Button
+            label={t('schemes.selectState')}
+            onPress={() => setStatePickerVisible(true)}
+            variant="secondary"
+            testID="select-state-btn"
+          />
+        </View>
+      )}
+    </View>
+  );
+
+  const renderItem = ({ item }: { item: SchemeCard }) => {
+    const isStateScheme = item.scheme_scope === 'STATE';
     return (
       <Card
-        key={scheme.id}
-        onPress={() => onOpenScheme(scheme.id)}
+        onPress={() => onOpenScheme(item.row_id)}
         style={styles.schemeCard}
-        testID={`scheme-card-${scheme.id}`}
+        testID={`scheme-card-${item.row_id}`}
       >
-        <IconBadge icon={CATEGORY_ICONS[scheme.category]} tone="harvest" />
+        <IconBadge
+          icon={isStateScheme ? 'field' : 'market'}
+          tone={isStateScheme ? 'harvest' : 'primary'}
+        />
         <View style={styles.schemeBody}>
-          <Text variant="bodyMedium">{localize(scheme.name, i18n.language)}</Text>
-          <Text variant="caption" color={colors.text.muted}>
-            {localize(scheme.summary, i18n.language)}
-          </Text>
-          {showReason && reasonKey ? (
-            <Text variant="micro" color={colors.accent}>
-              {t(reasonKey)}
+          <View style={styles.cardTopRow}>
+            <Text variant="bodyMedium" numberOfLines={2} style={styles.schemeName}>
+              {item.short_title?.trim() || item.name}
+            </Text>
+            <Badge
+              label={isStateScheme ? t('schemes.stateScope') : t('schemes.centralScope')}
+              tone={isStateScheme ? 'neutral' : 'neutral'}
+            />
+          </View>
+
+          {item.summary ? (
+            <Text variant="caption" color={colors.text.muted} numberOfLines={2}>
+              {item.summary}
+            </Text>
+          ) : null}
+
+          {item.reasonKey ? (
+            <Text variant="micro" color={colors.accent} style={styles.reasonText}>
+              {t(item.reasonKey)}
             </Text>
           ) : null}
         </View>
@@ -95,55 +225,126 @@ export function SchemesScreen({ onBack, onOpenScheme }: Props) {
     <Screen>
       <ScreenHeader title={t('schemes.title')} onBack={onBack} />
 
-      <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
-        <Text variant="caption">{t('schemes.intro')}</Text>
-        <SampleBanner />
-
-        {SCHEMES.length === 0 ? (
-          <EmptyState icon="help" title={t('schemes.emptyTitle')} testID="schemes-empty" />
-        ) : (
-          <>
-            {farm ? (
-              <Text variant="bodyMedium" style={styles.matchSummary}>
-                {t('schemes.matchSummary', { count: recommended.length })}
-              </Text>
-            ) : (
-              <Text variant="caption" color={colors.text.muted} style={styles.matchSummary}>
-                {t('schemes.noFarmHint')}
-              </Text>
-            )}
-
-            {recommended.length > 0 ? (
-              <View style={styles.section}>
-                <View style={styles.sectionHeadingRow}>
-                  <Icon name="check" size={16} color={colors.primary} strokeWidth={2.2} />
-                  <Text variant="cardTitle">{t('schemes.recommended')}</Text>
-                </View>
-                {recommended.map((scheme) => renderScheme(scheme, true))}
+      {loading && !refreshing ? (
+        <View style={styles.loadingContainer}>
+          {renderHeader()}
+          <Skeleton height={96} />
+          <Skeleton height={96} />
+          <Skeleton height={96} />
+        </View>
+      ) : schemes.length === 0 && selectedState ? (
+        <View style={styles.emptyContainer}>
+          {renderHeader()}
+          <EmptyState
+            icon="help"
+            title={t('schemes.emptyTitle')}
+            body={t('schemes.emptyBody')}
+            actionLabel={t('schemes.changeState')}
+            onAction={() => setStatePickerVisible(true)}
+            testID="empty-schemes-state"
+          />
+        </View>
+      ) : (
+        <FlatList
+          data={schemes}
+          keyExtractor={(item) => item.row_id}
+          renderItem={renderItem}
+          ListHeaderComponent={renderHeader}
+          contentContainerStyle={styles.listContent}
+          onEndReached={handleLoadMore}
+          onEndReachedThreshold={0.4}
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={() => void handleRefresh()}
+              tintColor={colors.primary}
+              colors={[colors.primary]}
+            />
+          }
+          ListFooterComponent={
+            loadingMore ? (
+              <View style={styles.footerLoading}>
+                <ActivityIndicator size="small" color={colors.primary} />
               </View>
-            ) : null}
+            ) : null
+          }
+        />
+      )}
 
-            <View style={styles.section}>
-              <Text variant="cardTitle">{t('schemes.otherSchemes')}</Text>
-              {others.map((scheme) => renderScheme(scheme))}
-            </View>
-          </>
-        )}
-      </ScrollView>
+      <StatePickerModal
+        visible={statePickerVisible}
+        selectedState={selectedState}
+        onSelectState={(stateName) => void handleSelectState(stateName)}
+        onClose={() => setStatePickerVisible(false)}
+      />
     </Screen>
   );
 }
 
 const styles = StyleSheet.create({
-  content: {
-    paddingHorizontal: layout.screenPadding,
-    paddingTop: 8,
-    paddingBottom: 32,
-    gap: layout.cardGap,
+  listContent: {
+    padding: layout.screenPadding,
+    gap: spacing.sm,
   },
-  matchSummary: { marginTop: 2 },
-  section: { gap: layout.cardGap },
-  sectionHeadingRow: { flexDirection: 'row', alignItems: 'center', gap: 6 },
-  schemeCard: { flexDirection: 'row', alignItems: 'center', gap: 12 },
-  schemeBody: { flex: 1, minWidth: 0, gap: 2 },
+  headerBlock: {
+    gap: spacing.sm,
+    marginBottom: spacing.xs,
+  },
+  filterChipRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingVertical: spacing.xs,
+  },
+  filterChip: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    backgroundColor: colors.successBg,
+    borderRadius: radius.pill,
+  },
+  noStateBanner: {
+    padding: spacing.md,
+    backgroundColor: colors.surface,
+    borderRadius: radius.md,
+    borderWidth: 1,
+    borderColor: colors.border,
+    gap: spacing.sm,
+  },
+  loadingContainer: {
+    padding: layout.screenPadding,
+    gap: spacing.md,
+  },
+  emptyContainer: {
+    padding: layout.screenPadding,
+    gap: spacing.md,
+  },
+  schemeCard: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.md,
+    padding: spacing.md,
+  },
+  schemeBody: {
+    flex: 1,
+    gap: 4,
+  },
+  cardTopRow: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    justifyContent: 'space-between',
+    gap: spacing.xs,
+  },
+  schemeName: {
+    flex: 1,
+  },
+  reasonText: {
+    marginTop: 2,
+  },
+  footerLoading: {
+    paddingVertical: spacing.md,
+    alignItems: 'center',
+  },
 });

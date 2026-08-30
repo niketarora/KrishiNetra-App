@@ -6,6 +6,7 @@ import {
   Icon,
   IconBadge,
   LanguagePickerModal,
+  StatePickerModal,
   type IconBadgeTone,
   Screen,
   ScreenHeader,
@@ -15,6 +16,7 @@ import {
 import { useAuth } from '@/features/auth/AuthContext';
 import { useFarm } from '@/features/farm/FarmContext';
 import { useLanguage } from '@/features/language/LanguageContext';
+import { updateProfile } from '@/services/profiles';
 import { SUPPORTED_LANGUAGES } from '@/i18n';
 import { colors, layout, radius } from '@/theme';
 import { initials, maskPhone } from '@/utils/format';
@@ -41,16 +43,27 @@ type Row = {
 /** design.md §4.12 — reached from the header avatar, never a bottom-nav slot. */
 export function ProfileScreen({ onBack, onOpenMyFarm, onOpenSchemes, onOpenAlerts }: Props) {
   const { t } = useTranslation();
-  const { profile, signOut } = useAuth();
+  const { profile, signOut, refreshProfile } = useAuth();
   const { farm } = useFarm();
   const { language, setLanguage } = useLanguage();
   const [pickerVisible, setPickerVisible] = useState(false);
+  const [statePickerVisible, setStatePickerVisible] = useState(false);
 
   const currentLanguage =
     SUPPORTED_LANGUAGES.find((l) => l.code === language)?.label ?? language;
 
   const openLanguagePicker = () => {
     setPickerVisible(true);
+  };
+
+  const handleSelectState = async (stateName: string) => {
+    if (!profile?.id) return;
+    try {
+      await updateProfile(profile.id, { location_state: stateName });
+      await refreshProfile();
+    } catch {
+      // Non-fatal
+    }
   };
 
   const confirmLogout = () => {
@@ -71,13 +84,12 @@ export function ProfileScreen({ onBack, onOpenMyFarm, onOpenSchemes, onOpenAlert
   const preferenceRows: Row[] = [
     { key: 'language', icon: 'globe', tone: 'accent', label: t('profile.language'), value: currentLanguage, onPress: openLanguagePicker },
     {
-      key: 'location',
+      key: 'state',
       icon: 'pin',
       tone: 'harvest',
-      // Read-only for now — Niket's future GPS/manual entry writes here later
-      // (location_source flips from 'demo' to 'gps'/'manual'; see 0005_farmer_identity.sql).
-      label: t('profile.location'),
-      value: profile?.location_city ?? t('common.notAvailable'),
+      label: t('profile.state'),
+      value: profile?.location_state ?? farm?.state ?? t('common.notAvailable'),
+      onPress: () => setStatePickerVisible(true),
     },
   ];
 
@@ -168,6 +180,13 @@ export function ProfileScreen({ onBack, onOpenMyFarm, onOpenSchemes, onOpenAlert
         selectedCode={language}
         onSelect={(code) => void setLanguage(code)}
         onClose={() => setPickerVisible(false)}
+      />
+
+      <StatePickerModal
+        visible={statePickerVisible}
+        selectedState={profile?.location_state ?? farm?.state ?? null}
+        onSelectState={(selectedState) => void handleSelectState(selectedState)}
+        onClose={() => setStatePickerVisible(false)}
       />
     </Screen>
   );

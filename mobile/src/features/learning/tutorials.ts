@@ -1,4 +1,5 @@
 import type { IconName } from '@/components/ui';
+import { publicStorageUrl } from '@/services/supabase';
 import { localize, type LocalizedText } from '@/utils/localizedText';
 
 /**
@@ -187,8 +188,8 @@ export const TUTORIALS: Tutorial[] = [
     video: {
       id: 'video-irrigation-scheduling',
       title: { en: 'Efficient Irrigation', hi: 'कुशल सिंचाई' },
-      thumbnailUrl: 'https://storage.googleapis.com/gtv-videos-bucket/sample/images/ForBiggerBlazes.jpg',
-      videoUrl: 'https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
+      thumbnailUrl: '',
+      videoUrl: publicStorageUrl('krishi-academy/irrigation/irrigation-scheduling-basics.mp4'),
       durationSeconds: 420,
       language: 'both',
     },

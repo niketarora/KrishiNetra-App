@@ -27,9 +27,14 @@ export async function updateProfile(
   userId: string,
   body: UpdateProfileBody,
 ): Promise<ProfileRow> {
+  const updatePayload: Record<string, unknown> = { ...body };
+  if (body.location_state !== undefined || body.location_district !== undefined) {
+    updatePayload.location_source = 'manual';
+  }
+
   const { data, error } = await userClient(token)
     .from('profiles')
-    .update(body)
+    .update(updatePayload)
     .eq('id', userId)
     .select()
     .single();

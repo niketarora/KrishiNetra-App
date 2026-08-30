@@ -26,7 +26,9 @@ export type MainStackParamList = {
   /** Re-drawing an existing boundary reuses the onboarding screens. */
   EditBoundary: { centre: LatLng | null; points: LatLng[]; name: string | null; accuracy?: number | null };
   ConfirmEdit: { points: LatLng[]; name: string | null; accuracy?: number | null };
-  /** Profile → My Farm — optional land registration, reachable any time. */
+  /** Profile → My Lands — overview and management of all registered lands. */
+  MyLands: undefined;
+  /** Selected land detail view. */
   MyFarm: undefined;
   RegisterLandMethod: undefined;
   RegisterLand: { centre?: LatLng | null; accuracy?: number | null } | undefined;

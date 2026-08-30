@@ -198,6 +198,7 @@ Everything is under `/api/v1` and requires a bearer token, except `/health`.
 | `GET` | `/api/v1/msp` | `?crop=&year=` |
 | `GET` | `/api/v1/market-prices` | `?crop=&mandi=&from=&to=&limit=` |
 | `GET` | `/api/v1/weather` | `?farmId=` — 503 when the district or observation is missing |
+| `GET` | `/api/v1/updates` | `?farmId=` — Krishi Updates: GDELT/SACHET/PIB, normalized, scored, deduped (see `src/updates/`) |
 | `POST` | `/api/v1/ai/transcribe` | multipart `audio` — speech to text |
 | `POST` | `/api/v1/ai/chat` | The avatar's reply |
 | `POST` | `/api/v1/ai/speak` | The avatar's text-to-speech audio |

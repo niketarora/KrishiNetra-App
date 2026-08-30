@@ -15,6 +15,7 @@ import { CalendarEventDetailScreen } from '@/screens/calendar/CalendarEventDetai
 import { CalendarScreen } from '@/screens/calendar/CalendarScreen';
 import { FieldAnalysisScreen } from '@/screens/field/FieldAnalysisScreen';
 import { MyFarmScreen } from '@/screens/farm/MyFarmScreen';
+import { MyLandsScreen } from '@/screens/farm/MyLandsScreen';
 import { RegisterCropScreen } from '@/screens/farm/RegisterCropScreen';
 import { WalkBoundaryScreen } from '@/screens/farm/WalkBoundaryScreen';
 import { HistoryScreen } from '@/screens/history/HistoryScreen';
@@ -132,7 +133,7 @@ function MainTabs() {
       <Tab.Screen name="Market" component={MarketScreen} options={{ title: t('nav.market') }} />
 
       <Tab.Screen name="History" options={{ title: t('nav.history') }}>
-        {() => <HistoryScreen onRegisterLand={() => navigation.navigate('RegisterLandMethod')} />}
+        {() => <HistoryScreen onRegisterLand={() => navigation.navigate('MyLands')} />}
       </Tab.Screen>
     </Tab.Navigator>
   );
@@ -160,7 +161,7 @@ export function MainNavigator() {
         {({ navigation }) => (
           <ProfileScreen
             onBack={() => navigation.goBack()}
-            onOpenMyFarm={() => navigation.navigate('MyFarm')}
+            onOpenMyFarm={() => navigation.navigate('MyLands')}
             onOpenSchemes={() => navigation.navigate('Schemes')}
             onOpenAlerts={() => navigation.navigate('Alerts')}
           />
@@ -190,6 +191,7 @@ export function MainNavigator() {
             points={route.params.points}
             initialName={route.params.name}
             accuracy={route.params.accuracy}
+            mode="edit"
             // Unlike first-run setup, the farmer already has a home to return
             // to, so pop back to the tabs once the boundary is updated.
             onSaved={() => navigation.navigate('Tabs')}
@@ -198,9 +200,30 @@ export function MainNavigator() {
         )}
       </Stack.Screen>
 
+      <Stack.Screen name="MyLands">
+        {({ navigation }) => (
+          <MyLandsScreen
+            onBack={() => (navigation.canGoBack() ? navigation.goBack() : navigation.navigate('Tabs'))}
+            onOpenMyFarm={() => navigation.navigate('MyFarm')}
+            onAddLand={() => navigation.navigate('RegisterLandMethod')}
+            onEditLand={(land) => {
+              navigation.navigate('EditBoundary', {
+                centre: {
+                  latitude: Number(land.centroid_lat),
+                  longitude: Number(land.centroid_lng),
+                },
+                points: fromGeoJSON(land.boundary),
+                name: land.name,
+                accuracy: land.location_accuracy,
+              });
+            }}
+          />
+        )}
+      </Stack.Screen>
+
       {/*
         Profile → My Farm — Feature #1's optional land-registration flow.
-        Reachable any time from Profile, never from signup. MyFarm shows
+        Reachable any time from Profile/My Lands. MyFarm shows
         either the registered farm's summary or a "Register your land" empty
         state; editing an existing farm's boundary from here reuses the exact
         EditBoundary/ConfirmEdit route pair above.
@@ -282,6 +305,7 @@ export function MainNavigator() {
           <RegisterCropScreen
             points={route.params.points}
             accuracy={route.params.accuracy}
+            mode="create"
             onSaved={() =>
               navigation.reset({ index: 0, routes: [{ name: 'Tabs' }] })
             }

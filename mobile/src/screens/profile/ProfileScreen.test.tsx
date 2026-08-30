@@ -121,9 +121,9 @@ describe('ProfileScreen', () => {
     expect(screen.getByText('ramesh@example.com')).toBeTruthy();
   });
 
-  it('shows the demo Pratapgarh location', async () => {
+  it('shows the farmer state in preferences', async () => {
     await renderWithProviders(<ProfileScreen {...props} />);
 
-    expect(screen.getByText('Pratapgarh')).toBeTruthy();
+    expect(screen.getByText('Rajasthan')).toBeTruthy();
   });
 });

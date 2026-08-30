@@ -361,7 +361,8 @@
       "whoMayBeEligible": "کون اہل ہے؟",
       "documents": "مطلوبہ دستاویزات",
       "howToApply": "درخواست کا طریقہ",
-      "checkOfficialSource": "سرکاری ویب سائٹ دیکھیں"
+      "checkOfficialSource": "سرکاری ویب سائٹ دیکھیں",
+      "viewOnMyScheme": "View on myScheme Portal"
     },
     "reasons": {
       "noFarm": "اہلیت دیکھنے کے لیے کھیت رجسٹر کریں",
@@ -369,7 +370,15 @@
       "landSizeMatch": "زمین کے سائز کی بنیاد پر",
       "broadlyApplicable": "تمام کسانوں کے لیے لاگو",
       "unknown": "سرکاری سائٹ پر تفصیلات دیکھیں"
-    }
+    },
+    "emptyBody": "No schemes found for the selected state.",
+    "selectState": "Select your state",
+    "searchState": "Search state...",
+    "selectStatePrompt": "Choose your state to see matching government schemes.",
+    "changeState": "Change",
+    "stateScope": "State Scheme",
+    "centralScope": "Central Scheme",
+    "loadError": "Could not load schemes. Please try again."
   },
   "updates": {
     "title": "زرعی خبریں",
@@ -378,10 +387,20 @@
     "yesterday": "کل",
     "daysAgo": "{{count}} دن پہلے",
     "emptyTitle": "فی الحال کوئی خبر نہیں ہے",
+    "loadError": "اپڈیٹس لوڈ نہیں ہو سکیں۔ دوبارہ کوشش کرنے کے لیے نیچے کھینچیں۔",
     "notFoundTitle": "معلومات نہیں ملیں",
     "notFoundBody": "یہ خبر دستیاب نہیں ہے۔",
     "officialSource": "سرکاری ماخذ دیکھیں",
+    "readSource": "ماخذ دیکھیں",
+    "whyRelevant": "یہ کیوں اہم ہے",
+    "officialAlert": "سرکاری انتباہ",
+    "governmentUpdate": "سرکاری اپڈیٹ",
+    "officialSourceBadge": "سرکاری ماخذ",
+    "regionalNews": "علاقائی خبریں",
+    "unnamedField": "کھیت {{number}}",
+    "locationUnknown": "مقام درج نہیں ہے",
     "categories": {
+      "risk": "خطرہ اور آفت",
       "agriculture": "زراعت",
       "weather": "موسم",
       "government": "حکومت",
@@ -444,7 +463,8 @@
     "logoutConfirmBody": "دوبارہ لاگ ان کے لیے ای میل اور پاس ورڈ درکار ہوگا۔",
     "languageEnglish": "English",
     "languageHindi": "हिन्दी",
-    "notifications": "اطلاعات"
+    "notifications": "اطلاعات",
+    "state": "State"
   },
   "nav": {
     "home": "ہوم",
@@ -564,5 +584,16 @@
     "errors": {
       "generic": "جواب نہیں مل سکا۔ نیٹ ورک چیک کر کے کوشش کریں۔"
     }
+  },
+  "myLands": {
+    "title": "My Lands",
+    "emptyTitle": "No lands registered yet",
+    "emptyBody": "Register your fields to view personalized weather, crop advisories and government schemes.",
+    "addLand": "Register Land",
+    "addAnotherLand": "+ Add Another Land",
+    "landLabel": "Land",
+    "selected": "Selected",
+    "deleteConfirmTitle": "Delete {{name}}?",
+    "deleteConfirmBody": "This will permanently delete this land and all crop records associated with it."
   }
 }

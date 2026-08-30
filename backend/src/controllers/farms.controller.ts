@@ -37,3 +37,12 @@ export async function update(req: Request, res: Response): Promise<void> {
   const data = await farms.updateFarm(token, userId, id, req.body as UpdateFarmBody);
   sendOk(res, data, 'Field updated');
 }
+
+export async function remove(req: Request, res: Response): Promise<void> {
+  const { token, userId } = getAuth(req);
+  const { id } = req.params as { id: string };
+
+  await farms.deleteFarm(token, userId, id);
+  sendOk(res, null, 'Field deleted');
+}
+

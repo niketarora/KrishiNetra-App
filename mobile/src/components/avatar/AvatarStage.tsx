@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { AccessibilityInfo, Image, StyleSheet, View } from 'react-native';
 import Animated, {
   Easing,
@@ -14,8 +14,6 @@ import { avatarColors } from '@/theme';
 import type { AvatarState } from '@/features/avatar/avatarMachine';
 
 import { Text } from '../ui/Text';
-
-import { Avatar3D } from './Avatar3D';
 
 // docs/images/hero_image.png, downscaled to 1080px for the bundle. This is the
 // project's farmer avatar — do not swap the character without instruction.
@@ -41,15 +39,6 @@ type Props = {
 export function AvatarStage({ state, statusLabel, speech, source }: Props) {
   const [reduceMotion, setReduceMotion] = useState(false);
   const scale = useSharedValue(1);
-
-  /**
-   * The 3D avatar is attempted first and falls back to the photograph the
-   * moment anything is missing — no model bundled, no WebGL, a crashed render
-   * process. The avatar must never be a blank rectangle, so the fallback is
-   * permanent for the session rather than retried.
-   */
-  const [show3D, setShow3D] = useState(true);
-  const handle3DUnavailable = useCallback(() => setShow3D(false), []);
 
   useEffect(() => {
     let active = true;
@@ -81,17 +70,9 @@ export function AvatarStage({ state, statusLabel, speech, source }: Props) {
 
   return (
     <View style={styles.stage}>
-      {show3D ? (
-        <Avatar3D
-          state={state}
-          reduceMotion={reduceMotion}
-          onUnavailable={handle3DUnavailable}
-        />
-      ) : (
-        <Animated.View style={[StyleSheet.absoluteFill, breathing]}>
-          <Image source={FARMER} style={styles.photo} resizeMode="cover" accessible={false} />
-        </Animated.View>
-      )}
+      <Animated.View style={[StyleSheet.absoluteFill, breathing]}>
+        <Image source={FARMER} style={styles.photo} resizeMode="cover" accessible={false} />
+      </Animated.View>
 
       <LinearGradient
         colors={[avatarColors.scrimTop, avatarColors.scrimMid, avatarColors.scrimBottom]}

@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, jest } from '@jest/globals';
+import { afterEach, beforeEach, describe, expect, it, jest } from '@jest/globals';
 import request from 'supertest';
 
 /**
@@ -503,8 +503,66 @@ describe('POST /api/v1/predictions/soil-moisture', () => {
   });
 });
 
+describe('GET /api/v1/updates', () => {
+  const originalFetch = global.fetch;
+
+  beforeEach(() => {
+    // Every external provider (GDELT/SACHET/PIB) talks to the real network
+    // via the global fetch — stub it so these tests never touch it, and so a
+    // provider outage is exercised deliberately rather than by accident.
+    // A fresh Response per call: the providers fire their queries
+    // concurrently, and a Fetch Response body can only be read once.
+    global.fetch = jest.fn<typeof fetch>().mockImplementation(async () => new Response('', { status: 503 }));
+  });
+
+  afterEach(() => {
+    global.fetch = originalFetch;
+  });
+
+  it('requires farmId', async () => {
+    const res = await request(app).get('/api/v1/updates').set(AUTH);
+
+    expect(res.status).toBe(400);
+    expect(res.body.error.code).toBe('INVALID_REQUEST');
+  });
+
+  it('rejects a farmId that is not a uuid', async () => {
+    const res = await request(app).get('/api/v1/updates?farmId=not-a-uuid').set(AUTH);
+
+    expect(res.status).toBe(400);
+  });
+
+  it("reports another farmer's field as not found, not forbidden", async () => {
+    whenQuerying('farms', { data: null, error: null });
+
+    const res = await request(app).get(`/api/v1/updates?farmId=${OTHER_FARM_ID}`).set(AUTH);
+
+    expect(res.status).toBe(404);
+    expect(res.body.error.code).toBe('NOT_FOUND');
+  });
+
+  it('returns the envelope with an empty array when every provider is unavailable', async () => {
+    whenQuerying('farms', {
+      data: { id: OTHER_FARM_ID, user_id: USER_ID, ...truthfulFarmBody(), district: 'Gorakhpur', state: 'Uttar Pradesh' },
+      error: null,
+    });
+
+    const res = await request(app).get(`/api/v1/updates?farmId=${OTHER_FARM_ID}`).set(AUTH);
+
+    expect(res.status).toBe(200);
+    expect(res.body.success).toBe(true);
+    expect(res.body.data).toEqual([]);
+  });
+
+  it('requires authentication like every other route under /api/v1', async () => {
+    const res = await request(app).get(`/api/v1/updates?farmId=${OTHER_FARM_ID}`);
+
+    expect(res.status).toBe(401);
+  });
+});
+
 describe('routes reserved for later phases', () => {
-  it.each(['/api/v1/buyers', '/api/v1/lots', '/api/v1/offers', '/api/v1/predictions'])(
+  it.each(['/api/v1/buyers', '/api/v1/lots', '/api/v1/offers'])(
     '%s is not stubbed, it is absent',
     async (path) => {
       const res = await request(app).get(path).set(AUTH);
