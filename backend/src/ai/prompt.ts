@@ -18,15 +18,19 @@
  * go and fetch more is Phase 5 and deliberately absent.
  */
 
+export type FieldContext = {
+  label?: string;
+  name: string | null;
+  areaAcres: number;
+  district: string | null;
+  state: string | null;
+};
+
 export type FarmerContext = {
   farmerName: string | null;
   language: string;
-  field: {
-    name: string | null;
-    areaAcres: number;
-    district: string | null;
-    state: string | null;
-  } | null;
+  field: FieldContext | null;
+  fields?: FieldContext[];
   crop: {
     name: string;
     variety: string | null;
@@ -91,7 +95,15 @@ export function buildContextBlock(context: FarmerContext): string {
 
   if (context.farmerName) lines.push(`- The farmer's name is ${context.farmerName}.`);
 
-  if (context.field) {
+  if (context.fields && context.fields.length > 0) {
+    for (const f of context.fields) {
+      const name = f.name ? ` "${f.name}"` : '';
+      const label = f.label ?? 'Field';
+      const place =
+        f.district && f.state ? ` in ${f.district} district, ${f.state}` : '';
+      lines.push(`- ${label}${name} is ${formatNumber(f.areaAcres)} acres${place}.`);
+    }
+  } else if (context.field) {
     const name = context.field.name ?? 'their field';
     const place =
       context.field.district && context.field.state

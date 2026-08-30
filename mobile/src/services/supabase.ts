@@ -42,3 +42,12 @@ export async function getAccessToken(): Promise<string | null> {
   const { data } = await supabase.auth.getSession();
   return data.session?.access_token ?? null;
 }
+
+/**
+ * Public object URL from the project's Supabase Storage.
+ */
+export function publicStorageUrl(path: string): string {
+  const cleanPath = path.startsWith('/') ? path.slice(1) : path;
+  return `${supabaseUrl}/storage/v1/object/public/${cleanPath}`;
+}
+

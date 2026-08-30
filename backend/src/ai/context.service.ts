@@ -31,39 +31,49 @@ async function safely<T>(load: () => Promise<T>): Promise<T | null> {
 export async function buildFarmerContext(token: string, userId: string): Promise<FarmerContext> {
   const [profile, farmList] = await Promise.all([
     safely(() => profiles.getProfile(token, userId)),
-    safely(() => farms.listFarms(token, userId, 1)),
+    safely(() => farms.listFarms(token, userId)),
   ]);
 
-  const farm = farmList?.[0] ?? null;
+  const allLands = farmList ?? [];
+  const fields = allLands.map((f, index) => ({
+    label: `Land ${index + 1}`,
+    name: f.name,
+    areaAcres: f.area_acres,
+    district: f.district,
+    state: f.state,
+  }));
+
+  const primaryFarm = allLands[0] ?? null;
 
   const context: FarmerContext = {
     farmerName: profile?.full_name ?? null,
     language: profile?.language ?? 'en',
-    field: farm
+    field: primaryFarm
       ? {
-          name: farm.name,
-          areaAcres: farm.area_acres,
-          district: farm.district,
-          state: farm.state,
+          name: primaryFarm.name,
+          areaAcres: primaryFarm.area_acres,
+          district: primaryFarm.district,
+          state: primaryFarm.state,
         }
       : null,
+    fields: fields.length > 0 ? fields : undefined,
     crop: null,
     msp: null,
     weather: null,
     marketPrice: null,
   };
 
-  if (!farm) return context;
+  if (!primaryFarm) return context;
 
   const [plantings, catalogue, weather] = await Promise.all([
-    safely(() => farmCrops.listFarmCrops(token, userId, farm.id)),
+    safely(() => farmCrops.listFarmCrops(token, userId, primaryFarm.id)),
     safely(() => reference.listCrops(token)),
-    farm.centroid_lat !== null && farm.centroid_lng !== null
+    primaryFarm.centroid_lat !== null && primaryFarm.centroid_lng !== null
       ? safely(() =>
           reference.latestWeatherForGridCell(
             token,
-            Math.round(farm.centroid_lat * 4) / 4,
-            Math.round(farm.centroid_lng * 4) / 4,
+            Math.round(primaryFarm.centroid_lat * 4) / 4,
+            Math.round(primaryFarm.centroid_lng * 4) / 4,
           ),
         )
       : Promise.resolve(null),

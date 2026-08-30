@@ -14,9 +14,10 @@ const points: LatLng[] = [
 ];
 
 const mockSaveBoundary = jest.fn();
+const mockAddLand = jest.fn();
 
 jest.mock('@/features/farm/FarmContext', () => ({
-  useFarm: () => ({ saveBoundary: mockSaveBoundary }),
+  useFarm: () => ({ saveBoundary: mockSaveBoundary, addLand: mockAddLand }),
 }));
 
 const mockListCrops = jest.fn();
@@ -41,6 +42,7 @@ describe('RegisterCropScreen', () => {
     jest.clearAllMocks();
     mockListCrops.mockResolvedValue(crops);
     mockSaveBoundary.mockResolvedValue(savedFarm);
+    mockAddLand.mockResolvedValue(savedFarm);
     mockCreateFarmCrop.mockResolvedValue({});
   });
 
@@ -72,7 +74,7 @@ describe('RegisterCropScreen', () => {
     await fireEvent.press(screen.getByTestId('crop-save'));
 
     await waitFor(() => expect(props.onSaved).toHaveBeenCalled());
-    expect(mockSaveBoundary).toHaveBeenCalledWith(points, 'North plot', undefined);
+    expect(mockAddLand).toHaveBeenCalledWith(points, 'North plot', undefined);
     expect(mockCreateFarmCrop).not.toHaveBeenCalled();
   });
 
@@ -120,7 +122,7 @@ describe('RegisterCropScreen', () => {
   });
 
   it('keeps the farmer on the screen with their data intact when the save fails', async () => {
-    mockSaveBoundary.mockRejectedValue(new DataError('onboarding.saveError'));
+    mockAddLand.mockRejectedValue(new DataError('onboarding.saveError'));
 
     await renderWithProviders(<RegisterCropScreen {...props} />);
     await fireEvent.changeText(screen.getByTestId('crop-field-name'), 'North plot');

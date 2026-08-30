@@ -361,7 +361,8 @@
       "whoMayBeEligible": "ఎవరు అర్హులు?",
       "documents": "అవసరమైన పత్రాలు",
       "howToApply": "ఎలా దరఖాస్తు చేయాలి",
-      "checkOfficialSource": "అధికారిక వెబ్‌సైట్ చూడండి"
+      "checkOfficialSource": "అధికారిక వెబ్‌సైట్ చూడండి",
+      "viewOnMyScheme": "View on myScheme Portal"
     },
     "reasons": {
       "noFarm": "అర్హత చూడటానికి పొలాన్ని నమోదు చేయండి",
@@ -369,7 +370,15 @@
       "landSizeMatch": "భూమి పరిమాణం ఆధారంగా",
       "broadlyApplicable": "రైతులందరికీ వర్తిస్తుంది",
       "unknown": "అధికారిక వెబ్‌సైట్‌లో వివరాలు చూడండి"
-    }
+    },
+    "emptyBody": "No schemes found for the selected state.",
+    "selectState": "Select your state",
+    "searchState": "Search state...",
+    "selectStatePrompt": "Choose your state to see matching government schemes.",
+    "changeState": "Change",
+    "stateScope": "State Scheme",
+    "centralScope": "Central Scheme",
+    "loadError": "Could not load schemes. Please try again."
   },
   "updates": {
     "title": "వ్యవసాయ వార్తలు",
@@ -444,7 +453,8 @@
     "logoutConfirmBody": "మళ్ళీ లాగిన్ కావడానికి ఫోన్ నంబర్ ధృవీకరించాలి.",
     "languageEnglish": "English",
     "languageHindi": "हिन्दी",
-    "notifications": "నోటిఫికేషన్లు"
+    "notifications": "నోటిఫికేషన్లు",
+    "state": "State"
   },
   "nav": {
     "home": "హోమ్",
@@ -564,5 +574,16 @@
     "errors": {
       "generic": "సమాధానం పొందలేకపోయాము. నెట్‌వర్క్ తనిఖీ చేసి మళ్ళీ ప్రయత్నించండి."
     }
+  },
+  "myLands": {
+    "title": "My Lands",
+    "emptyTitle": "No lands registered yet",
+    "emptyBody": "Register your fields to view personalized weather, crop advisories and government schemes.",
+    "addLand": "Register Land",
+    "addAnotherLand": "+ Add Another Land",
+    "landLabel": "Land",
+    "selected": "Selected",
+    "deleteConfirmTitle": "Delete {{name}}?",
+    "deleteConfirmBody": "This will permanently delete this land and all crop records associated with it."
   }
 }

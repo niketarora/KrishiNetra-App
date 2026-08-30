@@ -7,6 +7,7 @@ import { getEnv } from './config/env.js';
 import { errorHandler } from './middleware/errorHandler.js';
 import { notFound } from './middleware/notFound.js';
 import { requestLogger } from './middleware/requestLogger.js';
+import { authRouter } from './routes/auth.routes.js';
 import { apiRouter } from './routes/index.js';
 import { sendOk } from './utils/apiResponse.js';
 
@@ -36,6 +37,24 @@ export function createApp(): Express {
       'Service is running',
     );
   });
+
+  // Public auth router — separate from authenticated apiRouter, stricter rate limit
+  app.use(
+    '/api/v1/auth',
+    rateLimit({
+      windowMs: 60_000,
+      limit: 10,
+      standardHeaders: 'draft-7',
+      legacyHeaders: false,
+      handler: (_req, res) => {
+        res.status(429).json({
+          success: false,
+          error: { code: 'INVALID_REQUEST', message: 'Too many authentication attempts. Please slow down.' },
+        });
+      },
+    }),
+    authRouter,
+  );
 
   app.use(
     '/api/v1',

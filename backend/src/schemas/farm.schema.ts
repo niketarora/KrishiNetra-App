@@ -58,16 +58,33 @@ export const createFarmSchema = z
   .strict();
 
 /**
- * Note: location_accuracy undefined means keep existing value, null explicitly clears it.
+ * Genuinely partial: renaming a land only sends `name`, while updating a boundary
+ * requires boundary and all five measurements together.
  */
-export const updateFarmSchema = z
-  .object({
-    name: farmName,
-    boundary: boundarySchema,
-    location_accuracy: locationAccuracy,
-    ...measurements,
-  })
-  .strict();
+export const updateFarmSchema = createFarmSchema
+  .partial()
+  .strict()
+  .refine((data) => {
+    const hasBoundary = data.boundary !== undefined;
+    const hasAllMeasurements =
+      data.area_sq_meters !== undefined &&
+      data.area_acres !== undefined &&
+      data.area_hectares !== undefined &&
+      data.centroid_lat !== undefined &&
+      data.centroid_lng !== undefined;
+    const hasAnyMeasurement =
+      data.area_sq_meters !== undefined ||
+      data.area_acres !== undefined ||
+      data.area_hectares !== undefined ||
+      data.centroid_lat !== undefined ||
+      data.centroid_lng !== undefined;
+
+    if (hasBoundary) {
+      return hasAllMeasurements;
+    }
+    return !hasAnyMeasurement;
+  }, 'Boundary and all 5 measurements (area_sq_meters, area_acres, area_hectares, centroid_lat, centroid_lng) must arrive together or not at all.')
+  .refine((data) => Object.keys(data).length > 0, 'Nothing to update.');
 
 export const farmIdParamSchema = z.object({
   id: uuid('Not a valid farm id.'),

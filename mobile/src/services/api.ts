@@ -36,6 +36,8 @@ type ApiRequest = {
    * and takes noticeably longer than a JSON read, so it asks for more.
    */
   timeoutMs?: number;
+  /** Whether to attach the user's access token. Default true. */
+  auth?: boolean;
 };
 
 /**
@@ -47,13 +49,20 @@ type ApiRequest = {
  */
 export async function apiFetch<T>(
   path: string,
-  { method = 'GET', body, fallbackKey, timeoutMs = DEFAULT_TIMEOUT_MS }: ApiRequest,
+  { method = 'GET', body, fallbackKey, timeoutMs = DEFAULT_TIMEOUT_MS, auth = true }: ApiRequest,
 ): Promise<T> {
-  const token = await getAccessToken();
+  const headers: Record<string, string> = {
+    'Content-Type': 'application/json',
+    Accept: 'application/json',
+  };
 
-  if (!token) {
-    // The session expired between the screen rendering and this call.
-    throw new DataError('auth.errors.generic');
+  if (auth) {
+    const token = await getAccessToken();
+    if (!token) {
+      // The session expired between the screen rendering and this call.
+      throw new DataError('auth.errors.generic');
+    }
+    headers.Authorization = `Bearer ${token}`;
   }
 
   const controller = new AbortController();
@@ -63,11 +72,7 @@ export async function apiFetch<T>(
   try {
     response = await fetch(`${getApiBaseUrl()}${path}`, {
       method,
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-      },
+      headers,
       body: body === undefined ? undefined : JSON.stringify(body),
       signal: controller.signal,
     });

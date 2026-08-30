@@ -1,14 +1,19 @@
 import type { Session, User } from '@supabase/supabase-js';
 import { createContext, ReactNode, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 
-import { demoOtpProvider } from '@/features/auth/demoOtp';
-import { getOrCreateBridgePassword, phoneToBridgeEmail } from '@/features/auth/phoneIdentity';
 import i18n, { deviceLanguage, isSupportedLanguage } from '@/i18n';
-import { mapAuthError, type AuthErrorKey } from '@/services/errors';
+import { mapAuthError, DataError, type AuthErrorKey } from '@/services/errors';
+import { requestOtp, verifyOtp } from '@/services/phoneAuth';
 import { getProfile, type Profile } from '@/services/profiles';
 import { supabase } from '@/services/supabase';
 
-type PhoneAuthErrorKey = AuthErrorKey | 'auth.errors.otpInvalid' | 'auth.errors.phoneAlreadyLinkedOnAnotherDevice';
+type PhoneAuthErrorKey =
+  | AuthErrorKey
+  | 'auth.errors.otpInvalid'
+  | 'auth.errors.otpExpired'
+  | 'auth.errors.otpTooManyAttempts'
+  | 'auth.errors.authUnavailable';
+
 type AuthResult = { ok: true } | { ok: false; errorKey: PhoneAuthErrorKey };
 type OtpRequestResult = { ok: true; devCode: string } | { ok: false; errorKey: AuthErrorKey };
 
@@ -20,7 +25,7 @@ type AuthContextValue = {
   profile: Profile | null;
   signUp: (input: { email: string; password: string; fullName: string }) => Promise<AuthResult>;
   signIn: (input: { email: string; password: string }) => Promise<AuthResult>;
-  /** Phone-first signup/login — see `features/auth/demoOtp.ts` for why this is a demo mechanism. */
+  /** Phone-first signup/login via backend OTP and Supabase MagicLink verification. */
   requestPhoneOtp: (normalizedPhone: string) => Promise<OtpRequestResult>;
   verifyPhoneOtp: (normalizedPhone: string, code: string) => Promise<AuthResult>;
   signOut: () => Promise<void>;
@@ -98,43 +103,32 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const requestPhoneOtp = useCallback<AuthContextValue['requestPhoneOtp']>(async (normalizedPhone) => {
-    const { devCode } = demoOtpProvider.request(normalizedPhone);
-    return { ok: true, devCode };
+    try {
+      const { devCode } = await requestOtp(normalizedPhone);
+      return { ok: true, devCode };
+    } catch (error) {
+      const errorKey = error instanceof DataError ? (error.translationKey as AuthErrorKey) : 'auth.errors.generic';
+      return { ok: false, errorKey };
+    }
   }, []);
 
   const verifyPhoneOtp = useCallback<AuthContextValue['verifyPhoneOtp']>(async (normalizedPhone, code) => {
-    if (!demoOtpProvider.verify(normalizedPhone, code)) {
-      return { ok: false, errorKey: 'auth.errors.otpInvalid' };
-    }
-
-    const email = phoneToBridgeEmail(normalizedPhone);
-    const password = await getOrCreateBridgePassword(normalizedPhone);
-
-    const signInResult = await supabase.auth.signInWithPassword({ email, password });
-    if (!signInResult.error) return { ok: true };
-
-    // First time this phone has verified on this device — create its account.
-    // Read by `handle_new_user()` (0005_farmer_identity.sql) to seed phone
-    // and language, the same pattern already used for full_name.
     const language = isSupportedLanguage(i18n.language) ? i18n.language : deviceLanguage();
-    const signUpResult = await supabase.auth.signUp({
-      email,
-      password,
-      options: { data: { phone: normalizedPhone, language } },
-    });
-
-    if (signUpResult.error) {
-      const mappedKey = mapAuthError(signUpResult.error);
-      // "Already registered" here means this phone verified successfully on a
-      // *different* device before (see phoneIdentity.ts's file comment on why
-      // the bridge password is device-local) — not that an email is taken, so
-      // the farmer gets an honest, phone-specific message instead.
-      if (mappedKey === 'auth.errors.emailTaken') {
-        return { ok: false, errorKey: 'auth.errors.phoneAlreadyLinkedOnAnotherDevice' };
+    try {
+      const { tokenHash } = await verifyOtp(normalizedPhone, code, language);
+      const { error } = await supabase.auth.verifyOtp({
+        token_hash: tokenHash,
+        type: 'magiclink',
+      });
+      if (error) {
+        return { ok: false, errorKey: mapAuthError(error) };
       }
-      return { ok: false, errorKey: mappedKey };
+      return { ok: true };
+    } catch (error) {
+      const errorKey =
+        error instanceof DataError ? (error.translationKey as PhoneAuthErrorKey) : 'auth.errors.generic';
+      return { ok: false, errorKey };
     }
-    return { ok: true };
   }, []);
 
   const signOut = useCallback(async () => {

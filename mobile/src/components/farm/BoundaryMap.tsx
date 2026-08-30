@@ -1,15 +1,17 @@
 import { memo, useCallback, useEffect, useMemo, useRef } from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
-import Mapbox, {
+import {
   Camera,
   FillLayer,
   LineLayer,
   LocationPuck,
   MapView,
+  Mapbox,
   PointAnnotation,
   ShapeSource,
   StyleURL,
-} from '@rnmapbox/maps';
+  isNativeMapboxAvailable,
+} from './mapboxSafe';
 import { useTranslation } from 'react-i18next';
 
 import { Banner } from '@/components/ui/Banner';
@@ -22,8 +24,12 @@ import type { BoundaryMapProps } from './BoundaryMap.types';
 
 const MAPBOX_ACCESS_TOKEN = process.env.EXPO_PUBLIC_MAPBOX_ACCESS_TOKEN ?? '';
 
-if (MAPBOX_ACCESS_TOKEN) {
-  Mapbox.setAccessToken(MAPBOX_ACCESS_TOKEN);
+if (isNativeMapboxAvailable && MAPBOX_ACCESS_TOKEN && Mapbox?.setAccessToken) {
+  try {
+    Mapbox.setAccessToken(MAPBOX_ACCESS_TOKEN);
+  } catch {
+    // Non-fatal
+  }
 }
 
 const DEFAULT_CENTRE = { latitude: 22.9734, longitude: 78.6569 };
@@ -96,6 +102,23 @@ function BoundaryMapComponent({
       return null;
     }
   }, [points]);
+
+  useEffect(() => {
+    if (!isNativeMapboxAvailable) {
+      onReady?.();
+    }
+  }, [onReady]);
+
+  if (!isNativeMapboxAvailable) {
+    return (
+      <View style={styles.errorContainer}>
+        <Banner
+          title={t('onboarding.satelliteView', 'Satellite View')}
+          tone="info"
+        />
+      </View>
+    );
+  }
 
   if (!MAPBOX_ACCESS_TOKEN) {
     return (

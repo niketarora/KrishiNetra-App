@@ -14,6 +14,7 @@ import { calculateArea, type LatLng } from '@/utils/geo';
 type Props = {
   points: LatLng[];
   accuracy?: number | null;
+  mode?: 'create' | 'edit';
   onSaved: () => void;
   onBack: () => void;
 };
@@ -39,9 +40,15 @@ function cropLabel(crop: Crop, language: string): string {
  * schema, so rather than invent one, this screen offers the free-text notes
  * field for a farmer who wants to note that down.
  */
-export function RegisterCropScreen({ points, accuracy, onSaved, onBack }: Props) {
+export function RegisterCropScreen({
+  points,
+  accuracy,
+  mode = 'create',
+  onSaved,
+  onBack,
+}: Props) {
   const { t, i18n } = useTranslation();
-  const { saveBoundary } = useFarm();
+  const { saveBoundary, addLand } = useFarm();
 
   const [name, setName] = useState('');
   const [crops, setCrops] = useState<Crop[]>([]);
@@ -83,7 +90,10 @@ export function RegisterCropScreen({ points, accuracy, onSaved, onBack }: Props)
     setCropWarning(false);
 
     try {
-      const farm = await saveBoundary(points, name, accuracy);
+      const farm =
+        mode === 'edit'
+          ? await saveBoundary(points, name, accuracy)
+          : await addLand(points, name, accuracy);
 
       if (selectedCropId) {
         try {

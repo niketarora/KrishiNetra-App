@@ -103,6 +103,14 @@ export function toApiError(code: string | undefined, fallbackKey: string): DataE
       // Nothing is wrong — the data source is not connected yet, or the farmer
       // has not created this resource. Callers may turn it into an empty state.
       return new DataError(fallbackKey, code, { absent: true });
+    case 'OTP_INVALID':
+      return new DataError('auth.errors.otpInvalid', code);
+    case 'OTP_EXPIRED':
+      return new DataError('auth.errors.otpExpired', code);
+    case 'OTP_TOO_MANY_ATTEMPTS':
+      return new DataError('auth.errors.otpTooManyAttempts', code);
+    case 'AUTH_UNAVAILABLE':
+      return new DataError('auth.errors.authUnavailable', code);
     case 'INVALID_REQUEST':
     case 'CONFLICT':
     case 'FORBIDDEN':
