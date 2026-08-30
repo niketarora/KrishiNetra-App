@@ -6,6 +6,7 @@ import * as farmCropsController from '../controllers/farmCrops.controller.js';
 import * as farmersController from '../controllers/farmers.controller.js';
 import * as farmsController from '../controllers/farms.controller.js';
 import * as referenceController from '../controllers/reference.controller.js';
+import * as updatesController from '../controllers/updates.controller.js';
 import { requireAuth } from '../middleware/requireAuth.js';
 import { validate } from '../middleware/validate.js';
 import {
@@ -27,6 +28,7 @@ import {
   mspQuerySchema,
   weatherQuerySchema,
 } from '../schemas/query.schema.js';
+import { updatesQuerySchema } from '../schemas/updates.schema.js';
 
 /**
  * Everything here sits behind requireAuth. `/health` is mounted separately in
@@ -84,6 +86,12 @@ apiRouter.get(
   referenceController.marketPrices,
 );
 apiRouter.get('/weather', validate('query', weatherQuerySchema), referenceController.weather);
+
+// --- Krishi Updates -----------------------------------------------------------
+// Farm-location-and-crop-aware information feed (GDELT regional/agriculture
+// news, NDMA SACHET disaster alerts, PIB government announcements). See
+// backend/src/updates/updates.service.ts.
+apiRouter.get('/updates', validate('query', updatesQuerySchema), updatesController.list);
 
 // --- AI avatar --------------------------------------------------------------
 // Audio arrives as multipart, so this route parses its own body. Everything

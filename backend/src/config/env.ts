@@ -32,6 +32,17 @@ const envSchema = z.object({
   WEATHER_API_URL: z.string().url().default('https://archive-api.open-meteo.com/v1/archive'),
   GEOCODE_API_URL: z.string().url().default('https://nominatim.openstreetmap.org/reverse'),
 
+  // --- Krishi Updates (farm-location-aware information feed) -----------------
+  // None of these need a key. Defaults point at the real public endpoints
+  // named in the product brief; overridable so a test can point them at a
+  // local fixture server instead of the real network.
+  GDELT_API_URL: z.string().url().default('https://api.gdeltproject.org/api/v2/doc/doc'),
+  SACHET_CAP_URL: z.string().url().default('https://sachet.ndma.gov.in/CapFeed'),
+  PIB_RSS_URL: z
+    .string()
+    .url()
+    .default('https://pib.gov.in/RssMain.aspx?ModId=6&Lang=1&Regid=1'),
+
   // --- Phase 2.5 avatar ------------------------------------------------------
   // Optional for the same reason as the ingestion keys: the API must boot and
   // serve farm data without them. The avatar routes report the service as
