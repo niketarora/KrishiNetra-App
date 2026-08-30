@@ -50,16 +50,8 @@ jest.mock('@rnmapbox/maps', () => {
     return React.createElement(View, { testID: 'mapbox-camera', ...props });
   });
 
-  return {
-    __esModule: true,
-    default: {
-      setAccessToken: jest.fn(),
-      StyleURL: {
-        Satellite: 'mapbox://styles/mapbox/satellite-v9',
-        SatelliteStreet: 'mapbox://styles/mapbox/satellite-streets-v12',
-        Street: 'mapbox://styles/mapbox/streets-v12',
-      },
-    },
+  const mapboxExports = {
+    setAccessToken: jest.fn(),
     MapView: MockMapView,
     Camera: MockCamera,
     ShapeSource: (props) => React.createElement(View, { testID: 'mapbox-shape-source', ...props }, props.children),
@@ -72,6 +64,12 @@ jest.mock('@rnmapbox/maps', () => {
       SatelliteStreet: 'mapbox://styles/mapbox/satellite-streets-v12',
       Street: 'mapbox://styles/mapbox/streets-v12',
     },
+  };
+
+  return {
+    __esModule: true,
+    default: mapboxExports,
+    ...mapboxExports,
   };
 });
 

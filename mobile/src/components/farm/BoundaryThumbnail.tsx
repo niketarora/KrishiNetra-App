@@ -1,13 +1,15 @@
 import React, { useMemo } from 'react';
 import { StyleSheet, View } from 'react-native';
-import Mapbox, {
+import {
   Camera,
   FillLayer,
   LineLayer,
   MapView,
+  Mapbox,
   ShapeSource,
   StyleURL,
-} from '@rnmapbox/maps';
+  isNativeMapboxAvailable,
+} from './mapboxSafe';
 import Svg, { Path } from 'react-native-svg';
 
 import { colors } from '@/theme';
@@ -15,8 +17,12 @@ import { bounds, isValidPolygon, normalizeForThumbnail, toGeoJSON, type LatLng }
 
 const MAPBOX_ACCESS_TOKEN = process.env.EXPO_PUBLIC_MAPBOX_ACCESS_TOKEN ?? '';
 
-if (MAPBOX_ACCESS_TOKEN) {
-  Mapbox.setAccessToken(MAPBOX_ACCESS_TOKEN);
+if (isNativeMapboxAvailable && MAPBOX_ACCESS_TOKEN && Mapbox?.setAccessToken) {
+  try {
+    Mapbox.setAccessToken(MAPBOX_ACCESS_TOKEN);
+  } catch {
+    // Non-fatal
+  }
 }
 
 type Props = {
@@ -69,7 +75,7 @@ export function BoundaryThumbnail({ points, size = 64, borderRadius = 8 }: Props
       pointerEvents="none"
       testID="boundary-thumbnail"
     >
-      {hasValidBoundary && MAPBOX_ACCESS_TOKEN && geojson && mapBounds ? (
+      {hasValidBoundary && isNativeMapboxAvailable && MAPBOX_ACCESS_TOKEN && geojson && mapBounds ? (
         <MapView
           style={StyleSheet.absoluteFill}
           styleURL={StyleURL.SatelliteStreet}

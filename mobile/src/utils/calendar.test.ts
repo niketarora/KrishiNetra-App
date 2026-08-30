@@ -2,7 +2,7 @@ import { addMonths, buildMonthGrid, startOfMonth, toIsoDate } from './calendar';
 
 describe('toIsoDate', () => {
   it('formats as yyyy-mm-dd', () => {
-    expect(toIsoDate(new Date('2026-08-27T18:30:00Z'))).toBe('2026-08-27');
+    expect(toIsoDate(new Date(2026, 7, 27))).toBe('2026-08-27');
   });
 });
 

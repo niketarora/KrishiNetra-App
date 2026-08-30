@@ -39,4 +39,13 @@ describe('VideoPreview', () => {
 
     expect(await screen.findByText("We couldn't load the video. Please try again.")).toBeTruthy();
   });
+
+  it('falls back to a notice when an HTTP error occurs (e.g. 404)', async () => {
+    await renderWithProviders(<VideoPreview video={video} />);
+    await fireEvent.press(screen.getByTestId('video-thumbnail'));
+
+    fireEvent(screen.getByTestId('video-webview'), 'httpError', { nativeEvent: { statusCode: 404 } });
+
+    expect(await screen.findByText("We couldn't load the video. Please try again.")).toBeTruthy();
+  });
 });

@@ -60,6 +60,20 @@ describe('buildContextBlock', () => {
     expect(block).toContain('CACP/CCEA');
   });
 
+  it('formats multiple lands when present', () => {
+    const block = buildContextBlock(
+      context({
+        fields: [
+          { label: 'Land 1', name: 'North Field', areaAcres: 2.5, district: 'Alwar', state: 'Rajasthan' },
+          { label: 'Land 2', name: 'South Plot', areaAcres: 1.8, district: 'Alwar', state: 'Rajasthan' },
+        ],
+      }),
+    );
+
+    expect(block).toContain('Land 1 "North Field" is 2.5 acres in Alwar district, Rajasthan.');
+    expect(block).toContain('Land 2 "South Plot" is 1.8 acres in Alwar district, Rajasthan.');
+  });
+
   it('marks a mandi price as a past observation, not today and not a forecast', () => {
     const block = buildContextBlock(context());
 

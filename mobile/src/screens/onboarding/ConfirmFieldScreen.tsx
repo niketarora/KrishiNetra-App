@@ -15,6 +15,7 @@ type Props = {
   /** Pre-fills the name when an existing farm's boundary is being edited. */
   initialName?: string | null;
   accuracy?: number | null;
+  mode?: 'create' | 'edit';
   onSaved: () => void;
   onBack: () => void;
 };
@@ -26,9 +27,16 @@ type Props = {
  * dropping them back to the map: redrawing a field they already walked is the
  * worst possible outcome of a flaky connection.
  */
-export function ConfirmFieldScreen({ points, initialName, accuracy, onSaved, onBack }: Props) {
+export function ConfirmFieldScreen({
+  points,
+  initialName,
+  accuracy,
+  mode = 'create',
+  onSaved,
+  onBack,
+}: Props) {
   const { t } = useTranslation();
-  const { saveBoundary } = useFarm();
+  const { saveBoundary, addLand } = useFarm();
 
   const [name, setName] = useState(initialName ?? '');
   const [saving, setSaving] = useState(false);
@@ -41,7 +49,11 @@ export function ConfirmFieldScreen({ points, initialName, accuracy, onSaved, onB
     setErrorKey(null);
 
     try {
-      await saveBoundary(points, name, accuracy);
+      if (mode === 'edit') {
+        await saveBoundary(points, name, accuracy);
+      } else {
+        await addLand(points, name, accuracy);
+      }
       onSaved();
     } catch (error) {
       setErrorKey(error instanceof DataError ? error.translationKey : 'onboarding.saveError');

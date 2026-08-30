@@ -361,7 +361,8 @@
       "whoMayBeEligible": "ആർക്കൊക്കെ അർഹതയുണ്ട്?",
       "documents": "ആവശ്യമായ രേഖകൾ",
       "howToApply": "എങ്ങനെ അപേക്ഷിക്കാം",
-      "checkOfficialSource": "ഔദ്യോഗിക വെബ്സൈറ്റ് കാണുക"
+      "checkOfficialSource": "ഔദ്യോഗിക വെബ്സൈറ്റ് കാണുക",
+      "viewOnMyScheme": "View on myScheme Portal"
     },
     "reasons": {
       "noFarm": "അർഹത അറിയാൻ ഭൂമി രജിസ്റ്റർ ചെയ്യുക",
@@ -369,7 +370,15 @@
       "landSizeMatch": "ഭൂമിയുടെ വിസ്തൃതിയെ അടിസ്ഥാനമാക്കി",
       "broadlyApplicable": "എല്ലാ കർഷകർക്കും ബാധകം",
       "unknown": "ഔദ്യോഗിക സൈറ്റിൽ പരിശോധിക്കുക"
-    }
+    },
+    "emptyBody": "No schemes found for the selected state.",
+    "selectState": "Select your state",
+    "searchState": "Search state...",
+    "selectStatePrompt": "Choose your state to see matching government schemes.",
+    "changeState": "Change",
+    "stateScope": "State Scheme",
+    "centralScope": "Central Scheme",
+    "loadError": "Could not load schemes. Please try again."
   },
   "updates": {
     "title": "കാർഷിക വാർത്തകൾ",
@@ -454,7 +463,8 @@
     "logoutConfirmBody": "വീണ്ടും ലോഗിൻ ചെയ്യാൻ ഇമെയിലും പാസ്‌വേഡും ആവശ്യമാണ്.",
     "languageEnglish": "English",
     "languageHindi": "हिन्दी",
-    "notifications": "അറിയിപ്പുകൾ"
+    "notifications": "അറിയിപ്പുകൾ",
+    "state": "State"
   },
   "nav": {
     "home": "ഹോം",
@@ -574,5 +584,16 @@
     "errors": {
       "generic": "ഉത്തരം ലഭിച്ചില്ല. നെറ്റ്‌വർക്ക് പരിശോധിച്ച് വീണ്ടും ശ്രമിക്കുക."
     }
+  },
+  "myLands": {
+    "title": "My Lands",
+    "emptyTitle": "No lands registered yet",
+    "emptyBody": "Register your fields to view personalized weather, crop advisories and government schemes.",
+    "addLand": "Register Land",
+    "addAnotherLand": "+ Add Another Land",
+    "landLabel": "Land",
+    "selected": "Selected",
+    "deleteConfirmTitle": "Delete {{name}}?",
+    "deleteConfirmBody": "This will permanently delete this land and all crop records associated with it."
   }
 }

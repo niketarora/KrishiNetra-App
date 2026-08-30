@@ -11,6 +11,10 @@ export const ERROR_CODES = {
   CONFLICT: 409,
   SERVICE_NOT_CONNECTED: 503,
   INTERNAL_ERROR: 500,
+  OTP_INVALID: 400,
+  OTP_EXPIRED: 400,
+  OTP_TOO_MANY_ATTEMPTS: 429,
+  AUTH_UNAVAILABLE: 500,
 } as const;
 
 export type ErrorCode = keyof typeof ERROR_CODES;

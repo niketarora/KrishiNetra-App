@@ -8,14 +8,20 @@ import { HomeScreen } from './HomeScreen';
 
 const mockFarmState: {
   farm: Farm | null;
+  lands: Farm[];
+  selectedLandId: string | null;
   loading: boolean;
   errorKey: string | null;
   refresh: jest.Mock;
+  selectLand: jest.Mock;
 } = {
   farm: null,
+  lands: [],
+  selectedLandId: null,
   loading: false,
   errorKey: null,
   refresh: jest.fn(),
+  selectLand: jest.fn(),
 };
 
 const mockOpenAvatar = jest.fn();
@@ -125,8 +131,11 @@ const props = {
 describe('HomeScreen', () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    const defaultFarm = makeFarm();
     Object.assign(mockFarmState, {
-      farm: makeFarm(),
+      farm: defaultFarm,
+      lands: [defaultFarm],
+      selectedLandId: defaultFarm.id,
       loading: false,
       errorKey: null,
     });

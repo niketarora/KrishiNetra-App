@@ -361,7 +361,8 @@
       "whoMayBeEligible": "யாருக்கு தகுதி உண்டு?",
       "documents": "தேவையான ஆவணங்கள்",
       "howToApply": "விண்ணப்பிப்பது எப்படி",
-      "checkOfficialSource": "அதிகாரப்பூர்வ தளம் பார்க்க"
+      "checkOfficialSource": "அதிகாரப்பூர்வ தளம் பார்க்க",
+      "viewOnMyScheme": "View on myScheme Portal"
     },
     "reasons": {
       "noFarm": "தகுதியை அறிய நிலத்தைப் பதிவு செய்யவும்",
@@ -369,7 +370,15 @@
       "landSizeMatch": "நிலத்தின் அளவின் அடிப்படையில்",
       "broadlyApplicable": "அனைத்து விவசாயிகளுக்கும் பொருந்தும்",
       "unknown": "அதிகாரப்பூர்வ தளத்தில் விவரங்களைக் காண்க"
-    }
+    },
+    "emptyBody": "No schemes found for the selected state.",
+    "selectState": "Select your state",
+    "searchState": "Search state...",
+    "selectStatePrompt": "Choose your state to see matching government schemes.",
+    "changeState": "Change",
+    "stateScope": "State Scheme",
+    "centralScope": "Central Scheme",
+    "loadError": "Could not load schemes. Please try again."
   },
   "updates": {
     "title": "விவசாயச் செய்திகள்",
@@ -454,7 +463,8 @@
     "logoutConfirmBody": "மீண்டும் நுழைய தொலைபேசி எண்ணை சரிபார்க்க வேண்டும்.",
     "languageEnglish": "English",
     "languageHindi": "हिन्दी",
-    "notifications": "அறிவிப்புகள்"
+    "notifications": "அறிவிப்புகள்",
+    "state": "State"
   },
   "nav": {
     "home": "முகப்பு",
@@ -574,5 +584,16 @@
     "errors": {
       "generic": "பதில் பெற முடியவில்லை. நெட்வொர்க்கை சரிபார்க்கவும்."
     }
+  },
+  "myLands": {
+    "title": "My Lands",
+    "emptyTitle": "No lands registered yet",
+    "emptyBody": "Register your fields to view personalized weather, crop advisories and government schemes.",
+    "addLand": "Register Land",
+    "addAnotherLand": "+ Add Another Land",
+    "landLabel": "Land",
+    "selected": "Selected",
+    "deleteConfirmTitle": "Delete {{name}}?",
+    "deleteConfirmBody": "This will permanently delete this land and all crop records associated with it."
   }
 }

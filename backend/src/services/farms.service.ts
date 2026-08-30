@@ -65,7 +65,7 @@ export async function getFarm(token: string, userId: string, farmId: string): Pr
  * polygon. The stored row always carries the server's figures, never the
  * client's, even when the two agree.
  */
-function verifiedValues(body: CreateFarmBody | UpdateFarmBody) {
+function verifiedValues(body: CreateFarmBody) {
   const check = deriveAndVerify(body.boundary, {
     area_sq_meters: body.area_sq_meters,
     area_acres: body.area_acres,
@@ -149,16 +149,19 @@ export async function updateFarm(
   // rather than as an update that silently affected nothing.
   await getFarm(token, userId, farmId);
 
-  const values = verifiedValues(body);
-  // Editing the boundary moves the centroid, which can move the field into a
-  // different district. Re-resolving keeps the weather lookup pointing at the
-  // place the field is actually in now.
-  const location = await resolveLocation(values.centroid_lat, values.centroid_lng);
+  const updatePayload: Record<string, unknown> = {};
 
-  const updatePayload: Record<string, unknown> = {
-    ...values,
-    ...location,
-  };
+  if (body.boundary !== undefined) {
+    const values = verifiedValues(body as CreateFarmBody);
+    // Editing the boundary moves the centroid, which can move the field into a
+    // different district. Re-resolving keeps the weather lookup pointing at the
+    // place the field is actually in now.
+    const location = await resolveLocation(values.centroid_lat, values.centroid_lng);
+    Object.assign(updatePayload, values, location);
+  } else if (body.name !== undefined) {
+    updatePayload.name = body.name?.trim() ? body.name.trim() : null;
+  }
+
   // undefined = leave unchanged, null = explicitly clear
   if (body.location_accuracy !== undefined) {
     updatePayload.location_accuracy = body.location_accuracy;
@@ -189,3 +192,17 @@ export async function updateFarm(
   if (error) throw error;
   return normalise(data);
 }
+
+export async function deleteFarm(token: string, userId: string, farmId: string): Promise<void> {
+  // Confirms ownership first, so a foreign or missing id is reported as a 404
+  await getFarm(token, userId, farmId);
+
+  const { error } = await userClient(token)
+    .from('farms')
+    .delete()
+    .eq('id', farmId)
+    .eq('user_id', userId);
+
+  if (error) throw error;
+}
+

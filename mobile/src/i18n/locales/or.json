@@ -361,7 +361,8 @@
       "whoMayBeEligible": "କିଏ ଯୋଗ୍ୟ?",
       "documents": "ଆବଶ୍ୟକ କାଗଜପତ୍ର",
       "howToApply": "କିପରି ଆବେଦନ କରିବେ",
-      "checkOfficialSource": "ଅଫିସିଆଲ୍ ୱେବସାଇଟ୍ ଦେଖନ୍ତୁ"
+      "checkOfficialSource": "ଅଫିସିଆଲ୍ ୱେବସାଇଟ୍ ଦେଖନ୍ତୁ",
+      "viewOnMyScheme": "View on myScheme Portal"
     },
     "reasons": {
       "noFarm": "ଯୋଗ୍ୟତା ଜାଣିବାକୁ ଜମି ପଞ୍ଜୀକରଣ କରନ୍ତୁ",
@@ -369,7 +370,15 @@
       "landSizeMatch": "ଜମି ପରିମାଣ ଆଧାରରେ",
       "broadlyApplicable": "ସମସ୍ତ ଚାଷୀଙ୍କ ପାଇଁ ଲାଗୁ",
       "unknown": "ଅଫିସିଆଲ୍ ସାଇଟରେ ଯାଞ୍ଚ କରନ୍ତୁ"
-    }
+    },
+    "emptyBody": "No schemes found for the selected state.",
+    "selectState": "Select your state",
+    "searchState": "Search state...",
+    "selectStatePrompt": "Choose your state to see matching government schemes.",
+    "changeState": "Change",
+    "stateScope": "State Scheme",
+    "centralScope": "Central Scheme",
+    "loadError": "Could not load schemes. Please try again."
   },
   "updates": {
     "title": "କୃଷି ଖବର",
@@ -454,7 +463,8 @@
     "logoutConfirmBody": "ପୁଣି ଲଗ୍ ଇନ୍ ପାଇଁ ଇମେଲ୍ ଓ ପାସୱାର୍ଡ ଦରକାର ହେବ।",
     "languageEnglish": "English",
     "languageHindi": "हिन्दी",
-    "notifications": "ବିଜ୍ଞପ୍ତି"
+    "notifications": "ବିଜ୍ଞପ୍ତି",
+    "state": "State"
   },
   "nav": {
     "home": "ମୁଖ୍ୟପୃଷ୍ଠା",
@@ -574,5 +584,16 @@
     "errors": {
       "generic": "ଉତ୍ତର ମିଳିପାରିଲାନାହିଁ। ନେଟୱାର୍କ ଯାଞ୍ଚ କରି ପୁଣି ଚେଷ୍ଟା କରନ୍ତୁ।"
     }
+  },
+  "myLands": {
+    "title": "My Lands",
+    "emptyTitle": "No lands registered yet",
+    "emptyBody": "Register your fields to view personalized weather, crop advisories and government schemes.",
+    "addLand": "Register Land",
+    "addAnotherLand": "+ Add Another Land",
+    "landLabel": "Land",
+    "selected": "Selected",
+    "deleteConfirmTitle": "Delete {{name}}?",
+    "deleteConfirmBody": "This will permanently delete this land and all crop records associated with it."
   }
 }
