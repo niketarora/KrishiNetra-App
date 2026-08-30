@@ -30,8 +30,14 @@ npm-debug.*
 yarn-debug.*
 yarn-error.*
 
-# Python (ml/)
-ml/
+# Python / ML runtime state. ML source and the small versioned model artifact
+# are part of the project; the large training dataset stays local.
+ml/.env
+ml/.venv/
+ml/venv/
+ml/data/*.csv
+!ml/data/training_schema.csv
+ml/.ipynb_checkpoints/
 __pycache__/
 *.pyc
 .venv/

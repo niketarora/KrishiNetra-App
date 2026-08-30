@@ -1,0 +1,47 @@
+# ML Development Dependencies for ESA/NASA Plan
+# Phase 3.0 Prototype + Phase 3.1 Production Training
+
+# Core Web Framework (Prototype API)
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+pydantic==2.4.2
+python-dotenv==1.0.0
+
+# Data Processing
+pandas==2.1.3
+numpy==1.24.3
+
+# Machine Learning
+scikit-learn==1.3.2
+xgboost==3.4.1
+
+# Google Earth Engine (Satellite Data)
+earthengine-api==0.1.396
+
+# Web Requests (Weather, APIs)
+requests==2.31.0
+httpx==0.25.2
+
+# Jupyter & Development
+jupyter==1.0.0
+jupyterlab==4.0.9
+ipython==8.17.2
+
+# Visualization (Optional, for notebooks)
+matplotlib==3.8.2
+seaborn==0.13.0
+
+# Geospatial (Optional, for boundary operations)
+shapely==2.0.2
+geopandas==0.14.1
+
+# Time Series (Optional, for future LSTM models)
+# tensorflow==2.14.0
+# keras==2.14.0
+
+# Statistical Testing (Optional)
+scipy==1.11.4
+statsmodels==0.13.5
+
+# Data Validation & Serialization
+pyyaml==6.0.1

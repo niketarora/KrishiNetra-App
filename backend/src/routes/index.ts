@@ -5,6 +5,7 @@ import * as aiController from '../controllers/ai.controller.js';
 import * as farmCropsController from '../controllers/farmCrops.controller.js';
 import * as farmersController from '../controllers/farmers.controller.js';
 import * as farmsController from '../controllers/farms.controller.js';
+import * as predictionsController from '../controllers/predictions.controller.js';
 import * as referenceController from '../controllers/reference.controller.js';
 import * as updatesController from '../controllers/updates.controller.js';
 import * as schemesController from '../controllers/schemes.controller.js';
@@ -23,6 +24,7 @@ import {
 } from '../schemas/farmCrop.schema.js';
 import { chatSchema, speakSchema } from '../schemas/ai.schema.js';
 import { updateProfileSchema } from '../schemas/profile.schema.js';
+import { experimentalSoilMoistureSchema } from '../schemas/prediction.schema.js';
 import {
   mandisQuerySchema,
   marketPricesQuerySchema,
@@ -39,9 +41,9 @@ import {
  * Everything here sits behind requireAuth. `/health` is mounted separately in
  * app.ts because it must answer without a token.
  *
- * The prefixes TRD §14 reserves for later phases (/buyers, /lots, /offers,
- * /predictions, /recommendations, /ai and the rest) are deliberately not
- * mounted. They fall through to notFound rather than being stubbed.
+ * Later-phase routes are mounted only when they have a real implementation.
+ * Unimplemented prefixes such as /buyers, /lots, /offers and /recommendations
+ * still fall through to notFound rather than returning fabricated stubs.
  */
 export const apiRouter = Router();
 
@@ -96,6 +98,15 @@ apiRouter.get(
   referenceController.marketPrices,
 );
 apiRouter.get('/weather', validate('query', weatherQuerySchema), referenceController.weather);
+
+// --- Experimental ML predictions -------------------------------------------
+// The delivered artifact is explicitly not production-ready. Its response
+// preserves that label and never includes an irrigation recommendation.
+apiRouter.post(
+  '/predictions/soil-moisture',
+  validate('body', experimentalSoilMoistureSchema),
+  predictionsController.predictSoilMoisture,
+);
 
 // --- Krishi Updates -----------------------------------------------------------
 // Farm-location-and-crop-aware information feed (GDELT regional/agriculture

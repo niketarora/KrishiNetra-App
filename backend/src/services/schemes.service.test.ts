@@ -1,20 +1,22 @@
-import { getSchemeDetail, listSchemes, listSchemeStates } from './schemes.service.js';
+import { beforeEach, describe, expect, it, jest } from '@jest/globals';
 
-const mockSelect = jest.fn();
-const mockEq = jest.fn();
-const mockOrder = jest.fn();
-const mockRange = jest.fn();
-const mockMaybeSingle = jest.fn();
+const mockSelect = jest.fn<any>();
+const mockEq = jest.fn<any>();
+const mockOrder = jest.fn<any>();
+const mockRange = jest.fn<any>();
+const mockMaybeSingle = jest.fn<any>();
 
 const mockFrom = jest.fn(() => ({
   select: mockSelect,
 }));
 
-jest.mock('../config/supabase.js', () => ({
+jest.unstable_mockModule('../config/supabase.js', () => ({
   userClient: () => ({
     from: mockFrom,
   }),
 }));
+
+const { getSchemeDetail, listSchemes, listSchemeStates } = await import('./schemes.service.js');
 
 describe('schemes.service', () => {
   beforeEach(() => {
@@ -80,9 +82,9 @@ describe('schemes.service', () => {
     });
 
     expect(result).toHaveLength(1);
-    expect(result[0].row_id).toBe('test-scheme-1');
-    expect(result[0].summary).toBe('Provides subsidy for wheat seeds.');
-    expect(result[0].reasonKey).toBe('schemes.reasons.cropMatch');
+    expect(result[0]!.row_id).toBe('test-scheme-1');
+    expect(result[0]!.summary).toBe('Provides subsidy for wheat seeds.');
+    expect(result[0]!.reasonKey).toBe('schemes.reasons.cropMatch');
   });
 
   it('throws INVALID_REQUEST for unknown state', async () => {
