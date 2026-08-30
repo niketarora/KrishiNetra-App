@@ -148,19 +148,49 @@
     "weatherObserved": "Observed {{date}}",
     "marketObserved": "Recorded {{date}}",
     "visualAssistantTitle": "Ask KrishiNetra",
-    "visualAssistantSub": "Show us your crop and ask what's happening."
+    "visualAssistantSub": "Show us your crop and ask what's happening.",
+    "soilMoisture": "Soil moisture",
+    "soilMoistureValue": "{{percent}}%",
+    "soilMoistureNote": "{{category}} · ML Model"
   },
   "field": {
     "title": "Field analysis",
     "cropHealth": "Crop health",
     "growthStage": "Growth stage",
     "weatherRisk": "Weather risk",
+    "soilMoistureTitle": "Soil Moisture Prediction",
+    "soilMoistureSub": "Machine Learning inference from environmental and satellite indices",
+    "modelVersion": "Model {{version}}",
+    "experimentalBadge": "Experimental ML",
+    "categories": {
+      "dry": "Dry",
+      "moderate": "Moderate",
+      "good": "Optimal",
+      "wet": "Wet / Saturated"
+    },
+    "inputsTitle": "Inference Feature Parameters",
+    "inputsSubtitle": "Data points evaluated by the model",
+    "features": {
+      "ndvi": "NDVI (Vegetation)",
+      "savi": "SAVI (Soil Adjusted)",
+      "temp": "Temperature",
+      "humidity": "Humidity",
+      "rainfall": "Rainfall",
+      "soilPh": "Soil pH",
+      "organicMatter": "Organic Matter",
+      "lai": "Leaf Area Index",
+      "elevation": "Elevation",
+      "growthStage": "Growth Stage",
+      "cropType": "Crop Type"
+    },
+    "warningTitle": "Experimental Model Notice",
+    "warningBody": "Validation indicates baseline performance. Always cross-check with field moisture before irrigation decisions.",
     "emptyTitle": "Your field hasn't been analysed yet",
-    "emptyBody": "Crop health, growth stage and weather risk arrive once satellite and weather analysis is connected.",
+    "emptyBody": "Crop health and weather risk arrive once satellite and weather analysis is connected.",
     "areaLabel": "Boundary you drew",
     "weatherObserved": "{{temp}}°C · {{rain}} mm rain",
     "weatherNone": "No weather recorded for your district",
-    "analysisNote": "Crop health and growth stage need satellite analysis, which is not connected yet."
+    "analysisNote": "Crop health needs satellite analysis, which is not connected yet."
   },
   "market": {
     "title": "Market",

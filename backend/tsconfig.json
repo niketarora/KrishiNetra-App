@@ -21,8 +21,14 @@
     "sourceMap": true,
     "declaration": false,
 
-    "types": ["node", "jest"]
+    // Tests declare their globals via `@jest/globals` imports, so no ambient
+    // jest types are needed here.
+    "types": ["node"]
   },
+  // The build emits the server only. Test files are excluded so a type error
+  // that lives purely in a test can never break a production deploy (and so
+  // dist/ does not ship test code); `npm run typecheck` still covers them via
+  // tsconfig.test.json.
   "include": ["src/**/*.ts"],
-  "exclude": ["node_modules", "dist"]
+  "exclude": ["node_modules", "dist", "src/**/*.test.ts"]
 }

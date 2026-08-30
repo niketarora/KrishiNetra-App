@@ -1,0 +1,41 @@
+{
+  "rows": 58432,
+  "columns": 18,
+  "date_min": "2021-01-01",
+  "date_max": "2025-12-31",
+  "n_groups": 32,
+  "obs_per_group": {
+    "min": 1826,
+    "median": 1826.0,
+    "max": 1826
+  },
+  "groups_with_date_gaps": 0,
+  "total_missing_calendar_days": 0,
+  "is_strictly_daily": true,
+  "duplicate_key_rows": 0,
+  "exact_duplicate_rows": 0,
+  "missing_values": {
+    "min_price": 883,
+    "max_price": 883,
+    "arrivals_tonnes": 2692
+  },
+  "out_of_range_values": {},
+  "inconsistent_min_modal_max_rows": 0,
+  "rows_per_year": {
+    "2021": 11680,
+    "2022": 11680,
+    "2023": 11680,
+    "2024": 11712,
+    "2025": 11680
+  },
+  "constant_columns": [
+    "crop",
+    "state"
+  ],
+  "categorical_cardinality": {
+    "mandi": 8,
+    "district": 8,
+    "variety": 4,
+    "grade": 3
+  }
+}

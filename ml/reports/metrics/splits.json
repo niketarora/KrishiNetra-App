@@ -1,0 +1,129 @@
+{
+  "splits": {
+    "1d": {
+      "horizon_days": 1,
+      "train": {
+        "rows": 35008,
+        "from": "2021-01-01",
+        "to": "2023-12-30"
+      },
+      "valid": {
+        "rows": 11680,
+        "from": "2024-01-01",
+        "to": "2024-12-30"
+      },
+      "test": {
+        "rows": 11648,
+        "from": "2025-01-01",
+        "to": "2025-12-30"
+      }
+    },
+    "3d": {
+      "horizon_days": 3,
+      "train": {
+        "rows": 34944,
+        "from": "2021-01-01",
+        "to": "2023-12-28"
+      },
+      "valid": {
+        "rows": 11616,
+        "from": "2024-01-01",
+        "to": "2024-12-28"
+      },
+      "test": {
+        "rows": 11584,
+        "from": "2025-01-01",
+        "to": "2025-12-28"
+      }
+    },
+    "7d": {
+      "horizon_days": 7,
+      "train": {
+        "rows": 34816,
+        "from": "2021-01-01",
+        "to": "2023-12-24"
+      },
+      "valid": {
+        "rows": 11488,
+        "from": "2024-01-01",
+        "to": "2024-12-24"
+      },
+      "test": {
+        "rows": 11456,
+        "from": "2025-01-01",
+        "to": "2025-12-24"
+      }
+    }
+  },
+  "walk_forward": {
+    "1d": [
+      {
+        "train_to": "2021-12-30",
+        "valid_from": "2022-01-01",
+        "valid_to": "2022-12-30",
+        "train_rows": 11648,
+        "valid_rows": 11648
+      },
+      {
+        "train_to": "2022-12-30",
+        "valid_from": "2023-01-01",
+        "valid_to": "2023-12-30",
+        "train_rows": 23328,
+        "valid_rows": 11648
+      },
+      {
+        "train_to": "2023-12-30",
+        "valid_from": "2024-01-01",
+        "valid_to": "2024-12-30",
+        "train_rows": 35008,
+        "valid_rows": 11680
+      }
+    ],
+    "3d": [
+      {
+        "train_to": "2021-12-28",
+        "valid_from": "2022-01-01",
+        "valid_to": "2022-12-28",
+        "train_rows": 11584,
+        "valid_rows": 11584
+      },
+      {
+        "train_to": "2022-12-28",
+        "valid_from": "2023-01-01",
+        "valid_to": "2023-12-28",
+        "train_rows": 23264,
+        "valid_rows": 11584
+      },
+      {
+        "train_to": "2023-12-28",
+        "valid_from": "2024-01-01",
+        "valid_to": "2024-12-28",
+        "train_rows": 34944,
+        "valid_rows": 11616
+      }
+    ],
+    "7d": [
+      {
+        "train_to": "2021-12-24",
+        "valid_from": "2022-01-01",
+        "valid_to": "2022-12-24",
+        "train_rows": 11456,
+        "valid_rows": 11456
+      },
+      {
+        "train_to": "2022-12-24",
+        "valid_from": "2023-01-01",
+        "valid_to": "2023-12-24",
+        "train_rows": 23136,
+        "valid_rows": 11456
+      },
+      {
+        "train_to": "2023-12-24",
+        "valid_from": "2024-01-01",
+        "valid_to": "2024-12-24",
+        "train_rows": 34816,
+        "valid_rows": 11488
+      }
+    ]
+  }
+}

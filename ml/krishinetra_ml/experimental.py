@@ -129,6 +129,46 @@ class ExperimentalPrediction:
         return asdict(self)
 
 
+class JsonTreeRegressor:
+    def __init__(self, data: dict[str, Any]) -> None:
+        self.base_score = float(
+            str(data.get("learner", {}).get("learner_model_param", {}).get("base_score", "0.5")).strip("[]")
+        )
+        self.trees = (
+            data.get("learner", {})
+            .get("gradient_booster", {})
+            .get("model", {})
+            .get("trees", [])
+        )
+
+    def predict(self, features: Any) -> list[float]:
+        results = []
+        for vec in features:
+            total = self.base_score
+            for tree in self.trees:
+                node = 0
+                left_children = tree["left_children"]
+                right_children = tree["right_children"]
+                base_weights = tree["base_weights"]
+                split_indices = tree["split_indices"]
+                split_conditions = tree["split_conditions"]
+                while True:
+                    left = left_children[node]
+                    right = right_children[node]
+                    if left == -1 and right == -1:
+                        total += base_weights[node]
+                        break
+                    feat_idx = split_indices[node]
+                    cond = split_conditions[node]
+                    val = vec[feat_idx]
+                    if val < cond:
+                        node = left
+                    else:
+                        node = right
+            results.append(total)
+        return results
+
+
 class ExperimentalSoilMoistureModel:
     def __init__(self, model: Regressor, metadata: Mapping[str, Any]) -> None:
         if tuple(metadata.get("feature_names", ())) != EXPERIMENTAL_FEATURE_NAMES:
@@ -163,15 +203,11 @@ class ExperimentalSoilMoistureModel:
             raise ModelNotReadyError("experimental model metadata is invalid") from exc
 
         try:
-            import xgboost as xgb
-        except ImportError as exc:
-            raise ModelNotReadyError("xgboost is required for inference") from exc
-
-        model = xgb.XGBRegressor()
-        try:
-            model.load_model(artifact)
-        except (OSError, ValueError) as exc:
+            model_data = json.loads(artifact.read_text(encoding="utf-8"))
+            model = JsonTreeRegressor(model_data)
+        except Exception as exc:
             raise ModelNotReadyError("experimental model artifact is invalid") from exc
+
         return cls(model, metadata)
 
     def predict(self, features: ExperimentalFeatures) -> ExperimentalPrediction:

@@ -107,6 +107,11 @@ apiRouter.post(
   validate('body', experimentalSoilMoistureSchema),
   predictionsController.predictSoilMoisture,
 );
+apiRouter.get(
+  '/farms/:farmId/predictions/soil-moisture',
+  validate('params', farmIdParamSchema),
+  predictionsController.getFarmSoilMoisturePrediction,
+);
 
 // --- Krishi Updates -----------------------------------------------------------
 // Farm-location-and-crop-aware information feed (GDELT regional/agriculture

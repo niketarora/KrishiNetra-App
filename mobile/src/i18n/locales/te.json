@@ -148,7 +148,10 @@
     "weatherObserved": "{{date}} నాటి పరిశీలన",
     "marketObserved": "{{date}} నాటి నమోదు",
     "visualAssistantTitle": "కృషినేత్రను అడగండి",
-    "visualAssistantSub": "పంట ఫోటో తీసి సలహా పొందండి."
+    "visualAssistantSub": "పంట ఫోటో తీసి సలహా పొందండి.",
+    "soilMoisture": "Soil moisture",
+    "soilMoistureValue": "{{percent}}%",
+    "soilMoistureNote": "{{category}} · ML Model"
   },
   "field": {
     "title": "పొలం విశ్లేషణ",
@@ -160,7 +163,34 @@
     "areaLabel": "మీరు గీసిన సరిహద్దు",
     "weatherObserved": "{{temp}}°C · {{rain}} మి.మీ వర్షం",
     "weatherNone": "మీ జిల్లాకు వాతావరణ సమాచారం నమోదు కాలేదు",
-    "analysisNote": "పంట ఆరోగ్యానికి శాటిలైట్ విశ్లేషణ అవసరం."
+    "analysisNote": "పంట ఆరోగ్యానికి శాటిలైట్ విశ్లేషణ అవసరం.",
+    "soilMoistureTitle": "Soil Moisture Prediction",
+    "soilMoistureSub": "Machine Learning inference from environmental and satellite indices",
+    "modelVersion": "Model {{version}}",
+    "experimentalBadge": "Experimental ML",
+    "categories": {
+      "dry": "Dry",
+      "moderate": "Moderate",
+      "good": "Optimal",
+      "wet": "Wet / Saturated"
+    },
+    "inputsTitle": "Inference Feature Parameters",
+    "inputsSubtitle": "Data points evaluated by the model",
+    "features": {
+      "ndvi": "NDVI (Vegetation)",
+      "savi": "SAVI (Soil Adjusted)",
+      "temp": "Temperature",
+      "humidity": "Humidity",
+      "rainfall": "Rainfall",
+      "soilPh": "Soil pH",
+      "organicMatter": "Organic Matter",
+      "lai": "Leaf Area Index",
+      "elevation": "Elevation",
+      "growthStage": "Growth Stage",
+      "cropType": "Crop Type"
+    },
+    "warningTitle": "Experimental Model Notice",
+    "warningBody": "Validation indicates baseline performance. Always cross-check with field moisture before irrigation decisions."
   },
   "market": {
     "title": "మార్కెట్",

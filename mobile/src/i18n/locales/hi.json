@@ -148,19 +148,49 @@
     "weatherObserved": "{{date}} को दर्ज",
     "marketObserved": "{{date}} को दर्ज",
     "visualAssistantTitle": "कृषिनेत्र से पूछें",
-    "visualAssistantSub": "अपनी फसल दिखाएँ और पूछें कि क्या हो रहा है।"
+    "visualAssistantSub": "अपनी फसल दिखाएँ और पूछें कि क्या हो रहा है।",
+    "soilMoisture": "मिट्टी की नमी",
+    "soilMoistureValue": "{{percent}}%",
+    "soilMoistureNote": "{{category}} · एआई मॉडल"
   },
   "field": {
     "title": "खेत की जाँच",
     "cropHealth": "फसल की सेहत",
     "growthStage": "फसल की अवस्था",
     "weatherRisk": "मौसम का ख़तरा",
+    "soilMoistureTitle": "मिट्टी की नमी का अनुमान (AI/ML)",
+    "soilMoistureSub": "पर्यावरण और उपग्रह डेटा से मशीन लर्निंग द्वारा निकाला गया अनुमान",
+    "modelVersion": "मॉडल {{version}}",
+    "experimentalBadge": "प्रायोगिक ML",
+    "categories": {
+      "dry": "सूखी (Dry)",
+      "moderate": "मध्यम (Moderate)",
+      "good": "उपयुक्त (Optimal)",
+      "wet": "अत्यधिक गीली (Wet)"
+    },
+    "inputsTitle": "मॉडल के इनपुट पैरामीटर",
+    "inputsSubtitle": "अनुमान के लिए उपयोग किया गया डेटा",
+    "features": {
+      "ndvi": "एनडीवीआई (वनस्पति सूचकांक)",
+      "savi": "एसएवीआई (मृदा सूचकांक)",
+      "temp": "तापमान",
+      "humidity": "आर्द्रता (हवा में नमी)",
+      "rainfall": "वर्षा",
+      "soilPh": "मिट्टी का पीएच",
+      "organicMatter": "जैविक पदार्थ",
+      "lai": "पत्ती क्षेत्र सूचकांक",
+      "elevation": "ऊँचाई",
+      "growthStage": "फसल अवस्था",
+      "cropType": "फसल का प्रकार"
+    },
+    "warningTitle": "प्रायोगिक मॉडल सूचना",
+    "warningBody": "यह मशीन लर्निंग मॉडल का प्रारंभिक अनुमान है। सिंचाई का निर्णय लेने से पहले खेत में नमी अवश्य जाँचें।",
     "emptyTitle": "आपके खेत की जाँच अभी नहीं हुई",
-    "emptyBody": "सैटेलाइट और मौसम की जाँच जुड़ने पर फसल की सेहत, अवस्था और मौसम का ख़तरा यहाँ दिखेगा।",
+    "emptyBody": "सैटेलाइट और मौसम की जाँच जुड़ने पर फसल की सेहत और मौसम का ख़तरा यहाँ दिखेगा।",
     "areaLabel": "आपने जो सीमा बनाई",
     "weatherObserved": "{{temp}}°C · {{rain}} मिमी वर्षा",
     "weatherNone": "आपके जिले का मौसम दर्ज नहीं है",
-    "analysisNote": "फसल की सेहत और अवस्था के लिए सैटेलाइट विश्लेषण चाहिए, जो अभी जुड़ा नहीं है।"
+    "analysisNote": "फसल की सेहत के लिए उपग्रह विश्लेषण चाहिए, जो अभी जुड़ा नहीं है।"
   },
   "market": {
     "title": "बाज़ार",

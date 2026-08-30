@@ -1,0 +1,2830 @@
+{
+  "naive": {
+    "1d": {
+      "overall": [
+        {
+          "n": 11648,
+          "MAE": 17.658,
+          "RMSE": 23.978,
+          "MAPE": 0.6594,
+          "sMAPE": 0.6601
+        }
+      ],
+      "by_mandi": [
+        {
+          "mandi": "Jaipur",
+          "n": 1456,
+          "MAE": 18.784,
+          "RMSE": 25.133,
+          "MAPE": 0.6852,
+          "sMAPE": 0.6859
+        },
+        {
+          "mandi": "Sri Ganganagar",
+          "n": 1456,
+          "MAE": 18.315,
+          "RMSE": 24.924,
+          "MAPE": 0.6691,
+          "sMAPE": 0.6698
+        },
+        {
+          "mandi": "Hanumangarh",
+          "n": 1456,
+          "MAE": 18.001,
+          "RMSE": 24.405,
+          "MAPE": 0.6681,
+          "sMAPE": 0.6689
+        },
+        {
+          "mandi": "Kota",
+          "n": 1456,
+          "MAE": 17.66,
+          "RMSE": 23.715,
+          "MAPE": 0.6555,
+          "sMAPE": 0.6562
+        },
+        {
+          "mandi": "Alwar",
+          "n": 1456,
+          "MAE": 17.53,
+          "RMSE": 23.978,
+          "MAPE": 0.6562,
+          "sMAPE": 0.6569
+        },
+        {
+          "mandi": "Bharatpur",
+          "n": 1456,
+          "MAE": 17.314,
+          "RMSE": 23.698,
+          "MAPE": 0.6531,
+          "sMAPE": 0.6539
+        },
+        {
+          "mandi": "Bundi",
+          "n": 1456,
+          "MAE": 17.196,
+          "RMSE": 23.265,
+          "MAPE": 0.6542,
+          "sMAPE": 0.6549
+        },
+        {
+          "mandi": "Sikar",
+          "n": 1456,
+          "MAE": 16.465,
+          "RMSE": 22.604,
+          "MAPE": 0.6341,
+          "sMAPE": 0.6347
+        }
+      ],
+      "by_variety": [
+        {
+          "variety": "Sharbati",
+          "n": 2912,
+          "MAE": 20.533,
+          "RMSE": 27.461,
+          "MAPE": 0.6881,
+          "sMAPE": 0.6889
+        },
+        {
+          "variety": "Lokwan",
+          "n": 2912,
+          "MAE": 19.108,
+          "RMSE": 25.557,
+          "MAPE": 0.6947,
+          "sMAPE": 0.6955
+        },
+        {
+          "variety": "Dara",
+          "n": 2912,
+          "MAE": 16.413,
+          "RMSE": 22.029,
+          "MAPE": 0.6539,
+          "sMAPE": 0.6546
+        },
+        {
+          "variety": "Mill Quality",
+          "n": 2912,
+          "MAE": 14.58,
+          "RMSE": 20.18,
+          "MAPE": 0.601,
+          "sMAPE": 0.6017
+        }
+      ],
+      "by_grade": [
+        {
+          "grade": "Good",
+          "n": 2912,
+          "MAE": 20.533,
+          "RMSE": 27.461,
+          "MAPE": 0.6881,
+          "sMAPE": 0.6889
+        },
+        {
+          "grade": "FAQ",
+          "n": 2912,
+          "MAE": 19.108,
+          "RMSE": 25.557,
+          "MAPE": 0.6947,
+          "sMAPE": 0.6955
+        },
+        {
+          "grade": "Average",
+          "n": 5824,
+          "MAE": 15.496,
+          "RMSE": 21.125,
+          "MAPE": 0.6275,
+          "sMAPE": 0.6281
+        }
+      ],
+      "by_month_of_year": [
+        {
+          "month_of_year": 9,
+          "n": 960,
+          "MAE": 20.073,
+          "RMSE": 24.36,
+          "MAPE": 0.7156,
+          "sMAPE": 0.7154
+        },
+        {
+          "month_of_year": 8,
+          "n": 992,
+          "MAE": 19.686,
+          "RMSE": 25.426,
+          "MAPE": 0.7057,
+          "sMAPE": 0.7055
+        },
+        {
+          "month_of_year": 6,
+          "n": 960,
+          "MAE": 18.873,
+          "RMSE": 23.688,
+          "MAPE": 0.6771,
+          "sMAPE": 0.6773
+        },
+        {
+          "month_of_year": 11,
+          "n": 960,
+          "MAE": 18.491,
+          "RMSE": 22.919,
+          "MAPE": 0.6598,
+          "sMAPE": 0.6599
+        },
+        {
+          "month_of_year": 2,
+          "n": 896,
+          "MAE": 17.733,
+          "RMSE": 23.148,
+          "MAPE": 0.7255,
+          "sMAPE": 0.7236
+        },
+        {
+          "month_of_year": 10,
+          "n": 992,
+          "MAE": 17.565,
+          "RMSE": 22.155,
+          "MAPE": 0.6296,
+          "sMAPE": 0.6294
+        },
+        {
+          "month_of_year": 12,
+          "n": 960,
+          "MAE": 17.549,
+          "RMSE": 22.108,
+          "MAPE": 0.626,
+          "sMAPE": 0.626
+        },
+        {
+          "month_of_year": 5,
+          "n": 992,
+          "MAE": 17.423,
+          "RMSE": 21.989,
+          "MAPE": 0.651,
+          "sMAPE": 0.6524
+        },
+        {
+          "month_of_year": 3,
+          "n": 992,
+          "MAE": 16.9,
+          "RMSE": 36.18,
+          "MAPE": 0.7137,
+          "sMAPE": 0.722
+        },
+        {
+          "month_of_year": 7,
+          "n": 992,
+          "MAE": 16.672,
+          "RMSE": 20.906,
+          "MAPE": 0.599,
+          "sMAPE": 0.5988
+        },
+        {
+          "month_of_year": 1,
+          "n": 992,
+          "MAE": 16.368,
+          "RMSE": 20.672,
+          "MAPE": 0.6398,
+          "sMAPE": 0.6393
+        },
+        {
+          "month_of_year": 4,
+          "n": 960,
+          "MAE": 14.615,
+          "RMSE": 19.666,
+          "MAPE": 0.5754,
+          "sMAPE": 0.5767
+        }
+      ]
+    },
+    "3d": {
+      "overall": [
+        {
+          "n": 11584,
+          "MAE": 26.658,
+          "RMSE": 36.56,
+          "MAPE": 0.9998,
+          "sMAPE": 1.0022
+        }
+      ],
+      "by_mandi": [
+        {
+          "mandi": "Jaipur",
+          "n": 1448,
+          "MAE": 28.58,
+          "RMSE": 38.357,
+          "MAPE": 1.0469,
+          "sMAPE": 1.049
+        },
+        {
+          "mandi": "Sri Ganganagar",
+          "n": 1448,
+          "MAE": 27.945,
+          "RMSE": 38.027,
+          "MAPE": 1.0246,
+          "sMAPE": 1.027
+        },
+        {
+          "mandi": "Alwar",
+          "n": 1448,
+          "MAE": 26.855,
+          "RMSE": 36.999,
+          "MAPE": 1.0088,
+          "sMAPE": 1.0117
+        },
+        {
+          "mandi": "Hanumangarh",
+          "n": 1448,
+          "MAE": 26.453,
+          "RMSE": 36.502,
+          "MAPE": 0.9865,
+          "sMAPE": 0.9888
+        },
+        {
+          "mandi": "Bundi",
+          "n": 1448,
+          "MAE": 26.319,
+          "RMSE": 36.277,
+          "MAPE": 1.0047,
+          "sMAPE": 1.007
+        },
+        {
+          "mandi": "Bharatpur",
+          "n": 1448,
+          "MAE": 26.1,
+          "RMSE": 35.578,
+          "MAPE": 0.9884,
+          "sMAPE": 0.991
+        },
+        {
+          "mandi": "Kota",
+          "n": 1448,
+          "MAE": 25.744,
+          "RMSE": 35.58,
+          "MAPE": 0.9615,
+          "sMAPE": 0.9638
+        },
+        {
+          "mandi": "Sikar",
+          "n": 1448,
+          "MAE": 25.265,
+          "RMSE": 35.025,
+          "MAPE": 0.9767,
+          "sMAPE": 0.9791
+        }
+      ],
+      "by_variety": [
+        {
+          "variety": "Sharbati",
+          "n": 2896,
+          "MAE": 31.775,
+          "RMSE": 42.976,
+          "MAPE": 1.0712,
+          "sMAPE": 1.0739
+        },
+        {
+          "variety": "Lokwan",
+          "n": 2896,
+          "MAE": 28.839,
+          "RMSE": 38.944,
+          "MAPE": 1.0545,
+          "sMAPE": 1.0572
+        },
+        {
+          "variety": "Dara",
+          "n": 2896,
+          "MAE": 24.305,
+          "RMSE": 32.767,
+          "MAPE": 0.9741,
+          "sMAPE": 0.9761
+        },
+        {
+          "variety": "Mill Quality",
+          "n": 2896,
+          "MAE": 21.711,
+          "RMSE": 30.155,
+          "MAPE": 0.8993,
+          "sMAPE": 0.9015
+        }
+      ],
+      "by_grade": [
+        {
+          "grade": "Good",
+          "n": 2896,
+          "MAE": 31.775,
+          "RMSE": 42.976,
+          "MAPE": 1.0712,
+          "sMAPE": 1.0739
+        },
+        {
+          "grade": "FAQ",
+          "n": 2896,
+          "MAE": 28.839,
+          "RMSE": 38.944,
+          "MAPE": 1.0545,
+          "sMAPE": 1.0572
+        },
+        {
+          "grade": "Average",
+          "n": 5792,
+          "MAE": 23.008,
+          "RMSE": 31.488,
+          "MAPE": 0.9367,
+          "sMAPE": 0.9388
+        }
+      ],
+      "by_month_of_year": [
+        {
+          "month_of_year": 3,
+          "n": 992,
+          "MAE": 34.355,
+          "RMSE": 63.305,
+          "MAPE": 1.4397,
+          "sMAPE": 1.4659
+        },
+        {
+          "month_of_year": 5,
+          "n": 992,
+          "MAE": 28.594,
+          "RMSE": 35.625,
+          "MAPE": 1.0596,
+          "sMAPE": 1.0655
+        },
+        {
+          "month_of_year": 2,
+          "n": 896,
+          "MAE": 28.034,
+          "RMSE": 36.318,
+          "MAPE": 1.1559,
+          "sMAPE": 1.1473
+        },
+        {
+          "month_of_year": 8,
+          "n": 992,
+          "MAE": 27.364,
+          "RMSE": 34.68,
+          "MAPE": 0.9789,
+          "sMAPE": 0.9793
+        },
+        {
+          "month_of_year": 12,
+          "n": 896,
+          "MAE": 27.362,
+          "RMSE": 34.231,
+          "MAPE": 0.9722,
+          "sMAPE": 0.9723
+        },
+        {
+          "month_of_year": 11,
+          "n": 960,
+          "MAE": 27.018,
+          "RMSE": 34.085,
+          "MAPE": 0.9601,
+          "sMAPE": 0.9605
+        },
+        {
+          "month_of_year": 6,
+          "n": 960,
+          "MAE": 26.806,
+          "RMSE": 33.581,
+          "MAPE": 0.9604,
+          "sMAPE": 0.9621
+        },
+        {
+          "month_of_year": 4,
+          "n": 960,
+          "MAE": 24.373,
+          "RMSE": 32.367,
+          "MAPE": 0.9515,
+          "sMAPE": 0.9577
+        },
+        {
+          "month_of_year": 9,
+          "n": 960,
+          "MAE": 24.354,
+          "RMSE": 30.886,
+          "MAPE": 0.8703,
+          "sMAPE": 0.8697
+        },
+        {
+          "month_of_year": 10,
+          "n": 992,
+          "MAE": 24.107,
+          "RMSE": 30.003,
+          "MAPE": 0.8652,
+          "sMAPE": 0.8647
+        },
+        {
+          "month_of_year": 1,
+          "n": 992,
+          "MAE": 24.097,
+          "RMSE": 30.76,
+          "MAPE": 0.9431,
+          "sMAPE": 0.94
+        },
+        {
+          "month_of_year": 7,
+          "n": 992,
+          "MAE": 23.499,
+          "RMSE": 29.672,
+          "MAPE": 0.8443,
+          "sMAPE": 0.844
+        }
+      ]
+    },
+    "7d": {
+      "overall": [
+        {
+          "n": 11456,
+          "MAE": 40.812,
+          "RMSE": 54.84,
+          "MAPE": 1.5426,
+          "sMAPE": 1.5484
+        }
+      ],
+      "by_mandi": [
+        {
+          "mandi": "Jaipur",
+          "n": 1432,
+          "MAE": 44.092,
+          "RMSE": 57.971,
+          "MAPE": 1.6263,
+          "sMAPE": 1.6312
+        },
+        {
+          "mandi": "Alwar",
+          "n": 1432,
+          "MAE": 42.335,
+          "RMSE": 56.796,
+          "MAPE": 1.6067,
+          "sMAPE": 1.6139
+        },
+        {
+          "mandi": "Sri Ganganagar",
+          "n": 1432,
+          "MAE": 41.449,
+          "RMSE": 55.793,
+          "MAPE": 1.5377,
+          "sMAPE": 1.5434
+        },
+        {
+          "mandi": "Bundi",
+          "n": 1432,
+          "MAE": 41.107,
+          "RMSE": 54.895,
+          "MAPE": 1.5727,
+          "sMAPE": 1.5782
+        },
+        {
+          "mandi": "Hanumangarh",
+          "n": 1432,
+          "MAE": 40.491,
+          "RMSE": 55.503,
+          "MAPE": 1.5223,
+          "sMAPE": 1.5284
+        },
+        {
+          "mandi": "Bharatpur",
+          "n": 1432,
+          "MAE": 39.363,
+          "RMSE": 52.986,
+          "MAPE": 1.5016,
+          "sMAPE": 1.5073
+        },
+        {
+          "mandi": "Kota",
+          "n": 1432,
+          "MAE": 38.897,
+          "RMSE": 52.493,
+          "MAPE": 1.4661,
+          "sMAPE": 1.4717
+        },
+        {
+          "mandi": "Sikar",
+          "n": 1432,
+          "MAE": 38.76,
+          "RMSE": 51.986,
+          "MAPE": 1.5077,
+          "sMAPE": 1.5135
+        }
+      ],
+      "by_variety": [
+        {
+          "variety": "Sharbati",
+          "n": 2864,
+          "MAE": 50.117,
+          "RMSE": 65.747,
+          "MAPE": 1.7041,
+          "sMAPE": 1.711
+        },
+        {
+          "variety": "Lokwan",
+          "n": 2864,
+          "MAE": 43.013,
+          "RMSE": 58.026,
+          "MAPE": 1.5878,
+          "sMAPE": 1.5937
+        },
+        {
+          "variety": "Dara",
+          "n": 2864,
+          "MAE": 36.505,
+          "RMSE": 48.312,
+          "MAPE": 1.477,
+          "sMAPE": 1.4819
+        },
+        {
+          "variety": "Mill Quality",
+          "n": 2864,
+          "MAE": 33.612,
+          "RMSE": 44.787,
+          "MAPE": 1.4017,
+          "sMAPE": 1.4072
+        }
+      ],
+      "by_grade": [
+        {
+          "grade": "Good",
+          "n": 2864,
+          "MAE": 50.117,
+          "RMSE": 65.747,
+          "MAPE": 1.7041,
+          "sMAPE": 1.711
+        },
+        {
+          "grade": "FAQ",
+          "n": 2864,
+          "MAE": 43.013,
+          "RMSE": 58.026,
+          "MAPE": 1.5878,
+          "sMAPE": 1.5937
+        },
+        {
+          "grade": "Average",
+          "n": 5728,
+          "MAE": 35.059,
+          "RMSE": 46.583,
+          "MAPE": 1.4393,
+          "sMAPE": 1.4446
+        }
+      ],
+      "by_month_of_year": [
+        {
+          "month_of_year": 3,
+          "n": 992,
+          "MAE": 64.586,
+          "RMSE": 96.946,
+          "MAPE": 2.6916,
+          "sMAPE": 2.7525
+        },
+        {
+          "month_of_year": 2,
+          "n": 896,
+          "MAE": 50.306,
+          "RMSE": 62.541,
+          "MAPE": 2.1,
+          "sMAPE": 2.069
+        },
+        {
+          "month_of_year": 5,
+          "n": 992,
+          "MAE": 47.113,
+          "RMSE": 58.304,
+          "MAPE": 1.7323,
+          "sMAPE": 1.7524
+        },
+        {
+          "month_of_year": 4,
+          "n": 960,
+          "MAE": 46.269,
+          "RMSE": 58.918,
+          "MAPE": 1.7847,
+          "sMAPE": 1.8087
+        },
+        {
+          "month_of_year": 1,
+          "n": 992,
+          "MAE": 38.122,
+          "RMSE": 48.345,
+          "MAPE": 1.5026,
+          "sMAPE": 1.4909
+        },
+        {
+          "month_of_year": 12,
+          "n": 768,
+          "MAE": 37.302,
+          "RMSE": 47.394,
+          "MAPE": 1.3218,
+          "sMAPE": 1.3219
+        },
+        {
+          "month_of_year": 11,
+          "n": 960,
+          "MAE": 37.237,
+          "RMSE": 46.838,
+          "MAPE": 1.3243,
+          "sMAPE": 1.3247
+        },
+        {
+          "month_of_year": 6,
+          "n": 960,
+          "MAE": 35.274,
+          "RMSE": 44.478,
+          "MAPE": 1.2634,
+          "sMAPE": 1.268
+        },
+        {
+          "month_of_year": 8,
+          "n": 992,
+          "MAE": 34.688,
+          "RMSE": 43.028,
+          "MAPE": 1.2389,
+          "sMAPE": 1.2397
+        },
+        {
+          "month_of_year": 10,
+          "n": 992,
+          "MAE": 33.3,
+          "RMSE": 41.253,
+          "MAPE": 1.1947,
+          "sMAPE": 1.1942
+        },
+        {
+          "month_of_year": 7,
+          "n": 992,
+          "MAE": 32.722,
+          "RMSE": 41.438,
+          "MAPE": 1.173,
+          "sMAPE": 1.1722
+        },
+        {
+          "month_of_year": 9,
+          "n": 960,
+          "MAE": 32.565,
+          "RMSE": 41.368,
+          "MAPE": 1.1681,
+          "sMAPE": 1.1662
+        }
+      ]
+    }
+  },
+  "rolling_mean_7": {
+    "1d": {
+      "overall": [
+        {
+          "n": 11648,
+          "MAE": 25.83,
+          "RMSE": 34.963,
+          "MAPE": 0.9741,
+          "sMAPE": 0.9764
+        }
+      ],
+      "by_mandi": [
+        {
+          "mandi": "Jaipur",
+          "n": 1456,
+          "MAE": 27.83,
+          "RMSE": 36.977,
+          "MAPE": 1.0249,
+          "sMAPE": 1.0268
+        },
+        {
+          "mandi": "Alwar",
+          "n": 1456,
+          "MAE": 26.5,
+          "RMSE": 35.901,
+          "MAPE": 1.0018,
+          "sMAPE": 1.0047
+        },
+        {
+          "mandi": "Sri Ganganagar",
+          "n": 1456,
+          "MAE": 26.364,
+          "RMSE": 35.843,
+          "MAPE": 0.9747,
+          "sMAPE": 0.9771
+        },
+        {
+          "mandi": "Bundi",
+          "n": 1456,
+          "MAE": 25.9,
+          "RMSE": 34.878,
+          "MAPE": 0.9905,
+          "sMAPE": 0.9927
+        },
+        {
+          "mandi": "Hanumangarh",
+          "n": 1456,
+          "MAE": 25.571,
+          "RMSE": 35.129,
+          "MAPE": 0.9594,
+          "sMAPE": 0.9617
+        },
+        {
+          "mandi": "Bharatpur",
+          "n": 1456,
+          "MAE": 24.97,
+          "RMSE": 33.82,
+          "MAPE": 0.9505,
+          "sMAPE": 0.9527
+        },
+        {
+          "mandi": "Sikar",
+          "n": 1456,
+          "MAE": 24.826,
+          "RMSE": 33.33,
+          "MAPE": 0.9638,
+          "sMAPE": 0.9661
+        },
+        {
+          "mandi": "Kota",
+          "n": 1456,
+          "MAE": 24.679,
+          "RMSE": 33.661,
+          "MAPE": 0.9273,
+          "sMAPE": 0.9296
+        }
+      ],
+      "by_variety": [
+        {
+          "variety": "Sharbati",
+          "n": 2912,
+          "MAE": 31.416,
+          "RMSE": 41.607,
+          "MAPE": 1.0656,
+          "sMAPE": 1.0683
+        },
+        {
+          "variety": "Lokwan",
+          "n": 2912,
+          "MAE": 27.519,
+          "RMSE": 37.099,
+          "MAPE": 1.0125,
+          "sMAPE": 1.0148
+        },
+        {
+          "variety": "Dara",
+          "n": 2912,
+          "MAE": 23.197,
+          "RMSE": 30.978,
+          "MAPE": 0.9362,
+          "sMAPE": 0.9381
+        },
+        {
+          "variety": "Mill Quality",
+          "n": 2912,
+          "MAE": 21.187,
+          "RMSE": 28.68,
+          "MAPE": 0.8823,
+          "sMAPE": 0.8844
+        }
+      ],
+      "by_grade": [
+        {
+          "grade": "Good",
+          "n": 2912,
+          "MAE": 31.416,
+          "RMSE": 41.607,
+          "MAPE": 1.0656,
+          "sMAPE": 1.0683
+        },
+        {
+          "grade": "FAQ",
+          "n": 2912,
+          "MAE": 27.519,
+          "RMSE": 37.099,
+          "MAPE": 1.0125,
+          "sMAPE": 1.0148
+        },
+        {
+          "grade": "Average",
+          "n": 5824,
+          "MAE": 22.192,
+          "RMSE": 29.851,
+          "MAPE": 0.9092,
+          "sMAPE": 0.9113
+        }
+      ],
+      "by_month_of_year": [
+        {
+          "month_of_year": 4,
+          "n": 960,
+          "MAE": 40.294,
+          "RMSE": 57.823,
+          "MAPE": 1.6066,
+          "sMAPE": 1.6331
+        },
+        {
+          "month_of_year": 5,
+          "n": 992,
+          "MAE": 31.65,
+          "RMSE": 38.629,
+          "MAPE": 1.1765,
+          "sMAPE": 1.1856
+        },
+        {
+          "month_of_year": 2,
+          "n": 896,
+          "MAE": 30.292,
+          "RMSE": 38.349,
+          "MAPE": 1.2477,
+          "sMAPE": 1.2365
+        },
+        {
+          "month_of_year": 3,
+          "n": 992,
+          "MAE": 24.979,
+          "RMSE": 41.342,
+          "MAPE": 1.0613,
+          "sMAPE": 1.0649
+        },
+        {
+          "month_of_year": 11,
+          "n": 960,
+          "MAE": 24.748,
+          "RMSE": 31.08,
+          "MAPE": 0.8806,
+          "sMAPE": 0.8812
+        },
+        {
+          "month_of_year": 6,
+          "n": 960,
+          "MAE": 24.335,
+          "RMSE": 30.421,
+          "MAPE": 0.8724,
+          "sMAPE": 0.8744
+        },
+        {
+          "month_of_year": 12,
+          "n": 960,
+          "MAE": 24.034,
+          "RMSE": 30.263,
+          "MAPE": 0.853,
+          "sMAPE": 0.8529
+        },
+        {
+          "month_of_year": 8,
+          "n": 992,
+          "MAE": 22.795,
+          "RMSE": 28.825,
+          "MAPE": 0.8145,
+          "sMAPE": 0.8151
+        },
+        {
+          "month_of_year": 1,
+          "n": 992,
+          "MAE": 22.564,
+          "RMSE": 28.638,
+          "MAPE": 0.8825,
+          "sMAPE": 0.8794
+        },
+        {
+          "month_of_year": 10,
+          "n": 992,
+          "MAE": 22.363,
+          "RMSE": 28.012,
+          "MAPE": 0.8025,
+          "sMAPE": 0.8023
+        },
+        {
+          "month_of_year": 9,
+          "n": 960,
+          "MAE": 21.598,
+          "RMSE": 27.327,
+          "MAPE": 0.7698,
+          "sMAPE": 0.7691
+        },
+        {
+          "month_of_year": 7,
+          "n": 992,
+          "MAE": 20.927,
+          "RMSE": 26.704,
+          "MAPE": 0.7523,
+          "sMAPE": 0.7518
+        }
+      ]
+    },
+    "3d": {
+      "overall": [
+        {
+          "n": 11584,
+          "MAE": 33.79,
+          "RMSE": 45.491,
+          "MAPE": 1.2785,
+          "sMAPE": 1.2826
+        }
+      ],
+      "by_mandi": [
+        {
+          "mandi": "Jaipur",
+          "n": 1448,
+          "MAE": 36.685,
+          "RMSE": 48.186,
+          "MAPE": 1.3542,
+          "sMAPE": 1.3574
+        },
+        {
+          "mandi": "Alwar",
+          "n": 1448,
+          "MAE": 34.877,
+          "RMSE": 47.217,
+          "MAPE": 1.3244,
+          "sMAPE": 1.3295
+        },
+        {
+          "mandi": "Sri Ganganagar",
+          "n": 1448,
+          "MAE": 34.0,
+          "RMSE": 46.251,
+          "MAPE": 1.2632,
+          "sMAPE": 1.2672
+        },
+        {
+          "mandi": "Bundi",
+          "n": 1448,
+          "MAE": 33.996,
+          "RMSE": 45.59,
+          "MAPE": 1.3026,
+          "sMAPE": 1.3064
+        },
+        {
+          "mandi": "Hanumangarh",
+          "n": 1448,
+          "MAE": 33.601,
+          "RMSE": 45.984,
+          "MAPE": 1.2647,
+          "sMAPE": 1.2689
+        },
+        {
+          "mandi": "Sikar",
+          "n": 1448,
+          "MAE": 32.539,
+          "RMSE": 43.343,
+          "MAPE": 1.2659,
+          "sMAPE": 1.2701
+        },
+        {
+          "mandi": "Bharatpur",
+          "n": 1448,
+          "MAE": 32.441,
+          "RMSE": 43.666,
+          "MAPE": 1.2391,
+          "sMAPE": 1.2429
+        },
+        {
+          "mandi": "Kota",
+          "n": 1448,
+          "MAE": 32.183,
+          "RMSE": 43.439,
+          "MAPE": 1.2142,
+          "sMAPE": 1.2181
+        }
+      ],
+      "by_variety": [
+        {
+          "variety": "Sharbati",
+          "n": 2896,
+          "MAE": 41.66,
+          "RMSE": 54.726,
+          "MAPE": 1.4185,
+          "sMAPE": 1.4234
+        },
+        {
+          "variety": "Lokwan",
+          "n": 2896,
+          "MAE": 35.545,
+          "RMSE": 48.085,
+          "MAPE": 1.3131,
+          "sMAPE": 1.317
+        },
+        {
+          "variety": "Dara",
+          "n": 2896,
+          "MAE": 30.084,
+          "RMSE": 39.937,
+          "MAPE": 1.2192,
+          "sMAPE": 1.2226
+        },
+        {
+          "variety": "Mill Quality",
+          "n": 2896,
+          "MAE": 27.872,
+          "RMSE": 37.091,
+          "MAPE": 1.1634,
+          "sMAPE": 1.1672
+        }
+      ],
+      "by_grade": [
+        {
+          "grade": "Good",
+          "n": 2896,
+          "MAE": 41.66,
+          "RMSE": 54.726,
+          "MAPE": 1.4185,
+          "sMAPE": 1.4234
+        },
+        {
+          "grade": "FAQ",
+          "n": 2896,
+          "MAE": 35.545,
+          "RMSE": 48.085,
+          "MAPE": 1.3131,
+          "sMAPE": 1.317
+        },
+        {
+          "grade": "Average",
+          "n": 5792,
+          "MAE": 28.978,
+          "RMSE": 38.54,
+          "MAPE": 1.1913,
+          "sMAPE": 1.1949
+        }
+      ],
+      "by_month_of_year": [
+        {
+          "month_of_year": 4,
+          "n": 960,
+          "MAE": 51.146,
+          "RMSE": 67.14,
+          "MAPE": 2.0222,
+          "sMAPE": 2.0572
+        },
+        {
+          "month_of_year": 3,
+          "n": 992,
+          "MAE": 42.237,
+          "RMSE": 67.223,
+          "MAPE": 1.7807,
+          "sMAPE": 1.8
+        },
+        {
+          "month_of_year": 2,
+          "n": 896,
+          "MAE": 42.029,
+          "RMSE": 52.272,
+          "MAPE": 1.7406,
+          "sMAPE": 1.719
+        },
+        {
+          "month_of_year": 5,
+          "n": 992,
+          "MAE": 41.787,
+          "RMSE": 51.065,
+          "MAPE": 1.5473,
+          "sMAPE": 1.5637
+        },
+        {
+          "month_of_year": 6,
+          "n": 960,
+          "MAE": 30.456,
+          "RMSE": 38.412,
+          "MAPE": 1.0908,
+          "sMAPE": 1.0948
+        },
+        {
+          "month_of_year": 11,
+          "n": 960,
+          "MAE": 30.257,
+          "RMSE": 38.387,
+          "MAPE": 1.0754,
+          "sMAPE": 1.0761
+        },
+        {
+          "month_of_year": 1,
+          "n": 992,
+          "MAE": 29.668,
+          "RMSE": 37.891,
+          "MAPE": 1.1637,
+          "sMAPE": 1.1573
+        },
+        {
+          "month_of_year": 12,
+          "n": 896,
+          "MAE": 29.534,
+          "RMSE": 37.339,
+          "MAPE": 1.0471,
+          "sMAPE": 1.0474
+        },
+        {
+          "month_of_year": 8,
+          "n": 992,
+          "MAE": 28.508,
+          "RMSE": 35.737,
+          "MAPE": 1.0171,
+          "sMAPE": 1.0184
+        },
+        {
+          "month_of_year": 10,
+          "n": 992,
+          "MAE": 28.024,
+          "RMSE": 34.697,
+          "MAPE": 1.0075,
+          "sMAPE": 1.0068
+        },
+        {
+          "month_of_year": 9,
+          "n": 960,
+          "MAE": 26.275,
+          "RMSE": 33.215,
+          "MAPE": 0.9377,
+          "sMAPE": 0.9363
+        },
+        {
+          "month_of_year": 7,
+          "n": 992,
+          "MAE": 26.043,
+          "RMSE": 33.34,
+          "MAPE": 0.935,
+          "sMAPE": 0.9344
+        }
+      ]
+    },
+    "7d": {
+      "overall": [
+        {
+          "n": 11456,
+          "MAE": 47.44,
+          "RMSE": 62.882,
+          "MAPE": 1.8041,
+          "sMAPE": 1.8116
+        }
+      ],
+      "by_mandi": [
+        {
+          "mandi": "Jaipur",
+          "n": 1432,
+          "MAE": 51.88,
+          "RMSE": 67.116,
+          "MAPE": 1.9233,
+          "sMAPE": 1.9291
+        },
+        {
+          "mandi": "Alwar",
+          "n": 1432,
+          "MAE": 48.941,
+          "RMSE": 66.316,
+          "MAPE": 1.8718,
+          "sMAPE": 1.8816
+        },
+        {
+          "mandi": "Hanumangarh",
+          "n": 1432,
+          "MAE": 48.664,
+          "RMSE": 64.83,
+          "MAPE": 1.8388,
+          "sMAPE": 1.8465
+        },
+        {
+          "mandi": "Bundi",
+          "n": 1432,
+          "MAE": 47.805,
+          "RMSE": 62.842,
+          "MAPE": 1.838,
+          "sMAPE": 1.8451
+        },
+        {
+          "mandi": "Sri Ganganagar",
+          "n": 1432,
+          "MAE": 46.86,
+          "RMSE": 62.82,
+          "MAPE": 1.7559,
+          "sMAPE": 1.7626
+        },
+        {
+          "mandi": "Kota",
+          "n": 1432,
+          "MAE": 45.365,
+          "RMSE": 59.573,
+          "MAPE": 1.7219,
+          "sMAPE": 1.7288
+        },
+        {
+          "mandi": "Sikar",
+          "n": 1432,
+          "MAE": 45.28,
+          "RMSE": 59.636,
+          "MAPE": 1.7661,
+          "sMAPE": 1.7744
+        },
+        {
+          "mandi": "Bharatpur",
+          "n": 1432,
+          "MAE": 44.728,
+          "RMSE": 59.391,
+          "MAPE": 1.7174,
+          "sMAPE": 1.7244
+        }
+      ],
+      "by_variety": [
+        {
+          "variety": "Sharbati",
+          "n": 2864,
+          "MAE": 58.876,
+          "RMSE": 76.387,
+          "MAPE": 2.0159,
+          "sMAPE": 2.0253
+        },
+        {
+          "variety": "Lokwan",
+          "n": 2864,
+          "MAE": 49.676,
+          "RMSE": 66.159,
+          "MAPE": 1.8449,
+          "sMAPE": 1.8517
+        },
+        {
+          "variety": "Dara",
+          "n": 2864,
+          "MAE": 42.104,
+          "RMSE": 55.071,
+          "MAPE": 1.7175,
+          "sMAPE": 1.7239
+        },
+        {
+          "variety": "Mill Quality",
+          "n": 2864,
+          "MAE": 39.105,
+          "RMSE": 50.715,
+          "MAPE": 1.6382,
+          "sMAPE": 1.6455
+        }
+      ],
+      "by_grade": [
+        {
+          "grade": "Good",
+          "n": 2864,
+          "MAE": 58.876,
+          "RMSE": 76.387,
+          "MAPE": 2.0159,
+          "sMAPE": 2.0253
+        },
+        {
+          "grade": "FAQ",
+          "n": 2864,
+          "MAE": 49.676,
+          "RMSE": 66.159,
+          "MAPE": 1.8449,
+          "sMAPE": 1.8517
+        },
+        {
+          "grade": "Average",
+          "n": 5728,
+          "MAE": 40.604,
+          "RMSE": 52.938,
+          "MAPE": 1.6779,
+          "sMAPE": 1.6847
+        }
+      ],
+      "by_month_of_year": [
+        {
+          "month_of_year": 4,
+          "n": 960,
+          "MAE": 73.578,
+          "RMSE": 89.522,
+          "MAPE": 2.8708,
+          "sMAPE": 2.9315
+        },
+        {
+          "month_of_year": 3,
+          "n": 992,
+          "MAE": 71.756,
+          "RMSE": 99.724,
+          "MAPE": 3.0061,
+          "sMAPE": 3.0555
+        },
+        {
+          "month_of_year": 2,
+          "n": 896,
+          "MAE": 66.43,
+          "RMSE": 79.709,
+          "MAPE": 2.779,
+          "sMAPE": 2.7262
+        },
+        {
+          "month_of_year": 5,
+          "n": 992,
+          "MAE": 61.557,
+          "RMSE": 74.376,
+          "MAPE": 2.2621,
+          "sMAPE": 2.2981
+        },
+        {
+          "month_of_year": 1,
+          "n": 992,
+          "MAE": 42.781,
+          "RMSE": 54.544,
+          "MAPE": 1.6862,
+          "sMAPE": 1.6692
+        },
+        {
+          "month_of_year": 12,
+          "n": 768,
+          "MAE": 38.803,
+          "RMSE": 48.933,
+          "MAPE": 1.3727,
+          "sMAPE": 1.3738
+        },
+        {
+          "month_of_year": 6,
+          "n": 960,
+          "MAE": 38.396,
+          "RMSE": 48.599,
+          "MAPE": 1.3722,
+          "sMAPE": 1.3794
+        },
+        {
+          "month_of_year": 11,
+          "n": 960,
+          "MAE": 37.261,
+          "RMSE": 47.102,
+          "MAPE": 1.3256,
+          "sMAPE": 1.3265
+        },
+        {
+          "month_of_year": 8,
+          "n": 992,
+          "MAE": 35.296,
+          "RMSE": 44.5,
+          "MAPE": 1.2606,
+          "sMAPE": 1.2623
+        },
+        {
+          "month_of_year": 10,
+          "n": 992,
+          "MAE": 34.777,
+          "RMSE": 43.187,
+          "MAPE": 1.2496,
+          "sMAPE": 1.2492
+        },
+        {
+          "month_of_year": 7,
+          "n": 992,
+          "MAE": 34.18,
+          "RMSE": 42.769,
+          "MAPE": 1.2232,
+          "sMAPE": 1.222
+        },
+        {
+          "month_of_year": 9,
+          "n": 960,
+          "MAE": 34.15,
+          "RMSE": 42.615,
+          "MAPE": 1.2249,
+          "sMAPE": 1.2224
+        }
+      ]
+    }
+  },
+  "rolling_mean_28": {
+    "1d": {
+      "overall": [
+        {
+          "n": 11648,
+          "MAE": 55.407,
+          "RMSE": 71.733,
+          "MAPE": 2.1208,
+          "sMAPE": 2.1292
+        }
+      ],
+      "by_mandi": [
+        {
+          "mandi": "Jaipur",
+          "n": 1456,
+          "MAE": 63.154,
+          "RMSE": 78.763,
+          "MAPE": 2.358,
+          "sMAPE": 2.3635
+        },
+        {
+          "mandi": "Hanumangarh",
+          "n": 1456,
+          "MAE": 58.603,
+          "RMSE": 75.63,
+          "MAPE": 2.2263,
+          "sMAPE": 2.234
+        },
+        {
+          "mandi": "Alwar",
+          "n": 1456,
+          "MAE": 56.519,
+          "RMSE": 74.549,
+          "MAPE": 2.1782,
+          "sMAPE": 2.1891
+        },
+        {
+          "mandi": "Bundi",
+          "n": 1456,
+          "MAE": 55.498,
+          "RMSE": 70.386,
+          "MAPE": 2.1465,
+          "sMAPE": 2.1559
+        },
+        {
+          "mandi": "Sri Ganganagar",
+          "n": 1456,
+          "MAE": 54.568,
+          "RMSE": 71.178,
+          "MAPE": 2.0659,
+          "sMAPE": 2.0725
+        },
+        {
+          "mandi": "Kota",
+          "n": 1456,
+          "MAE": 52.975,
+          "RMSE": 69.425,
+          "MAPE": 2.0254,
+          "sMAPE": 2.0336
+        },
+        {
+          "mandi": "Bharatpur",
+          "n": 1456,
+          "MAE": 51.531,
+          "RMSE": 67.442,
+          "MAPE": 1.9933,
+          "sMAPE": 2.0025
+        },
+        {
+          "mandi": "Sikar",
+          "n": 1456,
+          "MAE": 50.41,
+          "RMSE": 65.536,
+          "MAPE": 1.9729,
+          "sMAPE": 1.9825
+        }
+      ],
+      "by_variety": [
+        {
+          "variety": "Sharbati",
+          "n": 2912,
+          "MAE": 69.133,
+          "RMSE": 87.146,
+          "MAPE": 2.3808,
+          "sMAPE": 2.3913
+        },
+        {
+          "variety": "Lokwan",
+          "n": 2912,
+          "MAE": 57.289,
+          "RMSE": 75.017,
+          "MAPE": 2.1388,
+          "sMAPE": 2.1458
+        },
+        {
+          "variety": "Dara",
+          "n": 2912,
+          "MAE": 49.542,
+          "RMSE": 63.824,
+          "MAPE": 2.0397,
+          "sMAPE": 2.0469
+        },
+        {
+          "variety": "Mill Quality",
+          "n": 2912,
+          "MAE": 45.665,
+          "RMSE": 57.332,
+          "MAPE": 1.9238,
+          "sMAPE": 1.9328
+        }
+      ],
+      "by_grade": [
+        {
+          "grade": "Good",
+          "n": 2912,
+          "MAE": 69.133,
+          "RMSE": 87.146,
+          "MAPE": 2.3808,
+          "sMAPE": 2.3913
+        },
+        {
+          "grade": "FAQ",
+          "n": 2912,
+          "MAE": 57.289,
+          "RMSE": 75.017,
+          "MAPE": 2.1388,
+          "sMAPE": 2.1458
+        },
+        {
+          "grade": "Average",
+          "n": 5824,
+          "MAE": 47.603,
+          "RMSE": 60.665,
+          "MAPE": 1.9818,
+          "sMAPE": 1.9898
+        }
+      ],
+      "by_month_of_year": [
+        {
+          "month_of_year": 4,
+          "n": 960,
+          "MAE": 119.126,
+          "RMSE": 128.589,
+          "MAPE": 4.7527,
+          "sMAPE": 4.8843
+        },
+        {
+          "month_of_year": 5,
+          "n": 992,
+          "MAE": 96.955,
+          "RMSE": 108.283,
+          "MAPE": 3.5808,
+          "sMAPE": 3.6609
+        },
+        {
+          "month_of_year": 2,
+          "n": 896,
+          "MAE": 81.605,
+          "RMSE": 93.166,
+          "MAPE": 3.376,
+          "sMAPE": 3.3044
+        },
+        {
+          "month_of_year": 3,
+          "n": 992,
+          "MAE": 71.754,
+          "RMSE": 87.168,
+          "MAPE": 3.092,
+          "sMAPE": 3.0377
+        },
+        {
+          "month_of_year": 6,
+          "n": 960,
+          "MAE": 48.392,
+          "RMSE": 59.726,
+          "MAPE": 1.7232,
+          "sMAPE": 1.743
+        },
+        {
+          "month_of_year": 12,
+          "n": 960,
+          "MAE": 40.618,
+          "RMSE": 49.867,
+          "MAPE": 1.439,
+          "sMAPE": 1.4412
+        },
+        {
+          "month_of_year": 1,
+          "n": 992,
+          "MAE": 38.206,
+          "RMSE": 47.666,
+          "MAPE": 1.4923,
+          "sMAPE": 1.4816
+        },
+        {
+          "month_of_year": 11,
+          "n": 960,
+          "MAE": 36.774,
+          "RMSE": 46.332,
+          "MAPE": 1.3159,
+          "sMAPE": 1.3166
+        },
+        {
+          "month_of_year": 8,
+          "n": 992,
+          "MAE": 36.233,
+          "RMSE": 44.494,
+          "MAPE": 1.2998,
+          "sMAPE": 1.3011
+        },
+        {
+          "month_of_year": 10,
+          "n": 992,
+          "MAE": 34.603,
+          "RMSE": 43.363,
+          "MAPE": 1.2473,
+          "sMAPE": 1.2471
+        },
+        {
+          "month_of_year": 9,
+          "n": 960,
+          "MAE": 31.572,
+          "RMSE": 39.712,
+          "MAPE": 1.1189,
+          "sMAPE": 1.1182
+        },
+        {
+          "month_of_year": 7,
+          "n": 992,
+          "MAE": 31.564,
+          "RMSE": 40.74,
+          "MAPE": 1.1249,
+          "sMAPE": 1.1232
+        }
+      ]
+    },
+    "3d": {
+      "overall": [
+        {
+          "n": 11584,
+          "MAE": 61.56,
+          "RMSE": 79.626,
+          "MAPE": 2.3581,
+          "sMAPE": 2.3684
+        }
+      ],
+      "by_mandi": [
+        {
+          "mandi": "Jaipur",
+          "n": 1448,
+          "MAE": 70.348,
+          "RMSE": 87.635,
+          "MAPE": 2.6295,
+          "sMAPE": 2.6363
+        },
+        {
+          "mandi": "Hanumangarh",
+          "n": 1448,
+          "MAE": 65.389,
+          "RMSE": 84.114,
+          "MAPE": 2.4857,
+          "sMAPE": 2.4951
+        },
+        {
+          "mandi": "Alwar",
+          "n": 1448,
+          "MAE": 62.794,
+          "RMSE": 82.585,
+          "MAPE": 2.4226,
+          "sMAPE": 2.436
+        },
+        {
+          "mandi": "Bundi",
+          "n": 1448,
+          "MAE": 61.936,
+          "RMSE": 78.236,
+          "MAPE": 2.3967,
+          "sMAPE": 2.4084
+        },
+        {
+          "mandi": "Sri Ganganagar",
+          "n": 1448,
+          "MAE": 60.431,
+          "RMSE": 78.818,
+          "MAPE": 2.2894,
+          "sMAPE": 2.2976
+        },
+        {
+          "mandi": "Kota",
+          "n": 1448,
+          "MAE": 58.751,
+          "RMSE": 77.23,
+          "MAPE": 2.2482,
+          "sMAPE": 2.2583
+        },
+        {
+          "mandi": "Bharatpur",
+          "n": 1448,
+          "MAE": 57.108,
+          "RMSE": 74.844,
+          "MAPE": 2.2103,
+          "sMAPE": 2.2218
+        },
+        {
+          "mandi": "Sikar",
+          "n": 1448,
+          "MAE": 55.719,
+          "RMSE": 72.445,
+          "MAPE": 2.1822,
+          "sMAPE": 2.1938
+        }
+      ],
+      "by_variety": [
+        {
+          "variety": "Sharbati",
+          "n": 2896,
+          "MAE": 76.849,
+          "RMSE": 96.847,
+          "MAPE": 2.6482,
+          "sMAPE": 2.6611
+        },
+        {
+          "variety": "Lokwan",
+          "n": 2896,
+          "MAE": 63.565,
+          "RMSE": 83.15,
+          "MAPE": 2.3749,
+          "sMAPE": 2.3834
+        },
+        {
+          "variety": "Dara",
+          "n": 2896,
+          "MAE": 55.031,
+          "RMSE": 70.909,
+          "MAPE": 2.2682,
+          "sMAPE": 2.2771
+        },
+        {
+          "variety": "Mill Quality",
+          "n": 2896,
+          "MAE": 50.793,
+          "RMSE": 63.56,
+          "MAPE": 2.141,
+          "sMAPE": 2.1521
+        }
+      ],
+      "by_grade": [
+        {
+          "grade": "Good",
+          "n": 2896,
+          "MAE": 76.849,
+          "RMSE": 96.847,
+          "MAPE": 2.6482,
+          "sMAPE": 2.6611
+        },
+        {
+          "grade": "FAQ",
+          "n": 2896,
+          "MAE": 63.565,
+          "RMSE": 83.15,
+          "MAPE": 2.3749,
+          "sMAPE": 2.3834
+        },
+        {
+          "grade": "Average",
+          "n": 5792,
+          "MAE": 52.912,
+          "RMSE": 67.335,
+          "MAPE": 2.2046,
+          "sMAPE": 2.2146
+        }
+      ],
+      "by_month_of_year": [
+        {
+          "month_of_year": 4,
+          "n": 960,
+          "MAE": 130.282,
+          "RMSE": 139.873,
+          "MAPE": 5.1668,
+          "sMAPE": 5.3207
+        },
+        {
+          "month_of_year": 5,
+          "n": 992,
+          "MAE": 107.146,
+          "RMSE": 119.553,
+          "MAPE": 3.9444,
+          "sMAPE": 4.0418
+        },
+        {
+          "month_of_year": 2,
+          "n": 896,
+          "MAE": 93.613,
+          "RMSE": 106.049,
+          "MAPE": 3.8908,
+          "sMAPE": 3.7974
+        },
+        {
+          "month_of_year": 3,
+          "n": 992,
+          "MAE": 84.831,
+          "RMSE": 101.447,
+          "MAPE": 3.6428,
+          "sMAPE": 3.5929
+        },
+        {
+          "month_of_year": 6,
+          "n": 960,
+          "MAE": 52.497,
+          "RMSE": 64.834,
+          "MAPE": 1.8666,
+          "sMAPE": 1.8899
+        },
+        {
+          "month_of_year": 12,
+          "n": 896,
+          "MAE": 44.582,
+          "RMSE": 54.414,
+          "MAPE": 1.5811,
+          "sMAPE": 1.5844
+        },
+        {
+          "month_of_year": 1,
+          "n": 992,
+          "MAE": 43.195,
+          "RMSE": 54.293,
+          "MAPE": 1.6927,
+          "sMAPE": 1.6773
+        },
+        {
+          "month_of_year": 11,
+          "n": 960,
+          "MAE": 39.601,
+          "RMSE": 50.028,
+          "MAPE": 1.4132,
+          "sMAPE": 1.414
+        },
+        {
+          "month_of_year": 8,
+          "n": 992,
+          "MAE": 39.298,
+          "RMSE": 48.228,
+          "MAPE": 1.4087,
+          "sMAPE": 1.4105
+        },
+        {
+          "month_of_year": 10,
+          "n": 992,
+          "MAE": 37.385,
+          "RMSE": 46.882,
+          "MAPE": 1.3493,
+          "sMAPE": 1.3487
+        },
+        {
+          "month_of_year": 7,
+          "n": 992,
+          "MAE": 34.288,
+          "RMSE": 44.265,
+          "MAPE": 1.2216,
+          "sMAPE": 1.2196
+        },
+        {
+          "month_of_year": 9,
+          "n": 960,
+          "MAE": 33.776,
+          "RMSE": 42.741,
+          "MAPE": 1.1989,
+          "sMAPE": 1.1977
+        }
+      ]
+    },
+    "7d": {
+      "overall": [
+        {
+          "n": 11456,
+          "MAE": 73.223,
+          "RMSE": 94.571,
+          "MAPE": 2.8088,
+          "sMAPE": 2.8233
+        }
+      ],
+      "by_mandi": [
+        {
+          "mandi": "Jaipur",
+          "n": 1432,
+          "MAE": 83.809,
+          "RMSE": 104.421,
+          "MAPE": 3.1402,
+          "sMAPE": 3.1493
+        },
+        {
+          "mandi": "Hanumangarh",
+          "n": 1432,
+          "MAE": 78.204,
+          "RMSE": 100.174,
+          "MAPE": 2.9764,
+          "sMAPE": 2.9891
+        },
+        {
+          "mandi": "Alwar",
+          "n": 1432,
+          "MAE": 74.98,
+          "RMSE": 97.719,
+          "MAPE": 2.8979,
+          "sMAPE": 2.9166
+        },
+        {
+          "mandi": "Bundi",
+          "n": 1432,
+          "MAE": 74.154,
+          "RMSE": 93.054,
+          "MAPE": 2.872,
+          "sMAPE": 2.8886
+        },
+        {
+          "mandi": "Sri Ganganagar",
+          "n": 1432,
+          "MAE": 71.566,
+          "RMSE": 93.389,
+          "MAPE": 2.7141,
+          "sMAPE": 2.7259
+        },
+        {
+          "mandi": "Kota",
+          "n": 1432,
+          "MAE": 69.808,
+          "RMSE": 92.217,
+          "MAPE": 2.6757,
+          "sMAPE": 2.6899
+        },
+        {
+          "mandi": "Bharatpur",
+          "n": 1432,
+          "MAE": 67.488,
+          "RMSE": 88.88,
+          "MAPE": 2.615,
+          "sMAPE": 2.6317
+        },
+        {
+          "mandi": "Sikar",
+          "n": 1432,
+          "MAE": 65.777,
+          "RMSE": 85.311,
+          "MAPE": 2.5793,
+          "sMAPE": 2.595
+        }
+      ],
+      "by_variety": [
+        {
+          "variety": "Sharbati",
+          "n": 2864,
+          "MAE": 91.238,
+          "RMSE": 115.141,
+          "MAPE": 3.1473,
+          "sMAPE": 3.1653
+        },
+        {
+          "variety": "Lokwan",
+          "n": 2864,
+          "MAE": 75.389,
+          "RMSE": 98.514,
+          "MAPE": 2.8203,
+          "sMAPE": 2.8318
+        },
+        {
+          "variety": "Dara",
+          "n": 2864,
+          "MAE": 65.688,
+          "RMSE": 84.51,
+          "MAPE": 2.7123,
+          "sMAPE": 2.7247
+        },
+        {
+          "variety": "Mill Quality",
+          "n": 2864,
+          "MAE": 60.578,
+          "RMSE": 75.303,
+          "MAPE": 2.5554,
+          "sMAPE": 2.5713
+        }
+      ],
+      "by_grade": [
+        {
+          "grade": "Good",
+          "n": 2864,
+          "MAE": 91.238,
+          "RMSE": 115.141,
+          "MAPE": 3.1473,
+          "sMAPE": 3.1653
+        },
+        {
+          "grade": "FAQ",
+          "n": 2864,
+          "MAE": 75.389,
+          "RMSE": 98.514,
+          "MAPE": 2.8203,
+          "sMAPE": 2.8318
+        },
+        {
+          "grade": "Average",
+          "n": 5728,
+          "MAE": 63.133,
+          "RMSE": 80.039,
+          "MAPE": 2.6339,
+          "sMAPE": 2.648
+        }
+      ],
+      "by_month_of_year": [
+        {
+          "month_of_year": 4,
+          "n": 960,
+          "MAE": 154.51,
+          "RMSE": 164.787,
+          "MAPE": 6.0562,
+          "sMAPE": 6.265
+        },
+        {
+          "month_of_year": 5,
+          "n": 992,
+          "MAE": 127.649,
+          "RMSE": 141.615,
+          "MAPE": 4.6691,
+          "sMAPE": 4.805
+        },
+        {
+          "month_of_year": 2,
+          "n": 896,
+          "MAE": 119.053,
+          "RMSE": 132.385,
+          "MAPE": 4.9938,
+          "sMAPE": 4.8464
+        },
+        {
+          "month_of_year": 3,
+          "n": 992,
+          "MAE": 106.039,
+          "RMSE": 122.261,
+          "MAPE": 4.5297,
+          "sMAPE": 4.4911
+        },
+        {
+          "month_of_year": 6,
+          "n": 960,
+          "MAE": 58.525,
+          "RMSE": 72.157,
+          "MAPE": 2.0758,
+          "sMAPE": 2.1043
+        },
+        {
+          "month_of_year": 1,
+          "n": 992,
+          "MAE": 53.808,
+          "RMSE": 68.046,
+          "MAPE": 2.1252,
+          "sMAPE": 2.0965
+        },
+        {
+          "month_of_year": 12,
+          "n": 768,
+          "MAE": 51.604,
+          "RMSE": 62.455,
+          "MAPE": 1.8326,
+          "sMAPE": 1.8378
+        },
+        {
+          "month_of_year": 11,
+          "n": 960,
+          "MAE": 44.696,
+          "RMSE": 55.889,
+          "MAPE": 1.5897,
+          "sMAPE": 1.5906
+        },
+        {
+          "month_of_year": 8,
+          "n": 992,
+          "MAE": 43.878,
+          "RMSE": 53.718,
+          "MAPE": 1.5739,
+          "sMAPE": 1.5758
+        },
+        {
+          "month_of_year": 10,
+          "n": 992,
+          "MAE": 41.267,
+          "RMSE": 52.144,
+          "MAPE": 1.4901,
+          "sMAPE": 1.4904
+        },
+        {
+          "month_of_year": 7,
+          "n": 992,
+          "MAE": 39.081,
+          "RMSE": 50.5,
+          "MAPE": 1.391,
+          "sMAPE": 1.3876
+        },
+        {
+          "month_of_year": 9,
+          "n": 960,
+          "MAE": 38.224,
+          "RMSE": 48.835,
+          "MAPE": 1.3652,
+          "sMAPE": 1.3629
+        }
+      ]
+    }
+  },
+  "drift_7d": {
+    "1d": {
+      "overall": [
+        {
+          "n": 11648,
+          "MAE": 19.047,
+          "RMSE": 25.589,
+          "MAPE": 0.7119,
+          "sMAPE": 0.7124
+        }
+      ],
+      "by_mandi": [
+        {
+          "mandi": "Jaipur",
+          "n": 1456,
+          "MAE": 20.227,
+          "RMSE": 26.805,
+          "MAPE": 0.7379,
+          "sMAPE": 0.7384
+        },
+        {
+          "mandi": "Sri Ganganagar",
+          "n": 1456,
+          "MAE": 19.947,
+          "RMSE": 26.731,
+          "MAPE": 0.7295,
+          "sMAPE": 0.73
+        },
+        {
+          "mandi": "Hanumangarh",
+          "n": 1456,
+          "MAE": 19.314,
+          "RMSE": 25.86,
+          "MAPE": 0.7171,
+          "sMAPE": 0.7177
+        },
+        {
+          "mandi": "Kota",
+          "n": 1456,
+          "MAE": 18.927,
+          "RMSE": 25.357,
+          "MAPE": 0.7026,
+          "sMAPE": 0.7031
+        },
+        {
+          "mandi": "Alwar",
+          "n": 1456,
+          "MAE": 18.767,
+          "RMSE": 25.444,
+          "MAPE": 0.7032,
+          "sMAPE": 0.7037
+        },
+        {
+          "mandi": "Bharatpur",
+          "n": 1456,
+          "MAE": 18.714,
+          "RMSE": 25.315,
+          "MAPE": 0.7062,
+          "sMAPE": 0.7068
+        },
+        {
+          "mandi": "Bundi",
+          "n": 1456,
+          "MAE": 18.528,
+          "RMSE": 24.872,
+          "MAPE": 0.7062,
+          "sMAPE": 0.7068
+        },
+        {
+          "mandi": "Sikar",
+          "n": 1456,
+          "MAE": 17.955,
+          "RMSE": 24.222,
+          "MAPE": 0.6923,
+          "sMAPE": 0.6928
+        }
+      ],
+      "by_variety": [
+        {
+          "variety": "Sharbati",
+          "n": 2912,
+          "MAE": 22.143,
+          "RMSE": 29.237,
+          "MAPE": 0.7423,
+          "sMAPE": 0.743
+        },
+        {
+          "variety": "Lokwan",
+          "n": 2912,
+          "MAE": 20.5,
+          "RMSE": 27.363,
+          "MAPE": 0.745,
+          "sMAPE": 0.7456
+        },
+        {
+          "variety": "Dara",
+          "n": 2912,
+          "MAE": 17.755,
+          "RMSE": 23.514,
+          "MAPE": 0.7083,
+          "sMAPE": 0.7089
+        },
+        {
+          "variety": "Mill Quality",
+          "n": 2912,
+          "MAE": 15.791,
+          "RMSE": 21.512,
+          "MAPE": 0.6518,
+          "sMAPE": 0.6522
+        }
+      ],
+      "by_grade": [
+        {
+          "grade": "Good",
+          "n": 2912,
+          "MAE": 22.143,
+          "RMSE": 29.237,
+          "MAPE": 0.7423,
+          "sMAPE": 0.743
+        },
+        {
+          "grade": "FAQ",
+          "n": 2912,
+          "MAE": 20.5,
+          "RMSE": 27.363,
+          "MAPE": 0.745,
+          "sMAPE": 0.7456
+        },
+        {
+          "grade": "Average",
+          "n": 5824,
+          "MAE": 16.773,
+          "RMSE": 22.535,
+          "MAPE": 0.68,
+          "sMAPE": 0.6805
+        }
+      ],
+      "by_month_of_year": [
+        {
+          "month_of_year": 9,
+          "n": 960,
+          "MAE": 21.41,
+          "RMSE": 25.942,
+          "MAPE": 0.7633,
+          "sMAPE": 0.7632
+        },
+        {
+          "month_of_year": 8,
+          "n": 992,
+          "MAE": 21.009,
+          "RMSE": 27.217,
+          "MAPE": 0.754,
+          "sMAPE": 0.7536
+        },
+        {
+          "month_of_year": 11,
+          "n": 960,
+          "MAE": 20.397,
+          "RMSE": 25.199,
+          "MAPE": 0.7279,
+          "sMAPE": 0.7279
+        },
+        {
+          "month_of_year": 6,
+          "n": 960,
+          "MAE": 20.281,
+          "RMSE": 25.496,
+          "MAPE": 0.7281,
+          "sMAPE": 0.7277
+        },
+        {
+          "month_of_year": 10,
+          "n": 992,
+          "MAE": 18.876,
+          "RMSE": 23.829,
+          "MAPE": 0.6759,
+          "sMAPE": 0.6757
+        },
+        {
+          "month_of_year": 12,
+          "n": 960,
+          "MAE": 18.676,
+          "RMSE": 23.627,
+          "MAPE": 0.6659,
+          "sMAPE": 0.6659
+        },
+        {
+          "month_of_year": 5,
+          "n": 992,
+          "MAE": 18.431,
+          "RMSE": 22.893,
+          "MAPE": 0.689,
+          "sMAPE": 0.689
+        },
+        {
+          "month_of_year": 4,
+          "n": 960,
+          "MAE": 18.391,
+          "RMSE": 24.371,
+          "MAPE": 0.7327,
+          "sMAPE": 0.7309
+        },
+        {
+          "month_of_year": 2,
+          "n": 896,
+          "MAE": 18.327,
+          "RMSE": 23.767,
+          "MAPE": 0.7484,
+          "sMAPE": 0.7486
+        },
+        {
+          "month_of_year": 7,
+          "n": 992,
+          "MAE": 18.01,
+          "RMSE": 22.502,
+          "MAPE": 0.6466,
+          "sMAPE": 0.6464
+        },
+        {
+          "month_of_year": 3,
+          "n": 992,
+          "MAE": 17.44,
+          "RMSE": 36.7,
+          "MAPE": 0.7369,
+          "sMAPE": 0.7462
+        },
+        {
+          "month_of_year": 1,
+          "n": 992,
+          "MAE": 17.376,
+          "RMSE": 21.968,
+          "MAPE": 0.6793,
+          "sMAPE": 0.6793
+        }
+      ]
+    },
+    "3d": {
+      "overall": [
+        {
+          "n": 11584,
+          "MAE": 32.422,
+          "RMSE": 43.697,
+          "MAPE": 1.2155,
+          "sMAPE": 1.2168
+        }
+      ],
+      "by_mandi": [
+        {
+          "mandi": "Sri Ganganagar",
+          "n": 1448,
+          "MAE": 34.612,
+          "RMSE": 46.14,
+          "MAPE": 1.2659,
+          "sMAPE": 1.2669
+        },
+        {
+          "mandi": "Jaipur",
+          "n": 1448,
+          "MAE": 34.508,
+          "RMSE": 45.615,
+          "MAPE": 1.2659,
+          "sMAPE": 1.2671
+        },
+        {
+          "mandi": "Bharatpur",
+          "n": 1448,
+          "MAE": 32.102,
+          "RMSE": 43.019,
+          "MAPE": 1.2129,
+          "sMAPE": 1.2144
+        },
+        {
+          "mandi": "Alwar",
+          "n": 1448,
+          "MAE": 31.998,
+          "RMSE": 43.417,
+          "MAPE": 1.2008,
+          "sMAPE": 1.2023
+        },
+        {
+          "mandi": "Bundi",
+          "n": 1448,
+          "MAE": 31.904,
+          "RMSE": 43.358,
+          "MAPE": 1.2195,
+          "sMAPE": 1.2212
+        },
+        {
+          "mandi": "Hanumangarh",
+          "n": 1448,
+          "MAE": 31.599,
+          "RMSE": 42.608,
+          "MAPE": 1.1794,
+          "sMAPE": 1.1805
+        },
+        {
+          "mandi": "Kota",
+          "n": 1448,
+          "MAE": 31.56,
+          "RMSE": 43.04,
+          "MAPE": 1.1744,
+          "sMAPE": 1.1759
+        },
+        {
+          "mandi": "Sikar",
+          "n": 1448,
+          "MAE": 31.091,
+          "RMSE": 42.214,
+          "MAPE": 1.2048,
+          "sMAPE": 1.2063
+        }
+      ],
+      "by_variety": [
+        {
+          "variety": "Sharbati",
+          "n": 2896,
+          "MAE": 38.15,
+          "RMSE": 50.806,
+          "MAPE": 1.282,
+          "sMAPE": 1.2835
+        },
+        {
+          "variety": "Lokwan",
+          "n": 2896,
+          "MAE": 35.125,
+          "RMSE": 46.938,
+          "MAPE": 1.2814,
+          "sMAPE": 1.2832
+        },
+        {
+          "variety": "Dara",
+          "n": 2896,
+          "MAE": 29.755,
+          "RMSE": 39.335,
+          "MAPE": 1.1932,
+          "sMAPE": 1.1941
+        },
+        {
+          "variety": "Mill Quality",
+          "n": 2896,
+          "MAE": 26.656,
+          "RMSE": 36.137,
+          "MAPE": 1.1053,
+          "sMAPE": 1.1065
+        }
+      ],
+      "by_grade": [
+        {
+          "grade": "Good",
+          "n": 2896,
+          "MAE": 38.15,
+          "RMSE": 50.806,
+          "MAPE": 1.282,
+          "sMAPE": 1.2835
+        },
+        {
+          "grade": "FAQ",
+          "n": 2896,
+          "MAE": 35.125,
+          "RMSE": 46.938,
+          "MAPE": 1.2814,
+          "sMAPE": 1.2832
+        },
+        {
+          "grade": "Average",
+          "n": 5792,
+          "MAE": 28.206,
+          "RMSE": 37.77,
+          "MAPE": 1.1492,
+          "sMAPE": 1.1503
+        }
+      ],
+      "by_month_of_year": [
+        {
+          "month_of_year": 4,
+          "n": 960,
+          "MAE": 37.398,
+          "RMSE": 52.6,
+          "MAPE": 1.4952,
+          "sMAPE": 1.4813
+        },
+        {
+          "month_of_year": 3,
+          "n": 992,
+          "MAE": 36.256,
+          "RMSE": 65.374,
+          "MAPE": 1.5207,
+          "sMAPE": 1.5521
+        },
+        {
+          "month_of_year": 11,
+          "n": 960,
+          "MAE": 35.078,
+          "RMSE": 44.366,
+          "MAPE": 1.2464,
+          "sMAPE": 1.247
+        },
+        {
+          "month_of_year": 12,
+          "n": 896,
+          "MAE": 33.98,
+          "RMSE": 42.565,
+          "MAPE": 1.2063,
+          "sMAPE": 1.207
+        },
+        {
+          "month_of_year": 8,
+          "n": 992,
+          "MAE": 33.132,
+          "RMSE": 41.733,
+          "MAPE": 1.1862,
+          "sMAPE": 1.1857
+        },
+        {
+          "month_of_year": 6,
+          "n": 960,
+          "MAE": 32.657,
+          "RMSE": 40.86,
+          "MAPE": 1.1699,
+          "sMAPE": 1.1694
+        },
+        {
+          "month_of_year": 5,
+          "n": 992,
+          "MAE": 31.474,
+          "RMSE": 39.619,
+          "MAPE": 1.1675,
+          "sMAPE": 1.1664
+        },
+        {
+          "month_of_year": 10,
+          "n": 992,
+          "MAE": 30.712,
+          "RMSE": 37.772,
+          "MAPE": 1.0991,
+          "sMAPE": 1.0985
+        },
+        {
+          "month_of_year": 7,
+          "n": 992,
+          "MAE": 30.076,
+          "RMSE": 37.716,
+          "MAPE": 1.0808,
+          "sMAPE": 1.081
+        },
+        {
+          "month_of_year": 9,
+          "n": 960,
+          "MAE": 29.982,
+          "RMSE": 38.446,
+          "MAPE": 1.0682,
+          "sMAPE": 1.0682
+        },
+        {
+          "month_of_year": 2,
+          "n": 896,
+          "MAE": 29.755,
+          "RMSE": 37.934,
+          "MAPE": 1.2233,
+          "sMAPE": 1.2234
+        },
+        {
+          "month_of_year": 1,
+          "n": 992,
+          "MAE": 28.63,
+          "RMSE": 36.027,
+          "MAPE": 1.1257,
+          "sMAPE": 1.1249
+        }
+      ]
+    },
+    "7d": {
+      "overall": [
+        {
+          "n": 11456,
+          "MAE": 58.033,
+          "RMSE": 77.248,
+          "MAPE": 2.1825,
+          "sMAPE": 2.1835
+        }
+      ],
+      "by_mandi": [
+        {
+          "mandi": "Sri Ganganagar",
+          "n": 1432,
+          "MAE": 61.891,
+          "RMSE": 81.07,
+          "MAPE": 2.2691,
+          "sMAPE": 2.2693
+        },
+        {
+          "mandi": "Jaipur",
+          "n": 1432,
+          "MAE": 60.316,
+          "RMSE": 80.303,
+          "MAPE": 2.2247,
+          "sMAPE": 2.2242
+        },
+        {
+          "mandi": "Bundi",
+          "n": 1432,
+          "MAE": 58.546,
+          "RMSE": 78.11,
+          "MAPE": 2.2342,
+          "sMAPE": 2.2358
+        },
+        {
+          "mandi": "Alwar",
+          "n": 1432,
+          "MAE": 58.196,
+          "RMSE": 77.109,
+          "MAPE": 2.1884,
+          "sMAPE": 2.1914
+        },
+        {
+          "mandi": "Bharatpur",
+          "n": 1432,
+          "MAE": 57.953,
+          "RMSE": 77.392,
+          "MAPE": 2.1924,
+          "sMAPE": 2.1933
+        },
+        {
+          "mandi": "Kota",
+          "n": 1432,
+          "MAE": 56.387,
+          "RMSE": 74.975,
+          "MAPE": 2.1069,
+          "sMAPE": 2.1084
+        },
+        {
+          "mandi": "Hanumangarh",
+          "n": 1432,
+          "MAE": 55.796,
+          "RMSE": 74.648,
+          "MAPE": 2.0948,
+          "sMAPE": 2.0943
+        },
+        {
+          "mandi": "Sikar",
+          "n": 1432,
+          "MAE": 55.181,
+          "RMSE": 74.079,
+          "MAPE": 2.1498,
+          "sMAPE": 2.1509
+        }
+      ],
+      "by_variety": [
+        {
+          "variety": "Sharbati",
+          "n": 2864,
+          "MAE": 69.184,
+          "RMSE": 90.822,
+          "MAPE": 2.3277,
+          "sMAPE": 2.3295
+        },
+        {
+          "variety": "Lokwan",
+          "n": 2864,
+          "MAE": 61.954,
+          "RMSE": 82.768,
+          "MAPE": 2.2706,
+          "sMAPE": 2.2729
+        },
+        {
+          "variety": "Dara",
+          "n": 2864,
+          "MAE": 52.209,
+          "RMSE": 68.046,
+          "MAPE": 2.1015,
+          "sMAPE": 2.1013
+        },
+        {
+          "variety": "Mill Quality",
+          "n": 2864,
+          "MAE": 48.786,
+          "RMSE": 64.341,
+          "MAPE": 2.0303,
+          "sMAPE": 2.0301
+        }
+      ],
+      "by_grade": [
+        {
+          "grade": "Good",
+          "n": 2864,
+          "MAE": 69.184,
+          "RMSE": 90.822,
+          "MAPE": 2.3277,
+          "sMAPE": 2.3295
+        },
+        {
+          "grade": "FAQ",
+          "n": 2864,
+          "MAE": 61.954,
+          "RMSE": 82.768,
+          "MAPE": 2.2706,
+          "sMAPE": 2.2729
+        },
+        {
+          "grade": "Average",
+          "n": 5728,
+          "MAE": 50.498,
+          "RMSE": 66.219,
+          "MAPE": 2.0659,
+          "sMAPE": 2.0657
+        }
+      ],
+      "by_month_of_year": [
+        {
+          "month_of_year": 4,
+          "n": 960,
+          "MAE": 75.896,
+          "RMSE": 111.359,
+          "MAPE": 3.0212,
+          "sMAPE": 2.954
+        },
+        {
+          "month_of_year": 3,
+          "n": 992,
+          "MAE": 72.757,
+          "RMSE": 108.406,
+          "MAPE": 3.0385,
+          "sMAPE": 3.128
+        },
+        {
+          "month_of_year": 11,
+          "n": 960,
+          "MAE": 63.668,
+          "RMSE": 79.128,
+          "MAPE": 2.2571,
+          "sMAPE": 2.2571
+        },
+        {
+          "month_of_year": 6,
+          "n": 960,
+          "MAE": 57.1,
+          "RMSE": 70.434,
+          "MAPE": 2.0437,
+          "sMAPE": 2.0404
+        },
+        {
+          "month_of_year": 12,
+          "n": 768,
+          "MAE": 56.4,
+          "RMSE": 72.035,
+          "MAPE": 2.0012,
+          "sMAPE": 1.9994
+        },
+        {
+          "month_of_year": 8,
+          "n": 992,
+          "MAE": 55.544,
+          "RMSE": 68.617,
+          "MAPE": 1.9841,
+          "sMAPE": 1.9832
+        },
+        {
+          "month_of_year": 5,
+          "n": 992,
+          "MAE": 54.595,
+          "RMSE": 68.753,
+          "MAPE": 2.0116,
+          "sMAPE": 2.0064
+        },
+        {
+          "month_of_year": 10,
+          "n": 992,
+          "MAE": 53.889,
+          "RMSE": 66.836,
+          "MAPE": 1.9267,
+          "sMAPE": 1.9264
+        },
+        {
+          "month_of_year": 7,
+          "n": 992,
+          "MAE": 52.295,
+          "RMSE": 65.699,
+          "MAPE": 1.8802,
+          "sMAPE": 1.8812
+        },
+        {
+          "month_of_year": 2,
+          "n": 896,
+          "MAE": 52.158,
+          "RMSE": 66.255,
+          "MAPE": 2.1771,
+          "sMAPE": 2.1777
+        },
+        {
+          "month_of_year": 1,
+          "n": 992,
+          "MAE": 51.319,
+          "RMSE": 64.496,
+          "MAPE": 2.0267,
+          "sMAPE": 2.0219
+        },
+        {
+          "month_of_year": 9,
+          "n": 960,
+          "MAE": 50.319,
+          "RMSE": 63.801,
+          "MAPE": 1.7931,
+          "sMAPE": 1.7938
+        }
+      ]
+    }
+  }
+}

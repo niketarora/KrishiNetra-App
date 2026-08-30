@@ -1,0 +1,12 @@
+{
+  // Type-checking config for the test suite. The build config
+  // (tsconfig.json) deliberately excludes `*.test.ts` so a test-only type
+  // error cannot fail a production deploy — this config puts them back so
+  // `npm run typecheck` still checks them, without emitting anything.
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": true
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules", "dist"]
+}

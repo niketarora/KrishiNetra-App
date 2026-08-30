@@ -148,7 +148,10 @@
     "weatherObserved": "{{date}} পর্যবেক্ষণ করা হয়েছে",
     "marketObserved": "{{date}} নথিবদ্ধ",
     "visualAssistantTitle": "কৃষিনেত্রকে জিজ্ঞাসা করুন",
-    "visualAssistantSub": "ফসলের ছবি দেখিয়ে পরামর্শ নিন।"
+    "visualAssistantSub": "ফসলের ছবি দেখিয়ে পরামর্শ নিন।",
+    "soilMoisture": "Soil moisture",
+    "soilMoistureValue": "{{percent}}%",
+    "soilMoistureNote": "{{category}} · ML Model"
   },
   "field": {
     "title": "জমি বিশ্লেষণ",
@@ -160,7 +163,34 @@
     "areaLabel": "আপনার আঁকা সীমানা",
     "weatherObserved": "{{temp}}°সে · {{rain}} মিমি বৃষ্টিপাত",
     "weatherNone": "আপনার জেলার জন্য আবহাওয়ার তথ্য নেই",
-    "analysisNote": "ফসলের স্বাস্থ্য বিশ্লেষণের জন্য স্যাটেলাইট ডেটা প্রয়োজন, যা শীঘ্রই যুক্ত হচ্ছে।"
+    "analysisNote": "ফসলের স্বাস্থ্য বিশ্লেষণের জন্য স্যাটেলাইট ডেটা প্রয়োজন, যা শীঘ্রই যুক্ত হচ্ছে।",
+    "soilMoistureTitle": "Soil Moisture Prediction",
+    "soilMoistureSub": "Machine Learning inference from environmental and satellite indices",
+    "modelVersion": "Model {{version}}",
+    "experimentalBadge": "Experimental ML",
+    "categories": {
+      "dry": "Dry",
+      "moderate": "Moderate",
+      "good": "Optimal",
+      "wet": "Wet / Saturated"
+    },
+    "inputsTitle": "Inference Feature Parameters",
+    "inputsSubtitle": "Data points evaluated by the model",
+    "features": {
+      "ndvi": "NDVI (Vegetation)",
+      "savi": "SAVI (Soil Adjusted)",
+      "temp": "Temperature",
+      "humidity": "Humidity",
+      "rainfall": "Rainfall",
+      "soilPh": "Soil pH",
+      "organicMatter": "Organic Matter",
+      "lai": "Leaf Area Index",
+      "elevation": "Elevation",
+      "growthStage": "Growth Stage",
+      "cropType": "Crop Type"
+    },
+    "warningTitle": "Experimental Model Notice",
+    "warningBody": "Validation indicates baseline performance. Always cross-check with field moisture before irrigation decisions."
   },
   "market": {
     "title": "বাজার",

@@ -148,7 +148,10 @@
     "weatherObserved": "{{date}} को दर्ज",
     "marketObserved": "{{date}} को दर्ज",
     "visualAssistantTitle": "कृषिनेत्र से पूछें",
-    "visualAssistantSub": "अपनी फसल दिखाएँ और पूछें कि क्या हो रहा है।"
+    "visualAssistantSub": "अपनी फसल दिखाएँ और पूछें कि क्या हो रहा है।",
+    "soilMoisture": "Soil moisture",
+    "soilMoistureValue": "{{percent}}%",
+    "soilMoistureNote": "{{category}} · ML Model"
   },
   "field": {
     "title": "खेत की जाँच",
@@ -160,7 +163,34 @@
     "areaLabel": "आपने जो सीमा बनाई",
     "weatherObserved": "{{temp}}°C · {{rain}} मिमी वर्षा",
     "weatherNone": "आपके जिले का मौसम दर्ज नहीं है",
-    "analysisNote": "फसल की सेहत और अवस्था के लिए सैटेलाइट विश्लेषण चाहिए, जो अभी जुड़ा नहीं है।"
+    "analysisNote": "फसल की सेहत और अवस्था के लिए सैटेलाइट विश्लेषण चाहिए, जो अभी जुड़ा नहीं है।",
+    "soilMoistureTitle": "Soil Moisture Prediction",
+    "soilMoistureSub": "Machine Learning inference from environmental and satellite indices",
+    "modelVersion": "Model {{version}}",
+    "experimentalBadge": "Experimental ML",
+    "categories": {
+      "dry": "Dry",
+      "moderate": "Moderate",
+      "good": "Optimal",
+      "wet": "Wet / Saturated"
+    },
+    "inputsTitle": "Inference Feature Parameters",
+    "inputsSubtitle": "Data points evaluated by the model",
+    "features": {
+      "ndvi": "NDVI (Vegetation)",
+      "savi": "SAVI (Soil Adjusted)",
+      "temp": "Temperature",
+      "humidity": "Humidity",
+      "rainfall": "Rainfall",
+      "soilPh": "Soil pH",
+      "organicMatter": "Organic Matter",
+      "lai": "Leaf Area Index",
+      "elevation": "Elevation",
+      "growthStage": "Growth Stage",
+      "cropType": "Crop Type"
+    },
+    "warningTitle": "Experimental Model Notice",
+    "warningBody": "Validation indicates baseline performance. Always cross-check with field moisture before irrigation decisions."
   },
   "market": {
     "title": "बाज़ार",

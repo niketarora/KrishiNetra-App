@@ -148,7 +148,10 @@
     "weatherObserved": "{{date}} ರಂದು ದಾಖಲಿಸಲಾಗಿದೆ",
     "marketObserved": "{{date}} ರಂದು ದಾಖಲಿಸಲಾಗಿದೆ",
     "visualAssistantTitle": "ಕೃಷಿನೇತ್ರಕ್ಕೆ ಕೇಳಿ",
-    "visualAssistantSub": "ಬೆಳೆಯ ಫೋಟೋ ತೆಗೆದು ಸಲಹೆ ಪಡೆಯಿರಿ."
+    "visualAssistantSub": "ಬೆಳೆಯ ಫೋಟೋ ತೆಗೆದು ಸಲಹೆ ಪಡೆಯಿರಿ.",
+    "soilMoisture": "Soil moisture",
+    "soilMoistureValue": "{{percent}}%",
+    "soilMoistureNote": "{{category}} · ML Model"
   },
   "field": {
     "title": "ಜಮೀನಿನ ವಿಶ್ಲೇಷಣೆ",
@@ -160,7 +163,34 @@
     "areaLabel": "ನೀವು ಗುರುತಿಸಿದ ಗಡಿ",
     "weatherObserved": "{{temp}}°C · {{rain}} ಮಿಮೀ ಮಳೆ",
     "weatherNone": "ನಿಮ್ಮ ಜಿಲ್ಲೆಗೆ ಹವಾಮಾನ ಮಾಹಿತಿ ಇಲ್ಲ",
-    "analysisNote": "ಬೆಳೆ ಆರೋಗ್ಯಕ್ಕೆ ಉಪಗ್ರಹ ಡೇಟಾ ಅಗತ್ಯವಿದೆ."
+    "analysisNote": "ಬೆಳೆ ಆರೋಗ್ಯಕ್ಕೆ ಉಪಗ್ರಹ ಡೇಟಾ ಅಗತ್ಯವಿದೆ.",
+    "soilMoistureTitle": "Soil Moisture Prediction",
+    "soilMoistureSub": "Machine Learning inference from environmental and satellite indices",
+    "modelVersion": "Model {{version}}",
+    "experimentalBadge": "Experimental ML",
+    "categories": {
+      "dry": "Dry",
+      "moderate": "Moderate",
+      "good": "Optimal",
+      "wet": "Wet / Saturated"
+    },
+    "inputsTitle": "Inference Feature Parameters",
+    "inputsSubtitle": "Data points evaluated by the model",
+    "features": {
+      "ndvi": "NDVI (Vegetation)",
+      "savi": "SAVI (Soil Adjusted)",
+      "temp": "Temperature",
+      "humidity": "Humidity",
+      "rainfall": "Rainfall",
+      "soilPh": "Soil pH",
+      "organicMatter": "Organic Matter",
+      "lai": "Leaf Area Index",
+      "elevation": "Elevation",
+      "growthStage": "Growth Stage",
+      "cropType": "Crop Type"
+    },
+    "warningTitle": "Experimental Model Notice",
+    "warningBody": "Validation indicates baseline performance. Always cross-check with field moisture before irrigation decisions."
   },
   "market": {
     "title": "ಮಾರುಕಟ್ಟೆ",

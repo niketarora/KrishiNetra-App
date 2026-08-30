@@ -20,7 +20,6 @@ import {
 } from '@/components/ui';
 import { useAuth } from '@/features/auth/AuthContext';
 import { useAvatar } from '@/features/avatar/AvatarContext';
-import { isDemoMode, SAMPLE } from '@/features/demo/demoMode';
 import { useFarm } from '@/features/farm/FarmContext';
 import type { CurrentCrop } from '@/services/agronomy';
 import { colors, layout, radius } from '@/theme';
@@ -97,7 +96,7 @@ export function HomeScreen({
   const { profile } = useAuth();
   const { farm, lands, selectedLandId, selectLand, loading, errorKey, refresh } = useFarm();
   const { open: openAvatar } = useAvatar();
-  const { crop, msp, weather, price, refresh: refreshInsights } = useHomeInsights(farm?.id ?? null);
+  const { crop, msp, weather, price, soilMoisture, refresh: refreshInsights } = useHomeInsights(farm?.id ?? null);
 
   const [refreshing, setRefreshing] = useState(false);
 
@@ -107,7 +106,6 @@ export function HomeScreen({
     setRefreshing(false);
   };
 
-  const demo = isDemoMode();
   const name = firstName(profile?.full_name, profile?.email, profile?.phone);
   const boundaryPoints = farm ? fromGeoJSON(farm.boundary) : [];
 
@@ -263,13 +261,21 @@ export function HomeScreen({
 
           <View style={styles.grid}>
             <StatusCard
-              icon="plant"
-              label={t('home.growthStage')}
-              value={demo ? t(SAMPLE.growthStage.valueKey) : t('common.notAvailable')}
-              note={demo ? t('demo.badge') : t('common.comingSoon')}
-              muted={!demo}
-              sample={demo}
-              testID="growth-card"
+              icon="droplet"
+              label={t('home.soilMoisture')}
+              value={
+                soilMoisture?.prediction
+                  ? `${soilMoisture.prediction.soil_moisture_percent}%`
+                  : t('common.notAvailable')
+              }
+              note={
+                soilMoisture?.prediction
+                  ? `${t(`field.categories.${soilMoisture.prediction.category}`, { defaultValue: soilMoisture.prediction.category })} · ML`
+                  : t('common.comingSoon')
+              }
+              muted={!soilMoisture?.prediction}
+              onPress={onOpenAnalysis}
+              testID="moisture-card"
             />
             <StatusCard
               icon="sun"

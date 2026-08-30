@@ -148,7 +148,10 @@
     "weatherObserved": "{{date}} அன்று பதிவானது",
     "marketObserved": "{{date}} அன்று பதிவானது",
     "visualAssistantTitle": "கிருஷிநேத்ராவிடம் கேளுங்கள்",
-    "visualAssistantSub": "பயிரைப் புகைப்படம் எடுத்து ஆலோசனை பெறுங்கள்."
+    "visualAssistantSub": "பயிரைப் புகைப்படம் எடுத்து ஆலோசனை பெறுங்கள்.",
+    "soilMoisture": "Soil moisture",
+    "soilMoistureValue": "{{percent}}%",
+    "soilMoistureNote": "{{category}} · ML Model"
   },
   "field": {
     "title": "நில பகுப்பாய்வு",
@@ -160,7 +163,34 @@
     "areaLabel": "நீங்கள் வரைந்த எல்லை",
     "weatherObserved": "{{temp}}°C · {{rain}} மிமீ மழை",
     "weatherNone": "உங்கள் மாவட்டத்திற்கு வானிலை பதிவு இல்லை",
-    "analysisNote": "பயிர் நலம் அறிய செயற்கைக்கோள் பகுப்பாய்வு தேவை."
+    "analysisNote": "பயிர் நலம் அறிய செயற்கைக்கோள் பகுப்பாய்வு தேவை.",
+    "soilMoistureTitle": "Soil Moisture Prediction",
+    "soilMoistureSub": "Machine Learning inference from environmental and satellite indices",
+    "modelVersion": "Model {{version}}",
+    "experimentalBadge": "Experimental ML",
+    "categories": {
+      "dry": "Dry",
+      "moderate": "Moderate",
+      "good": "Optimal",
+      "wet": "Wet / Saturated"
+    },
+    "inputsTitle": "Inference Feature Parameters",
+    "inputsSubtitle": "Data points evaluated by the model",
+    "features": {
+      "ndvi": "NDVI (Vegetation)",
+      "savi": "SAVI (Soil Adjusted)",
+      "temp": "Temperature",
+      "humidity": "Humidity",
+      "rainfall": "Rainfall",
+      "soilPh": "Soil pH",
+      "organicMatter": "Organic Matter",
+      "lai": "Leaf Area Index",
+      "elevation": "Elevation",
+      "growthStage": "Growth Stage",
+      "cropType": "Crop Type"
+    },
+    "warningTitle": "Experimental Model Notice",
+    "warningBody": "Validation indicates baseline performance. Always cross-check with field moisture before irrigation decisions."
   },
   "market": {
     "title": "சந்தை",

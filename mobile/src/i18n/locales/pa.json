@@ -148,7 +148,10 @@
     "weatherObserved": "{{date}} ਨੂੰ ਦਰਜ ਹੋਇਆ",
     "marketObserved": "{{date}} ਨੂੰ ਦਰਜ ਹੋਇਆ",
     "visualAssistantTitle": "ਕ੍ਰਿਸ਼ੀਨੇਤਰ ਨੂੰ ਪੁੱਛੋ",
-    "visualAssistantSub": "ਫ਼ਸਲ ਦੀ ਫੋਟੋ ਖਿੱਚ ਕੇ ਸਲਾਹ ਲਓ।"
+    "visualAssistantSub": "ਫ਼ਸਲ ਦੀ ਫੋਟੋ ਖਿੱਚ ਕੇ ਸਲਾਹ ਲਓ।",
+    "soilMoisture": "Soil moisture",
+    "soilMoistureValue": "{{percent}}%",
+    "soilMoistureNote": "{{category}} · ML Model"
   },
   "field": {
     "title": "ਖੇਤ ਵਿਸ਼ਲੇਸ਼ਣ",
@@ -160,7 +163,34 @@
     "areaLabel": "ਤੁਹਾਡੀ ਬਣਾਈ ਗਈ ਹੱਦ",
     "weatherObserved": "{{temp}}°C · {{rain}} ਮਿਮੀ ਮੀਂਹ",
     "weatherNone": "ਤੁਹਾਡੇ ਜ਼ਿਲ੍ਹੇ ਦਾ ਮੌਸਮ ਰਿਕਾਰਡ ਨਹੀਂ ਹੈ",
-    "analysisNote": "ਫ਼ਸਲ ਦੀ ਸਿਹਤ ਲਈ ਸੈਟੇਲਾਈਟ ਡਾਟਾ ਲੋੜੀਂਦਾ ਹੈ।"
+    "analysisNote": "ਫ਼ਸਲ ਦੀ ਸਿਹਤ ਲਈ ਸੈਟੇਲਾਈਟ ਡਾਟਾ ਲੋੜੀਂਦਾ ਹੈ।",
+    "soilMoistureTitle": "Soil Moisture Prediction",
+    "soilMoistureSub": "Machine Learning inference from environmental and satellite indices",
+    "modelVersion": "Model {{version}}",
+    "experimentalBadge": "Experimental ML",
+    "categories": {
+      "dry": "Dry",
+      "moderate": "Moderate",
+      "good": "Optimal",
+      "wet": "Wet / Saturated"
+    },
+    "inputsTitle": "Inference Feature Parameters",
+    "inputsSubtitle": "Data points evaluated by the model",
+    "features": {
+      "ndvi": "NDVI (Vegetation)",
+      "savi": "SAVI (Soil Adjusted)",
+      "temp": "Temperature",
+      "humidity": "Humidity",
+      "rainfall": "Rainfall",
+      "soilPh": "Soil pH",
+      "organicMatter": "Organic Matter",
+      "lai": "Leaf Area Index",
+      "elevation": "Elevation",
+      "growthStage": "Growth Stage",
+      "cropType": "Crop Type"
+    },
+    "warningTitle": "Experimental Model Notice",
+    "warningBody": "Validation indicates baseline performance. Always cross-check with field moisture before irrigation decisions."
   },
   "market": {
     "title": "ਮੰਡੀ",
