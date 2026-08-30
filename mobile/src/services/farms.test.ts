@@ -64,6 +64,33 @@ describe('listFarms', () => {
   });
 });
 
+describe('listFarms', () => {
+  it('asks the API for every field, not just the newest', async () => {
+    mockedFetch.mockResolvedValue([savedFarm] as never);
+
+    await listFarms();
+
+    expect(mockedFetch).toHaveBeenCalledWith('/api/v1/farms', expect.objectContaining({ fallbackKey: 'home.loadError' }));
+  });
+
+  it('returns every field the farmer has registered', async () => {
+    const second = { ...savedFarm, id: 'farm-2', name: 'South field' };
+    mockedFetch.mockResolvedValue([savedFarm, second] as never);
+
+    const farms = await listFarms();
+
+    expect(farms.map((f) => f.id)).toEqual(['farm-1', 'farm-2']);
+  });
+
+  it('coerces numeric fields the same way getCurrentFarm does', async () => {
+    mockedFetch.mockResolvedValue([{ ...savedFarm, area_acres: '2.7205' }] as never);
+
+    const [farm] = await listFarms();
+
+    expect(typeof farm?.area_acres).toBe('number');
+  });
+});
+
 describe('createFarm', () => {
   it('posts the drawn boundary with its measurements', async () => {
     mockedFetch.mockResolvedValue(savedFarm as never);

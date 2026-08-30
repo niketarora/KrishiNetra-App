@@ -37,13 +37,17 @@ function normalise(farm: Farm): Farm {
 }
 
 /**
- * List all fields for the authenticated farmer, ordered newest first.
+ * Every field the farmer has registered, newest first.
+ *
+ * `getCurrentFarm` above stays `limit=1` for every screen that only ever
+ * concerns itself with "the" farm (Home, Field, Market — the app has no
+ * global active-farm switcher). Krishi Updates is the first surface that
+ * genuinely needs to know about more than one field, so it calls this
+ * instead rather than the whole app growing a multi-farm concept it does not
+ * need yet.
  */
 export async function listFarms(): Promise<Farm[]> {
-  const farms = await apiFetch<Farm[]>('/api/v1/farms', {
-    fallbackKey: 'home.loadError',
-  });
-
+  const farms = await apiFetch<Farm[]>('/api/v1/farms', { fallbackKey: 'home.loadError' });
   return farms.map(normalise);
 }
 
@@ -111,4 +115,3 @@ export async function deleteFarm(farmId: string): Promise<void> {
     fallbackKey: 'home.loadError',
   });
 }
-
