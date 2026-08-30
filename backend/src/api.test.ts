@@ -60,6 +60,7 @@ function builderFor(table: string) {
 }
 
 const getUser = jest.fn<() => Promise<{ data: unknown; error: unknown }>>();
+const predictSoilMoisture = jest.fn<any>();
 
 jest.unstable_mockModule('./config/supabase.js', () => ({
   authClient: () => ({ auth: { getUser } }),
@@ -78,6 +79,10 @@ jest.unstable_mockModule('./ingestion/weather/weatherSource.js', () => ({
   }),
   weatherSourceLabel: () => 'Open-Meteo ERA5 archive',
   WeatherSourceError: class extends Error {},
+}));
+
+jest.unstable_mockModule('./services/soilMoisturePrediction.service.js', () => ({
+  predictSoilMoisture,
 }));
 
 const { createApp } = await import('./app.js');
@@ -123,6 +128,7 @@ function signedIn(): void {
 beforeEach(() => {
   for (const key of Object.keys(queue)) delete queue[key];
   writes.length = 0;
+  predictSoilMoisture.mockReset();
   signedIn();
 });
 
@@ -435,6 +441,65 @@ describe('reference data', () => {
 
     expect(res.status).toBe(200);
     expect(res.body.data[0].code).toBe('RJ-ALWAR');
+  });
+});
+
+describe('POST /api/v1/predictions/soil-moisture', () => {
+  const body = {
+    ndvi: 0.55,
+    savi: 0.4,
+    temperature_c: 28,
+    humidity_percent: 65,
+    rainfall: 18,
+    wind_speed: 3,
+    soil_ph: 6.5,
+    organic_matter: 2,
+    leaf_area_index: 1.8,
+    water_flow: 20,
+    elevation: 550,
+    spatial_resolution: 10,
+    crop_growth_stage: 2,
+    crop_type: 'WHEAT',
+  };
+
+  it('returns the experimental prediction without inventing a recommendation', async () => {
+    predictSoilMoisture.mockResolvedValue({
+      soil_moisture_percent: 20.04,
+      category: 'dry',
+      model_version: 'test-experimental-v1',
+      production_ready: false,
+      experimental: true,
+      recommendation: null,
+      warning: 'Experimental baseline only.',
+    });
+
+    const res = await request(app)
+      .post('/api/v1/predictions/soil-moisture')
+      .set(AUTH)
+      .send(body);
+
+    expect(res.status).toBe(200);
+    expect(res.body.data.recommendation).toBeNull();
+    expect(res.body.data.experimental).toBe(true);
+    expect(predictSoilMoisture).toHaveBeenCalledWith({ ...body, crop_type: 'wheat' });
+  });
+
+  it('requires authentication', async () => {
+    const res = await request(app).post('/api/v1/predictions/soil-moisture').send(body);
+
+    expect(res.status).toBe(401);
+    expect(predictSoilMoisture).not.toHaveBeenCalled();
+  });
+
+  it('rejects missing, out-of-range, and extra features before inference', async () => {
+    const res = await request(app)
+      .post('/api/v1/predictions/soil-moisture')
+      .set(AUTH)
+      .send({ ...body, ndvi: 4, unexpected: true });
+
+    expect(res.status).toBe(400);
+    expect(res.body.error.code).toBe('INVALID_REQUEST');
+    expect(predictSoilMoisture).not.toHaveBeenCalled();
   });
 });
 

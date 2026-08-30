@@ -200,12 +200,32 @@ Everything is under `/api/v1` and requires a bearer token, except `/health`.
 | `GET` | `/api/v1/weather` | `?farmId=` — 503 when the district or observation is missing |
 | `POST` | `/api/v1/ai/transcribe` | multipart `audio` — speech to text |
 | `POST` | `/api/v1/ai/chat` | The avatar's reply |
+| `POST` | `/api/v1/ai/speak` | The avatar's text-to-speech audio |
+| `POST` | `/api/v1/predictions/soil-moisture` | Experimental XGBoost soil-moisture baseline |
+
+## Experimental soil-moisture model
+
+The delivered model runs as the independent FastAPI service in `../ml`; the
+mobile app never calls it directly. Start that service on port 8000 and set:
+
+```env
+ML_SERVICE_URL=http://localhost:8000
+ML_SERVICE_API_KEY=<same random secret as ml/.env>
+```
+
+The authenticated backend endpoint accepts the exact 14-feature contract from
+the model's FastAPI route and returns its validated response. This particular
+artifact is an experimental reduced-feature baseline: its metadata says it is
+not production-ready and did not beat the median baseline. Consequently, the
+backend preserves `experimental: true`, `production_ready: false`, the model's
+warning, and `recommendation: null`. It must not be used for irrigation advice.
 
 There is no farm delete endpoint: no screen asks for one.
 
-The prefixes TRD §14 reserves for later phases — `/buyers`, `/lots`, `/offers`,
-`/predictions`, `/recommendations`, `/ai` — are deliberately **not** mounted.
-They 404 rather than returning an empty stub.
+The remaining prefixes TRD §14 reserves for later phases — `/buyers`, `/lots`,
+`/offers` and `/recommendations` — are deliberately **not** mounted. They 404
+rather than returning an empty stub. Predictions currently expose only the
+experimental soil-moisture route documented above.
 
 ## Data that may not be connected
 

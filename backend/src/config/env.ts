@@ -48,8 +48,11 @@ const envSchema = z.object({
   SARVAM_TTS_MODEL: z.string().default('bulbul:v2'),
   SARVAM_TTS_SPEAKER: z.string().default('abhilash'),
 
-  // Phase 3. Declared so the shape is known; unused for now.
+  // --- Phase 3 ML service ---------------------------------------------------
+  // Optional so the rest of the API can run independently. Prediction routes
+  // return SERVICE_NOT_CONNECTED until the Python service is configured.
   ML_SERVICE_URL: z.string().url().optional(),
+  ML_SERVICE_API_KEY: z.string().min(1).optional(),
 });
 
 export type Env = z.infer<typeof envSchema> & { corsOrigins: string[] };
