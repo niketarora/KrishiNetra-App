@@ -3,12 +3,14 @@ import { fireEvent, screen, waitFor } from '@testing-library/react-native';
 import type { Farm } from '@/services/farms';
 import { makeFarm, renderWithProviders } from '@/test-utils';
 
+import { toIsoDate } from '@/utils/calendar';
+
 import { CalendarScreen } from './CalendarScreen';
 
 function isoOffset(days: number): string {
   const date = new Date();
   date.setDate(date.getDate() + days);
-  return date.toISOString().slice(0, 10);
+  return toIsoDate(date);
 }
 
 const mockDemo = { enabled: false };

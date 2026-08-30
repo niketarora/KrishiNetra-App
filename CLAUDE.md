@@ -57,8 +57,7 @@ npm commands.
     primitives: `Button`, `Card`, `Input`, `Badge`, `Banner`, `Skeleton`,
     `StatusCard`, `Text`, `Icon`, …, re-exported from
     [components/ui/index.ts](mobile/src/components/ui/index.ts)),
-    `farm/` (map/boundary widgets), `avatar/` (avatar UI incl. `avatar3d/`
-    and `animation/` subfolders).
+    `farm/` (map/boundary widgets), `avatar/` (avatar stage with photo, overlay, FAB, waveform).
   - `navigation/` — see **Navigation Structure** below.
   - `services/` — the only layer allowed to talk to Supabase or the
     backend API: `supabase.ts` (the single Supabase client),
