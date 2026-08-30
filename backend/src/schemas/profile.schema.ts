@@ -55,6 +55,8 @@ export const updateProfileSchema = z
     in_app_alerts: z.boolean().optional(),
     sms_alerts: z.boolean().optional(),
     voice_alerts: z.boolean().optional(),
+    location_state: z.string().trim().max(100).nullish(),
+    location_district: z.string().trim().max(100).nullish(),
   })
   .strict()
   // Only rewrite `email` when the client actually sent it as ''. Spreading it

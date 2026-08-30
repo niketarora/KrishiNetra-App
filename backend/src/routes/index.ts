@@ -6,6 +6,7 @@ import * as farmCropsController from '../controllers/farmCrops.controller.js';
 import * as farmersController from '../controllers/farmers.controller.js';
 import * as farmsController from '../controllers/farms.controller.js';
 import * as referenceController from '../controllers/reference.controller.js';
+import * as schemesController from '../controllers/schemes.controller.js';
 import { requireAuth } from '../middleware/requireAuth.js';
 import { validate } from '../middleware/validate.js';
 import {
@@ -27,6 +28,10 @@ import {
   mspQuerySchema,
   weatherQuerySchema,
 } from '../schemas/query.schema.js';
+import {
+  schemeRowIdParamSchema,
+  schemesQuerySchema,
+} from '../schemas/scheme.schema.js';
 
 /**
  * Everything here sits behind requireAuth. `/health` is mounted separately in
@@ -53,6 +58,11 @@ apiRouter.patch(
   validate('params', farmIdParamSchema),
   validate('body', updateFarmSchema),
   farmsController.update,
+);
+apiRouter.delete(
+  '/farms/:id',
+  validate('params', farmIdParamSchema),
+  farmsController.remove,
 );
 
 // --- Crops on a farm --------------------------------------------------------
@@ -84,6 +94,15 @@ apiRouter.get(
   referenceController.marketPrices,
 );
 apiRouter.get('/weather', validate('query', weatherQuerySchema), referenceController.weather);
+
+// --- Government schemes -----------------------------------------------------
+apiRouter.get('/schemes/states', schemesController.getStates);
+apiRouter.get('/schemes', validate('query', schemesQuerySchema), schemesController.list);
+apiRouter.get(
+  '/schemes/:rowId',
+  validate('params', schemeRowIdParamSchema),
+  schemesController.getDetail,
+);
 
 // --- AI avatar --------------------------------------------------------------
 // Audio arrives as multipart, so this route parses its own body. Everything

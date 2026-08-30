@@ -95,7 +95,7 @@ export function HomeScreen({
 }: Props) {
   const { t, i18n } = useTranslation();
   const { profile } = useAuth();
-  const { farm, loading, errorKey, refresh } = useFarm();
+  const { farm, lands, selectedLandId, selectLand, loading, errorKey, refresh } = useFarm();
   const { open: openAvatar } = useAvatar();
   const { crop, msp, weather, price, refresh: refreshInsights } = useHomeInsights(farm?.id ?? null);
 
@@ -167,33 +167,67 @@ export function HomeScreen({
               </View>
             </View>
           ) : farm ? (
-            // The farm-context card is the single most important thing on
-            // Home, so it gets the soft agricultural-green surface reserved
-            // for "important context" rather than the plain white every
-            // other card uses — same data and same action as before.
-            <Card onPress={onEditBoundary} tone="success" style={styles.fieldCard} testID="field-card">
-              <View style={styles.fieldThumbnail}>
-                <BoundaryThumbnail points={boundaryPoints} size={64} />
-              </View>
+            <>
+              {lands && lands.length > 1 ? (
+                <View style={styles.landSelectorContainer}>
+                  <ScrollView
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    contentContainerStyle={styles.landPillsScroll}
+                  >
+                    {lands.map((l, index) => {
+                      const isSelected = l.id === (selectedLandId || lands[0]?.id);
+                      const label = l.name?.trim() || `${t('myLands.landLabel')} ${index + 1}`;
+                      return (
+                        <Pressable
+                          key={l.id}
+                          onPress={() => void selectLand(l.id)}
+                          style={[styles.landPill, isSelected && styles.landPillActive]}
+                          testID={`home-land-pill-${l.id}`}
+                        >
+                          <Text
+                            variant="microMedium"
+                            color={isSelected ? colors.text.onPrimary : colors.text.secondary}
+                          >
+                            {label}
+                          </Text>
+                        </Pressable>
+                      );
+                    })}
+                  </ScrollView>
+                </View>
+              ) : null}
 
-              <View style={styles.fieldBody}>
-                <Text variant="cardTitle" numberOfLines={1}>
-                  {farm.name?.trim() || t('home.unnamedField')}
-                </Text>
-                <Text variant="stat" color={colors.primaryDark} style={styles.fieldArea}>
-                  {`${Number(farm.area_acres).toFixed(2)} ${t('onboarding.acres')}`}
-                </Text>
-                <View style={styles.fieldFooter}>
-                  <Badge label={t('home.notYetAnalyzed')} tone="neutral" />
-                  <View style={styles.editLinkRow}>
-                    <Text variant="microMedium" color={colors.primaryDark}>
-                      {t('home.editBoundary')}
-                    </Text>
-                    <Icon name="chevron" size={14} color={colors.primaryDark} />
+              {/*
+                The farm-context card is the single most important thing on
+                Home, so it gets the soft agricultural-green surface reserved
+                for "important context" rather than the plain white every
+                other card uses — same data and same action as before.
+              */}
+              <Card onPress={onEditBoundary} tone="success" style={styles.fieldCard} testID="field-card">
+                <View style={styles.fieldThumbnail}>
+                  <BoundaryThumbnail points={boundaryPoints} size={64} />
+                </View>
+
+                <View style={styles.fieldBody}>
+                  <Text variant="cardTitle" numberOfLines={1}>
+                    {farm.name?.trim() || t('home.unnamedField')}
+                  </Text>
+                  <Text variant="stat" color={colors.primaryDark} style={styles.fieldArea}>
+                    {`${Number(farm.area_acres).toFixed(2)} ${t('onboarding.acres')}`}
+                  </Text>
+                  <View style={styles.fieldFooter}>
+                    <Badge label={t('home.notYetAnalyzed')} tone="neutral" />
+                    <View style={styles.editLinkRow}>
+                      <Text variant="microMedium" color={colors.primaryDark}>
+                        {t('home.editBoundary')}
+                      </Text>
+                      <Icon name="chevron" size={14} color={colors.primaryDark} />
+                    </View>
                   </View>
                 </View>
-              </View>
-            </Card>
+              </Card>
+            </>
           ) : null}
 
           <Text variant="caption" color={colors.text.muted} style={styles.sectionHeading}>
@@ -384,6 +418,24 @@ const styles = StyleSheet.create({
     gap: layout.cardGap,
   },
   loadingBlock: { gap: layout.cardGap },
+  landSelectorContainer: {
+    marginBottom: -4,
+  },
+  landPillsScroll: {
+    gap: 8,
+  },
+  landPill: {
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: radius.pill,
+    backgroundColor: colors.surface,
+    borderWidth: 1,
+    borderColor: colors.border,
+  },
+  landPillActive: {
+    backgroundColor: colors.primary,
+    borderColor: colors.primary,
+  },
   fieldCard: { flexDirection: 'row', alignItems: 'flex-start', gap: 12 },
   fieldThumbnail: { borderRadius: radius.sm, overflow: 'hidden' },
   fieldBody: { flex: 1, minWidth: 0, gap: 2 },

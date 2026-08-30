@@ -1,15 +1,13 @@
-import { screen } from '@testing-library/react-native';
+import { screen, waitFor } from '@testing-library/react-native';
 
 import { renderWithProviders } from '@/test-utils';
-
 import { SchemesScreen } from './SchemesScreen';
 
-// Exercises the structurally-possible "no schemes" state in isolation — the
-// static demo list is never actually empty in production, but the screen
-// must still render correctly rather than blank if it ever were.
-jest.mock('@/features/schemes/demoSchemes', () => ({
-  ...jest.requireActual('@/features/schemes/demoSchemes'),
-  SCHEMES: [],
+jest.mock('@/features/auth/AuthContext', () => ({
+  useAuth: () => ({
+    profile: { id: 'user-1', location_state: 'Goa' },
+    refreshProfile: jest.fn(),
+  }),
 }));
 
 jest.mock('@/features/farm/FarmContext', () => ({
@@ -20,12 +18,19 @@ jest.mock('@/services/agronomy', () => ({
   getCurrentCrop: jest.fn(async () => null),
 }));
 
+jest.mock('@/services/schemes', () => ({
+  listSchemes: jest.fn(async () => []),
+  listSchemeStates: jest.fn(async () => ['Goa']),
+}));
+
 const props = { onBack: jest.fn(), onOpenScheme: jest.fn() };
 
 describe('SchemesScreen with no schemes', () => {
   it('shows the empty state instead of a broken list', async () => {
     await renderWithProviders(<SchemesScreen {...props} />);
 
-    expect(screen.getByTestId('schemes-empty')).toBeTruthy();
+    await waitFor(() => {
+      expect(screen.getByTestId('empty-schemes-state')).toBeTruthy();
+    });
   });
 });

@@ -25,7 +25,18 @@ export async function getProfile(_userId: string): Promise<Profile | null> {
 export async function updateProfile(
   _userId: string,
   values: Partial<
-    Pick<Profile, 'full_name' | 'phone' | 'email' | 'language' | 'in_app_alerts' | 'sms_alerts' | 'voice_alerts'>
+    Pick<
+      Profile,
+      | 'full_name'
+      | 'phone'
+      | 'email'
+      | 'language'
+      | 'in_app_alerts'
+      | 'sms_alerts'
+      | 'voice_alerts'
+      | 'location_state'
+      | 'location_district'
+    >
   >,
 ): Promise<Profile> {
   return apiFetch<Profile>('/api/v1/farmers/me', {

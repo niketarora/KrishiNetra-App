@@ -37,19 +37,14 @@ function normalise(farm: Farm): Farm {
 }
 
 /**
- * The farmer's field, or null if they haven't drawn one yet.
- *
- * `userId` is no longer used to filter — the access token identifies the caller
- * and the API only ever returns that farmer's own rows. It stays in the
- * signature so every calling context is untouched.
+ * List all fields for the authenticated farmer, ordered newest first.
  */
-export async function getCurrentFarm(_userId: string): Promise<Farm | null> {
-  const farms = await apiFetch<Farm[]>('/api/v1/farms?limit=1', {
+export async function listFarms(): Promise<Farm[]> {
+  const farms = await apiFetch<Farm[]>('/api/v1/farms', {
     fallbackKey: 'home.loadError',
   });
 
-  const farm = farms[0];
-  return farm ? normalise(farm) : null;
+  return farms.map(normalise);
 }
 
 /**
@@ -99,3 +94,21 @@ export async function updateFarmBoundary(farmId: string, input: SaveFarmInput): 
 
   return normalise(farm);
 }
+
+export async function updateLandName(farmId: string, name: string | null): Promise<Farm> {
+  const farm = await apiFetch<Farm>(`/api/v1/farms/${farmId}`, {
+    method: 'PATCH',
+    body: { name: name?.trim() ? name.trim() : null },
+    fallbackKey: 'onboarding.saveError',
+  });
+
+  return normalise(farm);
+}
+
+export async function deleteFarm(farmId: string): Promise<void> {
+  await apiFetch<void>(`/api/v1/farms/${farmId}`, {
+    method: 'DELETE',
+    fallbackKey: 'home.loadError',
+  });
+}
+

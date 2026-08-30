@@ -3,7 +3,7 @@ import { Pressable, StyleSheet, View } from 'react-native';
 import { WebView } from 'react-native-webview';
 import { useTranslation } from 'react-i18next';
 
-import { Banner, Icon, Text } from '@/components/ui';
+import { Banner, Icon, Skeleton, Text } from '@/components/ui';
 import type { TutorialVideo } from '@/features/learning/tutorials';
 import { colors } from '@/theme';
 
@@ -58,7 +58,12 @@ export function VideoPreview({ video }: Props) {
       <WebView
         originWhitelist={['*']}
         source={{ html: videoHtml(video.videoUrl) }}
+        allowsInlineMediaPlayback={true}
+        mediaPlaybackRequiresUserAction={false}
+        startInLoadingState={true}
+        renderLoading={() => <Skeleton height={200} />}
         onError={() => setFailed(true)}
+        onHttpError={() => setFailed(true)}
         testID="video-webview"
       />
     </View>

@@ -29,7 +29,10 @@ export function userClient(accessToken: string): SupabaseClient {
   });
 }
 
-/** Service role. Reference-data writes only — see the note above. */
+/**
+ * Service role. Reference-data writes and identity provisioning only —
+ * see the note above. Never called from a path that returns farmer-owned rows.
+ */
 export function adminClient(): SupabaseClient {
   const env = getEnv();
 
