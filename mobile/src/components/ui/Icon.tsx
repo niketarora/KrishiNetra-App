@@ -15,9 +15,11 @@ export type IconName =
   | 'mic'
   | 'back'
   | 'close'
+  | 'x'
   | 'alert'
   | 'clock'
   | 'plant'
+  | 'sprout'
   | 'sun'
   | 'chevron'
   | 'check'
@@ -37,7 +39,8 @@ export type IconName =
   | 'locate'
   | 'camera'
   | 'phone'
-  | 'mail';
+  | 'mail'
+  | 'search';
 
 type Props = {
   name: IconName;
@@ -95,7 +98,7 @@ export function Icon({ name, size = 20, color = colors.text.secondary, strokeWid
           <Path d="M19 12H5" {...common} />
         </>
       )}
-      {name === 'close' && (
+      {(name === 'close' || name === 'x') && (
         <>
           <Path d="M18 6 6 18" {...common} />
           <Path d="m6 6 12 12" {...common} />
@@ -108,7 +111,7 @@ export function Icon({ name, size = 20, color = colors.text.secondary, strokeWid
           <Path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z" {...common} />
         </>
       )}
-      {name === 'plant' && (
+      {(name === 'plant' || name === 'sprout') && (
         <>
           <Path d="M7 20h10" {...common} />
           <Path d="M12 20V9" {...common} />
@@ -239,6 +242,12 @@ export function Icon({ name, size = 20, color = colors.text.secondary, strokeWid
         <>
           <Rect x="3" y="5" width="18" height="14" rx="2" {...common} />
           <Path d="m4 7 8 6 8-6" {...common} />
+        </>
+      )}
+      {name === 'search' && (
+        <>
+          <Circle cx="11" cy="11" r="8" {...common} />
+          <Path d="m21 21-4.35-4.35" {...common} />
         </>
       )}
     </Svg>
