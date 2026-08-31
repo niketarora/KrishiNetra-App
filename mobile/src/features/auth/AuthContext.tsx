@@ -5,7 +5,7 @@ import i18n, { deviceLanguage, isSupportedLanguage } from '@/i18n';
 import { mapAuthError, DataError, type AuthErrorKey } from '@/services/errors';
 import { requestOtp, verifyOtp } from '@/services/phoneAuth';
 import { getProfile, type Profile } from '@/services/profiles';
-import { supabase } from '@/services/supabase';
+import { setLocalAccessToken, supabase } from '@/services/supabase';
 
 type PhoneAuthErrorKey =
   | AuthErrorKey
@@ -56,6 +56,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     let active = true;
 
+    const timeout = setTimeout(() => {
+      if (active) setInitializing(false);
+    }, 1500);
+
     supabase.auth
       .getSession()
       .then(async ({ data }) => {
@@ -63,19 +67,31 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setSession(data.session);
         await loadProfile(data.session?.user.id);
       })
+      .catch(() => {
+        // Fallback gracefully on session fetch error
+      })
       .finally(() => {
+        clearTimeout(timeout);
         if (active) setInitializing(false);
       });
 
     // Keeps the app in step with token refreshes and sign-outs triggered
     // anywhere, including from another tab of the same Supabase project.
-    const { data: subscription } = supabase.auth.onAuthStateChange((_event, nextSession) => {
-      setSession(nextSession);
-      void loadProfile(nextSession?.user.id);
+    const { data: subscription } = supabase.auth.onAuthStateChange((event, nextSession) => {
+      if (event === 'SIGNED_OUT') {
+        setLocalAccessToken(null);
+        setSession(null);
+        setProfile(null);
+      } else if (nextSession) {
+        setLocalAccessToken(nextSession.access_token);
+        setSession(nextSession);
+        void loadProfile(nextSession.user.id);
+      }
     });
 
     return () => {
       active = false;
+      clearTimeout(timeout);
       subscription.subscription.unsubscribe();
     };
   }, [loadProfile]);
@@ -115,7 +131,30 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const verifyPhoneOtp = useCallback<AuthContextValue['verifyPhoneOtp']>(async (normalizedPhone, code) => {
     const language = isSupportedLanguage(i18n.language) ? i18n.language : deviceLanguage();
     try {
-      const { tokenHash } = await verifyOtp(normalizedPhone, code, language);
+      const { tokenHash, session: directSession } = await verifyOtp(normalizedPhone, code, language);
+
+      if (directSession?.access_token && directSession?.refresh_token) {
+        setLocalAccessToken(directSession.access_token);
+        const newSession: Session = {
+          access_token: directSession.access_token,
+          refresh_token: directSession.refresh_token,
+          expires_in: 3600,
+          expires_at: Math.floor(Date.now() / 1000) + 3600,
+          token_type: 'bearer',
+          user: directSession.user as Session['user'],
+        };
+        setSession(newSession);
+        void loadProfile(newSession.user.id);
+
+        // Background session storage without throwing if Supabase cloud DNS is unreachable
+        void supabase.auth.setSession({
+          access_token: directSession.access_token,
+          refresh_token: directSession.refresh_token,
+        }).catch(() => {});
+
+        return { ok: true };
+      }
+
       const { error } = await supabase.auth.verifyOtp({
         token_hash: tokenHash,
         type: 'magiclink',
@@ -129,10 +168,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         error instanceof DataError ? (error.translationKey as PhoneAuthErrorKey) : 'auth.errors.generic';
       return { ok: false, errorKey };
     }
-  }, []);
+  }, [loadProfile]);
 
   const signOut = useCallback(async () => {
-    await supabase.auth.signOut();
+    setLocalAccessToken(null);
+    try {
+      await supabase.auth.signOut();
+    } catch {
+      // Best-effort signout when offline
+    }
     setSession(null);
     setProfile(null);
   }, []);

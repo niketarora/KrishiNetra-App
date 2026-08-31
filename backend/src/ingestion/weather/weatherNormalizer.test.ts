@@ -11,6 +11,7 @@ function daily(overrides: Record<string, unknown> = {}) {
       temperature_2m_mean: [31.4, 30.1],
       precipitation_sum: [0, 12.5],
       relative_humidity_2m_mean: [48, 62],
+      wind_speed_10m_max: [14.2, 8.5],
       ...overrides,
     },
   };
@@ -22,8 +23,8 @@ describe('normalizeWeatherResponse', () => {
 
     expect(skipped).toEqual([]);
     expect(rows).toEqual([
-      { observed_on: '2026-08-20', temperature_c: 31.4, rainfall_mm: 0, humidity_pct: 48 },
-      { observed_on: '2026-08-21', temperature_c: 30.1, rainfall_mm: 12.5, humidity_pct: 62 },
+      { observed_on: '2026-08-20', temperature_c: 31.4, rainfall_mm: 0, humidity_pct: 48, wind_speed_kmh: 14.2 },
+      { observed_on: '2026-08-21', temperature_c: 30.1, rainfall_mm: 12.5, humidity_pct: 62, wind_speed_kmh: 8.5 },
     ]);
   });
 

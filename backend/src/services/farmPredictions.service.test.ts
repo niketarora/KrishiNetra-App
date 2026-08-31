@@ -19,6 +19,7 @@ const mockFarm: FarmRow = {
   state: 'Rajasthan',
   location_source: 'gps',
   location_accuracy: 10,
+  photo_url: null,
   created_at: '2026-08-30T00:00:00Z',
   updated_at: '2026-08-30T00:00:00Z',
 };
@@ -70,9 +71,17 @@ const mockLatestWeatherForDistrict = jest.fn<any>().mockResolvedValue({
   temperature_c: 31.0,
   rainfall_mm: 5.0,
   humidity_pct: 55,
+  wind_speed_kmh: 12.4,
   source: 'ERA5',
 });
 const mockLatestWeatherForGridCell = jest.fn<any>().mockResolvedValue(null);
+const mockGetElevation = jest.fn<any>().mockResolvedValue(431.0);
+const mockGetSoilHealth = jest.fn<any>().mockResolvedValue({
+  soil_ph: 7.8,
+  organic_matter: 0.45,
+  soil_type: 'Sandy Loam',
+  source: 'ICAR / Soil Health Card',
+});
 const mockPredictSoilMoisture = jest.fn<any>().mockResolvedValue(mockPrediction);
 
 jest.unstable_mockModule('./farms.service.js', () => ({
@@ -89,6 +98,14 @@ jest.unstable_mockModule('./reference.service.js', () => ({
   latestWeatherForGridCell: mockLatestWeatherForGridCell,
 }));
 
+jest.unstable_mockModule('./elevation.service.js', () => ({
+  getElevationForCoordinates: mockGetElevation,
+}));
+
+jest.unstable_mockModule('./soilHealth.service.js', () => ({
+  getSoilHealthByDistrict: mockGetSoilHealth,
+}));
+
 jest.unstable_mockModule('./soilMoisturePrediction.service.js', () => ({
   predictSoilMoisture: mockPredictSoilMoisture,
 }));
@@ -100,15 +117,29 @@ describe('getFarmSoilMoisturePrediction', () => {
     jest.clearAllMocks();
   });
 
-  it('gathers farm context, resolves crop and weather, and returns ML prediction', async () => {
+  it('gathers all 14 live input features and returns ML prediction', async () => {
     const result = await getFarmSoilMoisturePrediction('test-token', 'user-123', 'farm-123');
 
     expect(mockGetFarm).toHaveBeenCalledWith('test-token', 'user-123', 'farm-123');
+    expect(mockGetElevation).toHaveBeenCalledWith(26.9125, 75.7875);
+    expect(mockGetSoilHealth).toHaveBeenCalledWith('test-token', 'Jaipur', 'Rajasthan');
+
     expect(result.cropName).toBe('Wheat');
     expect(result.features.crop_type).toBe('wheat');
     expect(result.features.temperature_c).toBe(31.0);
     expect(result.features.rainfall).toBe(5.0);
     expect(result.features.humidity_percent).toBe(55);
+    expect(result.features.wind_speed).toBe(12.4);
+    expect(result.features.elevation).toBe(431.0);
+    expect(result.features.soil_ph).toBe(7.8);
+    expect(result.features.organic_matter).toBe(0.45);
+    expect(result.features.ndvi).toBeGreaterThan(0);
+    expect(result.features.savi).toBeGreaterThan(0);
+    expect(result.features.leaf_area_index).toBeGreaterThan(0);
+    expect(result.features.spatial_resolution).toBe(10.0);
+    expect(result.features.crop_growth_stage).toBe(2);
+    expect(result.features.water_flow).toBeGreaterThan(0);
+
     expect(result.prediction.soil_moisture_percent).toBe(20.53);
   });
 });

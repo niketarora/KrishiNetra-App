@@ -66,7 +66,12 @@
     "title": "Complete your profile",
     "subtitle": "Just a couple of details to get started.",
     "emailOptional": "Optional",
-    "saveCta": "Save and continue"
+    "saveCta": "Save and continue",
+    "locationLabel": "Your Location (GPS)",
+    "detectLocation": "Detect My Location",
+    "detectingLocation": "Detecting GPS location…",
+    "locationDetected": "Location detected via GPS",
+    "locationPermissionPrompt": "Location access helps set up your field and weather automatically."
   },
   "onboarding": {
     "methodTitle": "Register your field",
@@ -187,7 +192,10 @@
       "lai": "Leaf Area Index",
       "elevation": "Elevation",
       "growthStage": "Growth Stage",
-      "cropType": "Crop Type"
+      "cropType": "Crop Type",
+      "windSpeed": "Wind Speed",
+      "waterFlow": "Water Flow Index",
+      "spatialRes": "Spatial Resolution"
     },
     "warningTitle": "Experimental Model Notice",
     "warningBody": "Validation indicates baseline performance. Always cross-check with field moisture before irrigation decisions."
@@ -514,21 +522,24 @@
       "listening": "শুনছি…",
       "thinking": "চিন্তা করছি…",
       "speaking": "বলছি",
-      "error": "অডিও নেই"
+      "error": "অডিও নেই",
+      "guiding": "উৎলি"
     },
     "mic": {
       "idle": "কথা বলা শুরু করুন",
       "listening": "বলা শেষ হয়েছে",
       "thinking": "একটু অপেক্ষা করুন…",
       "speaking": "পরবর্তী প্রশ্ন করুন",
-      "error": "আবার চেষ্টা করুন"
+      "error": "আবার চেষ্টা করুন",
+      "guiding": "অতোপ্পা অমা হংবিয়ু"
     },
     "footer": {
       "idle": "আপনি বাংলা বা যেকোনো ভাষায় বলতে পারেন।",
       "listening": "ধীরে ধীরে বলুন — আমি শুনছি।",
       "thinking": "তথ্য বিশ্লেষণ করা হচ্ছে…",
       "speaking": "আপনি যেকোনো সময় থামিয়ে প্রশ্ন করতে পারেন।",
-      "error": "মাইক্রোফোনে স্পর্শ করে আবার বলুন।"
+      "error": "মাইক্রোফোনে স্পর্শ করে আবার বলুন।",
+      "guiding": "নহাক্পু মফম অদুদা পুরক্লি।"
     },
     "greeting": "খুরুমজরি {{name}}! নহাক্না করি খঙবা পাম্বগে?",
     "questions": {
@@ -540,7 +551,8 @@
     },
     "sources": {
       "field": "আপনার জমির রেকর্ড থেকে",
-      "assistant": "এআই সহকারী · যাচাই আবশ্যক"
+      "assistant": "এআই সহকারী · যাচাই আবশ্যক",
+      "label": "হৌরকফম"
     },
     "errors": {
       "micPermission": "মাইক্রোফোন অনুমতি প্রয়োজন। সেটিংস থেকে অনুমতি দিন।",
@@ -552,8 +564,39 @@
       "upload": "রেকর্ডিং পাঠানো যায়নি।",
       "unreachable": "কৃষিনেত্রের সাথে সংযোগ করা যাচ্ছে না।",
       "tooShort": "রেকর্ডিং খুব ছোট ছিল। চেপে ধরে কথা বলুন।",
-      "voice": "ভয়েস তৈরি করা যায়নি। উত্তর উপরে দেওয়া আছে।"
-    }
+      "voice": "ভয়েস তৈরি করা যায়নি। উত্তর উপরে দেওয়া আছে।",
+      "expertNotConnected": "লৌউ-শিংউগী মীশক অদু হৌজিকফাওবা শম্নহন্দ্রি, মরম অদুনা মসিগী পাউখুম পীবা ঙম্লোই। এপ অসিদা লম্বী উৎপা ঙম্মি।",
+      "researchNotConnected": "ঐনা হৌজিকফাওবা অনৌবা ৱাফম থিবা ঙম্লোই — সর্ভিস অদু শম্নহন্দ্রি। এপ অসিদা লম্বী উৎপা ঙম্মি।"
+    },
+    "guide": {
+      "market_price": "মসি ঙসিগী মন্দিগী মমল, মনাক্তা এমএসপি।",
+      "price_trend": "হৌখিবা নুমিৎ তরেত্তা মমল অসুম হোংখ্রে।",
+      "sell_or_wait": "যোনগদ্রা ঙাইগদ্রা — পাউতাক অদু মফমসিদা উগনি।",
+      "weather": "মসি নহাক্কী লৌবুক্কী অকোনবা ইশিনখিবা নুংশা-নোং।",
+      "crop_status": "নহাক্না করম্বা মহৈ করম্বা মতমদা থাখিবগে হায়বদু মফমসিদা উই।",
+      "msp": "মসি নহাক্কী মহৈগী লাওথোকখিবা খ্বাইদগী তংবা তেংবাংগী মমল্নি।",
+      "field_analysis": "মসি নহাক্কী লৌবুক্কী মীৎয়েংগী স্ক্রীন্নি।",
+      "soil_moisture": "কার্দ অসিনা নহাক্কী লৌবুক্কী লৈবাক্কী ইশিং চাংগী মীৎয়েং উৎলি।",
+      "my_lands": "মসিসিং নহাক্না রেজিস্তর তৌখিবা লম পুম্নমক্নি।",
+      "land_detail": "মসি লম অদুগী অকুপ্পা মরোল্নি।",
+      "register_land": "মফমসিদগী অনৌবা লম রেজিস্তর তৌ — মপান্দা চৎতুনা নত্ত্রগা ইদুনা।",
+      "edit_boundary": "লম অসিগী মপান অমুক হন্না ইবগীদমক্তা মফমসিদা নম্মু।",
+      "calendar": "মসি নহাক্কী লৌউ-শিংউগী কেলেন্দর্নি, মথংদা করি লৈবগে হায়বগা লোয়ননা।",
+      "schemes": "সরকারগী থৌরাং অসিসিং নহাক্না য়েংবা ঙমগনি।",
+      "updates": "মসি লৌউ-শিংউগী পাউগী পরিং অদুনি।",
+      "alerts": "মসিসিং নহাক্কী মফমদা থাখিবা চেকশিন-ৱা অমসুং পাউজেল্নি।",
+      "learning": "মসি কৃষি একাদেমী-নি, মফমসিদা তম্বীবা ভিদিওসিং লৈ।",
+      "visual_assistant": "মফমসিদগী নহাক্না কেমেরা অদু পম্বীদা য়েংহনবা ঙমগনি।",
+      "history": "মসি নহাক্কী লৌবুক্কী মরোল অমসুং হান্না তৌখিবা থবকশিংনি।",
+      "profile": "মসি নহাক্কী প্রোফাইল্নি, মফমসিদা লোল অমসুং সেত্তিং হোংদোকপা য়াই।",
+      "caveat": {
+        "irrigation": "নুমিৎ খুদিংগী ইশিং থাদবগী পরিং অদু হৌজিকফাওবা শম্নহন্দ্রি। মসি নহাক্কী লৌউ-শিংউগী কেলেন্দর্নি, ঐনা উৎপা ঙম্বসিংগী মনুংদা খ্বাইদগী নকপা অদুনি।",
+        "sell_or_wait": "যোনগদ্রা ঙাইগদ্রা — মসিগীদমক্তা মমলগী ৱারোল মথৌ তাই, মদু হৌজিকফাওবা শম্নহন্দ্রি। মসি মদু উগদবা কার্দ অদুনি।",
+        "field_analysis": "মহৈগী হকশেল অমসুং চাউখৎপগী তাংকক হৌজিকফাওবা শম্নহন্দ্রি। মফমসিদা হৌজিক নুংশা-নোংগী খুদোংথিবগী পরিং অদুখক্তনি অচুম্বা।",
+        "soil_moisture": "ইশিং চাংগী মসিং অসি অচংবা মোদেল অমদগী লাকপনি, মরম অদুনা মসিবু অচুম্বা মীৎয়েং অমা হায়না লৌবিয়ু, ইশিং থাদবগী পাউতাক অমা নত্তে।"
+      }
+    },
+    "youAsked": "You asked"
   },
   "errors": {
     "sessionRestore": "সেশন পুনরুদ্ধার করা যায়নি। পুনরায় লগ ইন করুন।",

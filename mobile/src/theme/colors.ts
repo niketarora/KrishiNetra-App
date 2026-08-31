@@ -103,7 +103,26 @@ export const avatarColors = {
     listening: '#7FC69B',
     thinking: '#D8B77A',
     speaking: '#8FC2E8',
+    // Guiding shares the speaking blue: the avatar is still talking, it is
+    // just walking the farmer somewhere while it does. A separate colour would
+    // imply a separate kind of activity.
+    guiding: '#8FC2E8',
     error: '#E2857A',
   },
   waveIdle: '#4A5145',
+} as const;
+
+/**
+ * The corner guide.
+ *
+ * A light surface, unlike the dark full-screen avatar it replaced. The peek
+ * sits over the live app rather than covering it, so it has to read as part of
+ * the app's own palette instead of as a separate dark world.
+ */
+export const guideColors = {
+  bubbleBg: '#FFFFFF',
+  bubbleBorder: '#D5DBCF',
+  /** The green panel the avatar leans on, matched so the bubble joins it. */
+  panel: '#5C7A3F',
+  scrim: 'rgba(10,12,9,0.05)',
 } as const;

@@ -66,7 +66,12 @@
     "title": "Complete your profile",
     "subtitle": "Just a couple of details to get started.",
     "emailOptional": "Optional",
-    "saveCta": "Save and continue"
+    "saveCta": "Save and continue",
+    "locationLabel": "Your Location (GPS)",
+    "detectLocation": "Detect My Location",
+    "detectingLocation": "Detecting GPS location…",
+    "locationDetected": "Location detected via GPS",
+    "locationPermissionPrompt": "Location access helps set up your field and weather automatically."
   },
   "onboarding": {
     "methodTitle": "Register your field",
@@ -187,7 +192,10 @@
       "lai": "Leaf Area Index",
       "elevation": "Elevation",
       "growthStage": "Growth Stage",
-      "cropType": "Crop Type"
+      "cropType": "Crop Type",
+      "windSpeed": "Wind Speed",
+      "waterFlow": "Water Flow Index",
+      "spatialRes": "Spatial Resolution"
     },
     "warningTitle": "Experimental Model Notice",
     "warningBody": "Validation indicates baseline performance. Always cross-check with field moisture before irrigation decisions."
@@ -514,21 +522,24 @@
       "listening": "ਸੁਣ ਰਿਹਾ ਹਾਂ…",
       "thinking": "ਸੋਚ ਰਿਹਾ ਹਾਂ…",
       "speaking": "ਬੋਲ ਰਿਹਾ ਹਾਂ",
-      "error": "ਕੋਈ ਆਵਾਜ਼ ਨਹੀਂ"
+      "error": "ਕੋਈ ਆਵਾਜ਼ ਨਹੀਂ",
+      "guiding": "ਦਿਖਾ ਰਿਹਾ ਹਾਂ"
     },
     "mic": {
       "idle": "ਬੋਲਣਾ ਸ਼ੁਰੂ ਕਰੋ",
       "listening": "ਬੋਲ ਲਿਆ",
       "thinking": "ਇੱਕ ਪਲ…",
       "speaking": "ਅਗਲਾ ਸਵਾਲ ਪੁੱਛੋ",
-      "error": "ਮੁੜ ਕੋਸ਼ਿਸ਼ ਕਰੋ"
+      "error": "ਮੁੜ ਕੋਸ਼ਿਸ਼ ਕਰੋ",
+      "guiding": "ਹੋਰ ਕੁਝ ਪੁੱਛੋ"
     },
     "footer": {
       "idle": "ਤੁਸੀਂ ਪੰਜਾਬੀ ਜਾਂ ਕਿਸੇ ਵੀ ਭਾਸ਼ਾ ਵਿੱਚ ਪੁੱਛ ਸਕਦੇ ਹੋ।",
       "listening": "ਹੌਲੀ ਬੋਲੋ — ਮੈਂ ਸੁਣ ਰਿਹਾ ਹਾਂ।",
       "thinking": "ਜਾਣਕਾਰੀ ਦੀ ਪੜਤਾਲ ਹੋ ਰਹੀ ਹੈ…",
       "speaking": "ਤੁਸੀਂ ਕਿਸੇ ਵੀ ਸਮੇਂ ਰੋਕ ਕੇ ਪੁੱਛ ਸਕਦੇ ਹੋ।",
-      "error": "ਮਾਈਕ ਦਬਾ ਕੇ ਮੁੜ ਬੋਲੋ।"
+      "error": "ਮਾਈਕ ਦਬਾ ਕੇ ਮੁੜ ਬੋਲੋ।",
+      "guiding": "ਤੁਹਾਨੂੰ ਉੱਥੇ ਲੈ ਜਾ ਰਿਹਾ ਹਾਂ।"
     },
     "greeting": "ਸਤਿ ਸ੍ਰੀ ਅਕਾਲ {{name}}! ਤੁਸੀਂ ਕੀ ਜਾਣਨਾ ਚਾਹੁੰਦੇ ਹੋ?",
     "questions": {
@@ -540,7 +551,8 @@
     },
     "sources": {
       "field": "ਤੁਹਾਡੇ ਖੇਤ ਦੇ ਰਿਕਾਰਡ ਤੋਂ",
-      "assistant": "AI ਮਿੱਤਰ · ਪੁਸ਼ਟੀ ਜ਼ਰੂਰੀ"
+      "assistant": "AI ਮਿੱਤਰ · ਪੁਸ਼ਟੀ ਜ਼ਰੂਰੀ",
+      "label": "ਸਰੋਤ"
     },
     "errors": {
       "micPermission": "ਮਾਈਕ੍ਰੋਫੋਨ ਇਜਾਜ਼ਤ ਲੋੜੀਂਦੀ ਹੈ। ਸੈਟਿੰਗਾਂ ਵਿੱਚ ਦਿਓ।",
@@ -552,8 +564,39 @@
       "upload": "ਰਿਕਾਰਡਿੰਗ ਨਹੀਂ ਭੇਜੀ ਜਾ ਸਕੀ।",
       "unreachable": "ਕ੍ਰਿਸ਼ੀਨੇਤਰ ਸਰਵਰ ਨਾਲ ਸੰਪਰਕ ਨਹੀਂ ਹੋ ਰਿਹਾ।",
       "tooShort": "ਰਿਕਾਰਡਿੰਗ ਬਹੁਤ ਛੋਟੀ ਸੀ। ਦਬਾ ਕੇ ਰੱਖੋ।",
-      "voice": "ਆਵਾਜ਼ ਤਿਆਰ ਨਹੀਂ ਹੋ ਸਕੀ। ਜਵਾਬ ਉੱਪਰ ਦਿੱਤਾ ਗਿਆ ਹੈ।"
-    }
+      "voice": "ਆਵਾਜ਼ ਤਿਆਰ ਨਹੀਂ ਹੋ ਸਕੀ। ਜਵਾਬ ਉੱਪਰ ਦਿੱਤਾ ਗਿਆ ਹੈ।",
+      "expertNotConnected": "ਖੇਤੀ ਮਾਹਰ ਹਾਲੇ ਜੁੜਿਆ ਨਹੀਂ, ਇਸ ਲਈ ਇਸਦਾ ਜਵਾਬ ਨਹੀਂ ਦੇ ਸਕਦਾ। ਐਪ ਵਿੱਚ ਰਾਹ ਫਿਰ ਵੀ ਦਿਖਾ ਸਕਦਾ ਹਾਂ।",
+      "researchNotConnected": "ਮੈਂ ਹਾਲੇ ਤਾਜ਼ੀ ਜਾਣਕਾਰੀ ਨਹੀਂ ਲੱਭ ਸਕਦਾ — ਉਹ ਸੇਵਾ ਜੁੜੀ ਨਹੀਂ। ਐਪ ਵਿੱਚ ਰਾਹ ਫਿਰ ਵੀ ਦਿਖਾ ਸਕਦਾ ਹਾਂ।"
+    },
+    "guide": {
+      "market_price": "ਇਹ ਰਿਹਾ ਅੱਜ ਦਾ ਮੰਡੀ ਭਾਅ, ਨਾਲ ਐਮਐਸਪੀ।",
+      "price_trend": "ਪਿਛਲੇ ਸੱਤ ਦਿਨਾਂ ਵਿੱਚ ਭਾਅ ਇੰਝ ਬਦਲਿਆ ਹੈ।",
+      "sell_or_wait": "ਵੇਚਣਾ ਹੈ ਜਾਂ ਰੁਕਣਾ — ਇਹ ਸਲਾਹ ਇੱਥੇ ਦਿਖੇਗੀ।",
+      "weather": "ਇਹ ਰਿਹਾ ਤੁਹਾਡੇ ਖੇਤ ਦਾ ਤਾਜ਼ਾ ਦਰਜ ਮੌਸਮ।",
+      "crop_status": "ਇੱਥੇ ਦਿਖਦਾ ਹੈ ਕਿ ਤੁਸੀਂ ਕਿਹੜੀ ਫ਼ਸਲ ਕਦੋਂ ਬੀਜੀ।",
+      "msp": "ਇਹ ਤੁਹਾਡੀ ਫ਼ਸਲ ਦਾ ਐਲਾਨਿਆ ਘੱਟੋ-ਘੱਟ ਸਮਰਥਨ ਮੁੱਲ ਹੈ।",
+      "field_analysis": "ਇਹ ਤੁਹਾਡੇ ਖੇਤ ਦੇ ਵਿਸ਼ਲੇਸ਼ਣ ਦੀ ਸਕਰੀਨ ਹੈ।",
+      "soil_moisture": "ਇਹ ਖਾਨਾ ਤੁਹਾਡੇ ਖੇਤ ਦੀ ਅੰਦਾਜ਼ਨ ਮਿੱਟੀ ਦੀ ਨਮੀ ਦਿਖਾਉਂਦਾ ਹੈ।",
+      "my_lands": "ਇਹ ਤੁਹਾਡੀਆਂ ਸਾਰੀਆਂ ਦਰਜ ਜ਼ਮੀਨਾਂ ਹਨ।",
+      "land_detail": "ਇਹ ਰਿਹਾ ਉਸ ਜ਼ਮੀਨ ਦਾ ਵੇਰਵਾ।",
+      "register_land": "ਇੱਥੋਂ ਨਵੀਂ ਜ਼ਮੀਨ ਦਰਜ ਕਰੋ — ਹੱਦ ਉੱਤੇ ਤੁਰ ਕੇ ਜਾਂ ਨਕਸ਼ੇ ਉੱਤੇ ਬਣਾ ਕੇ।",
+      "edit_boundary": "ਇਸ ਜ਼ਮੀਨ ਦੀ ਹੱਦ ਮੁੜ ਬਣਾਉਣ ਲਈ ਇੱਥੇ ਦਬਾਓ।",
+      "calendar": "ਇਹ ਤੁਹਾਡਾ ਖੇਤੀ ਕੈਲੰਡਰ ਹੈ, ਅੱਗੇ ਕੀ ਹੈ ਉਸ ਸਮੇਤ।",
+      "schemes": "ਇਹ ਸਰਕਾਰੀ ਸਕੀਮਾਂ ਤੁਸੀਂ ਵੇਖ ਸਕਦੇ ਹੋ।",
+      "updates": "ਇਹ ਖੇਤੀ ਖ਼ਬਰਾਂ ਦੀ ਸੂਚੀ ਹੈ।",
+      "alerts": "ਇਹ ਤੁਹਾਨੂੰ ਭੇਜੀਆਂ ਚੇਤਾਵਨੀਆਂ ਤੇ ਸੁਨੇਹੇ ਹਨ।",
+      "learning": "ਇਹ ਕ੍ਰਿਸ਼ੀ ਅਕੈਡਮੀ ਹੈ, ਇੱਥੇ ਸਿਖਾਉਣ ਵਾਲੀਆਂ ਵੀਡੀਓ ਹਨ।",
+      "visual_assistant": "ਇੱਥੋਂ ਤੁਸੀਂ ਕੈਮਰਾ ਬੂਟੇ ਵੱਲ ਕਰ ਸਕਦੇ ਹੋ।",
+      "history": "ਇਹ ਤੁਹਾਡੇ ਖੇਤ ਦਾ ਵੇਰਵਾ ਤੇ ਪਿਛਲੇ ਕੰਮ ਹਨ।",
+      "profile": "ਇਹ ਤੁਹਾਡੀ ਪ੍ਰੋਫਾਈਲ ਹੈ, ਇੱਥੇ ਭਾਸ਼ਾ ਤੇ ਸੈਟਿੰਗਾਂ ਬਦਲੋ।",
+      "caveat": {
+        "irrigation": "ਦਿਨ-ਬ-ਦਿਨ ਸਿੰਚਾਈ ਦੀ ਸੂਚੀ ਹਾਲੇ ਜੁੜੀ ਨਹੀਂ। ਇਹ ਤੁਹਾਡਾ ਖੇਤੀ ਕੈਲੰਡਰ ਹੈ, ਜੋ ਦਿਖਾ ਸਕਦਾ ਹਾਂ ਉਸ ਵਿੱਚੋਂ ਸਭ ਤੋਂ ਨੇੜੇ।",
+        "sell_or_wait": "ਵੇਚਣਾ ਹੈ ਜਾਂ ਰੁਕਣਾ — ਇਸ ਲਈ ਭਾਅ ਦਾ ਅੰਦਾਜ਼ਾ ਚਾਹੀਦਾ, ਜੋ ਹਾਲੇ ਜੁੜਿਆ ਨਹੀਂ। ਇਹ ਉਹ ਕਾਰਡ ਹੈ ਜਿੱਥੇ ਉਹ ਦਿਖੇਗਾ।",
+        "field_analysis": "ਫ਼ਸਲ ਦੀ ਸਿਹਤ ਤੇ ਵਾਧੇ ਦਾ ਪੜਾਅ ਹਾਲੇ ਜੁੜਿਆ ਨਹੀਂ। ਇੱਥੇ ਫ਼ਿਲਹਾਲ ਸਿਰਫ਼ ਮੌਸਮੀ ਖ਼ਤਰੇ ਵਾਲੀ ਸਤਰ ਅਸਲ ਹੈ।",
+        "soil_moisture": "ਇਹ ਨਮੀ ਦਾ ਅੰਕੜਾ ਇੱਕ ਤਜਰਬੇ ਵਾਲੇ ਮਾਡਲ ਤੋਂ ਆਉਂਦਾ ਹੈ, ਇਸ ਲਈ ਇਸਨੂੰ ਮੋਟਾ ਅੰਦਾਜ਼ਾ ਮੰਨੋ, ਸਿੰਚਾਈ ਦੀ ਸਲਾਹ ਨਹੀਂ।"
+      }
+    },
+    "youAsked": "You asked"
   },
   "errors": {
     "sessionRestore": "ਸੈਸ਼ਨ ਬਹਾਲ ਨਹੀਂ ਹੋ ਸਕਿਆ। ਮੁੜ ਲੌਗ ਇਨ ਕਰੋ।",

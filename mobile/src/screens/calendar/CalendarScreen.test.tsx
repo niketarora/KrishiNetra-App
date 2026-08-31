@@ -36,9 +36,15 @@ const props = { onBack: jest.fn(), onRegisterLand: jest.fn(), onOpenEvent: jest.
 describe('CalendarScreen', () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    jest.useFakeTimers();
+    jest.setSystemTime(new Date('2026-08-15T12:00:00Z'));
     mockDemo.enabled = false;
     mockFarmState.farm = null;
     mockGetCurrentCrop.mockResolvedValue(null);
+  });
+
+  afterEach(() => {
+    jest.useRealTimers();
   });
 
   describe('with no farm registered', () => {

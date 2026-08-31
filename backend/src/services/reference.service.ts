@@ -139,6 +139,7 @@ export async function latestWeatherForGridCell(
       temperature_c: toNullableNumber(data.temperature_c),
       rainfall_mm: toNullableNumber(data.rainfall_mm),
       humidity_pct: toNullableNumber(data.humidity_pct),
+      wind_speed_kmh: toNullableNumber(data.wind_speed_kmh),
     };
   } catch (err: unknown) {
     const pgErr = err as { code?: string; message?: string };
@@ -162,13 +163,13 @@ export async function latestWeatherForDistrict(
   state: string,
 ): Promise<WeatherRow | null> {
   const { data, error } = await userClient(token)
-    .from('weather')
-    .select('*')
-    .eq('district', district)
-    .eq('state', state)
-    .order('observed_on', { ascending: false })
-    .limit(1)
-    .maybeSingle();
+  .from('weather')
+  .select('*')
+  .eq('district', district)
+  .eq('state', state)
+  .order('observed_on', { ascending: false })
+  .limit(1)
+  .maybeSingle();
 
   if (error) throw error;
   if (!data) return null;
@@ -180,5 +181,6 @@ export async function latestWeatherForDistrict(
     temperature_c: toNullableNumber(data.temperature_c),
     rainfall_mm: toNullableNumber(data.rainfall_mm),
     humidity_pct: toNullableNumber(data.humidity_pct),
+    wind_speed_kmh: toNullableNumber(data.wind_speed_kmh),
   };
 }

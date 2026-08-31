@@ -110,17 +110,11 @@ export async function synthesize(
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        text: spoken,
+        inputs: [spoken],
         target_language_code: toSpeechLanguage(language),
         model: env.SARVAM_TTS_MODEL,
         speaker: env.SARVAM_TTS_SPEAKER,
-        // 16 kHz mono is the whole of what speech needs. The provider defaults
-        // to 22.05 kHz, which is nearly half again as many bytes over a
-        // connection that may be the slow part of the whole exchange.
         speech_sample_rate: SPEECH_SAMPLE_RATE,
-        // Reads Latin-script words inside a Devanagari sentence the way a
-        // person would. The model mixes the two constantly — "MSP", "quintal"
-        // and crop names all arrive in English inside Hindi answers.
         enable_preprocessing: true,
       }),
       signal: controller.signal,

@@ -28,8 +28,23 @@ jest.mock('@/features/avatar/AvatarContext', () => ({
   AvatarProvider: ({ children }: { children: React.ReactNode }) => children,
 }));
 
-jest.mock('@/components/avatar/AvatarOverlay', () => ({
-  AvatarOverlay: () => null,
+jest.mock('@/features/guide/GuideContext', () => ({
+  GuideProvider: ({ children }: { children: React.ReactNode }) => children,
+}));
+
+// The three siblings rendered outside NavigationContainer. Stubbed out for the
+// same reason as the providers: this file tests the signed-out/signed-in split,
+// not the interaction layer that sits over the signed-in half of it.
+jest.mock('@/components/avatar/AvatarPeek', () => ({
+  AvatarPeek: () => null,
+}));
+
+jest.mock('@/components/avatar/AvatarFab', () => ({
+  AvatarFab: () => null,
+}));
+
+jest.mock('@/components/guide/Spotlight', () => ({
+  Spotlight: () => null,
 }));
 
 jest.mock('./AuthNavigator', () => {

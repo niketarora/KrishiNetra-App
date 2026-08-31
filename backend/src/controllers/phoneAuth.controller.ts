@@ -30,7 +30,7 @@ export async function verifyOtp(req: Request, res: Response): Promise<void> {
   }
 
   const email = phoneToBridgeEmail(phone);
-  const { tokenHash } = await findOrCreateUser(email, phone, language);
+  const { tokenHash, session } = await findOrCreateUser(email, phone, language);
 
-  sendOk(res, { tokenHash }, 'OTP verified successfully');
+  sendOk(res, { tokenHash, session }, 'OTP verified successfully');
 }

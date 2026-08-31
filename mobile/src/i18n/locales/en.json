@@ -66,7 +66,12 @@
     "title": "Complete your profile",
     "subtitle": "Just a couple of details to get started.",
     "emailOptional": "Optional",
-    "saveCta": "Save and continue"
+    "saveCta": "Save and continue",
+    "locationLabel": "Your Location (GPS)",
+    "detectLocation": "Detect My Location",
+    "detectingLocation": "Detecting GPS location…",
+    "locationDetected": "Location detected via GPS",
+    "locationPermissionPrompt": "Location access helps set up your field and weather automatically."
   },
   "onboarding": {
     "methodTitle": "Register your field",
@@ -171,17 +176,20 @@
     "inputsTitle": "Inference Feature Parameters",
     "inputsSubtitle": "Data points evaluated by the model",
     "features": {
-      "ndvi": "NDVI (Vegetation)",
-      "savi": "SAVI (Soil Adjusted)",
+      "cropType": "Crop Type",
+      "growthStage": "Growth Stage",
       "temp": "Temperature",
       "humidity": "Humidity",
       "rainfall": "Rainfall",
+      "windSpeed": "Wind Speed",
       "soilPh": "Soil pH",
       "organicMatter": "Organic Matter",
-      "lai": "Leaf Area Index",
+      "ndvi": "NDVI (Vegetation)",
+      "savi": "SAVI (Soil Adjusted)",
+      "lai": "Leaf Area Index (LAI)",
       "elevation": "Elevation",
-      "growthStage": "Growth Stage",
-      "cropType": "Crop Type"
+      "waterFlow": "Water Flow Index",
+      "spatialRes": "Spatial Resolution"
     },
     "warningTitle": "Experimental Model Notice",
     "warningBody": "Validation indicates baseline performance. Always cross-check with field moisture before irrigation decisions.",
@@ -519,26 +527,30 @@
     "close": "Close conversation",
     "end": "End conversation",
     "tryAsking": "Try asking",
+    "youAsked": "You asked",
     "status": {
       "idle": "Ready",
       "listening": "Listening…",
       "thinking": "Thinking…",
       "speaking": "Speaking",
-      "error": "No audio"
+      "error": "No audio",
+      "guiding": "Showing you"
     },
     "mic": {
       "idle": "Start speaking",
       "listening": "I'm done",
       "thinking": "One moment…",
       "speaking": "Ask a follow-up",
-      "error": "Try again"
+      "error": "Try again",
+      "guiding": "Ask something else"
     },
     "footer": {
       "idle": "You can speak in Hindi or English.",
       "listening": "Take your time — I will not interrupt.",
       "thinking": "Reading your field records…",
       "speaking": "You can cut in with a follow-up any time.",
-      "error": "Tap the mic to try again."
+      "error": "Tap the mic to try again.",
+      "guiding": "Taking you there now."
     },
     "greeting": "Namaste {{name}}! What would you like to know?",
     "questions": {
@@ -550,7 +562,8 @@
     },
     "sources": {
       "field": "From your field record",
-      "assistant": "AI companion · may be wrong"
+      "assistant": "AI companion · may be wrong",
+      "label": "Sources"
     },
     "errors": {
       "micPermission": "KrishiNetra needs microphone access. Allow it in your phone settings, then try again.",
@@ -562,7 +575,37 @@
       "upload": "Your recording couldn't be sent. Please try again.",
       "unreachable": "Can't reach KrishiNetra right now. Check your connection and try again.",
       "tooShort": "That was too short to hear. Hold the button while you speak.",
-      "voice": "I could not say that out loud. The answer is above."
+      "voice": "I could not say that out loud. The answer is above.",
+      "expertNotConnected": "The farming expert is not connected yet, so I cannot answer that one. I can still show you around the app.",
+      "researchNotConnected": "I cannot look up current information yet — that service is not connected. I can still show you around the app."
+    },
+    "guide": {
+      "market_price": "Here is today's mandi price for your crop, next to the MSP.",
+      "price_trend": "This is how the price has moved over the last seven days.",
+      "sell_or_wait": "This is where a sell-or-wait recommendation will appear.",
+      "weather": "Here is the latest weather recorded for your field.",
+      "crop_status": "This shows the crop you have sown and when.",
+      "msp": "This is the published minimum support price for your crop.",
+      "field_analysis": "This is your field analysis screen.",
+      "soil_moisture": "This tile shows the estimated soil moisture for your field.",
+      "my_lands": "These are all the lands you have registered.",
+      "land_detail": "Here is the summary for that land.",
+      "register_land": "You can register a new land from here — walk its boundary or draw it.",
+      "edit_boundary": "Tap here to redraw the boundary of this land.",
+      "calendar": "This is your farm calendar, with what is coming up.",
+      "schemes": "These are the government schemes you can look through.",
+      "updates": "This is the agricultural news feed.",
+      "alerts": "These are the alerts and messages sent to you.",
+      "learning": "This is Krishi Academy, where the tutorial videos are.",
+      "visual_assistant": "From here you can point your camera at a plant.",
+      "history": "This is your farm overview and past activity.",
+      "profile": "This is your profile, where you can change your language and settings.",
+      "caveat": {
+        "irrigation": "A day-by-day irrigation schedule is not connected yet. This is your farm calendar, which is the closest thing I can show you.",
+        "sell_or_wait": "A sell-or-wait recommendation needs a price forecast, which is not connected yet. Here is the card it will appear on.",
+        "field_analysis": "Crop health and growth stage are not connected yet. The weather risk row is the only real reading here so far.",
+        "soil_moisture": "This soil moisture figure comes from an experimental model, so treat it as a rough estimate and not as irrigation advice."
+      }
     }
   },
   "errors": {

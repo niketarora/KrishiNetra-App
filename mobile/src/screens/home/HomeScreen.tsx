@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { Pressable, RefreshControl, ScrollView, StyleSheet, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
-import { AvatarFab } from '@/components/avatar/AvatarFab';
 import { BoundaryThumbnail } from '@/components/farm/BoundaryThumbnail';
+import { GuideTarget } from '@/components/guide/GuideTarget';
 import {
   Badge,
   Banner,
@@ -100,6 +100,11 @@ export function HomeScreen({
 
   const [refreshing, setRefreshing] = useState(false);
 
+  // Handed to every GuideTarget on this screen so a SCROLL step can bring a
+  // card into view before the guide spotlights it. Home is long enough that
+  // most of what the farmer asks about starts below the fold.
+  const scrollRef = useRef<ScrollView>(null);
+
   const handleRefresh = async () => {
     setRefreshing(true);
     await Promise.all([refresh(), refreshInsights()]);
@@ -120,6 +125,7 @@ export function HomeScreen({
   return (
     <Screen>
       <ScrollView
+        ref={scrollRef}
         contentContainerStyle={styles.content}
         showsVerticalScrollIndicator={false}
         refreshControl={
@@ -202,6 +208,7 @@ export function HomeScreen({
                 for "important context" rather than the plain white every
                 other card uses — same data and same action as before.
               */}
+              <GuideTarget id="field-card" scroll={scrollRef}>
               <Card onPress={onEditBoundary} tone="success" style={styles.fieldCard} testID="field-card">
                 <View style={styles.fieldThumbnail}>
                   <BoundaryThumbnail points={boundaryPoints} size={64} />
@@ -225,6 +232,7 @@ export function HomeScreen({
                   </View>
                 </View>
               </Card>
+              </GuideTarget>
             </>
           ) : null}
 
@@ -233,6 +241,11 @@ export function HomeScreen({
           </Text>
 
           <View style={styles.grid}>
+            {/*
+              The grid tiles are flex children, so each wrapper has to carry the
+              flex itself or the tile it wraps collapses to its content width.
+            */}
+            <GuideTarget id="crop-card" scroll={scrollRef} style={styles.gridItem}>
             <StatusCard
               icon="sprout"
               label={t('home.crop')}
@@ -242,6 +255,8 @@ export function HomeScreen({
               onPress={onOpenRegisterCrop}
               testID="crop-card"
             />
+            </GuideTarget>
+            <GuideTarget id="msp-card" scroll={scrollRef} style={styles.gridItem}>
             <StatusCard
               icon="market"
               label={t('home.msp')}
@@ -257,9 +272,11 @@ export function HomeScreen({
               onPress={onOpenRegisterCrop}
               testID="msp-card"
             />
+            </GuideTarget>
           </View>
 
           <View style={styles.grid}>
+            <GuideTarget id="moisture-card" scroll={scrollRef} style={styles.gridItem}>
             <StatusCard
               icon="droplet"
               label={t('home.soilMoisture')}
@@ -277,6 +294,8 @@ export function HomeScreen({
               onPress={onOpenAnalysis}
               testID="moisture-card"
             />
+            </GuideTarget>
+            <GuideTarget id="weather-card" scroll={scrollRef} style={styles.gridItem}>
             <StatusCard
               icon="sun"
               label={t('home.weather')}
@@ -293,6 +312,7 @@ export function HomeScreen({
               muted={weather?.temperature_c === null || weather?.temperature_c === undefined}
               testID="weather-card"
             />
+            </GuideTarget>
           </View>
 
           {/*
@@ -307,6 +327,7 @@ export function HomeScreen({
             variant="secondary"
           />
 
+          <GuideTarget id="market-card" scroll={scrollRef}>
           <Card onPress={onOpenMarket} testID="market-card">
             <Text variant="caption">{t('home.market')}</Text>
             <View style={styles.marketRow}>
@@ -335,10 +356,12 @@ export function HomeScreen({
               <Icon name="chevron" size={20} color={colors.text.muted} />
             </View>
           </Card>
+          </GuideTarget>
 
           <Text variant="cardTitle" style={styles.sectionHeading}>
             {t('home.farmerResources')}
           </Text>
+          <GuideTarget id="farmer-resources" scroll={scrollRef}>
           <View style={styles.resourcesGrid} testID="farmer-resources">
             {resourceTiles.map((tile) => (
               <Pressable
@@ -355,6 +378,7 @@ export function HomeScreen({
               </Pressable>
             ))}
           </View>
+          </GuideTarget>
 
           <Card tone="success" onPress={openAvatar} style={styles.companionCard} testID="companion-card">
             <IconBadge icon="mic" tone="primary" />
@@ -393,8 +417,6 @@ export function HomeScreen({
           </Card>
         </View>
       </ScrollView>
-
-      <AvatarFab />
     </Screen>
   );
 }

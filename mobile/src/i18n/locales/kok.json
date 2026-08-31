@@ -66,7 +66,12 @@
     "title": "Complete your profile",
     "subtitle": "Just a couple of details to get started.",
     "emailOptional": "Optional",
-    "saveCta": "Save and continue"
+    "saveCta": "Save and continue",
+    "locationLabel": "Your Location (GPS)",
+    "detectLocation": "Detect My Location",
+    "detectingLocation": "Detecting GPS location…",
+    "locationDetected": "Location detected via GPS",
+    "locationPermissionPrompt": "Location access helps set up your field and weather automatically."
   },
   "onboarding": {
     "methodTitle": "Register your field",
@@ -187,7 +192,10 @@
       "lai": "Leaf Area Index",
       "elevation": "Elevation",
       "growthStage": "Growth Stage",
-      "cropType": "Crop Type"
+      "cropType": "Crop Type",
+      "windSpeed": "Wind Speed",
+      "waterFlow": "Water Flow Index",
+      "spatialRes": "Spatial Resolution"
     },
     "warningTitle": "Experimental Model Notice",
     "warningBody": "Validation indicates baseline performance. Always cross-check with field moisture before irrigation decisions."
@@ -514,21 +522,24 @@
       "listening": "ऐकत आहे…",
       "thinking": "विचार करत आहे…",
       "speaking": "बोलत आहे",
-      "error": "ऑडिओ नाही"
+      "error": "ऑडिओ नाही",
+      "guiding": "दाखयतां"
     },
     "mic": {
       "idle": "बोलणे सुरू करा",
       "listening": "बोलणे पूर्ण झाले",
       "thinking": "एक क्षण थांबा…",
       "speaking": "पुढचा प्रश्न विचारा",
-      "error": "पुन्हा प्रयत्न करा"
+      "error": "पुन्हा प्रयत्न करा",
+      "guiding": "आनीक कितें विचारात"
     },
     "footer": {
       "idle": "तुम्ही मराठीत किंवा कोणत्याही भाषेत विचारू शकता.",
       "listening": "सावकाश बोला — मी ऐकत आहे.",
       "thinking": "माहिती तपासत आहे…",
       "speaking": "तुम्ही कधीही थांबवून विचारू शकता.",
-      "error": "माइकवर टॅप करून पुन्हा बोला."
+      "error": "माइकवर टॅप करून पुन्हा बोला.",
+      "guiding": "तुमकां थंय व्हरतां."
     },
     "greeting": "नमस्कार {{name}}! तुमकां कितें जाणून घेवंक जाय?",
     "questions": {
@@ -540,7 +551,8 @@
     },
     "sources": {
       "field": "तुमच्या शेताच्या नोंदीवरून",
-      "assistant": "AI मित्र · पडताळणी आवश्यक"
+      "assistant": "AI मित्र · पडताळणी आवश्यक",
+      "label": "स्रोत"
     },
     "errors": {
       "micPermission": "मायक्रोफोन परवानगी आवश्यक आहे. कृपया सेटिंग्जमधून द्या.",
@@ -552,8 +564,39 @@
       "upload": "रेकॉर्डिंग पाठवता आले नाही.",
       "unreachable": "कृषिनेत्रशी संपर्क होत नाही.",
       "tooShort": "रेकॉर्डिंग खूप लहान होते. दाबून ठेवून बोला.",
-      "voice": "आवाज तयार करता आला नाही. उत्तर वर दिले आहे."
-    }
+      "voice": "आवाज तयार करता आला नाही. उत्तर वर दिले आहे.",
+      "expertNotConnected": "शेतकी तज्ञ अजून जोडिल्लो ना, देखून हाचें जाप दिवंक शकना. ॲपांत वाट दाखोवंक शकतां.",
+      "researchNotConnected": "हांव अजून ताजी म्हायती सोदुंक शकना — ती सेवा जोडिल्ली ना. ॲपांत वाट दाखोवंक शकतां."
+    },
+    "guide": {
+      "market_price": "हो आयचो मंडी दर, कुशीक एमएसपी.",
+      "price_trend": "फाटल्या सात दिसांनी दर अशें बदल्ला.",
+      "sell_or_wait": "विकचें काय रावचें — ती सल्ला हांगा दिसतली.",
+      "weather": "हें तुमच्या शेताचें ताजें नोंद केल्लें हवामान.",
+      "crop_status": "तुमीं खंयचें पीक केन्ना पेरलें तें हांगा दिसता.",
+      "msp": "हो तुमच्या पिकाचो जाहीर केल्लो किमान आदार दर.",
+      "field_analysis": "हो तुमच्या शेताच्या विश्लेशणाचो पडदो.",
+      "soil_moisture": "हो कोन तुमच्या शेतांतली अदमासाची माती ओलसाण दाखयता.",
+      "my_lands": "हीं तुमचीं नोंद केल्लीं सगळीं जमीन.",
+      "land_detail": "हो त्या जमिनीचो तपशील.",
+      "register_land": "हांगा थावन नवी जमीन नोंद करात — शीमेवयल्यान चलून वा काडून.",
+      "edit_boundary": "ह्या जमिनीची शीम परत काडपाक हांगा दामात.",
+      "calendar": "हो तुमचो शेतकी दिनदर्शिका, फुडें कितें आसा त्या सयत.",
+      "schemes": "ह्यो सरकारी येवजण्यो तुमी पळोवंक शकतात.",
+      "updates": "ही शेतकी बातम्यांची वळेरी.",
+      "alerts": "ह्यो तुमकां धाडिल्ल्यो शिटकावण्यो आनी संदेश.",
+      "learning": "ही कृषी अकादमी, हांगा शिकोवपी व्हिडिओ आसात.",
+      "visual_assistant": "हांगा थावन तुमी कॅमेरो झाडाकडेन धरूंक शकतात.",
+      "history": "हो तुमच्या शेताचो तपशील आनी फाटलीं कामां.",
+      "profile": "ही तुमची प्रोफायल, हांगा भास आनी सेटिंग्ज बदलात.",
+      "caveat": {
+        "irrigation": "दिसा-दिसाची उदक दिवपाची वळेरी अजून जोडिल्ली ना. हो तुमचो शेतकी दिनदर्शिका, हांव दाखोवंक शकतां त्यांतलो सगळ्यांत लागींचो.",
+        "sell_or_wait": "विकचें काय रावचें — ताका दराचो अदमास जाय, जो अजून जोडिल्लो ना. हें तें कार्ड जंय तो दिसतलो.",
+        "field_analysis": "पिकाची भलायकी आनी वाडीचो टप्पो अजून जोडिल्लो ना. हांगा सद्या फकत हवामान धोक्याची ओळ खरी.",
+        "soil_moisture": "हो ओलसाणीचो आंकडो एका प्रयोगीक मॉडेलांतल्यान येता, देखून ताका स्थूल अदमास मानात, उदक दिवपाचो सल्लो न्हय."
+      }
+    },
+    "youAsked": "You asked"
   },
   "errors": {
     "sessionRestore": "सत्र पुनर्संचयित करता आले नाही. पुन्हा लॉग इन करा.",

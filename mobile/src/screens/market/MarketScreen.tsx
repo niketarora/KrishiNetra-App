@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { RefreshControl, ScrollView, StyleSheet, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
-import { AvatarFab } from '@/components/avatar/AvatarFab';
+import { GuideTarget } from '@/components/guide/GuideTarget';
 import {
   Banner,
   Card,
@@ -39,6 +39,9 @@ export function MarketScreen() {
 
   const [refreshing, setRefreshing] = useState(false);
 
+  /** So a SCROLL step can bring the recommendation card into view. */
+  const scrollRef = useRef<ScrollView>(null);
+
   const handleRefresh = async () => {
     setRefreshing(true);
     await refresh();
@@ -59,6 +62,7 @@ export function MarketScreen() {
       <ScreenHeader title={cropName ? `${t('market.title')} · ${cropName}` : t('market.title')} />
 
       <ScrollView
+        ref={scrollRef}
         contentContainerStyle={styles.content}
         showsVerticalScrollIndicator={false}
         refreshControl={
@@ -72,6 +76,7 @@ export function MarketScreen() {
         {errorKey ? <Banner title={t(errorKey)} tone="danger" icon="offline" /> : null}
         {demo ? <SampleBanner /> : null}
 
+        <GuideTarget id="price-card" scroll={scrollRef}>
         <Card testID="price-card">
           <View style={styles.priceRow}>
             <View style={styles.priceCell}>
@@ -141,6 +146,7 @@ export function MarketScreen() {
           <View style={styles.divider} />
 
           <Text variant="caption">{t('market.sevenDayTrend')}</Text>
+          <GuideTarget id="price-trend" scroll={scrollRef}>
           <View style={styles.trendSlot}>
             {prices.length >= 2 ? (
               <Sparkline prices={prices} />
@@ -148,13 +154,16 @@ export function MarketScreen() {
               <Text variant="micro">{t('market.trendNeedsHistory')}</Text>
             )}
           </View>
+          </GuideTarget>
         </Card>
+        </GuideTarget>
 
         {/*
           The recommendation is a forecast, not a report. Without the price
           prediction model there is nothing to say, so outside demo mode this
           card states what it needs rather than guessing.
         */}
+        <GuideTarget id="recommendation-card" scroll={scrollRef}>
         {demo ? (
           <Card style={styles.demoCard}>
             <View style={styles.demoHeader}>
@@ -180,6 +189,7 @@ export function MarketScreen() {
             </Text>
           </Card>
         )}
+        </GuideTarget>
 
         {latest ? (
           <Text variant="micro" style={styles.sourceLine}>
@@ -189,8 +199,6 @@ export function MarketScreen() {
           <EmptyState icon="market" title={t('market.emptyTitle')} testID="market-empty" />
         )}
       </ScrollView>
-
-      <AvatarFab />
     </Screen>
   );
 }

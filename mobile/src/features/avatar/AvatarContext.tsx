@@ -10,7 +10,9 @@ import {
 } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { chat, transcribe, type ChatTurn } from '@/services/avatarService';
+import { useGuide } from '@/features/guide/GuideContext';
+import { assist, type AssistantResponse } from '@/services/assistantService';
+import { transcribe } from '@/services/avatarService';
 import { DataError } from '@/services/errors';
 
 import {
@@ -24,7 +26,8 @@ import { useSpeechPlayer } from './useSpeechPlayer';
 import { useVoiceRecorder, VoiceRecorderError } from './useVoiceRecorder';
 
 type AvatarContextValue = AvatarMachineState & {
-  isOpen: boolean;
+  /** True while the mic is being offered — the avatar is waiting to be spoken to. */
+  isListeningMode: boolean;
   open: () => void;
   close: () => void;
   /** Tap a suggested question — sends it as if the farmer had spoken it. */
@@ -37,39 +40,41 @@ type AvatarContextValue = AvatarMachineState & {
 
 const AvatarContext = createContext<AvatarContextValue | null>(null);
 
-/** How many turns of history to send. The API caps this at 20. */
-const MAX_HISTORY = 12;
-
 /**
  * Drives the avatar state machine.
  *
- * Phase 1 drove it from timers over a scripted exchange. Phase 2.5 replaced
- * that driver with the real loop:
+ * The loop the farmer experiences:
  *
- *     hold mic -> record -> transcribe -> ask the model -> speak the reply
+ *     hold mic -> record -> transcribe -> route -> guide + speak
  *
- * `avatarMachine.ts` was not touched. It is the same pure reducer, receiving
- * the same five events from a different source — which is exactly what Phase 1
- * built it for.
+ * The last step is the one that changed with this redesign. A reply used to be
+ * a sentence to read out; it is now a decision about what should happen, and
+ * three things start the moment it lands:
  *
- * What still is not here, by design (§9 of the phase document): no tool
- * calling, no text-to-speech, no agent. The reply is displayed, not spoken.
+ *   1. the guide runs the navigation steps,
+ *   2. the avatar peeks with the message,
+ *   3. speech synthesis begins.
+ *
+ * Explicitly in that order, and explicitly not chained. Waiting for audio
+ * before moving would put a second of dead screen between the farmer asking and
+ * anything happening, for no gain — and a voice that fails would then take the
+ * guidance down with it. As it stands, a TTS failure costs the farmer the
+ * narration and nothing else.
  */
 export function AvatarProvider({ children }: { children: ReactNode }) {
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
   const recorder = useVoiceRecorder();
   const speech = useSpeechPlayer();
+  const guide = useGuide();
 
   const [machine, dispatch] = useReducer(avatarReducer, initialAvatarState);
-  const [isOpen, setIsOpen] = useState(false);
+  const [isListeningMode, setIsListeningMode] = useState(false);
   const [errorKey, setErrorKey] = useState<string | null>(null);
-
-  /** The conversation so far, so the model can follow a train of thought. */
-  const history = useRef<ChatTurn[]>([]);
 
   /**
    * Identifies the exchange in flight. A farmer who interrupts starts a new
-   * one, and the abandoned reply must not speak over them when it lands.
+   * one, and the abandoned exchange must not speak over them — or, now, keep
+   * navigating underneath them — when it lands.
    */
   const exchange = useRef(0);
 
@@ -78,27 +83,37 @@ export function AvatarProvider({ children }: { children: ReactNode }) {
     dispatch({ type: 'FAIL' });
   }, []);
 
-  /** Send one farmer utterance and speak whatever comes back. */
-  const answer = useCallback(
-    async (spoken: string, turn: number) => {
-      const turns = [...history.current, { role: 'user' as const, text: spoken }].slice(-MAX_HISTORY);
+  /**
+   * A localised response carries i18n keys rather than text, so app guidance
+   * reads correctly in every locale without a translation round trip on the
+   * request path. Prose from the expert or research branches passes straight
+   * through — translating it here would be re-writing the model's answer.
+   */
+  const spokenText = useCallback(
+    (response: AssistantResponse): string =>
+      response.localised ? t(response.speech) : response.speech,
+    [t],
+  );
 
-      let reply: string;
+  /** Route one farmer utterance, then move the app and speak the answer. */
+  const respond = useCallback(
+    async (spoken: string, turn: number) => {
+      let response: AssistantResponse;
       try {
-        const response = await chat(turns, i18n.language);
+        response = await assist(spoken, i18n.language);
         if (exchange.current !== turn) return;
 
-        reply = response.text;
-        history.current = [...turns, { role: 'model' as const, text: reply }].slice(-MAX_HISTORY);
-
-        // The source chip names the assistant, never a data source. The model
-        // is relaying facts it was given, and saying "From your field record"
-        // here would attribute its wording to the database.
-        dispatch({ type: 'RESOLVE', answer: reply, source: 'avatar.sources.assistant' });
+        dispatch({ type: 'RESOLVE', response });
       } catch (error) {
         if (exchange.current !== turn) return;
         fail(error instanceof DataError ? error.translationKey : 'avatar.errors.reply');
         return;
+      }
+
+      // The app starts moving now, not after the voice arrives.
+      if (response.type === 'APP_GUIDE' && response.navigation.length > 0) {
+        dispatch({ type: 'GUIDE_STARTED' });
+        void guide.run(response.navigation);
       }
 
       // The answer is on screen from here on. Losing the voice must not lose
@@ -106,7 +121,7 @@ export function AvatarProvider({ children }: { children: ReactNode }) {
       // answered, so a synthesis failure ends the turn quietly rather than
       // replacing a good answer with an error.
       try {
-        await speech.play(reply, i18n.language);
+        await speech.play(spokenText(response), i18n.language);
       } catch (error) {
         console.warn('[avatar] could not speak the reply:', error);
       }
@@ -114,7 +129,7 @@ export function AvatarProvider({ children }: { children: ReactNode }) {
       if (exchange.current !== turn) return;
       dispatch({ type: 'DONE' });
     },
-    [fail, i18n.language, speech],
+    [fail, guide, i18n.language, speech, spokenText],
   );
 
   const beginListening = useCallback(
@@ -123,8 +138,11 @@ export function AvatarProvider({ children }: { children: ReactNode }) {
       setErrorKey(null);
 
       // Cutting in is allowed: the farmer pressing the mic mid-answer wants to
-      // ask something else, not to talk over the last one.
+      // ask something else, not to talk over the last one. The guide is
+      // cancelled for the same reason — an abandoned run must not carry on
+      // navigating while a new question is being asked.
       speech.stop();
+      guide.cancel();
 
       // Enter `listening` before awaiting the recorder, for two reasons. The
       // farmer gets feedback on the tap rather than after a permission round
@@ -143,12 +161,11 @@ export function AvatarProvider({ children }: { children: ReactNode }) {
         );
       }
     },
-    [fail, recorder, speech],
+    [fail, guide, recorder, speech],
   );
 
   const finishListening = useCallback(async () => {
     const turn = exchange.current;
-    dispatch({ type: 'STOP_LISTENING' });
 
     let spoken: string;
     try {
@@ -157,8 +174,13 @@ export function AvatarProvider({ children }: { children: ReactNode }) {
       if (exchange.current !== turn) return;
 
       spoken = transcription.text;
+      dispatch({ type: 'STOP_LISTENING', transcript: spoken });
     } catch (error) {
       if (exchange.current !== turn) return;
+
+      // Move out of `listening` before failing, or FAIL lands on a state the
+      // reducer still thinks is recording.
+      dispatch({ type: 'STOP_LISTENING' });
 
       // Every failure here names itself, and none of them invents a question
       // on the farmer's behalf. A recorder problem and a service problem need
@@ -173,13 +195,13 @@ export function AvatarProvider({ children }: { children: ReactNode }) {
       return;
     }
 
-    await answer(spoken, turn);
-  }, [answer, i18n.language, recorder]);
+    await respond(spoken, turn);
+  }, [fail, i18n.language, recorder, respond]);
 
   /**
    * A suggestion chip. It skips recording — the farmer typed nothing and said
-   * nothing — but the question itself is real and goes to the model exactly as
-   * a spoken one would.
+   * nothing — but the question itself is real and is routed exactly as a spoken
+   * one would be.
    */
   const ask = useCallback(
     (question: QuestionKey) => {
@@ -188,12 +210,15 @@ export function AvatarProvider({ children }: { children: ReactNode }) {
 
       setErrorKey(null);
       speech.stop();
-      dispatch({ type: 'START_LISTENING', question });
-      dispatch({ type: 'STOP_LISTENING' });
+      guide.cancel();
 
-      void answer(questionText(i18n.t.bind(i18n), question), turn);
+      const spoken = questionText(i18n.t.bind(i18n), question);
+      dispatch({ type: 'START_LISTENING', question });
+      dispatch({ type: 'STOP_LISTENING', transcript: spoken });
+
+      void respond(spoken, turn);
     },
-    [answer, i18n, speech],
+    [guide, i18n, respond, speech],
   );
 
   const pressMic = useCallback(() => {
@@ -209,21 +234,29 @@ export function AvatarProvider({ children }: { children: ReactNode }) {
     void beginListening();
   }, [beginListening, finishListening, machine.state]);
 
-  const open = useCallback(() => setIsOpen(true), []);
+  /**
+   * Opening no longer means "show a screen" — there is no screen. It arms the
+   * mic and starts listening straight away, because a farmer who tapped the
+   * microphone has already said what they wanted to do.
+   */
+  const open = useCallback(() => {
+    setIsListeningMode(true);
+    void beginListening();
+  }, [beginListening]);
 
   const close = useCallback(() => {
     exchange.current += 1;
     void recorder.cancel();
     speech.stop();
-    history.current = [];
+    guide.cancel();
     setErrorKey(null);
     dispatch({ type: 'RESET' });
-    setIsOpen(false);
-  }, [recorder, speech]);
+    setIsListeningMode(false);
+  }, [guide, recorder, speech]);
 
   const value = useMemo<AvatarContextValue>(
-    () => ({ ...machine, isOpen, errorKey, open, close, ask, pressMic }),
-    [machine, isOpen, errorKey, open, close, ask, pressMic],
+    () => ({ ...machine, isListeningMode, errorKey, open, close, ask, pressMic }),
+    [machine, isListeningMode, errorKey, open, close, ask, pressMic],
   );
 
   return <AvatarContext.Provider value={value}>{children}</AvatarContext.Provider>;

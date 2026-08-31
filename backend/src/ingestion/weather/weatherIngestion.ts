@@ -87,6 +87,7 @@ export async function ingestWeatherPayload(
       temperature_c: row.temperature_c,
       rainfall_mm: row.rainfall_mm,
       humidity_pct: row.humidity_pct,
+      wind_speed_kmh: row.wind_speed_kmh,
       source,
     })),
     { onConflict: 'grid_lat,grid_lng,observed_on', count: 'exact' },

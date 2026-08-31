@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { RefreshControl, ScrollView, StyleSheet, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
-import { AvatarFab } from '@/components/avatar/AvatarFab';
 import { BoundaryThumbnail } from '@/components/farm/BoundaryThumbnail';
+import { GuideTarget } from '@/components/guide/GuideTarget';
 import {
   Badge,
   Card,
@@ -30,6 +30,7 @@ export function FieldAnalysisScreen({ onBack }: Props) {
   const { farm } = useFarm();
   const { crop, weather, soilMoisture, refresh } = useHomeInsights(farm?.id ?? null);
   const [refreshing, setRefreshing] = useState(false);
+  const scrollRef = useRef<ScrollView>(null);
 
   const handleRefresh = async () => {
     setRefreshing(true);
@@ -82,6 +83,7 @@ export function FieldAnalysisScreen({ onBack }: Props) {
       <ScreenHeader title={t('field.title')} onBack={onBack} />
 
       <ScrollView
+        ref={scrollRef}
         contentContainerStyle={styles.content}
         showsVerticalScrollIndicator={false}
         refreshControl={
@@ -114,109 +116,129 @@ export function FieldAnalysisScreen({ onBack }: Props) {
         ) : null}
 
         {/* --- Primary ML Soil Moisture Output --- */}
-        <Card tone="success" style={styles.mlHighlightCard} testID="soil-moisture-card">
-          <View style={styles.cardHeaderRow}>
-            <View style={styles.titleWithIcon}>
-              <IconBadge icon="droplet" tone="primary" />
-              <View style={styles.headerTextGroup}>
-                <Text variant="bodyMedium" color={colors.primaryDark}>
-                  {t('field.soilMoistureTitle')}
+        <GuideTarget id="soil-moisture-card" scroll={scrollRef}>
+          <Card tone="success" style={styles.mlHighlightCard} testID="soil-moisture-card">
+            <View style={styles.cardHeaderRow}>
+              <View style={styles.titleWithIcon}>
+                <IconBadge icon="droplet" tone="primary" />
+                <View style={styles.headerTextGroup}>
+                  <Text variant="bodyMedium" color={colors.primaryDark}>
+                    {t('field.soilMoistureTitle')}
+                  </Text>
+                  <Text variant="micro" color={colors.text.secondary}>
+                    {t('field.soilMoistureSub')}
+                  </Text>
+                </View>
+              </View>
+            </View>
+
+            <View style={styles.statContainer}>
+              <View style={styles.statMain}>
+                <Text variant="stat" color={colors.primaryDark} style={styles.statNumber}>
+                  {prediction ? `${prediction.soil_moisture_percent}%` : '--'}
                 </Text>
-                <Text variant="micro" color={colors.text.secondary}>
-                  {t('field.soilMoistureSub')}
+                <Badge
+                  label={
+                    prediction
+                      ? t(`field.categories.${prediction.category}`, { defaultValue: prediction.category })
+                      : t('common.notAvailable')
+                  }
+                  tone={categoryTone(prediction?.category)}
+                />
+              </View>
+
+              <View style={styles.modelTagRow}>
+                <Text variant="microMedium" color={colors.text.muted}>
+                  {prediction ? t('field.modelVersion', { version: prediction.model_version }) : 'Model: offline'}
                 </Text>
               </View>
             </View>
-          </View>
 
-          <View style={styles.statContainer}>
-            <View style={styles.statMain}>
-              <Text variant="stat" color={colors.primaryDark} style={styles.statNumber}>
-                {prediction ? `${prediction.soil_moisture_percent}%` : '--'}
-              </Text>
-              <Badge
-                label={
-                  prediction
-                    ? t(`field.categories.${prediction.category}`, { defaultValue: prediction.category })
-                    : t('common.notAvailable')
-                }
-                tone={categoryTone(prediction?.category)}
-              />
-            </View>
-
-            <View style={styles.modelTagRow}>
-              <Text variant="microMedium" color={colors.text.muted}>
-                {prediction ? t('field.modelVersion', { version: prediction.model_version }) : 'Model: offline'}
-              </Text>
-            </View>
-          </View>
-
-          {prediction?.warning ? (
-            <View style={styles.warningContainer}>
-              <Icon name="alert" size={16} color={colors.warning} />
-              <Text variant="micro" color={colors.text.secondary} style={styles.warningText}>
-                {prediction.warning}
-              </Text>
-            </View>
-          ) : null}
-        </Card>
+            {prediction?.warning ? (
+              <View style={styles.warningContainer}>
+                <Icon name="alert" size={16} color={colors.warning} />
+                <Text variant="micro" color={colors.text.secondary} style={styles.warningText}>
+                  {prediction.warning}
+                </Text>
+              </View>
+            ) : null}
+          </Card>
+        </GuideTarget>
 
         {/* --- Model Input Feature Parameter Breakdown --- */}
         {features ? (
-          <Card style={styles.featuresCard} testID="ml-features-card">
-            <View style={styles.sectionTitleRow}>
-              <Icon name="flask" size={18} color={colors.primary} />
-              <Text variant="bodyMedium" color={colors.text.primary}>
-                {t('field.inputsTitle')}
+          <GuideTarget id="ml-features-card" scroll={scrollRef}>
+            <Card style={styles.featuresCard} testID="ml-features-card">
+              <View style={styles.sectionTitleRow}>
+                <Icon name="flask" size={18} color={colors.primary} />
+                <Text variant="bodyMedium" color={colors.text.primary}>
+                  {t('field.inputsTitle')}
+                </Text>
+              </View>
+              <Text variant="micro" color={colors.text.muted} style={styles.sectionSubtitle}>
+                {t('field.inputsSubtitle')}
               </Text>
-            </View>
-            <Text variant="micro" color={colors.text.muted} style={styles.sectionSubtitle}>
-              {t('field.inputsSubtitle')}
-            </Text>
 
-            <View style={styles.featureGrid}>
-              <View style={styles.featureItem}>
-                <Text variant="micro" color={colors.text.muted}>{t('field.features.cropType')}</Text>
-                <Text variant="bodyMedium">{features.crop_type.toUpperCase()}</Text>
+              <View style={styles.featureGrid}>
+                <View style={styles.featureItem}>
+                  <Text variant="micro" color={colors.text.muted}>{t('field.features.cropType')}</Text>
+                  <Text variant="bodyMedium">{features.crop_type.toUpperCase()}</Text>
+                </View>
+                <View style={styles.featureItem}>
+                  <Text variant="micro" color={colors.text.muted}>{t('field.features.growthStage')}</Text>
+                  <Text variant="bodyMedium">{`Stage ${features.crop_growth_stage}`}</Text>
+                </View>
+                <View style={styles.featureItem}>
+                  <Text variant="micro" color={colors.text.muted}>{t('field.features.temp')}</Text>
+                  <Text variant="bodyMedium">{features.temperature_c.toFixed(1)}°C</Text>
+                </View>
+                <View style={styles.featureItem}>
+                  <Text variant="micro" color={colors.text.muted}>{t('field.features.humidity')}</Text>
+                  <Text variant="bodyMedium">{features.humidity_percent.toFixed(0)}%</Text>
+                </View>
+                <View style={styles.featureItem}>
+                  <Text variant="micro" color={colors.text.muted}>{t('field.features.rainfall')}</Text>
+                  <Text variant="bodyMedium">{features.rainfall.toFixed(1)} mm</Text>
+                </View>
+                <View style={styles.featureItem}>
+                  <Text variant="micro" color={colors.text.muted}>{t('field.features.windSpeed')}</Text>
+                  <Text variant="bodyMedium">{features.wind_speed.toFixed(1)} km/h</Text>
+                </View>
+                <View style={styles.featureItem}>
+                  <Text variant="micro" color={colors.text.muted}>{t('field.features.soilPh')}</Text>
+                  <Text variant="bodyMedium">{features.soil_ph.toFixed(1)}</Text>
+                </View>
+                <View style={styles.featureItem}>
+                  <Text variant="micro" color={colors.text.muted}>{t('field.features.organicMatter')}</Text>
+                  <Text variant="bodyMedium">{features.organic_matter.toFixed(2)}%</Text>
+                </View>
+                <View style={styles.featureItem}>
+                  <Text variant="micro" color={colors.text.muted}>{t('field.features.ndvi')}</Text>
+                  <Text variant="bodyMedium">{features.ndvi.toFixed(2)}</Text>
+                </View>
+                <View style={styles.featureItem}>
+                  <Text variant="micro" color={colors.text.muted}>{t('field.features.savi')}</Text>
+                  <Text variant="bodyMedium">{features.savi.toFixed(2)}</Text>
+                </View>
+                <View style={styles.featureItem}>
+                  <Text variant="micro" color={colors.text.muted}>{t('field.features.lai')}</Text>
+                  <Text variant="bodyMedium">{features.leaf_area_index.toFixed(1)}</Text>
+                </View>
+                <View style={styles.featureItem}>
+                  <Text variant="micro" color={colors.text.muted}>{t('field.features.elevation')}</Text>
+                  <Text variant="bodyMedium">{features.elevation.toFixed(0)} m</Text>
+                </View>
+                <View style={styles.featureItem}>
+                  <Text variant="micro" color={colors.text.muted}>{t('field.features.waterFlow')}</Text>
+                  <Text variant="bodyMedium">{features.water_flow.toFixed(1)}</Text>
+                </View>
+                <View style={styles.featureItem}>
+                  <Text variant="micro" color={colors.text.muted}>{t('field.features.spatialRes')}</Text>
+                  <Text variant="bodyMedium">{features.spatial_resolution.toFixed(0)} m</Text>
+                </View>
               </View>
-              <View style={styles.featureItem}>
-                <Text variant="micro" color={colors.text.muted}>{t('field.features.ndvi')}</Text>
-                <Text variant="bodyMedium">{features.ndvi.toFixed(2)}</Text>
-              </View>
-              <View style={styles.featureItem}>
-                <Text variant="micro" color={colors.text.muted}>{t('field.features.savi')}</Text>
-                <Text variant="bodyMedium">{features.savi.toFixed(2)}</Text>
-              </View>
-              <View style={styles.featureItem}>
-                <Text variant="micro" color={colors.text.muted}>{t('field.features.temp')}</Text>
-                <Text variant="bodyMedium">{features.temperature_c.toFixed(1)}°C</Text>
-              </View>
-              <View style={styles.featureItem}>
-                <Text variant="micro" color={colors.text.muted}>{t('field.features.humidity')}</Text>
-                <Text variant="bodyMedium">{features.humidity_percent.toFixed(0)}%</Text>
-              </View>
-              <View style={styles.featureItem}>
-                <Text variant="micro" color={colors.text.muted}>{t('field.features.rainfall')}</Text>
-                <Text variant="bodyMedium">{features.rainfall.toFixed(1)} mm</Text>
-              </View>
-              <View style={styles.featureItem}>
-                <Text variant="micro" color={colors.text.muted}>{t('field.features.soilPh')}</Text>
-                <Text variant="bodyMedium">{features.soil_ph.toFixed(1)}</Text>
-              </View>
-              <View style={styles.featureItem}>
-                <Text variant="micro" color={colors.text.muted}>{t('field.features.organicMatter')}</Text>
-                <Text variant="bodyMedium">{features.organic_matter.toFixed(1)}%</Text>
-              </View>
-              <View style={styles.featureItem}>
-                <Text variant="micro" color={colors.text.muted}>{t('field.features.lai')}</Text>
-                <Text variant="bodyMedium">{features.leaf_area_index.toFixed(1)}</Text>
-              </View>
-              <View style={styles.featureItem}>
-                <Text variant="micro" color={colors.text.muted}>{t('field.features.elevation')}</Text>
-                <Text variant="bodyMedium">{features.elevation.toFixed(0)} m</Text>
-              </View>
-            </View>
-          </Card>
+            </Card>
+          </GuideTarget>
         ) : null}
 
         {/* --- Agronomic & Environmental Context --- */}
@@ -248,8 +270,6 @@ export function FieldAnalysisScreen({ onBack }: Props) {
           </Text>
         </Card>
       </ScrollView>
-
-      <AvatarFab />
     </Screen>
   );
 }

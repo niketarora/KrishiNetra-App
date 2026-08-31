@@ -66,7 +66,12 @@
     "title": "Complete your profile",
     "subtitle": "Just a couple of details to get started.",
     "emailOptional": "Optional",
-    "saveCta": "Save and continue"
+    "saveCta": "Save and continue",
+    "locationLabel": "Your Location (GPS)",
+    "detectLocation": "Detect My Location",
+    "detectingLocation": "Detecting GPS location…",
+    "locationDetected": "Location detected via GPS",
+    "locationPermissionPrompt": "Location access helps set up your field and weather automatically."
   },
   "onboarding": {
     "methodTitle": "Register your field",
@@ -187,7 +192,10 @@
       "lai": "Leaf Area Index",
       "elevation": "Elevation",
       "growthStage": "Growth Stage",
-      "cropType": "Crop Type"
+      "cropType": "Crop Type",
+      "windSpeed": "Wind Speed",
+      "waterFlow": "Water Flow Index",
+      "spatialRes": "Spatial Resolution"
     },
     "warningTitle": "Experimental Model Notice",
     "warningBody": "Validation indicates baseline performance. Always cross-check with field moisture before irrigation decisions."
@@ -514,21 +522,24 @@
       "listening": "سن رہا ہے…",
       "thinking": "سوچ رہا ہے…",
       "speaking": "بول رہا ہے",
-      "error": "کوئی آواز نہیں"
+      "error": "کوئی آواز نہیں",
+      "guiding": "ڏيکاري رهيو آهيان"
     },
     "mic": {
       "idle": "بولنا شروع کریں",
       "listening": "بات مکمل ہوئی",
       "thinking": "ایک لمحہ…",
       "speaking": "اگلا سوال پوچھیں",
-      "error": "دوبارہ کوشش کریں"
+      "error": "دوبارہ کوشش کریں",
+      "guiding": "ٻيو ڪجهه پڇو"
     },
     "footer": {
       "idle": "آپ اردو یا کسی بھی زبان میں بول سکتے ہیں۔",
       "listening": "آہستہ بولیں — میں سن رہا ہوں۔",
       "thinking": "تفصیلات کا جائزہ لیا جا رہا ہے…",
       "speaking": "آپ کسی بھی وقت روک کر پوچھ سکتے ہیں۔",
-      "error": "مائیک دبا کر دوبارہ بولیں۔"
+      "error": "مائیک دبا کر دوبارہ بولیں۔",
+      "guiding": "توهان کي اتي وٺي وڃي رهيو آهيان."
     },
     "greeting": "سلام {{name}}! توهان ڇا ڄاڻڻ چاهيو ٿا؟",
     "questions": {
@@ -540,7 +551,8 @@
     },
     "sources": {
       "field": "آپ کے کھیت کے ریکارڈ سے",
-      "assistant": "AI ساتھی · تصدیق ضروری"
+      "assistant": "AI ساتھی · تصدیق ضروری",
+      "label": "ذريعا"
     },
     "errors": {
       "micPermission": "مائیکروفون کی اجازت درکار ہے۔ سیٹنگز سے اجازت دیں۔",
@@ -552,8 +564,39 @@
       "upload": "ریکارڈنگ نہیں بھیجی جا سکی۔",
       "unreachable": "کرشی نیترا سرور سے رابطہ نہیں ہو رہا۔",
       "tooShort": "ریکارڈنگ بہت مختصر تھی۔ دبا کر رکھیں۔",
-      "voice": "آواز تیار نہیں ہو سکی۔ جواب اوپر موجود ہے۔"
-    }
+      "voice": "آواز تیار نہیں ہو سکی۔ جواب اوپر موجود ہے۔",
+      "expertNotConnected": "زرعي ماهر اڃا نه ڳنڍيل آهي، ان ڪري هن جو جواب نٿو ڏئي سگهان. ايپ ۾ رستو تڏهن به ڏيکاري سگهان ٿو.",
+      "researchNotConnected": "مان اڃا تازي معلومات نٿو ڳولي سگهان — اها خدمت نه ڳنڍيل آهي. ايپ ۾ رستو تڏهن به ڏيکاري سگهان ٿو."
+    },
+    "guide": {
+      "market_price": "هي رهيو اڄ جو منڊي ڀاءُ، ڀرسان ايم ايس پي.",
+      "price_trend": "گذريل ست ڏينهن ۾ قيمت هينئن بدلي آهي.",
+      "sell_or_wait": "وڪڻجي يا ترسجي — اها صلاح هتي ڏيکاربي.",
+      "weather": "هي رهيو توهانجي ٻنيءَ جو تازو داخل ٿيل موسم.",
+      "crop_status": "هتي ڏسجي ٿو ته توهان ڪهڙي فصل ڪڏهن پوکي.",
+      "msp": "هي توهانجي فصل جي اعلان ٿيل گھٽ ۾ گھٽ امدادي قيمت آهي.",
+      "field_analysis": "هي توهانجي ٻنيءَ جي تجزيي جو اسڪرين آهي.",
+      "soil_moisture": "هي خانو توهانجي ٻنيءَ جي اندازي مٽيءَ جي نمي ڏيکاري ٿو.",
+      "my_lands": "هي توهانجون سڀ داخل ٿيل زمينون آهن.",
+      "land_detail": "هي رهي انهيءَ زمين جي تفصيل.",
+      "register_land": "هتان نئين زمين داخل ڪريو — حد تي هلي يا نقشي تي ٺاهي.",
+      "edit_boundary": "هن زمين جي حد ٻيهر ٺاهڻ لاءِ هتي دٻايو.",
+      "calendar": "هي توهانجو پوکيءَ جو ڪئلينڊر آهي، اڳتي ڇا آهي ان سان.",
+      "schemes": "هي سرڪاري اسڪيمون توهان ڏسي سگهو ٿا.",
+      "updates": "هي زرعي خبرن جي فهرست آهي.",
+      "alerts": "هي توهان ڏانهن موڪليل خبردايون ۽ پيغام آهن.",
+      "learning": "هي ڪرشي اڪيڊمي آهي، هتي سيکاريندڙ وڊيوز آهن.",
+      "visual_assistant": "هتان توهان ڪئميرا ٻوٽي ڏانهن ڪري سگهو ٿا.",
+      "history": "هي توهانجي ٻنيءَ جي تفصيل ۽ اڳوڻا ڪم آهن.",
+      "profile": "هي توهانجي پروفائل آهي، هتي ٻولي ۽ سيٽنگون بدلايو.",
+      "caveat": {
+        "irrigation": "روزاني آبپاشيءَ جي فهرست اڃا نه ڳنڍيل آهي. هي توهانجو پوکيءَ جو ڪئلينڊر آهي، جيڪو ڏيکاري سگهان ٿو ان ۾ سڀ کان ويجهو.",
+        "sell_or_wait": "وڪڻجي يا ترسجي — ان لاءِ قيمت جو اندازو گھرجي، جيڪو اڃا نه ڳنڍيل آهي. هي اهو ڪارڊ آهي جتي اهو ڏيکاربو.",
+        "field_analysis": "فصل جي صحت ۽ واڌ جو مرحلو اڃا نه ڳنڍيل آهي. هتي هينئر رڳو موسمي خطري واري سٽ اصلي آهي.",
+        "soil_moisture": "هي نميءَ جو انگ هڪ تجرباتي ماڊل مان اچي ٿو، ان ڪري ان کي ٿلهو اندازو سمجهو، آبپاشيءَ جي صلاح نه."
+      }
+    },
+    "youAsked": "You asked"
   },
   "errors": {
     "sessionRestore": "سیشن بحال نہیں ہو سکا۔ دوبارہ لاگ ان کریں۔",

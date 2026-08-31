@@ -124,6 +124,6 @@ describe('ProfileScreen', () => {
   it('shows the farmer state in preferences', async () => {
     await renderWithProviders(<ProfileScreen {...props} />);
 
-    expect(screen.getByText('Rajasthan')).toBeTruthy();
+    expect(screen.getByText(/Rajasthan/)).toBeTruthy();
   });
 });

@@ -347,11 +347,9 @@ describe('HomeScreen', () => {
       expect(mockOpenAvatar).toHaveBeenCalled();
     });
 
-    it('opens the avatar from the floating mic button', async () => {
-      await renderWithProviders(<HomeScreen {...props} />);
-      await fireEvent.press(screen.getByTestId('avatar-fab'));
-
-      expect(mockOpenAvatar).toHaveBeenCalled();
-    });
+    // The floating mic button used to be mounted here, and on three other
+    // screens. It is now mounted once beside the avatar in RootNavigator,
+    // because the guide can take the farmer anywhere in the app and so has to
+    // be reachable from anywhere in it.
   });
 });

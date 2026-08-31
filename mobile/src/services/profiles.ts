@@ -34,8 +34,13 @@ export async function updateProfile(
       | 'in_app_alerts'
       | 'sms_alerts'
       | 'voice_alerts'
-      | 'location_state'
+      | 'location_latitude'
+      | 'location_longitude'
+      | 'location_city'
       | 'location_district'
+      | 'location_state'
+      | 'location_country'
+      | 'location_source'
     >
   >,
 ): Promise<Profile> {

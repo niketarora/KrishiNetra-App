@@ -1,15 +1,19 @@
 import { NavigationContainer, DefaultTheme, type Theme } from '@react-navigation/native';
 
-import { AvatarOverlay } from '@/components/avatar/AvatarOverlay';
+import { AvatarFab } from '@/components/avatar/AvatarFab';
+import { AvatarPeek } from '@/components/avatar/AvatarPeek';
+import { Spotlight } from '@/components/guide/Spotlight';
 import { AvatarProvider } from '@/features/avatar/AvatarContext';
 import { useAuth } from '@/features/auth/AuthContext';
 import { FarmProvider } from '@/features/farm/FarmContext';
+import { GuideProvider } from '@/features/guide/GuideContext';
 import { ProfileSetupScreen } from '@/screens/auth/ProfileSetupScreen';
 import { SplashScreen } from '@/screens/SplashScreen';
 import { colors } from '@/theme';
 
 import { AuthNavigator } from './AuthNavigator';
 import { MainNavigator } from './MainNavigator';
+import { navigationRef } from './navigationRef';
 
 const navigationTheme: Theme = {
   ...DefaultTheme,
@@ -66,17 +70,36 @@ export function RootNavigator() {
 
   return (
     <FarmProvider>
-      <AvatarProvider>
-        <NavigationContainer theme={navigationTheme}>
-          <MainNavigator />
-        </NavigationContainer>
-        {/*
-          Rendered outside the NavigationContainer so the avatar can be opened
-          from any screen and covers the tab bar — it is an interaction layer
-          over the app, not a destination in it.
-        */}
-        <AvatarOverlay />
-      </AvatarProvider>
+      {/*
+        GuideProvider sits above AvatarProvider because the avatar drives it:
+        a routed answer hands its navigation steps to the guide, and an
+        interrupted exchange cancels whatever the guide was doing.
+      */}
+      <GuideProvider>
+        <AvatarProvider>
+          {/*
+            The ref is how the guide reaches navigation. Screens still take
+            their navigation as callback props; this exists only for the three
+            siblings below, which are outside the container by design.
+          */}
+          <NavigationContainer theme={navigationTheme} ref={navigationRef}>
+            <MainNavigator />
+          </NavigationContainer>
+
+          {/*
+            All three are rendered outside the NavigationContainer so they
+            survive every navigation the guide performs and are reachable from
+            any screen — they are an interaction layer over the app, not
+            destinations in it.
+
+            Order matters: the spotlight frames a card on the screen below, and
+            the peek must sit above the spotlight rather than be ringed by it.
+          */}
+          <Spotlight />
+          <AvatarPeek />
+          <AvatarFab />
+        </AvatarProvider>
+      </GuideProvider>
     </FarmProvider>
   );
 }

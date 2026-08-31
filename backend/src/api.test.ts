@@ -61,6 +61,7 @@ function builderFor(table: string) {
 
 const getUser = jest.fn<() => Promise<{ data: unknown; error: unknown }>>();
 const predictSoilMoisture = jest.fn<any>();
+const runAssist = jest.fn<any>();
 
 jest.unstable_mockModule('./config/supabase.js', () => ({
   authClient: () => ({ auth: { getUser } }),
@@ -83,6 +84,13 @@ jest.unstable_mockModule('./ingestion/weather/weatherSource.js', () => ({
 
 jest.unstable_mockModule('./services/soilMoisturePrediction.service.js', () => ({
   predictSoilMoisture,
+}));
+
+// The orchestrator reaches three separate AI providers. What is under test here
+// is the route around it — auth, validation, envelope — so the branch choice
+// itself is exercised by the unit tests next to each provider instead.
+jest.unstable_mockModule('./ai/orchestrator.service.js', () => ({
+  assist: runAssist,
 }));
 
 const { createApp } = await import('./app.js');
@@ -558,6 +566,91 @@ describe('GET /api/v1/updates', () => {
     const res = await request(app).get(`/api/v1/updates?farmId=${OTHER_FARM_ID}`);
 
     expect(res.status).toBe(401);
+  });
+});
+
+describe('POST /api/v1/ai/assist', () => {
+  const guide = {
+    type: 'APP_GUIDE',
+    message: 'avatar.guide.market_price',
+    speech: 'avatar.guide.market_price',
+    localised: true,
+    navigation: [
+      { action: 'NAVIGATE', target: 'Market' },
+      { action: 'HIGHLIGHT', target: 'price-card' },
+    ],
+    avatar: { expression: 'pointing', position: 'bottom-right' },
+  };
+
+  it('returns the guide in the standard envelope', async () => {
+    runAssist.mockResolvedValue(guide);
+
+    const res = await request(app)
+      .post('/api/v1/ai/assist')
+      .set(AUTH)
+      .send({ transcript: 'what is the mandi price', language: 'en' });
+
+    expect(res.status).toBe(200);
+    expect(Object.keys(res.body).sort()).toEqual(['data', 'message', 'success']);
+    expect(res.body.data).toEqual(guide);
+  });
+
+  it('forwards the farmer identity so the guide reads their own records', async () => {
+    runAssist.mockResolvedValue(guide);
+
+    await request(app).post('/api/v1/ai/assist').set(AUTH).send({ transcript: 'weather' });
+
+    expect(runAssist).toHaveBeenCalledWith(
+      expect.objectContaining({ transcript: 'weather', userId: USER_ID, token: 'valid-token' }),
+    );
+  });
+
+  it('requires authentication', async () => {
+    const res = await request(app).post('/api/v1/ai/assist').send({ transcript: 'weather' });
+
+    expect(res.status).toBe(401);
+    expect(runAssist).not.toHaveBeenCalled();
+  });
+
+  it('rejects an empty, oversized or unexpected body before any provider is called', async () => {
+    for (const body of [{}, { transcript: '   ' }, { transcript: 'x'.repeat(2001) }, { transcript: 'ok', extra: 1 }]) {
+      const res = await request(app).post('/api/v1/ai/assist').set(AUTH).send(body);
+
+      expect(res.status).toBe(400);
+      expect(res.body.error.code).toBe('INVALID_REQUEST');
+    }
+
+    expect(runAssist).not.toHaveBeenCalled();
+  });
+
+  it('reports an unconfigured provider as not connected rather than failing', async () => {
+    // The orchestrator turns a missing key into a spoken NOT_CONNECTED reply,
+    // so the farmer hears why nothing happened instead of a silent error.
+    runAssist.mockResolvedValue({
+      type: 'NOT_CONNECTED',
+      message: 'avatar.errors.expertNotConnected',
+      speech: 'avatar.errors.expertNotConnected',
+      localised: true,
+      avatar: { expression: 'concerned', position: 'bottom-right' },
+    });
+
+    const res = await request(app)
+      .post('/api/v1/ai/assist')
+      .set(AUTH)
+      .send({ transcript: 'my tomato leaves are yellow' });
+
+    expect(res.status).toBe(200);
+    expect(res.body.data.type).toBe('NOT_CONNECTED');
+  });
+
+  it('leaks nothing about the provider when one genuinely fails', async () => {
+    runAssist.mockRejectedValue(new Error('LYZR_API_KEY lzr-secret rejected at agent-prod'));
+
+    const res = await request(app).post('/api/v1/ai/assist').set(AUTH).send({ transcript: 'hello' });
+
+    expect(res.status).toBe(500);
+    expect(res.body.error.code).toBe('INTERNAL_ERROR');
+    expect(JSON.stringify(res.body)).not.toMatch(/lzr-secret|agent-prod|LYZR/);
   });
 });
 

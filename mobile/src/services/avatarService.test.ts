@@ -11,6 +11,21 @@ jest.mock('./api', () => ({
   asNumber: (v: unknown) => Number(v),
 }));
 
+jest.mock('expo-file-system/legacy', () => ({
+  uploadAsync: jest.fn(async (url, uri, options) => {
+    const res = await global.fetch(url, options);
+    let body = '';
+    try {
+      const json = await res.json();
+      body = JSON.stringify(json);
+    } catch {
+      body = await res.text();
+    }
+    return { status: res.status, body };
+  }),
+  FileSystemUploadType: { BINARY_CONTENT: 0, MULTIPART: 1 },
+}));
+
 describe('toUploadUri', () => {
   it('leaves a file:// URI alone', () => {
     expect(toUploadUri('file:///data/user/0/app/cache/rec.m4a')).toBe(

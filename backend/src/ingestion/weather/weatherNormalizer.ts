@@ -16,6 +16,7 @@ export type RawWeatherResponse = {
     temperature_2m_mean?: unknown;
     precipitation_sum?: unknown;
     relative_humidity_2m_mean?: unknown;
+    wind_speed_10m_max?: unknown;
   };
 };
 
@@ -24,6 +25,7 @@ export type NormalizedWeather = {
   temperature_c: number | null;
   rainfall_mm: number | null;
   humidity_pct: number | null;
+  wind_speed_kmh: number | null;
 };
 
 export type NormalizeWeatherResult = {
@@ -90,14 +92,18 @@ export function normalizeWeatherResponse(
       skip('humidity outside 0-100 discarded');
     }
 
+    const windRaw = numberAt(payload.daily?.wind_speed_10m_max, index);
+    const wind_speed_kmh = windRaw !== null && windRaw >= 0 ? windRaw : null;
+    if (windRaw !== null && windRaw < 0) skip('negative wind speed discarded');
+
     // A row with a date but no measurements at all says nothing. Storing it
     // would make the API report "weather available" with three em dashes.
-    if (temperature_c === null && rainfall_mm === null && humidity_pct === null) {
+    if (temperature_c === null && rainfall_mm === null && humidity_pct === null && wind_speed_kmh === null) {
       skip('no measurements for this date');
       continue;
     }
 
-    rows.push({ observed_on, temperature_c, rainfall_mm, humidity_pct });
+    rows.push({ observed_on, temperature_c, rainfall_mm, humidity_pct, wind_speed_kmh });
   }
 
   return {
