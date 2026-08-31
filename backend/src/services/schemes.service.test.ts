@@ -16,19 +16,22 @@ jest.unstable_mockModule('../config/supabase.js', () => ({
   }),
 }));
 
-const { getSchemeDetail, listSchemes, listSchemeStates } = await import('./schemes.service.js');
+const { getSchemeDetail, listSchemes, listSchemeStates, _resetSchemesCacheForTesting } = await import('./schemes.service.js');
 
 describe('schemes.service', () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    _resetSchemesCacheForTesting();
 
     mockSelect.mockReturnValue({
+      range: mockRange,
       eq: mockEq,
       maybeSingle: mockMaybeSingle,
     });
 
     mockEq.mockReturnValue({
       order: mockOrder,
+      range: mockRange,
       maybeSingle: mockMaybeSingle,
     });
 
@@ -54,7 +57,7 @@ describe('schemes.service', () => {
   });
 
   it('lists unique sorted canonical states', async () => {
-    mockSelect.mockResolvedValueOnce({
+    mockRange.mockResolvedValueOnce({
       data: [
         { state: 'Rajasthan' },
         { state: 'Punjab' },
@@ -71,7 +74,7 @@ describe('schemes.service', () => {
 
   it('lists schemes for a valid state with crop matching reason', async () => {
     // First call lists canonical states
-    mockSelect.mockResolvedValueOnce({
+    mockRange.mockResolvedValueOnce({
       data: [{ state: 'Rajasthan' }],
       error: null,
     });
@@ -88,13 +91,13 @@ describe('schemes.service', () => {
   });
 
   it('throws INVALID_REQUEST for unknown state', async () => {
-    mockSelect.mockResolvedValueOnce({
+    mockRange.mockResolvedValueOnce({
       data: [{ state: 'Rajasthan' }],
       error: null,
     });
 
     await expect(
-      listSchemes('mock-token', { state: 'InvalidStateName' }),
+      listSchemes('mock-token', { state: 'NonExistentPlace' }),
     ).rejects.toThrow('Unknown state');
   });
 
