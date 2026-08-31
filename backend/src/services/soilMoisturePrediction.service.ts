@@ -39,7 +39,7 @@ export async function predictSoilMoisture(
   }
 
   const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), options.timeoutMs ?? 10_000);
+  const timeout = setTimeout(() => controller.abort(), options.timeoutMs ?? 35_000);
   const headers: Record<string, string> = {
     Accept: 'application/json',
     'Content-Type': 'application/json',
