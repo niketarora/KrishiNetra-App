@@ -56,6 +56,7 @@ export async function assist(args: {
   transcript: string;
   language?: string;
   token: string;
+  userId: string;
 }): Promise<AssistantResponse> {
   const { transcript, language, token, userId } = args;
   let route;

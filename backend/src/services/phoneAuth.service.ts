@@ -1,7 +1,20 @@
+import type { User } from '@supabase/supabase-js';
+
 import { adminClient } from '../config/supabase.js';
 import { ApiError } from '../utils/ApiError.js';
 
 const EMAIL_DOMAIN = 'phone.demo.krishinetra.app';
+
+/**
+ * The real Supabase session minted for a verified phone number. Null when the
+ * backend could not exchange the magiclink hash — the caller still gets the
+ * hash and can complete verification client-side.
+ */
+export type PhoneAuthSession = {
+  access_token: string;
+  refresh_token: string;
+  user: User;
+};
 
 export function phoneToBridgeEmail(normalizedPhone: string): string {
   return `p${normalizedPhone}@${EMAIL_DOMAIN}`;
@@ -11,7 +24,7 @@ export async function findOrCreateUser(
   email: string,
   phone: string,
   language = 'en',
-): Promise<{ tokenHash: string }> {
+): Promise<{ tokenHash: string; session: PhoneAuthSession | null }> {
   const admin = adminClient();
 
   // Check if a profile with this phone number already exists
@@ -85,7 +98,7 @@ export async function findOrCreateUser(
   }
 
   // Verify token hash on backend to get real Supabase session tokens
-  let session = null;
+  let session: PhoneAuthSession | null = null;
   try {
     const { data: verifyData } = await admin.auth.verifyOtp({
       token_hash: tokenHash,

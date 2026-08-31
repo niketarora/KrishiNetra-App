@@ -17,6 +17,8 @@ export type VegetationIndices = {
   method: 'field_image_vari' | 'phenology_calibrated';
 };
 
+type StageProfile = { ndvi: number; savi: number; lai: number };
+
 export type VegetationAnalysisInput = {
   cropType: 'maize' | 'rice' | 'wheat';
   growthStage: number; // 1 to 5
@@ -39,16 +41,20 @@ export function calculateVariFromRgb(r: number, g: number, b: number): number {
 export function analyzeFieldVegetation(input: VegetationAnalysisInput): VegetationIndices {
   const stage = Math.max(1, Math.min(5, Math.round(input.growthStage || 2)));
 
-  // Phenological baseline curves by growth stage
-  const stageProfiles: Record<number, { ndvi: number; savi: number; lai: number }> = {
+  // Phenological baseline curves by growth stage. Stage 2 doubles as the
+  // fallback, so it is named: under noUncheckedIndexedAccess a second indexed
+  // read would itself be `| undefined` and could not narrow the first one.
+  const VEGETATIVE: StageProfile = { ndvi: 0.58, savi: 0.43, lai: 2.10 };
+
+  const stageProfiles: Record<number, StageProfile> = {
     1: { ndvi: 0.24, savi: 0.18, lai: 0.45 }, // Germination
-    2: { ndvi: 0.58, savi: 0.43, lai: 2.10 }, // Vegetative / Tillering
+    2: VEGETATIVE, // Vegetative / Tillering
     3: { ndvi: 0.74, savi: 0.55, lai: 3.40 }, // Flowering / Heading
     4: { ndvi: 0.62, savi: 0.46, lai: 2.50 }, // Grain Filling
     5: { ndvi: 0.36, savi: 0.27, lai: 1.10 }, // Maturity / Senescence
   };
 
-  const baseline = stageProfiles[stage] ?? stageProfiles[2];
+  const baseline = stageProfiles[stage] ?? VEGETATIVE;
 
   // If RGB sample is available from image analysis
   if (input.rgbSample) {
