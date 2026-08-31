@@ -14,9 +14,8 @@
         "buildType": "apk"
       },
       "env": {
-        "EXPO_PUBLIC_SUPABASE_URL": "https://placeholder.supabase.co",
-        "EXPO_PUBLIC_SUPABASE_ANON_KEY": "placeholder-anon-key",
-        "EXPO_PUBLIC_MAPBOX_ACCESS_TOKEN": "placeholder-mapbox-token"
+        "EXPO_PUBLIC_API_URL": "https://krishinetra-app-1.onrender.com",
+        "EXPO_PUBLIC_DEMO_MODE": "false"
       }
     },
     "production": {
