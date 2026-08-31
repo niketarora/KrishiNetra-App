@@ -58,18 +58,90 @@ function computeReasonKey(
   return 'schemes.reasons.broadlyApplicable';
 }
 
+export const ALL_INDIAN_STATES: string[] = [
+  'Andaman and Nicobar Islands',
+  'Andhra Pradesh',
+  'Arunachal Pradesh',
+  'Assam',
+  'Bihar',
+  'Chandigarh',
+  'Chhattisgarh',
+  'Dadra & Nagar Haveli and Daman & Diu',
+  'Delhi',
+  'Goa',
+  'Gujarat',
+  'Haryana',
+  'Himachal Pradesh',
+  'Jammu and Kashmir',
+  'Jharkhand',
+  'Karnataka',
+  'Kerala',
+  'Ladakh',
+  'Lakshadweep',
+  'Madhya Pradesh',
+  'Maharashtra',
+  'Manipur',
+  'Meghalaya',
+  'Mizoram',
+  'Nagaland',
+  'Odisha',
+  'Puducherry',
+  'Punjab',
+  'Rajasthan',
+  'Sikkim',
+  'Tamil Nadu',
+  'Telangana',
+  'Tripura',
+  'Uttar Pradesh',
+  'Uttarakhand',
+  'West Bengal',
+];
+
+let cachedStates: string[] | null = null;
+
+export function _resetSchemesCacheForTesting(): void {
+  cachedStates = null;
+}
+
 export async function listSchemeStates(token: string): Promise<string[]> {
-  const { data, error } = await userClient(token)
-    .from('government_schemes')
-    .select('state');
+  if (cachedStates && cachedStates.length > 0) {
+    return cachedStates;
+  }
 
-  if (error) throw error;
+  const foundStates = new Set<string>();
+  let offset = 0;
+  const pageSize = 1000;
 
-  const states = Array.from(new Set((data ?? []).map((r) => r.state as string)))
+  try {
+    while (true) {
+      const { data, error } = await userClient(token)
+        .from('government_schemes')
+        .select('state')
+        .range(offset, offset + pageSize - 1);
+
+      if (error) {
+        cachedStates = ALL_INDIAN_STATES;
+        return cachedStates;
+      }
+
+      if (!data || data.length === 0) break;
+      for (const r of data) {
+        if (r.state) foundStates.add(r.state.trim());
+      }
+      if (data.length < pageSize) break;
+      offset += pageSize;
+    }
+  } catch {
+    cachedStates = ALL_INDIAN_STATES;
+    return cachedStates;
+  }
+
+  const states = Array.from(foundStates)
     .filter(Boolean)
     .sort((a, b) => a.localeCompare(b));
 
-  return states;
+  cachedStates = states.length > 0 ? states : ALL_INDIAN_STATES;
+  return cachedStates;
 }
 
 export async function listSchemes(
@@ -77,9 +149,17 @@ export async function listSchemes(
   query: SchemesQuery,
 ): Promise<SchemeCard[]> {
   const canonicalStates = await listSchemeStates(token);
-  const matchedState = canonicalStates.find(
-    (s) => s.toLowerCase() === query.state.toLowerCase().trim(),
+  const normalized = query.state.toLowerCase().trim();
+
+  let matchedState = canonicalStates.find(
+    (s) => s.toLowerCase() === normalized,
   );
+
+  if (!matchedState) {
+    matchedState = ALL_INDIAN_STATES.find(
+      (s) => s.toLowerCase() === normalized,
+    );
+  }
 
   if (!matchedState) {
     throw ApiError.invalidRequest(`Unknown state: "${query.state}". Please select a valid state.`);
@@ -101,7 +181,20 @@ export async function listSchemes(
   const { data, error } = await dbQuery;
   if (error) throw error;
 
-  return (data ?? []).map((row) => ({
+  let schemesData = data ?? [];
+  if (schemesData.length === 0) {
+    // If state has no specific rows, fallback to nationwide CENTRAL schemes
+    const { data: centralData } = await userClient(token)
+      .from('government_schemes')
+      .select('row_id, name, short_title, category, scheme_scope, what_is_it, tags')
+      .eq('scheme_scope', 'CENTRAL')
+      .range(offset, offset + limit - 1);
+    if (centralData && centralData.length > 0) {
+      schemesData = centralData;
+    }
+  }
+
+  return schemesData.map((row) => ({
     row_id: row.row_id,
     name: row.name,
     short_title: row.short_title,
