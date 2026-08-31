@@ -55,8 +55,13 @@ export const updateProfileSchema = z
     in_app_alerts: z.boolean().optional(),
     sms_alerts: z.boolean().optional(),
     voice_alerts: z.boolean().optional(),
-    location_state: z.string().trim().max(100).nullish(),
+    location_latitude: z.number().min(-90).max(90).nullish(),
+    location_longitude: z.number().min(-180).max(180).nullish(),
+    location_city: z.string().trim().max(100).nullish(),
     location_district: z.string().trim().max(100).nullish(),
+    location_state: z.string().trim().max(100).nullish(),
+    location_country: z.string().trim().max(100).nullish(),
+    location_source: z.enum(['demo', 'gps', 'manual']).optional(),
   })
   .strict()
   // Only rewrite `email` when the client actually sent it as ''. Spreading it

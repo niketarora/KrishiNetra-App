@@ -66,7 +66,12 @@
     "title": "ప్రొఫైల్ పూర్తి చేయండి",
     "subtitle": "ప్రారంభించడానికి కొన్ని వివరాలు ఇవ్వండి.",
     "emailOptional": "ఐచ్ఛికం",
-    "saveCta": "సేవ్ చేసి కొనసాగించండి"
+    "saveCta": "సేవ్ చేసి కొనసాగించండి",
+    "locationLabel": "Your Location (GPS)",
+    "detectLocation": "Detect My Location",
+    "detectingLocation": "Detecting GPS location…",
+    "locationDetected": "Location detected via GPS",
+    "locationPermissionPrompt": "Location access helps set up your field and weather automatically."
   },
   "onboarding": {
     "methodTitle": "Register your field",
@@ -148,7 +153,10 @@
     "weatherObserved": "{{date}} నాటి పరిశీలన",
     "marketObserved": "{{date}} నాటి నమోదు",
     "visualAssistantTitle": "కృషినేత్రను అడగండి",
-    "visualAssistantSub": "పంట ఫోటో తీసి సలహా పొందండి."
+    "visualAssistantSub": "పంట ఫోటో తీసి సలహా పొందండి.",
+    "soilMoisture": "Soil moisture",
+    "soilMoistureValue": "{{percent}}%",
+    "soilMoistureNote": "{{category}} · ML Model"
   },
   "field": {
     "title": "పొలం విశ్లేషణ",
@@ -160,7 +168,37 @@
     "areaLabel": "మీరు గీసిన సరిహద్దు",
     "weatherObserved": "{{temp}}°C · {{rain}} మి.మీ వర్షం",
     "weatherNone": "మీ జిల్లాకు వాతావరణ సమాచారం నమోదు కాలేదు",
-    "analysisNote": "పంట ఆరోగ్యానికి శాటిలైట్ విశ్లేషణ అవసరం."
+    "analysisNote": "పంట ఆరోగ్యానికి శాటిలైట్ విశ్లేషణ అవసరం.",
+    "soilMoistureTitle": "Soil Moisture Prediction",
+    "soilMoistureSub": "Machine Learning inference from environmental and satellite indices",
+    "modelVersion": "Model {{version}}",
+    "experimentalBadge": "Experimental ML",
+    "categories": {
+      "dry": "Dry",
+      "moderate": "Moderate",
+      "good": "Optimal",
+      "wet": "Wet / Saturated"
+    },
+    "inputsTitle": "Inference Feature Parameters",
+    "inputsSubtitle": "Data points evaluated by the model",
+    "features": {
+      "ndvi": "NDVI (Vegetation)",
+      "savi": "SAVI (Soil Adjusted)",
+      "temp": "Temperature",
+      "humidity": "Humidity",
+      "rainfall": "Rainfall",
+      "soilPh": "Soil pH",
+      "organicMatter": "Organic Matter",
+      "lai": "Leaf Area Index",
+      "elevation": "Elevation",
+      "growthStage": "Growth Stage",
+      "cropType": "Crop Type",
+      "windSpeed": "Wind Speed",
+      "waterFlow": "Water Flow Index",
+      "spatialRes": "Spatial Resolution"
+    },
+    "warningTitle": "Experimental Model Notice",
+    "warningBody": "Validation indicates baseline performance. Always cross-check with field moisture before irrigation decisions."
   },
   "market": {
     "title": "మార్కెట్",
@@ -484,21 +522,24 @@
       "listening": "వింటున్నాను…",
       "thinking": "ఆలోచిస్తున్నాను…",
       "speaking": "మాట్లాడుతున్నాను",
-      "error": "ఆడియో లేదు"
+      "error": "ఆడియో లేదు",
+      "guiding": "చూపిస్తున్నాను"
     },
     "mic": {
       "idle": "మాట్లాడటం ప్రారంభించండి",
       "listening": "మాట్లాడటం పూర్తయింది",
       "thinking": "ఒక్క క్షణం…",
       "speaking": "మరో ప్రశ్న అడగండి",
-      "error": "మళ్ళీ ప్రయత్నించండి"
+      "error": "మళ్ళీ ప్రయత్నించండి",
+      "guiding": "ఇంకేదైనా అడగండి"
     },
     "footer": {
       "idle": "మీరు తెలుగులో లేదా ఏ భాషలోనైనా మాట్లాడవచ్చు.",
       "listening": "నెమ్మదిగా చెప్పండి — నేను వింటున్నాను.",
       "thinking": "సమాచారం సేకరిస్తున్నాను…",
       "speaking": "మీరు ఎప్పుడైనా ఆపి మాట్లాడవచ్చు.",
-      "error": "మైక్‌పై నొక్కి మళ్ళీ మాట్లాడండి."
+      "error": "మైక్‌పై నొక్కి మళ్ళీ మాట్లాడండి.",
+      "guiding": "మిమ్మల్ని అక్కడికి తీసుకెళ్తున్నాను."
     },
     "greeting": "నమస్కారం {{name}}! మీరు ఏమి తెలుసుకోవాలనుకుంటున్నారు?",
     "questions": {
@@ -510,7 +551,8 @@
     },
     "sources": {
       "field": "మీ పొలం వివరాల నుండి",
-      "assistant": "AI మిత్రుడు · నిర్ధారణ అవసరం"
+      "assistant": "AI మిత్రుడు · నిర్ధారణ అవసరం",
+      "label": "మూలాలు"
     },
     "errors": {
       "micPermission": "మైక్రోఫోన్ అనుమతి అవసరం. సెట్టింగ్స్‌లో ఆన్ చేయండి.",
@@ -522,8 +564,39 @@
       "upload": "రికార్డింగ్ పంపలేకపోయాము.",
       "unreachable": "కృషినేత్ర సర్వర్‌తో అనుసంధానం కాలేదు.",
       "tooShort": "రికార్డింగ్ చాలా తక్కువగా ఉంది. నొక్కి పట్టుకుని మాట్లాడండి.",
-      "voice": "వాయిస్ ప్లే కాలేదు. సమాధానం పైన ఇవ్వబడింది."
-    }
+      "voice": "వాయిస్ ప్లే కాలేదు. సమాధానం పైన ఇవ్వబడింది.",
+      "expertNotConnected": "వ్యవసాయ నిపుణుడు ఇంకా అనుసంధానం కాలేదు, కాబట్టి దీనికి సమాధానం చెప్పలేను. యాప్‌లో దారి మాత్రం చూపగలను.",
+      "researchNotConnected": "నేను ఇంకా తాజా సమాచారం వెతకలేను — ఆ సేవ అనుసంధానం కాలేదు. యాప్‌లో దారి మాత్రం చూపగలను."
+    },
+    "guide": {
+      "market_price": "ఇదిగో ఈరోజు మండీ ధర, పక్కన ఎంఎస్‌పీ.",
+      "price_trend": "గత ఏడు రోజుల్లో ధర ఇలా మారింది.",
+      "sell_or_wait": "అమ్మాలా ఆగాలా — ఆ సలహా ఇక్కడ కనిపిస్తుంది.",
+      "weather": "ఇదిగో మీ పొలంలో నమోదైన తాజా వాతావరణం.",
+      "crop_status": "మీరు ఏ పంట ఎప్పుడు వేశారో ఇక్కడ కనిపిస్తుంది.",
+      "msp": "ఇది మీ పంటకు ప్రకటించిన కనీస మద్దతు ధర.",
+      "field_analysis": "ఇది మీ పొలం విశ్లేషణ తెర.",
+      "soil_moisture": "ఈ గడి మీ పొలంలో అంచనా నేల తేమను చూపుతుంది.",
+      "my_lands": "ఇవి మీరు నమోదు చేసిన అన్ని భూములు.",
+      "land_detail": "ఇదిగో ఆ భూమి వివరాలు.",
+      "register_land": "ఇక్కడి నుంచి కొత్త భూమిని నమోదు చేయండి — సరిహద్దు నడిచి లేదా గీసి.",
+      "edit_boundary": "ఈ భూమి సరిహద్దును మళ్లీ గీయడానికి ఇక్కడ నొక్కండి.",
+      "calendar": "ఇది మీ వ్యవసాయ క్యాలెండర్, ముందు ఏమి ఉందో దానితో.",
+      "schemes": "ఈ ప్రభుత్వ పథకాలను మీరు చూడవచ్చు.",
+      "updates": "ఇది వ్యవసాయ వార్తల జాబితా.",
+      "alerts": "ఇవి మీకు పంపిన హెచ్చరికలు మరియు సందేశాలు.",
+      "learning": "ఇది కృషి అకాడమీ, ఇక్కడ నేర్పే వీడియోలు ఉన్నాయి.",
+      "visual_assistant": "ఇక్కడి నుంచి మొక్క వైపు కెమెరా పెట్టవచ్చు.",
+      "history": "ఇది మీ పొలం వివరాలు మరియు గత పనుల జాబితా.",
+      "profile": "ఇది మీ ప్రొఫైల్, ఇక్కడ భాష మరియు సెట్టింగ్‌లు మార్చవచ్చు.",
+      "caveat": {
+        "irrigation": "రోజువారీ నీటిపారుదల పట్టిక ఇంకా అనుసంధానం కాలేదు. ఇది మీ వ్యవసాయ క్యాలెండర్, నేను చూపగలిగే వాటిలో దగ్గరిది.",
+        "sell_or_wait": "అమ్మాలా ఆగాలా — దీనికి ధర అంచనా కావాలి, అది ఇంకా అనుసంధానం కాలేదు. అది కనిపించే కార్డు ఇదే.",
+        "field_analysis": "పంట ఆరోగ్యం మరియు ఎదుగుదల దశ ఇంకా అనుసంధానం కాలేదు. ఇక్కడ ప్రస్తుతం వాతావరణ ప్రమాద వరుస మాత్రమే నిజమైనది.",
+        "soil_moisture": "ఈ తేమ అంకె ఒక ప్రయోగాత్మక నమూనా నుంచి వస్తుంది, కాబట్టి దీనిని స్థూల అంచనాగా చూడండి, నీటిపారుదల సలహాగా కాదు."
+      }
+    },
+    "youAsked": "You asked"
   },
   "errors": {
     "sessionRestore": "సెషన్ పునరుద్ధరణ కాలేదు. మళ్ళీ లాగిన్ అవ్వండి.",

@@ -47,7 +47,7 @@ function BoundaryMapComponent({
   showsUserLocation = false,
 }: BoundaryMapProps) {
   const { t } = useTranslation();
-  const cameraRef = useRef<Camera>(null);
+  const cameraRef = useRef<any>(null);
 
   const centre = initialCentre ?? (points[0] ? points[0] : DEFAULT_CENTRE);
 
@@ -114,7 +114,7 @@ function BoundaryMapComponent({
       <View style={styles.errorContainer}>
         <Banner
           title={t('onboarding.satelliteView', 'Satellite View')}
-          tone="info"
+          tone="neutral"
         />
       </View>
     );

@@ -66,7 +66,12 @@
     "title": "Complete your profile",
     "subtitle": "Just a couple of details to get started.",
     "emailOptional": "Optional",
-    "saveCta": "Save and continue"
+    "saveCta": "Save and continue",
+    "locationLabel": "Your Location (GPS)",
+    "detectLocation": "Detect My Location",
+    "detectingLocation": "Detecting GPS location…",
+    "locationDetected": "Location detected via GPS",
+    "locationPermissionPrompt": "Location access helps set up your field and weather automatically."
   },
   "onboarding": {
     "methodTitle": "Register your field",
@@ -148,7 +153,10 @@
     "weatherObserved": "{{date}} کو ریکارڈ ہوا",
     "marketObserved": "{{date}} کو ریکارڈ ہوا",
     "visualAssistantTitle": "کرشی نیترا سے پوچھیں",
-    "visualAssistantSub": "فصل کی تصویر دکھا کر مشورہ لیں۔"
+    "visualAssistantSub": "فصل کی تصویر دکھا کر مشورہ لیں۔",
+    "soilMoisture": "Soil moisture",
+    "soilMoistureValue": "{{percent}}%",
+    "soilMoistureNote": "{{category}} · ML Model"
   },
   "field": {
     "title": "کھیت کا تجزیہ",
@@ -160,7 +168,37 @@
     "areaLabel": "آپ کی بنائی گئی سرحد",
     "weatherObserved": "{{temp}}°C · {{rain}} ملی میٹر بارش",
     "weatherNone": "آپ کے ضلع کے لیے موسم کا ریکارڈ نہیں",
-    "analysisNote": "فصل کی صحت کے لیے سیٹلائٹ ڈیٹا درکار ہے۔"
+    "analysisNote": "فصل کی صحت کے لیے سیٹلائٹ ڈیٹا درکار ہے۔",
+    "soilMoistureTitle": "Soil Moisture Prediction",
+    "soilMoistureSub": "Machine Learning inference from environmental and satellite indices",
+    "modelVersion": "Model {{version}}",
+    "experimentalBadge": "Experimental ML",
+    "categories": {
+      "dry": "Dry",
+      "moderate": "Moderate",
+      "good": "Optimal",
+      "wet": "Wet / Saturated"
+    },
+    "inputsTitle": "Inference Feature Parameters",
+    "inputsSubtitle": "Data points evaluated by the model",
+    "features": {
+      "ndvi": "NDVI (Vegetation)",
+      "savi": "SAVI (Soil Adjusted)",
+      "temp": "Temperature",
+      "humidity": "Humidity",
+      "rainfall": "Rainfall",
+      "soilPh": "Soil pH",
+      "organicMatter": "Organic Matter",
+      "lai": "Leaf Area Index",
+      "elevation": "Elevation",
+      "growthStage": "Growth Stage",
+      "cropType": "Crop Type",
+      "windSpeed": "Wind Speed",
+      "waterFlow": "Water Flow Index",
+      "spatialRes": "Spatial Resolution"
+    },
+    "warningTitle": "Experimental Model Notice",
+    "warningBody": "Validation indicates baseline performance. Always cross-check with field moisture before irrigation decisions."
   },
   "market": {
     "title": "منڈی",
@@ -484,21 +522,24 @@
       "listening": "سن رہا ہے…",
       "thinking": "سوچ رہا ہے…",
       "speaking": "بول رہا ہے",
-      "error": "کوئی آواز نہیں"
+      "error": "کوئی آواز نہیں",
+      "guiding": "دکھا رہا ہوں"
     },
     "mic": {
       "idle": "بولنا شروع کریں",
       "listening": "بات مکمل ہوئی",
       "thinking": "ایک لمحہ…",
       "speaking": "اگلا سوال پوچھیں",
-      "error": "دوبارہ کوشش کریں"
+      "error": "دوبارہ کوشش کریں",
+      "guiding": "کچھ اور پوچھیں"
     },
     "footer": {
       "idle": "آپ اردو یا کسی بھی زبان میں بول سکتے ہیں۔",
       "listening": "آہستہ بولیں — میں سن رہا ہوں۔",
       "thinking": "تفصیلات کا جائزہ لیا جا رہا ہے…",
       "speaking": "آپ کسی بھی وقت روک کر پوچھ سکتے ہیں۔",
-      "error": "مائیک دبا کر دوبارہ بولیں۔"
+      "error": "مائیک دبا کر دوبارہ بولیں۔",
+      "guiding": "آپ کو وہاں لے جا رہا ہوں۔"
     },
     "greeting": "نمستے {{name}}! آپ کیا جاننا چاہتے ہیں؟",
     "questions": {
@@ -510,7 +551,8 @@
     },
     "sources": {
       "field": "آپ کے کھیت کے ریکارڈ سے",
-      "assistant": "AI ساتھی · تصدیق ضروری"
+      "assistant": "AI ساتھی · تصدیق ضروری",
+      "label": "ذرائع"
     },
     "errors": {
       "micPermission": "مائیکروفون کی اجازت درکار ہے۔ سیٹنگز سے اجازت دیں۔",
@@ -522,8 +564,39 @@
       "upload": "ریکارڈنگ نہیں بھیجی جا سکی۔",
       "unreachable": "کرشی نیترا سرور سے رابطہ نہیں ہو رہا۔",
       "tooShort": "ریکارڈنگ بہت مختصر تھی۔ دبا کر رکھیں۔",
-      "voice": "آواز تیار نہیں ہو سکی۔ جواب اوپر موجود ہے۔"
-    }
+      "voice": "آواز تیار نہیں ہو سکی۔ جواب اوپر موجود ہے۔",
+      "expertNotConnected": "زرعی ماہر ابھی جڑا نہیں ہے، اس لیے اس کا جواب نہیں دے سکتا۔ ایپ میں راستہ پھر بھی دکھا سکتا ہوں۔",
+      "researchNotConnected": "میں ابھی تازہ معلومات نہیں ڈھونڈ سکتا — وہ سروس جڑی نہیں۔ ایپ میں راستہ پھر بھی دکھا سکتا ہوں۔"
+    },
+    "guide": {
+      "market_price": "یہ رہا آج کا منڈی بھاؤ، ساتھ میں ایم ایس پی۔",
+      "price_trend": "پچھلے سات دن میں قیمت ایسے بدلی ہے۔",
+      "sell_or_wait": "بیچیں یا رکیں — یہ مشورہ یہاں دکھائی دے گا۔",
+      "weather": "یہ رہا آپ کے کھیت کا تازہ درج موسم۔",
+      "crop_status": "یہاں دکھتا ہے کہ آپ نے کون سی فصل کب بوئی۔",
+      "msp": "یہ آپ کی فصل کی اعلان شدہ کم از کم امدادی قیمت ہے۔",
+      "field_analysis": "یہ آپ کے کھیت کے تجزیے کی اسکرین ہے۔",
+      "soil_moisture": "یہ خانہ آپ کے کھیت کی اندازاً مٹی کی نمی دکھاتا ہے۔",
+      "my_lands": "یہ آپ کی تمام درج زمینیں ہیں۔",
+      "land_detail": "یہ رہی اس زمین کی تفصیل۔",
+      "register_land": "یہاں سے نئی زمین درج کریں — حد پر چل کر یا نقشے پر بنا کر۔",
+      "edit_boundary": "اس زمین کی حد دوبارہ بنانے کے لیے یہاں دبائیں۔",
+      "calendar": "یہ آپ کا کھیتی کیلنڈر ہے، آگے کیا ہے اس کے ساتھ۔",
+      "schemes": "یہ سرکاری اسکیمیں آپ دیکھ سکتے ہیں۔",
+      "updates": "یہ زرعی خبروں کی فہرست ہے۔",
+      "alerts": "یہ آپ کو بھیجی گئی تنبیہات اور پیغامات ہیں۔",
+      "learning": "یہ کرشی اکیڈمی ہے، یہاں سکھانے والی ویڈیوز ہیں۔",
+      "visual_assistant": "یہاں سے آپ کیمرہ پودے کی طرف کر سکتے ہیں۔",
+      "history": "یہ آپ کے کھیت کی تفصیل اور پچھلے کام ہیں۔",
+      "profile": "یہ آپ کی پروفائل ہے، یہاں زبان اور ترتیبات بدلیں۔",
+      "caveat": {
+        "irrigation": "روزانہ کی آبپاشی کی فہرست ابھی جڑی نہیں ہے۔ یہ آپ کا کھیتی کیلنڈر ہے، جو دکھا سکتا ہوں اس میں سب سے قریب۔",
+        "sell_or_wait": "بیچیں یا رکیں — اس کے لیے قیمت کی پیش گوئی چاہیے، جو ابھی جڑی نہیں۔ یہ وہ کارڈ ہے جہاں یہ دکھے گا۔",
+        "field_analysis": "فصل کی صحت اور بڑھوتری کا مرحلہ ابھی جڑا نہیں۔ یہاں فی الحال صرف موسمی خطرے کی سطر اصلی ہے۔",
+        "soil_moisture": "یہ نمی کا عدد ایک تجرباتی ماڈل سے آتا ہے، اس لیے اسے موٹا اندازہ سمجھیں، آبپاشی کا مشورہ نہیں۔"
+      }
+    },
+    "youAsked": "You asked"
   },
   "errors": {
     "sessionRestore": "سیشن بحال نہیں ہو سکا۔ دوبارہ لاگ ان کریں۔",

@@ -1,3 +1,5 @@
+import { FileSystemUploadType, uploadAsync } from 'expo-file-system/legacy';
+
 import { apiFetch, getApiBaseUrl } from './api';
 import { DataError, toApiError } from './errors';
 import { getAccessToken } from './supabase';
@@ -125,39 +127,57 @@ export async function transcribe(
   const token = await getAccessToken();
   if (!token) throw new DataError('auth.errors.generic');
 
-  const form = new FormData();
-  // React Native's FormData takes this shape for a file; it is not a Blob.
-  form.append('audio', buildAudioPart(uri) as unknown as Blob);
+  const uploadUri = toUploadUri(uri);
+  let uploadResponse: { status: number; body: string };
 
-  if (language) form.append('language', language);
-
-  const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), options.timeoutMs ?? 30_000);
-
-  let response: Response;
   try {
-    response = await fetch(`${getApiBaseUrl()}/api/v1/ai/transcribe`, {
-      method: 'POST',
-      // Content-Type is deliberately unset: fetch must add the multipart
-      // boundary itself, and setting it by hand produces an unparseable body.
-      headers: { Authorization: `Bearer ${token}`, Accept: 'application/json' },
-      body: form,
-      signal: controller.signal,
-    });
+    if (typeof uploadAsync === 'function') {
+      uploadResponse = await uploadAsync(
+        `${getApiBaseUrl()}/api/v1/ai/transcribe`,
+        uploadUri,
+        {
+          fieldName: 'audio',
+          httpMethod: 'POST',
+          uploadType: FileSystemUploadType?.MULTIPART ?? 1,
+          mimeType: 'audio/mp4',
+          parameters: language ? { language } : undefined,
+          headers: {
+            Authorization: `Bearer ${token}`,
+            Accept: 'application/json',
+          },
+        },
+      );
+    } else {
+      const form = new FormData();
+      form.append('audio', buildAudioPart(uri) as unknown as Blob);
+      if (language) form.append('language', language);
+
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), options.timeoutMs ?? 30_000);
+      try {
+        const response = await fetch(`${getApiBaseUrl()}/api/v1/ai/transcribe`, {
+          method: 'POST',
+          headers: { Authorization: `Bearer ${token}`, Accept: 'application/json' },
+          body: form,
+          signal: controller.signal,
+        });
+        uploadResponse = { status: response.status, body: await response.text() };
+      } finally {
+        clearTimeout(timeout);
+      }
+    }
   } catch (cause) {
     throw await describeUploadFailure(cause);
-  } finally {
-    clearTimeout(timeout);
   }
 
   let envelope: { success: boolean; data?: Transcription; error?: { code: string } };
   try {
-    envelope = await response.json();
+    envelope = JSON.parse(uploadResponse.body);
   } catch (cause) {
     throw new DataError('avatar.errors.transcribe', cause);
   }
 
-  if (!response.ok || !envelope.success || !envelope.data) {
+  if (uploadResponse.status >= 400 || !envelope.success || !envelope.data) {
     throw toApiError(envelope.error?.code, 'avatar.errors.transcribe');
   }
 

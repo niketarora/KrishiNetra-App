@@ -7,6 +7,11 @@ export type RequestOtpResponse = {
 
 export type VerifyOtpResponse = {
   tokenHash: string;
+  session?: {
+    access_token: string;
+    refresh_token: string;
+    user?: unknown;
+  } | null;
 };
 
 export async function requestOtp(phone: string): Promise<RequestOtpResponse> {

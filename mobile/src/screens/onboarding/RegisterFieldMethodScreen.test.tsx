@@ -1,6 +1,7 @@
 import React from 'react';
-import { fireEvent, render, screen, waitFor } from '@testing-library/react-native';
+import { fireEvent, screen, waitFor } from '@testing-library/react-native';
 
+import { renderWithProviders } from '@/test-utils';
 import { RegisterFieldMethodScreen } from './RegisterFieldMethodScreen';
 import * as locationService from '@/services/location';
 
@@ -27,7 +28,7 @@ describe('RegisterFieldMethodScreen', () => {
     const onSelectWalk = jest.fn();
     const onSelectDraw = jest.fn();
 
-    render(
+    await renderWithProviders(
       <RegisterFieldMethodScreen
         onSelectWalk={onSelectWalk}
         onSelectDraw={onSelectDraw}
@@ -57,7 +58,7 @@ describe('RegisterFieldMethodScreen', () => {
     const onSelectWalk = jest.fn();
     const onSelectDraw = jest.fn();
 
-    render(
+    await renderWithProviders(
       <RegisterFieldMethodScreen
         onSelectWalk={onSelectWalk}
         onSelectDraw={onSelectDraw}
@@ -84,7 +85,7 @@ describe('RegisterFieldMethodScreen', () => {
     const onSelectWalk = jest.fn();
     const onSelectDraw = jest.fn();
 
-    render(
+    await renderWithProviders(
       <RegisterFieldMethodScreen
         onSelectWalk={onSelectWalk}
         onSelectDraw={onSelectDraw}

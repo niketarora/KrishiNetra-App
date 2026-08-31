@@ -38,15 +38,21 @@ describe('updateProfileSchema', () => {
     expect(updateProfileSchema.safeParse({}).success).toBe(false);
   });
 
-  it('refuses a field it does not own, such as a location column', () => {
-    // Location is read-only from this endpoint (IMPLEMENTATION.md: don't
-    // redesign the location system yet) — a client that tries gets a 400.
-    const result = updateProfileSchema.safeParse({ location_city: 'Jaipur' });
-    expect(result.success).toBe(false);
+  it('accepts location attributes', () => {
+    const result = updateProfileSchema.safeParse({
+      location_city: 'Pratapgarh',
+      location_district: 'Pratapgarh',
+      location_state: 'Rajasthan',
+      location_country: 'India',
+      location_latitude: 24.0324,
+      location_longitude: 74.7812,
+      location_source: 'gps',
+    });
+    expect(result.success).toBe(true);
   });
 
-  it('refuses an id in the body', () => {
-    const result = updateProfileSchema.safeParse({ id: '00000000-0000-0000-0000-000000000000' });
-    expect(result.success).toBe(false);
+  it('refuses unowned fields in the body such as unknown keys or id', () => {
+    expect(updateProfileSchema.safeParse({ unknown_prop: 'val' }).success).toBe(false);
+    expect(updateProfileSchema.safeParse({ id: '00000000-0000-0000-0000-000000000000' }).success).toBe(false);
   });
 });

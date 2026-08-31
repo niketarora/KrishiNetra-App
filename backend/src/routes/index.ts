@@ -2,6 +2,7 @@ import { Router } from 'express';
 import multer from 'multer';
 
 import * as aiController from '../controllers/ai.controller.js';
+import * as assistantController from '../controllers/assistant.controller.js';
 import * as farmCropsController from '../controllers/farmCrops.controller.js';
 import * as farmersController from '../controllers/farmers.controller.js';
 import * as farmsController from '../controllers/farms.controller.js';
@@ -14,6 +15,7 @@ import { validate } from '../middleware/validate.js';
 import {
   createFarmSchema,
   farmIdParamSchema,
+  farmNestedParamSchema,
   listFarmsQuerySchema,
   updateFarmSchema,
 } from '../schemas/farm.schema.js';
@@ -23,6 +25,7 @@ import {
   updateFarmCropSchema,
 } from '../schemas/farmCrop.schema.js';
 import { chatSchema, speakSchema } from '../schemas/ai.schema.js';
+import { assistSchema } from '../schemas/assistant.schema.js';
 import { updateProfileSchema } from '../schemas/profile.schema.js';
 import { experimentalSoilMoistureSchema } from '../schemas/prediction.schema.js';
 import {
@@ -107,6 +110,11 @@ apiRouter.post(
   validate('body', experimentalSoilMoistureSchema),
   predictionsController.predictSoilMoisture,
 );
+apiRouter.get(
+  '/farms/:farmId/predictions/soil-moisture',
+  validate('params', farmNestedParamSchema),
+  predictionsController.getFarmSoilMoisturePrediction,
+);
 
 // --- Krishi Updates -----------------------------------------------------------
 // Farm-location-and-crop-aware information feed (GDELT regional/agriculture
@@ -134,3 +142,8 @@ const uploadAudio = multer({
 apiRouter.post('/ai/transcribe', uploadAudio.single('audio'), aiController.transcribe);
 apiRouter.post('/ai/chat', validate('body', chatSchema), aiController.chat);
 apiRouter.post('/ai/speak', validate('body', speakSchema), aiController.speak);
+
+// The in-app guide. `/ai/transcribe` and `/ai/speak` still carry the voice on
+// either side of it; this replaces `/ai/chat` as what the app asks in between,
+// because a spoken request now has three possible destinations rather than one.
+apiRouter.post('/ai/assist', validate('body', assistSchema), assistantController.assist);

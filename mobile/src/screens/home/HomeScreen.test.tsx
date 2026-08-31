@@ -30,18 +30,25 @@ const mockOpenAvatar = jest.fn();
  * The three Phase 2.5 sources. Each can legitimately be null, and the tests
  * below cover both a real reading and the empty state for every one of them.
  */
+import type { FarmPredictionResult } from '@/services/predictions';
+
 const mockInsights: {
   crop: CurrentCrop | null;
   msp: Msp | null;
   weather: Weather | null;
   price: MarketPrice | null;
-} = { crop: null, msp: null, weather: null, price: null };
+  soilMoisture: FarmPredictionResult | null;
+} = { crop: null, msp: null, weather: null, price: null, soilMoisture: null };
 
 jest.mock('@/services/agronomy', () => ({
   getCurrentCrop: jest.fn(async () => mockInsights.crop),
   getLatestMsp: jest.fn(async () => mockInsights.msp),
   getWeather: jest.fn(async () => mockInsights.weather),
   getLatestMarketPrice: jest.fn(async () => mockInsights.price),
+}));
+
+jest.mock('@/services/predictions', () => ({
+  getFarmSoilMoisture: jest.fn(async () => mockInsights.soilMoisture),
 }));
 
 const wheat: CurrentCrop = {
@@ -239,12 +246,11 @@ describe('HomeScreen', () => {
   });
 
   describe('what it does not know yet', () => {
-    it('leaves growth stage empty instead of inventing a reading', async () => {
+    it('leaves soil moisture empty when not yet analysed', async () => {
       await renderWithProviders(<HomeScreen {...props} />);
 
-      expect(screen.getByTestId('growth-card')).toBeTruthy();
-      // Growth stage still has no source — that arrives with Phase 3 analysis.
-      expect(screen.getAllByText('Available in a future update')).toHaveLength(1);
+      expect(screen.getByTestId('moisture-card')).toBeTruthy();
+      expect(screen.getByText('Soil moisture')).toBeTruthy();
     });
 
     it('says the market is not connected rather than showing a price', async () => {
@@ -341,11 +347,9 @@ describe('HomeScreen', () => {
       expect(mockOpenAvatar).toHaveBeenCalled();
     });
 
-    it('opens the avatar from the floating mic button', async () => {
-      await renderWithProviders(<HomeScreen {...props} />);
-      await fireEvent.press(screen.getByTestId('avatar-fab'));
-
-      expect(mockOpenAvatar).toHaveBeenCalled();
-    });
+    // The floating mic button used to be mounted here, and on three other
+    // screens. It is now mounted once beside the avatar in RootNavigator,
+    // because the guide can take the farmer anywhere in the app and so has to
+    // be reachable from anywhere in it.
   });
 });

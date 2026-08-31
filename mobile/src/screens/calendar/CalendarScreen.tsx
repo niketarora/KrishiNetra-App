@@ -3,6 +3,7 @@ import { Pressable, ScrollView, StyleSheet, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
 import { MonthGrid } from '@/components/calendar/MonthGrid';
+import { GuideTarget } from '@/components/guide/GuideTarget';
 import { Card, EmptyState, Icon, IconBadge, Screen, ScreenHeader, SampleBanner, Text } from '@/components/ui';
 import { isDemoMode } from '@/features/demo/demoMode';
 import { buildDemoCalendarEvents } from '@/features/calendar/demoEvents';
@@ -172,6 +173,13 @@ export function CalendarScreen({ onBack, onRegisterLand, onOpenEvent }: Props) {
               </View>
             ) : null}
 
+            {/*
+              What the guide spotlights when a farmer asks about scheduling —
+              including irrigation, which has no schedule of its own anywhere in
+              the product yet. The avatar says so; this is the nearest honest
+              place to point them at meanwhile.
+            */}
+            <GuideTarget id="calendar-events">
             <View style={styles.section}>
               <Text variant="cardTitle">{t('calendar.upcoming')}</Text>
               {upcomingEvents.length === 0 ? (
@@ -185,6 +193,7 @@ export function CalendarScreen({ onBack, onRegisterLand, onOpenEvent }: Props) {
                 upcomingEvents.map(renderEvent)
               )}
             </View>
+            </GuideTarget>
           </>
         )}
       </ScrollView>

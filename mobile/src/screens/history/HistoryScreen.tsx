@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
-import { AvatarFab } from '@/components/avatar/AvatarFab';
 import {
   Card,
   EmptyState,
@@ -213,8 +212,6 @@ export function HistoryScreen({ onRegisterLand }: Props) {
           </>
         )}
       </ScrollView>
-
-      <AvatarFab />
     </Screen>
   );
 }

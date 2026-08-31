@@ -87,8 +87,14 @@ export function ProfileScreen({ onBack, onOpenMyFarm, onOpenSchemes, onOpenAlert
       key: 'state',
       icon: 'pin',
       tone: 'harvest',
-      label: t('profile.state'),
-      value: profile?.location_state ?? farm?.state ?? t('common.notAvailable'),
+      label: t('profile.location', 'Location'),
+      value:
+        [profile?.location_city, profile?.location_district, profile?.location_state]
+          .filter(Boolean)
+          .join(', ') ||
+        profile?.location_state ||
+        farm?.state ||
+        t('common.notAvailable'),
       onPress: () => setStatePickerVisible(true),
     },
   ];

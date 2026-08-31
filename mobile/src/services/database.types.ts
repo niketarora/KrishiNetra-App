@@ -47,6 +47,7 @@ export type FarmRow = {
   state: string | null;
   location_source: string | null;
   location_accuracy: number | null;
+  photo_url?: string | null;
   created_at: string;
   updated_at: string;
 };
@@ -98,6 +99,7 @@ export type WeatherRow = {
   temperature_c: number | null;
   rainfall_mm: number | null;
   humidity_pct: number | null;
+  wind_speed_kmh?: number | null;
   source: string;
 };
 

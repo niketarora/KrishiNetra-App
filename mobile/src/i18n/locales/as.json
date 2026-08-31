@@ -66,7 +66,12 @@
     "title": "Complete your profile",
     "subtitle": "Just a couple of details to get started.",
     "emailOptional": "Optional",
-    "saveCta": "Save and continue"
+    "saveCta": "Save and continue",
+    "locationLabel": "Your Location (GPS)",
+    "detectLocation": "Detect My Location",
+    "detectingLocation": "Detecting GPS location…",
+    "locationDetected": "Location detected via GPS",
+    "locationPermissionPrompt": "Location access helps set up your field and weather automatically."
   },
   "onboarding": {
     "methodTitle": "Register your field",
@@ -148,7 +153,10 @@
     "weatherObserved": "{{date}} পর্যবেক্ষণ করা হয়েছে",
     "marketObserved": "{{date}} নথিবদ্ধ",
     "visualAssistantTitle": "কৃষিনেত্রকে জিজ্ঞাসা করুন",
-    "visualAssistantSub": "ফসলের ছবি দেখিয়ে পরামর্শ নিন।"
+    "visualAssistantSub": "ফসলের ছবি দেখিয়ে পরামর্শ নিন।",
+    "soilMoisture": "Soil moisture",
+    "soilMoistureValue": "{{percent}}%",
+    "soilMoistureNote": "{{category}} · ML Model"
   },
   "field": {
     "title": "পথাৰ বিশ্লেষণ",
@@ -160,7 +168,37 @@
     "areaLabel": "আপনার আঁকা সীমানা",
     "weatherObserved": "{{temp}}°সে · {{rain}} মিমি বৃষ্টিপাত",
     "weatherNone": "আপনার জেলার জন্য আবহাওয়ার তথ্য নেই",
-    "analysisNote": "ফসলের স্বাস্থ্য বিশ্লেষণের জন্য স্যাটেলাইট ডেটা প্রয়োজন, যা শীঘ্রই যুক্ত হচ্ছে।"
+    "analysisNote": "ফসলের স্বাস্থ্য বিশ্লেষণের জন্য স্যাটেলাইট ডেটা প্রয়োজন, যা শীঘ্রই যুক্ত হচ্ছে।",
+    "soilMoistureTitle": "Soil Moisture Prediction",
+    "soilMoistureSub": "Machine Learning inference from environmental and satellite indices",
+    "modelVersion": "Model {{version}}",
+    "experimentalBadge": "Experimental ML",
+    "categories": {
+      "dry": "Dry",
+      "moderate": "Moderate",
+      "good": "Optimal",
+      "wet": "Wet / Saturated"
+    },
+    "inputsTitle": "Inference Feature Parameters",
+    "inputsSubtitle": "Data points evaluated by the model",
+    "features": {
+      "ndvi": "NDVI (Vegetation)",
+      "savi": "SAVI (Soil Adjusted)",
+      "temp": "Temperature",
+      "humidity": "Humidity",
+      "rainfall": "Rainfall",
+      "soilPh": "Soil pH",
+      "organicMatter": "Organic Matter",
+      "lai": "Leaf Area Index",
+      "elevation": "Elevation",
+      "growthStage": "Growth Stage",
+      "cropType": "Crop Type",
+      "windSpeed": "Wind Speed",
+      "waterFlow": "Water Flow Index",
+      "spatialRes": "Spatial Resolution"
+    },
+    "warningTitle": "Experimental Model Notice",
+    "warningBody": "Validation indicates baseline performance. Always cross-check with field moisture before irrigation decisions."
   },
   "market": {
     "title": "বাজার",
@@ -484,21 +522,24 @@
       "listening": "শুনছি…",
       "thinking": "চিন্তা করছি…",
       "speaking": "বলছি",
-      "error": "অডিও নেই"
+      "error": "অডিও নেই",
+      "guiding": "দেখুৱাই আছোঁ"
     },
     "mic": {
       "idle": "কথা বলা শুরু করুন",
       "listening": "বলা শেষ হয়েছে",
       "thinking": "একটু অপেক্ষা করুন…",
       "speaking": "পরবর্তী প্রশ্ন করুন",
-      "error": "আবার চেষ্টা করুন"
+      "error": "আবার চেষ্টা করুন",
+      "guiding": "আন কিবা সুধক"
     },
     "footer": {
       "idle": "আপনি বাংলা বা যেকোনো ভাষায় বলতে পারেন।",
       "listening": "ধীরে ধীরে বলুন — আমি শুনছি।",
       "thinking": "তথ্য বিশ্লেষণ করা হচ্ছে…",
       "speaking": "আপনি যেকোনো সময় থামিয়ে প্রশ্ন করতে পারেন।",
-      "error": "মাইক্রোফোনে স্পর্শ করে আবার বলুন।"
+      "error": "মাইক্রোফোনে স্পর্শ করে আবার বলুন।",
+      "guiding": "আপোনাক তালৈ লৈ গৈ আছোঁ।"
     },
     "greeting": "নমস্কাৰ {{name}}! আপুনি কি জানিব বিচাৰে?",
     "questions": {
@@ -510,7 +551,8 @@
     },
     "sources": {
       "field": "আপনার জমির রেকর্ড থেকে",
-      "assistant": "এআই সহকারী · যাচাই আবশ্যক"
+      "assistant": "এআই সহকারী · যাচাই আবশ্যক",
+      "label": "উৎস"
     },
     "errors": {
       "micPermission": "মাইক্রোফোন অনুমতি প্রয়োজন। সেটিংস থেকে অনুমতি দিন।",
@@ -522,8 +564,39 @@
       "upload": "রেকর্ডিং পাঠানো যায়নি।",
       "unreachable": "কৃষিনেত্রের সাথে সংযোগ করা যাচ্ছে না।",
       "tooShort": "রেকর্ডিং খুব ছোট ছিল। চেপে ধরে কথা বলুন।",
-      "voice": "ভয়েস তৈরি করা যায়নি। উত্তর উপরে দেওয়া আছে।"
-    }
+      "voice": "ভয়েস তৈরি করা যায়নি। উত্তর উপরে দেওয়া আছে।",
+      "expertNotConnected": "কৃষি বিশেষজ্ঞ এতিয়াও সংযোগ হোৱা নাই, গতিকে ইয়াৰ উত্তৰ দিব নোৱাৰোঁ। এপত বাট এতিয়াও দেখুৱাব পাৰোঁ।",
+      "researchNotConnected": "মই এতিয়াও নতুন তথ্য বিচাৰিব নোৱাৰোঁ — সেই সেৱা সংযোগ হোৱা নাই। এপত বাট এতিয়াও দেখুৱাব পাৰোঁ।"
+    },
+    "guide": {
+      "market_price": "এইয়া আজিৰ মাণ্ডী দাম, কাষত এমএছপি।",
+      "price_trend": "যোৱা সাত দিনত দাম এনেকৈ সলনি হৈছে।",
+      "sell_or_wait": "বিক্ৰী কৰিব নে ৰ'ব — সেই পৰামৰ্শ ইয়াত ওলাব।",
+      "weather": "এইয়া আপোনাৰ পথাৰৰ শেহতীয়া লিপিবদ্ধ বতৰ।",
+      "crop_status": "আপুনি কোনখন শস্য কেতিয়া ৰোপণ কৰিলে ইয়াত দেখা যায়।",
+      "msp": "এইটো আপোনাৰ শস্যৰ ঘোষিত নিম্নতম সাহায্য মূল্য।",
+      "field_analysis": "এইখন আপোনাৰ পথাৰৰ বিশ্লেষণৰ পৰ্দা।",
+      "soil_moisture": "এই ঘৰটোৱে আপোনাৰ পথাৰৰ আনুমানিক মাটিৰ আৰ্দ্ৰতা দেখুৱায়।",
+      "my_lands": "এইবোৰ আপোনাৰ পঞ্জীভুক্ত সকলো মাটি।",
+      "land_detail": "এইয়া সেই মাটিৰ বিৱৰণ।",
+      "register_land": "ইয়াৰ পৰা নতুন মাটি পঞ্জীভুক্ত কৰক — সীমাত খোজ কাঢ়ি বা আঁকি।",
+      "edit_boundary": "এই মাটিৰ সীমা পুনৰ আঁকিবলৈ ইয়াত টিপক।",
+      "calendar": "এইখন আপোনাৰ কৃষি কেলেণ্ডাৰ, আগলৈ কি আছে তাৰ সৈতে।",
+      "schemes": "এই চৰকাৰী আঁচনিবোৰ আপুনি চাব পাৰে।",
+      "updates": "এইখন কৃষি বাতৰিৰ তালিকা।",
+      "alerts": "এইবোৰ আপোনাক পঠোৱা সতৰ্কবাণী আৰু বাৰ্তা।",
+      "learning": "এইখন কৃষি একাডেমী, ইয়াত শিকোৱা ভিডিঅো আছে।",
+      "visual_assistant": "ইয়াৰ পৰা আপুনি কেমেৰা গছৰ ফালে ধৰিব পাৰে।",
+      "history": "এইখন আপোনাৰ পথাৰৰ বিৱৰণ আৰু পূৰ্বৰ কাম।",
+      "profile": "এইখন আপোনাৰ প্ৰোফাইল, ইয়াত ভাষা আৰু ছেটিংছ সলনি কৰক।",
+      "caveat": {
+        "irrigation": "দৈনিক জলসিঞ্চনৰ তালিকা এতিয়াও সংযোগ হোৱা নাই। এইখন আপোনাৰ কৃষি কেলেণ্ডাৰ, মই দেখুৱাব পৰাবোৰৰ ভিতৰত আটাইতকৈ ওচৰৰ।",
+        "sell_or_wait": "বিক্ৰী কৰিব নে ৰ'ব — ইয়াৰ বাবে দামৰ পূৰ্বানুমান লাগে, যিটো এতিয়াও সংযোগ হোৱা নাই। এইখনেই সেই কাৰ্ড য'ত সেয়া ওলাব।",
+        "field_analysis": "শস্যৰ স্বাস্থ্য আৰু বৃদ্ধিৰ স্তৰ এতিয়াও সংযোগ হোৱা নাই। ইয়াত এতিয়া কেৱল বতৰৰ বিপদৰ শাৰীটোহে প্ৰকৃত।",
+        "soil_moisture": "এই আৰ্দ্ৰতাৰ সংখ্যা এটা পৰীক্ষামূলক মডেলৰ পৰা আহে, গতিকে ইয়াক মোটামুটি অনুমান বুলি ধৰক, জলসিঞ্চনৰ পৰামৰ্শ নহয়।"
+      }
+    },
+    "youAsked": "You asked"
   },
   "errors": {
     "sessionRestore": "সেশন পুনরুদ্ধার করা যায়নি। পুনরায় লগ ইন করুন।",

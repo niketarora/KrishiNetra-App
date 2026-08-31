@@ -24,12 +24,18 @@ const supabaseAnonKey =
 export const supabase = createClient<Database>(supabaseUrl, supabaseAnonKey, {
   auth: {
     storage: secureSessionStorage,
-    autoRefreshToken: true,
+    autoRefreshToken: false,
     persistSession: true,
     // No deep-link auth callback in Phase 1 (email + password only).
     detectSessionInUrl: false,
   },
 });
+
+let inMemoryAccessToken: string | null = null;
+
+export function setLocalAccessToken(token: string | null): void {
+  inMemoryAccessToken = token;
+}
 
 /**
  * The current access token, or null when nobody is signed in.
@@ -39,8 +45,13 @@ export const supabase = createClient<Database>(supabaseUrl, supabaseAnonKey, {
  * that this file is the app's only database client still holds.
  */
 export async function getAccessToken(): Promise<string | null> {
-  const { data } = await supabase.auth.getSession();
-  return data.session?.access_token ?? null;
+  if (inMemoryAccessToken) return inMemoryAccessToken;
+  try {
+    const { data } = await supabase.auth.getSession();
+    return data.session?.access_token ?? inMemoryAccessToken;
+  } catch {
+    return inMemoryAccessToken;
+  }
 }
 
 /**

@@ -28,7 +28,9 @@ export async function updateProfile(
   body: UpdateProfileBody,
 ): Promise<ProfileRow> {
   const updatePayload: Record<string, unknown> = { ...body };
-  if (body.location_state !== undefined || body.location_district !== undefined) {
+  if (body.location_source) {
+    updatePayload.location_source = body.location_source;
+  } else if (body.location_state !== undefined || body.location_district !== undefined) {
     updatePayload.location_source = 'manual';
   }
 

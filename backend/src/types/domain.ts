@@ -53,6 +53,7 @@ export type FarmRow = {
   state: string | null;
   location_source: string | null;
   location_accuracy: number | null;
+  photo_url?: string | null;
   created_at: string;
   updated_at: string;
 };
@@ -135,6 +136,21 @@ export type WeatherRow = {
   temperature_c: number | null;
   rainfall_mm: number | null;
   humidity_pct: number | null;
+  wind_speed_kmh?: number | null;
+  source: string;
+  created_at: string;
+};
+
+export type SoilHealthReferenceRow = {
+  id: string;
+  state: string;
+  district: string;
+  soil_type: string | null;
+  soil_ph_mean: number;
+  organic_matter_pct: number;
+  nitrogen_kg_ha: number | null;
+  phosphorus_kg_ha: number | null;
+  potassium_kg_ha: number | null;
   source: string;
   created_at: string;
 };

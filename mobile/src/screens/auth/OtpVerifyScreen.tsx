@@ -62,7 +62,6 @@ export function OtpVerifyScreen({ normalizedPhone, initialDevCode, onBack }: Pro
 
   const handleResend = async () => {
     setResending(true);
-    setCode('');
     setError(null);
     setFormErrorKey(null);
 
@@ -71,6 +70,7 @@ export function OtpVerifyScreen({ normalizedPhone, initialDevCode, onBack }: Pro
 
     if (result.ok) {
       setDevCode(result.devCode);
+      setCode(result.devCode);
       setCooldown(RESEND_COOLDOWN_SECONDS);
     } else {
       setFormErrorKey(result.errorKey);

@@ -66,7 +66,12 @@
     "title": "சுயவிவரத்தை நிரப்பவும்",
     "subtitle": "தொடங்குவதற்கு சில விவரங்களை உள்ளிடவும்.",
     "emailOptional": "விருப்பத்திற்குரியது",
-    "saveCta": "சேமித்து தொடரவும்"
+    "saveCta": "சேமித்து தொடரவும்",
+    "locationLabel": "Your Location (GPS)",
+    "detectLocation": "Detect My Location",
+    "detectingLocation": "Detecting GPS location…",
+    "locationDetected": "Location detected via GPS",
+    "locationPermissionPrompt": "Location access helps set up your field and weather automatically."
   },
   "onboarding": {
     "methodTitle": "Register your field",
@@ -148,7 +153,10 @@
     "weatherObserved": "{{date}} அன்று பதிவானது",
     "marketObserved": "{{date}} அன்று பதிவானது",
     "visualAssistantTitle": "கிருஷிநேத்ராவிடம் கேளுங்கள்",
-    "visualAssistantSub": "பயிரைப் புகைப்படம் எடுத்து ஆலோசனை பெறுங்கள்."
+    "visualAssistantSub": "பயிரைப் புகைப்படம் எடுத்து ஆலோசனை பெறுங்கள்.",
+    "soilMoisture": "Soil moisture",
+    "soilMoistureValue": "{{percent}}%",
+    "soilMoistureNote": "{{category}} · ML Model"
   },
   "field": {
     "title": "நில பகுப்பாய்வு",
@@ -160,7 +168,37 @@
     "areaLabel": "நீங்கள் வரைந்த எல்லை",
     "weatherObserved": "{{temp}}°C · {{rain}} மிமீ மழை",
     "weatherNone": "உங்கள் மாவட்டத்திற்கு வானிலை பதிவு இல்லை",
-    "analysisNote": "பயிர் நலம் அறிய செயற்கைக்கோள் பகுப்பாய்வு தேவை."
+    "analysisNote": "பயிர் நலம் அறிய செயற்கைக்கோள் பகுப்பாய்வு தேவை.",
+    "soilMoistureTitle": "Soil Moisture Prediction",
+    "soilMoistureSub": "Machine Learning inference from environmental and satellite indices",
+    "modelVersion": "Model {{version}}",
+    "experimentalBadge": "Experimental ML",
+    "categories": {
+      "dry": "Dry",
+      "moderate": "Moderate",
+      "good": "Optimal",
+      "wet": "Wet / Saturated"
+    },
+    "inputsTitle": "Inference Feature Parameters",
+    "inputsSubtitle": "Data points evaluated by the model",
+    "features": {
+      "ndvi": "NDVI (Vegetation)",
+      "savi": "SAVI (Soil Adjusted)",
+      "temp": "Temperature",
+      "humidity": "Humidity",
+      "rainfall": "Rainfall",
+      "soilPh": "Soil pH",
+      "organicMatter": "Organic Matter",
+      "lai": "Leaf Area Index",
+      "elevation": "Elevation",
+      "growthStage": "Growth Stage",
+      "cropType": "Crop Type",
+      "windSpeed": "Wind Speed",
+      "waterFlow": "Water Flow Index",
+      "spatialRes": "Spatial Resolution"
+    },
+    "warningTitle": "Experimental Model Notice",
+    "warningBody": "Validation indicates baseline performance. Always cross-check with field moisture before irrigation decisions."
   },
   "market": {
     "title": "சந்தை",
@@ -484,21 +522,24 @@
       "listening": "கேட்கிறது…",
       "thinking": "சிந்திக்கிறது…",
       "speaking": "பேசுகிறது",
-      "error": "ஒலி இல்லை"
+      "error": "ஒலி இல்லை",
+      "guiding": "காட்டுகிறேன்"
     },
     "mic": {
       "idle": "பேசத் தொடங்குங்கள்",
       "listening": "பேசி முடித்தேன்",
       "thinking": "ஒரு நிமிடம்…",
       "speaking": "அடுத்த கேள்வி கேளுங்கள்",
-      "error": "மீண்டும் முயற்சிக்கவும்"
+      "error": "மீண்டும் முயற்சிக்கவும்",
+      "guiding": "வேறு ஏதாவது கேளுங்கள்"
     },
     "footer": {
       "idle": "நீங்கள் தமிழில் அல்லது எந்த மொழியிலும் பேசலாம்.",
       "listening": "மெதுவாகப் பேசுங்கள் — நான் கேட்கிறேன்.",
       "thinking": "விவரங்களை ஆராய்கிறது…",
       "speaking": "நீங்கள் எப்போது வேண்டுமானாலும் குறுக்கிடலாம்.",
-      "error": "மைக்கை அழுத்தி மீண்டும் பேசுங்கள்."
+      "error": "மைக்கை அழுத்தி மீண்டும் பேசுங்கள்.",
+      "guiding": "உங்களை அங்கே அழைத்துச் செல்கிறேன்."
     },
     "greeting": "வணக்கம் {{name}}! நீங்கள் என்ன தெரிந்துகொள்ள விரும்புகிறீர்கள்?",
     "questions": {
@@ -510,7 +551,8 @@
     },
     "sources": {
       "field": "உங்கள் நிலப் பதிவேட்டில் இருந்து",
-      "assistant": "AI உதவியாளர் · சரிபார்க்கப்பட வேண்டும்"
+      "assistant": "AI உதவியாளர் · சரிபார்க்கப்பட வேண்டும்",
+      "label": "ஆதாரங்கள்"
     },
     "errors": {
       "micPermission": "மைக்ரோஃபோன் அனுமதி தேவை. அமைப்புகளில் இயக்கவும்.",
@@ -522,8 +564,39 @@
       "upload": "பதிவை அனுப்ப முடியவில்லை.",
       "unreachable": "கிருஷிநேத்ராவைத் தொடர்பு கொள்ள முடியவில்லை.",
       "tooShort": "பதிவு மிகக் குறுகியது. அழுத்திப் பிடித்துப் பேசுங்கள்.",
-      "voice": "குரல் உருவாக்க முடியவில்லை. பதில் மேலே உள்ளது."
-    }
+      "voice": "குரல் உருவாக்க முடியவில்லை. பதில் மேலே உள்ளது.",
+      "expertNotConnected": "விவசாய நிபுணர் இன்னும் இணைக்கப்படவில்லை, எனவே இதற்குப் பதில் சொல்ல முடியாது. செயலியில் வழி காட்ட முடியும்.",
+      "researchNotConnected": "என்னால் இன்னும் புதிய தகவலைத் தேட முடியாது — அந்தச் சேவை இணைக்கப்படவில்லை. செயலியில் வழி காட்ட முடியும்."
+    },
+    "guide": {
+      "market_price": "இதோ இன்றைய மண்டி விலை, அருகில் எம்எஸ்பி.",
+      "price_trend": "கடந்த ஏழு நாட்களில் விலை இப்படி மாறியுள்ளது.",
+      "sell_or_wait": "விற்கலாமா காத்திருக்கலாமா — அந்த ஆலோசனை இங்கே தோன்றும்.",
+      "weather": "இதோ உங்கள் வயலில் பதிவான சமீபத்திய வானிலை.",
+      "crop_status": "நீங்கள் எந்தப் பயிரை எப்போது விதைத்தீர்கள் என்பது இங்கே தெரியும்.",
+      "msp": "இது உங்கள் பயிருக்கு அறிவிக்கப்பட்ட குறைந்தபட்ச ஆதரவு விலை.",
+      "field_analysis": "இது உங்கள் வயல் பகுப்பாய்வுத் திரை.",
+      "soil_moisture": "இந்தக் கட்டம் உங்கள் வயலின் மதிப்பிடப்பட்ட மண் ஈரப்பதத்தைக் காட்டுகிறது.",
+      "my_lands": "இவை நீங்கள் பதிவு செய்த அனைத்து நிலங்கள்.",
+      "land_detail": "இதோ அந்த நிலத்தின் விவரம்.",
+      "register_land": "இங்கிருந்து புதிய நிலத்தைப் பதிவு செய்யுங்கள் — எல்லையில் நடந்தோ வரைந்தோ.",
+      "edit_boundary": "இந்த நிலத்தின் எல்லையை மீண்டும் வரைய இங்கே அழுத்துங்கள்.",
+      "calendar": "இது உங்கள் பண்ணை நாட்காட்டி, அடுத்து என்ன என்பதுடன்.",
+      "schemes": "இந்த அரசுத் திட்டங்களை நீங்கள் பார்க்கலாம்.",
+      "updates": "இது விவசாயச் செய்திப் பட்டியல்.",
+      "alerts": "இவை உங்களுக்கு அனுப்பப்பட்ட எச்சரிக்கைகளும் செய்திகளும்.",
+      "learning": "இது கிருஷி அகாடமி, இங்கே கற்றுத்தரும் காணொளிகள் உள்ளன.",
+      "visual_assistant": "இங்கிருந்து செடியை நோக்கி கேமராவை காட்டலாம்.",
+      "history": "இது உங்கள் பண்ணை விவரமும் முந்தைய பணிகளும்.",
+      "profile": "இது உங்கள் சுயவிவரம், இங்கே மொழியையும் அமைப்புகளையும் மாற்றலாம்.",
+      "caveat": {
+        "irrigation": "நாள்தோறும் நீர்ப்பாசன அட்டவணை இன்னும் இணைக்கப்படவில்லை. இது உங்கள் பண்ணை நாட்காட்டி, நான் காட்டக்கூடியவற்றில் மிக நெருக்கமானது.",
+        "sell_or_wait": "விற்கலாமா காத்திருக்கலாமா — இதற்கு விலை முன்னறிவிப்பு தேவை, அது இன்னும் இணைக்கப்படவில்லை. அது தோன்றும் அட்டை இதுவே.",
+        "field_analysis": "பயிர் நலமும் வளர்ச்சி நிலையும் இன்னும் இணைக்கப்படவில்லை. இங்கே இப்போது வானிலை அபாய வரி மட்டுமே உண்மையானது.",
+        "soil_moisture": "இந்த ஈரப்பத எண் ஒரு சோதனை மாதிரியிலிருந்து வருகிறது, எனவே இதை தோராயமான மதிப்பீடாகக் கொள்ளுங்கள், நீர்ப்பாசன ஆலோசனையாக அல்ல."
+      }
+    },
+    "youAsked": "You asked"
   },
   "errors": {
     "sessionRestore": "அமர்வை மீட்டெடுக்க முடியவில்லை. மீண்டும் உள்நுழையவும்.",

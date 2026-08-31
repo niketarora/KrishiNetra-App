@@ -1,0 +1,12 @@
+{
+  "structural": {
+    "passed": true,
+    "findings": []
+  },
+  "empirical": {
+    "rows_probed": 60,
+    "passed": true,
+    "leaky_features": {}
+  },
+  "n_features": 106
+}

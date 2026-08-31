@@ -66,7 +66,12 @@
     "title": "Complete your profile",
     "subtitle": "Just a couple of details to get started.",
     "emailOptional": "Optional",
-    "saveCta": "Save and continue"
+    "saveCta": "Save and continue",
+    "locationLabel": "Your Location (GPS)",
+    "detectLocation": "Detect My Location",
+    "detectingLocation": "Detecting GPS location…",
+    "locationDetected": "Location detected via GPS",
+    "locationPermissionPrompt": "Location access helps set up your field and weather automatically."
   },
   "onboarding": {
     "methodTitle": "Register your field",
@@ -148,7 +153,10 @@
     "weatherObserved": "{{date}} ના રોજ નોંધાયેલ",
     "marketObserved": "{{date}} ના રોજ નોંધાયેલ",
     "visualAssistantTitle": "કૃષિનેત્રને પૂછો",
-    "visualAssistantSub": "પાકનો ફોટો પાડીને સલાહ મેળવો."
+    "visualAssistantSub": "પાકનો ફોટો પાડીને સલાહ મેળવો.",
+    "soilMoisture": "Soil moisture",
+    "soilMoistureValue": "{{percent}}%",
+    "soilMoistureNote": "{{category}} · ML Model"
   },
   "field": {
     "title": "ખેતર વિશ્લેષણ",
@@ -160,7 +168,37 @@
     "areaLabel": "તમે દોરેલી સીમા",
     "weatherObserved": "{{temp}}°C · {{rain}} મીમી વરસાદ",
     "weatherNone": "તમારા જિલ્લા માટે હવામાન નોંધ નથી",
-    "analysisNote": "પાકના સ્વાસ્થ્ય માટે સેટેલાઇટ ડેટા જરૂરી છે."
+    "analysisNote": "પાકના સ્વાસ્થ્ય માટે સેટેલાઇટ ડેટા જરૂરી છે.",
+    "soilMoistureTitle": "Soil Moisture Prediction",
+    "soilMoistureSub": "Machine Learning inference from environmental and satellite indices",
+    "modelVersion": "Model {{version}}",
+    "experimentalBadge": "Experimental ML",
+    "categories": {
+      "dry": "Dry",
+      "moderate": "Moderate",
+      "good": "Optimal",
+      "wet": "Wet / Saturated"
+    },
+    "inputsTitle": "Inference Feature Parameters",
+    "inputsSubtitle": "Data points evaluated by the model",
+    "features": {
+      "ndvi": "NDVI (Vegetation)",
+      "savi": "SAVI (Soil Adjusted)",
+      "temp": "Temperature",
+      "humidity": "Humidity",
+      "rainfall": "Rainfall",
+      "soilPh": "Soil pH",
+      "organicMatter": "Organic Matter",
+      "lai": "Leaf Area Index",
+      "elevation": "Elevation",
+      "growthStage": "Growth Stage",
+      "cropType": "Crop Type",
+      "windSpeed": "Wind Speed",
+      "waterFlow": "Water Flow Index",
+      "spatialRes": "Spatial Resolution"
+    },
+    "warningTitle": "Experimental Model Notice",
+    "warningBody": "Validation indicates baseline performance. Always cross-check with field moisture before irrigation decisions."
   },
   "market": {
     "title": "બજાર",
@@ -484,21 +522,24 @@
       "listening": "સાંભળી રહ્યા છીએ…",
       "thinking": "વિચારી રહ્યા છીએ…",
       "speaking": "બોલી રહ્યા છીએ",
-      "error": "ઓડિયો નથી"
+      "error": "ઓડિયો નથી",
+      "guiding": "બતાવી રહ્યો છું"
     },
     "mic": {
       "idle": "બોલવાનું શરૂ કરો",
       "listening": "બોલવાનું પૂરું થયું",
       "thinking": "એક ક્ષણ…",
       "speaking": "બીજો પ્રશ્ન પૂછો",
-      "error": "ફરી પ્રયાસ કરો"
+      "error": "ફરી પ્રયાસ કરો",
+      "guiding": "બીજું કંઈ પૂછો"
     },
     "footer": {
       "idle": "તમે ગુજરાતીમાં અથવા કોઈપણ ભાષામાં પૂછી શકો છો.",
       "listening": "ધીમેથી બોલો — હું સાંભળી રહ્યો છું.",
       "thinking": "માહિતી ચકાસી રહ્યા છીએ…",
       "speaking": "તમે વચ્ચે રોકીને પણ પૂછી શકો છો.",
-      "error": "માઇક દબાવી ફરી બોલો."
+      "error": "માઇક દબાવી ફરી બોલો.",
+      "guiding": "તમને ત્યાં લઈ જાઉં છું."
     },
     "greeting": "નમસ્તે {{name}}! તમે શું જાણવા માંગો છો?",
     "questions": {
@@ -510,7 +551,8 @@
     },
     "sources": {
       "field": "તમારા ખેતરના રેકોર્ડમાંથી",
-      "assistant": "AI મિત્ર · ચકાસણી જરૂરી"
+      "assistant": "AI મિત્ર · ચકાસણી જરૂરી",
+      "label": "સ્રોત"
     },
     "errors": {
       "micPermission": "માઇક્રોફોન પરવાનગી જરૂરી છે. સેટિંગ્સમાંથી આપો.",
@@ -522,8 +564,39 @@
       "upload": "રેકોર્ડિંગ મોકલી શકાયું નથી.",
       "unreachable": "કૃષિનેત્ર સર્વર સાથે જોડાણ નથી.",
       "tooShort": "રેકોર્ડિંગ ખૂબ નાનું હતું. દબાવી રાખીને બોલો.",
-      "voice": "અવાજ બનાવી શકાયો નથી. જવાબ ઉપર આપેલ છે."
-    }
+      "voice": "અવાજ બનાવી શકાયો નથી. જવાબ ઉપર આપેલ છે.",
+      "expertNotConnected": "ખેતી નિષ્ણાત હજી જોડાયેલા નથી, તેથી આનો જવાબ આપી શકતો નથી. ઍપમાં રસ્તો બતાવી શકું છું.",
+      "researchNotConnected": "હું હજી તાજી માહિતી શોધી શકતો નથી — એ સેવા જોડાયેલી નથી. ઍપમાં રસ્તો બતાવી શકું છું."
+    },
+    "guide": {
+      "market_price": "આ રહ્યો આજનો મંડી ભાવ, બાજુમાં એમએસપી.",
+      "price_trend": "છેલ્લા સાત દિવસમાં ભાવ આમ બદલાયો છે.",
+      "sell_or_wait": "વેચવું કે રાહ જોવી — એ સલાહ અહીં દેખાશે.",
+      "weather": "આ રહ્યું તમારા ખેતરનું તાજું નોંધાયેલું હવામાન.",
+      "crop_status": "અહીં દેખાય છે કે તમે કયો પાક ક્યારે વાવ્યો.",
+      "msp": "આ તમારા પાકનો જાહેર કરેલો લઘુત્તમ ટેકાનો ભાવ.",
+      "field_analysis": "આ તમારા ખેતરના વિશ્લેષણની સ્ક્રીન છે.",
+      "soil_moisture": "આ ખાનું તમારા ખેતરની અંદાજિત ભેજ દર્શાવે છે.",
+      "my_lands": "આ તમારી નોંધાયેલી બધી જમીનો છે.",
+      "land_detail": "આ રહી એ જમીનની વિગત.",
+      "register_land": "અહીંથી નવી જમીન નોંધો — સીમા પર ચાલીને કે નકશા પર દોરીને.",
+      "edit_boundary": "આ જમીનની સીમા ફરી દોરવા અહીં દબાવો.",
+      "calendar": "આ તમારું ખેતી કૅલેન્ડર છે, આગળ શું છે તેની સાથે.",
+      "schemes": "આ સરકારી યોજનાઓ તમે જોઈ શકો છો.",
+      "updates": "આ ખેતીના સમાચારની યાદી છે.",
+      "alerts": "આ તમને મોકલેલી ચેતવણીઓ અને સંદેશા છે.",
+      "learning": "આ કૃષિ અકાદમી છે, અહીં શીખવતા વીડિયો છે.",
+      "visual_assistant": "અહીંથી તમે કૅમેરા છોડ તરફ રાખી શકો છો.",
+      "history": "આ તમારા ખેતરની વિગત અને પાછલાં કામ છે.",
+      "profile": "આ તમારી પ્રોફાઇલ છે, અહીં ભાષા અને સેટિંગ્સ બદલો.",
+      "caveat": {
+        "irrigation": "રોજેરોજની સિંચાઈ યાદી હજી જોડાયેલી નથી. આ તમારું ખેતી કૅલેન્ડર છે, જે બતાવી શકું તેમાં સૌથી નજીકનું.",
+        "sell_or_wait": "વેચવું કે રાહ જોવી — તેના માટે ભાવનું અનુમાન જોઈએ, જે હજી જોડાયેલું નથી. આ એ કાર્ડ છે જ્યાં તે દેખાશે.",
+        "field_analysis": "પાકની તંદુરસ્તી અને વૃદ્ધિનો તબક્કો હજી જોડાયેલો નથી. અહીં હાલ ફક્ત હવામાન જોખમની હરોળ સાચી છે.",
+        "soil_moisture": "આ ભેજનો આંકડો પ્રાયોગિક મૉડેલમાંથી આવે છે, તેથી તેને આશરે અંદાજ ગણો, સિંચાઈની સલાહ નહીં."
+      }
+    },
+    "youAsked": "You asked"
   },
   "errors": {
     "sessionRestore": "સત્ર પુનઃસ્થાપિત થયું નથી. ફરી લોગ ઇન કરો.",

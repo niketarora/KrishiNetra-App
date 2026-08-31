@@ -5,7 +5,7 @@ import { colors, layout } from '@/theme';
 import { Icon, type IconName } from './Icon';
 import { Text } from './Text';
 
-export type BannerTone = 'warning' | 'danger' | 'neutral';
+export type BannerTone = 'warning' | 'danger' | 'neutral' | 'info';
 
 type Props = {
   title: string;
@@ -20,6 +20,7 @@ const TONES: Record<BannerTone, { bg: string; fg: string; icon: IconName }> = {
   warning: { bg: colors.warningBg, fg: colors.warning, icon: 'alert' },
   danger: { bg: colors.dangerBg, fg: colors.danger, icon: 'alert' },
   neutral: { bg: colors.neutralBg, fg: colors.text.secondary, icon: 'offline' },
+  info: { bg: colors.neutralBg, fg: colors.text.secondary, icon: 'offline' },
 };
 
 /**
@@ -28,7 +29,7 @@ const TONES: Record<BannerTone, { bg: string; fg: string; icon: IconName }> = {
  * only rendered when its condition is live; there is no "no alerts" state.
  */
 export function Banner({ title, detail, tone = 'warning', icon, onDismiss, dismissLabel }: Props) {
-  const config = TONES[tone];
+  const config = TONES[tone] ?? TONES.warning;
 
   return (
     <View style={[styles.banner, { backgroundColor: config.bg }]} accessibilityRole="alert">

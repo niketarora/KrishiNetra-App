@@ -45,7 +45,7 @@ export async function fetchObservedWeather(
   url.searchParams.set('end_date', window.endDate);
   url.searchParams.set(
     'daily',
-    'temperature_2m_mean,precipitation_sum,relative_humidity_2m_mean',
+    'temperature_2m_mean,precipitation_sum,relative_humidity_2m_mean,wind_speed_10m_max',
   );
   url.searchParams.set('timezone', 'UTC');
 

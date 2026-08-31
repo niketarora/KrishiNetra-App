@@ -56,8 +56,30 @@ const envSchema = z.object({
   // as an older farmer, so the default voice is one of the provider's male
   // ones; changing it is a config edit, not a code change.
   SARVAM_TTS_API_URL: z.string().url().default('https://api.sarvam.ai/text-to-speech'),
-  SARVAM_TTS_MODEL: z.string().default('bulbul:v2'),
-  SARVAM_TTS_SPEAKER: z.string().default('abhilash'),
+  SARVAM_TTS_MODEL: z.string().default('bulbul:v3'),
+  SARVAM_TTS_SPEAKER: z.string().default('aditya'),
+
+  // --- In-app guide: intent router, farming expert, deep research ------------
+  // Optional on the same principle as the avatar keys above. A missing key
+  // makes one branch of the guide report itself unavailable; the other two, and
+  // the rest of the API, carry on.
+  //
+  // The router runs on every request and is tuned for latency, so it gets its
+  // own model knob — pointing it at a lighter model than the conversational one
+  // is then a config edit rather than a code change. Empty means "use
+  // GEMINI_MODEL".
+  GEMINI_ROUTER_MODEL: z.string().default(''),
+  LYZR_API_KEY: z.string().optional(),
+  LYZR_AGENT_ID: z.string().optional(),
+  // The Lyzr *account* the agent belongs to, as an email — not the farmer.
+  // Farmers are told apart by session id; see lyzr.service.ts.
+  LYZR_USER_ID: z.string().email().optional(),
+  LYZR_API_URL: z
+    .string()
+    .url()
+    .default('https://agent-prod.studio.lyzr.ai/v3/inference/chat/'),
+  TAVILY_API_KEY: z.string().optional(),
+  TAVILY_API_URL: z.string().url().default('https://api.tavily.com/search'),
 
   // --- Phase 3 ML service ---------------------------------------------------
   // Optional so the rest of the API can run independently. Prediction routes

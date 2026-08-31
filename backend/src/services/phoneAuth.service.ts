@@ -14,16 +14,35 @@ export async function findOrCreateUser(
 ): Promise<{ tokenHash: string }> {
   const admin = adminClient();
 
+  // Check if a profile with this phone number already exists
+  let targetEmail = email;
+  try {
+    const { data: existingProfile } = await admin
+      .from('profiles')
+      .select('id, phone')
+      .eq('phone', phone)
+      .maybeSingle();
+
+    if (existingProfile?.id) {
+      const { data: userData } = await admin.auth.admin.getUserById(existingProfile.id);
+      if (userData?.user?.email) {
+        targetEmail = userData.user.email;
+      }
+    }
+  } catch {
+    // Fall back to default synthetic bridge email
+  }
+
   // Try generating magiclink first.
   let linkResult = await admin.auth.admin.generateLink({
     type: 'magiclink',
-    email,
+    email: targetEmail,
   });
 
   if (linkResult.error) {
     // If the user does not exist yet, create them.
     const createResult = await admin.auth.admin.createUser({
-      email,
+      email: targetEmail,
       email_confirm: true,
       user_metadata: { phone, language },
     });
@@ -38,7 +57,7 @@ export async function findOrCreateUser(
     // Retry generating link after creation
     linkResult = await admin.auth.admin.generateLink({
       type: 'magiclink',
-      email,
+      email: targetEmail,
     });
 
     if (linkResult.error) {
@@ -65,5 +84,23 @@ export async function findOrCreateUser(
     }
   }
 
-  return { tokenHash };
+  // Verify token hash on backend to get real Supabase session tokens
+  let session = null;
+  try {
+    const { data: verifyData } = await admin.auth.verifyOtp({
+      token_hash: tokenHash,
+      type: 'magiclink',
+    });
+    if (verifyData?.session) {
+      session = {
+        access_token: verifyData.session.access_token,
+        refresh_token: verifyData.session.refresh_token,
+        user: verifyData.session.user,
+      };
+    }
+  } catch (err) {
+    console.warn('[auth] backend verifyOtp notice:', err);
+  }
+
+  return { tokenHash, session };
 }

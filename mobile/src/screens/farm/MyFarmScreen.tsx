@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 
 import { AreaCard } from '@/components/farm/AreaCard';
 import { BoundaryThumbnail } from '@/components/farm/BoundaryThumbnail';
+import { GuideTarget } from '@/components/guide/GuideTarget';
 import { Badge, Button, Card, EmptyState, Screen, ScreenHeader, Skeleton, Text } from '@/components/ui';
 import { useFarm } from '@/features/farm/FarmContext';
 import { getCurrentCrop, type CurrentCrop } from '@/services/agronomy';
@@ -79,6 +80,7 @@ export function MyFarmScreen({ onBack, onRegisterLand, onEditBoundary }: Props) 
           <Skeleton height={160} />
         ) : farm ? (
           <>
+            <GuideTarget id="my-farm-summary">
             <Card style={styles.summaryCard} testID="my-farm-summary">
               <View style={styles.summaryHeader}>
                 <BoundaryThumbnail points={points} size={72} />
@@ -111,7 +113,9 @@ export function MyFarmScreen({ onBack, onRegisterLand, onEditBoundary }: Props) 
                 </Text>
               </View>
             </Card>
+            </GuideTarget>
 
+            <GuideTarget id="my-farm-edit-boundary">
             <Button
               label={t('myFarm.editBoundary')}
               onPress={onEditBoundary}
@@ -119,6 +123,7 @@ export function MyFarmScreen({ onBack, onRegisterLand, onEditBoundary }: Props) 
               icon="map"
               testID="my-farm-edit-boundary"
             />
+            </GuideTarget>
           </>
         ) : (
           <EmptyState

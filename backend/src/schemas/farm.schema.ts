@@ -90,6 +90,10 @@ export const farmIdParamSchema = z.object({
   id: uuid('Not a valid farm id.'),
 });
 
+export const farmNestedParamSchema = z.object({
+  farmId: uuid('Not a valid farm id.'),
+});
+
 export const listFarmsQuerySchema = z.object({
   limit: z.coerce.number().int().min(1).max(50).optional(),
 });
