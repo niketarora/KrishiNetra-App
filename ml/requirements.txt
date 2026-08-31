@@ -1,8 +1,13 @@
-# ML API runtime (Python 3.11)
-fastapi==0.104.1
-uvicorn==0.24.0
-pydantic==2.4.2
-python-dotenv==1.0.0
-numpy==1.24.3
+# ML API runtime.
+#
+# Pinned to the Python 3.12 environment this service is developed and the
+# baseline model is validated against. numpy 2.5.x and xgboost 3.4.x both
+# declare Requires-Python >=3.12, so the Dockerfile base image must stay on
+# 3.12+ — building on 3.11 fails at pip install with "No matching distribution".
+fastapi==0.141.1
+uvicorn==0.52.4
+pydantic==2.13.5
+python-dotenv==1.2.3
+numpy==2.5.2
 xgboost==3.4.1
-requests==2.31.0
+requests==2.34.2

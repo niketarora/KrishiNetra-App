@@ -1,0 +1,12 @@
+# Keep the build context small: none of this is needed to serve predictions,
+# and .venv alone is ~600 MB.
+.venv/
+__pycache__/
+**/__pycache__/
+*.pyc
+.env
+notebooks/
+datasets/
+reports/
+tests/
+*.md
