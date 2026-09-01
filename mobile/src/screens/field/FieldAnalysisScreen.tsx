@@ -20,6 +20,11 @@ import { fromGeoJSON } from '@/utils/geo';
 
 type Props = { onBack?: () => void };
 
+function fmt(val: number | null | undefined, decimals = 1, fallback = '--'): string {
+  if (val === null || val === undefined || isNaN(Number(val))) return fallback;
+  return Number(val).toFixed(decimals);
+}
+
 /**
  * Field Analysis Screen — Integrates real Earth Observation & OASSM-10 Model outputs.
  * Displays 10m Multi-Sensor Sentinel-1 SAR Radar + Optical Soil Moisture,
@@ -58,14 +63,15 @@ export function FieldAnalysisScreen({ onBack }: Props) {
 
   // Compute growth stage name from sowing date
   let computedGrowthStage = t('common.notAvailable');
+  let daysSinceSown: number | null = null;
   if (crop?.planting?.sown_on) {
     const sown = new Date(crop.planting.sown_on);
     if (!Number.isNaN(sown.getTime())) {
-      const days = Math.max(0, Math.floor((Date.now() - sown.getTime()) / (1000 * 60 * 60 * 24)));
-      if (days < 20) computedGrowthStage = 'Germination';
-      else if (days < 55) computedGrowthStage = 'Tillering / Vegetative';
-      else if (days < 90) computedGrowthStage = 'Flowering';
-      else if (days < 120) computedGrowthStage = 'Grain Filling';
+      daysSinceSown = Math.max(0, Math.floor((Date.now() - sown.getTime()) / (1000 * 60 * 60 * 24)));
+      if (daysSinceSown < 20) computedGrowthStage = 'Germination';
+      else if (daysSinceSown < 55) computedGrowthStage = 'Tillering / Vegetative';
+      else if (daysSinceSown < 90) computedGrowthStage = 'Flowering';
+      else if (daysSinceSown < 120) computedGrowthStage = 'Grain Filling';
       else computedGrowthStage = 'Maturity';
     }
   }
@@ -101,8 +107,8 @@ export function FieldAnalysisScreen({ onBack }: Props) {
                 {farm.name?.trim() || t('home.unnamedField')}
               </Text>
               <Text variant="caption" color={colors.text.muted} style={styles.fieldMeta}>
-                {`${Number(farm.area_acres).toFixed(2)} ${t('onboarding.acres')} · ${Number(
-                  farm.area_hectares,
+                {`${Number(farm.area_acres ?? 0).toFixed(2)} ${t('onboarding.acres')} · ${Number(
+                  farm.area_hectares ?? 0,
                 ).toFixed(2)} ${t('onboarding.hectares')}`}
               </Text>
             </View>
@@ -171,7 +177,49 @@ export function FieldAnalysisScreen({ onBack }: Props) {
           </Card>
         </GuideTarget>
 
-        {/* --- Multi-Sensor SAR Radar & Optical Parameter Breakdown --- */}
+        {/* --- Sentinel-1 SAR Microwave Radar Telemetry --- */}
+        {prediction?.sar_backscatter_db || features?.vv != null ? (
+          <Card style={styles.sectionCard}>
+            <View style={styles.sectionTitleRow}>
+              <Icon name="map" size={18} color={colors.accent} />
+              <Text variant="bodyMedium" color={colors.text.primary}>
+                Sentinel-1 SAR Microwave Radar Telemetry
+              </Text>
+            </View>
+            <Text variant="micro" color={colors.text.muted} style={styles.sectionSubtitle}>
+              Physical C-band radar backscatter measuring surface soil dielectric constant
+            </Text>
+
+            <View style={styles.featureGrid}>
+              <View style={styles.featureItem}>
+                <Text variant="micro" color={colors.text.muted}>VV Backscatter</Text>
+                <Text variant="bodyMedium">{`${fmt(prediction?.sar_backscatter_db?.vv ?? features?.vv, 1)} dB`}</Text>
+              </View>
+              <View style={styles.featureItem}>
+                <Text variant="micro" color={colors.text.muted}>VH Cross-Pol</Text>
+                <Text variant="bodyMedium">{`${fmt(prediction?.sar_backscatter_db?.vh ?? features?.vh, 1)} dB`}</Text>
+              </View>
+              <View style={styles.featureItem}>
+                <Text variant="micro" color={colors.text.muted}>Cross-Pol Ratio (VH-VV)</Text>
+                <Text variant="bodyMedium">{`${fmt(prediction?.sar_backscatter_db?.vh_minus_vv ?? features?.vh_minus_vv, 1)} dB`}</Text>
+              </View>
+              <View style={styles.featureItem}>
+                <Text variant="micro" color={colors.text.muted}>Radar Incidence Angle</Text>
+                <Text variant="bodyMedium">{`${fmt(prediction?.sar_backscatter_db?.incidence_angle_deg ?? features?.angle, 1)}°`}</Text>
+              </View>
+              <View style={styles.featureItem}>
+                <Text variant="micro" color={colors.text.muted}>Topographic Wetness (TWI)</Text>
+                <Text variant="bodyMedium">{fmt(prediction?.topographic_wetness_index ?? features?.twi_proxy, 1)}</Text>
+              </View>
+              <View style={styles.featureItem}>
+                <Text variant="micro" color={colors.text.muted}>Soil Texture (USDA)</Text>
+                <Text variant="bodyMedium">{(features?.soil_texture || 'Loam').toUpperCase()}</Text>
+              </View>
+            </View>
+          </Card>
+        ) : null}
+
+        {/* --- Multispectral Optical & Soil Telemetry Breakdown --- */}
         {features ? (
           <GuideTarget id="ml-features-card" scroll={scrollRef}>
             <Card style={styles.featuresCard} testID="ml-features-card">
@@ -182,37 +230,13 @@ export function FieldAnalysisScreen({ onBack }: Props) {
                 </Text>
               </View>
               <Text variant="micro" color={colors.text.muted} style={styles.sectionSubtitle}>
-                Sentinel-1 SAR Radar, Sentinel-2 Optical & ICAR Soil Telemetry
+                Sentinel-2 Multispectral Optical & ICAR Soil Health Card Data
               </Text>
 
               <View style={styles.featureGrid}>
-                {features.vv != null ? (
-                  <View style={styles.featureItem}>
-                    <Text variant="micro" color={colors.text.muted}>SAR VV Backscatter</Text>
-                    <Text variant="bodyMedium">{`${features.vv.toFixed(1)} dB`}</Text>
-                  </View>
-                ) : null}
-                {features.vh != null ? (
-                  <View style={styles.featureItem}>
-                    <Text variant="micro" color={colors.text.muted}>SAR VH Backscatter</Text>
-                    <Text variant="bodyMedium">{`${features.vh.toFixed(1)} dB`}</Text>
-                  </View>
-                ) : null}
-                {features.twi_proxy != null ? (
-                  <View style={styles.featureItem}>
-                    <Text variant="micro" color={colors.text.muted}>Topographic Wetness (TWI)</Text>
-                    <Text variant="bodyMedium">{features.twi_proxy.toFixed(1)}</Text>
-                  </View>
-                ) : null}
-                {features.soil_texture ? (
-                  <View style={styles.featureItem}>
-                    <Text variant="micro" color={colors.text.muted}>Soil Texture (USDA)</Text>
-                    <Text variant="bodyMedium">{features.soil_texture.toUpperCase()}</Text>
-                  </View>
-                ) : null}
                 <View style={styles.featureItem}>
                   <Text variant="micro" color={colors.text.muted}>{t('field.features.cropType')}</Text>
-                  <Text variant="bodyMedium">{features.crop_type.toUpperCase()}</Text>
+                  <Text variant="bodyMedium">{(features.crop_type || 'wheat').toUpperCase()}</Text>
                 </View>
                 <View style={styles.featureItem}>
                   <Text variant="micro" color={colors.text.muted}>{t('field.features.growthStage')}</Text>
@@ -220,47 +244,47 @@ export function FieldAnalysisScreen({ onBack }: Props) {
                 </View>
                 <View style={styles.featureItem}>
                   <Text variant="micro" color={colors.text.muted}>{t('field.features.temp')}</Text>
-                  <Text variant="bodyMedium">{features.temperature_c.toFixed(1)}°C</Text>
+                  <Text variant="bodyMedium">{`${fmt(features.temperature_c, 1)}°C`}</Text>
                 </View>
                 <View style={styles.featureItem}>
                   <Text variant="micro" color={colors.text.muted}>{t('field.features.humidity')}</Text>
-                  <Text variant="bodyMedium">{features.humidity_percent.toFixed(0)}%</Text>
+                  <Text variant="bodyMedium">{`${fmt(features.humidity_percent, 0)}%`}</Text>
                 </View>
                 <View style={styles.featureItem}>
                   <Text variant="micro" color={colors.text.muted}>{t('field.features.rainfall')}</Text>
-                  <Text variant="bodyMedium">{features.rainfall.toFixed(1)} mm</Text>
+                  <Text variant="bodyMedium">{`${fmt(features.rainfall, 1)} mm`}</Text>
                 </View>
                 <View style={styles.featureItem}>
                   <Text variant="micro" color={colors.text.muted}>{t('field.features.windSpeed')}</Text>
-                  <Text variant="bodyMedium">{features.wind_speed.toFixed(1)} km/h</Text>
+                  <Text variant="bodyMedium">{`${fmt(features.wind_speed, 1)} km/h`}</Text>
                 </View>
                 <View style={styles.featureItem}>
                   <Text variant="micro" color={colors.text.muted}>{t('field.features.soilPh')}</Text>
-                  <Text variant="bodyMedium">{features.soil_ph.toFixed(1)}</Text>
+                  <Text variant="bodyMedium">{fmt(features.soil_ph, 1)}</Text>
                 </View>
                 <View style={styles.featureItem}>
                   <Text variant="micro" color={colors.text.muted}>{t('field.features.organicMatter')}</Text>
-                  <Text variant="bodyMedium">{features.organic_matter.toFixed(2)}%</Text>
+                  <Text variant="bodyMedium">{`${fmt(features.organic_matter, 2)}%`}</Text>
                 </View>
                 <View style={styles.featureItem}>
                   <Text variant="micro" color={colors.text.muted}>{t('field.features.ndvi')}</Text>
-                  <Text variant="bodyMedium">{features.ndvi.toFixed(2)}</Text>
+                  <Text variant="bodyMedium">{fmt(features.ndvi, 2)}</Text>
                 </View>
                 <View style={styles.featureItem}>
                   <Text variant="micro" color={colors.text.muted}>{t('field.features.savi')}</Text>
-                  <Text variant="bodyMedium">{features.savi.toFixed(2)}</Text>
+                  <Text variant="bodyMedium">{fmt(features.savi, 2)}</Text>
                 </View>
                 <View style={styles.featureItem}>
                   <Text variant="micro" color={colors.text.muted}>{t('field.features.lai')}</Text>
-                  <Text variant="bodyMedium">{features.leaf_area_index.toFixed(1)}</Text>
+                  <Text variant="bodyMedium">{fmt(features.leaf_area_index, 1)}</Text>
                 </View>
                 <View style={styles.featureItem}>
                   <Text variant="micro" color={colors.text.muted}>{t('field.features.elevation')}</Text>
-                  <Text variant="bodyMedium">{(features.dsm ?? features.elevation ?? 350).toFixed(0)} m</Text>
+                  <Text variant="bodyMedium">{`${fmt(features.dsm ?? features.elevation, 0)} m`}</Text>
                 </View>
                 <View style={styles.featureItem}>
                   <Text variant="micro" color={colors.text.muted}>{t('field.features.spatialRes')}</Text>
-                  <Text variant="bodyMedium">{`${features.spatial_resolution ?? 10} m`}</Text>
+                  <Text variant="bodyMedium">{`${fmt(features.spatial_resolution, 0)} m`}</Text>
                 </View>
               </View>
             </Card>
@@ -275,6 +299,11 @@ export function FieldAnalysisScreen({ onBack }: Props) {
               {computedGrowthStage}
             </Text>
           </View>
+          {daysSinceSown !== null ? (
+            <Text variant="micro" color={colors.text.muted}>
+              {`${daysSinceSown} days since sowing`}
+            </Text>
+          ) : null}
           <View style={styles.divider} />
           <View style={styles.rowHeader}>
             <Text variant="caption">{t('field.activeCrop')}</Text>
@@ -359,6 +388,10 @@ const styles = StyleSheet.create({
   },
   warningText: {
     flex: 1,
+  },
+  sectionCard: {
+    padding: 16,
+    gap: 12,
   },
   featuresCard: {
     padding: 16,
