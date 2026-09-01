@@ -9,11 +9,20 @@ describe('toSpeechLanguage', () => {
     expect(toSpeechLanguage('hi-IN')).toBe('hi-IN');
     expect(toSpeechLanguage('mr')).toBe('mr-IN');
     expect(toSpeechLanguage('bn')).toBe('bn-IN');
+    expect(toSpeechLanguage('te')).toBe('te-IN');
+    expect(toSpeechLanguage('ta')).toBe('ta-IN');
   });
 
-  it('falls back to English for unmapped codes', () => {
+  it('detects language from text when language is English or undefined but text is Indic', () => {
+    expect(toSpeechLanguage(undefined, 'आपका खेत ढाई एकड़ का है।')).toBe('hi-IN');
+    expect(toSpeechLanguage('en', 'నా పొలం వాతావరణం బాగుంది')).toBe('te-IN');
+    expect(toSpeechLanguage(undefined, 'உங்கள் பண்ணை நன்று')).toBe('ta-IN');
+  });
+
+  it('falls back to English for unmapped codes without Indic script', () => {
     expect(toSpeechLanguage('xyz')).toBe('en-IN');
     expect(toSpeechLanguage(undefined)).toBe('en-IN');
+    expect(toSpeechLanguage('en', 'Your field is 2.5 acres.')).toBe('en-IN');
   });
 });
 

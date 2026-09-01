@@ -25,6 +25,8 @@ export type AvatarContent = {
   question: QuestionKey | null;
   /** The transcript of what the farmer actually said, once recognised. */
   transcript: string | null;
+  /** Spoken language of the exchange, e.g. hi-IN or en. */
+  language: string | null;
   /**
    * What came back, whole. The components read `type` off this to decide
    * whether to show sources, and the driver reads `navigation` off it to run
@@ -41,7 +43,7 @@ export type AvatarEvent =
   /** The farmer started speaking, or tapped a suggested question. */
   | { type: 'START_LISTENING'; question?: QuestionKey }
   /** The farmer finished speaking; the request is being routed. */
-  | { type: 'STOP_LISTENING'; transcript?: string }
+  | { type: 'STOP_LISTENING'; transcript?: string; language?: string | null }
   /** An answer is ready. The avatar shows it and starts speaking. */
   | { type: 'RESOLVE'; response: AssistantResponse }
   /** The app has started moving; the avatar is narrating the journey. */
@@ -57,6 +59,7 @@ export const initialAvatarState: AvatarMachineState = {
   state: 'idle',
   question: null,
   transcript: null,
+  language: null,
   response: null,
 };
 
@@ -74,6 +77,7 @@ export function avatarReducer(
         state: 'listening',
         question: event.question ?? current.question,
         transcript: null,
+        language: null,
         response: null,
       };
 
@@ -83,6 +87,7 @@ export function avatarReducer(
         ...current,
         state: 'thinking',
         transcript: event.transcript ?? null,
+        language: event.language ?? current.language ?? null,
         response: null,
       };
 

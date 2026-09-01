@@ -39,15 +39,36 @@ const REGIONAL_STT_MAP: Record<string, string> = {
   ml: 'ml-IN',
   mr: 'mr-IN',
   or: 'od-IN',
+  od: 'od-IN',
   pa: 'pa-IN',
   ta: 'ta-IN',
   te: 'te-IN',
   gu: 'gu-IN',
-  en: 'en-IN',
+  as: 'as-IN',
+  ur: 'ur-IN',
 };
 
+/**
+ * Detects the Indian language script from text when provider language is unknown.
+ */
+export function detectLanguageFromText(text: string): string | null {
+  if (/[\u0900-\u097F]/.test(text)) return 'hi-IN'; // Devanagari (Hindi, Marathi, Sanskrit, Maithili, Bodo, Dogri, Konkani, Nepali)
+  if (/[\u0C00-\u0C7F]/.test(text)) return 'te-IN'; // Telugu
+  if (/[\u0B80-\u0BFF]/.test(text)) return 'ta-IN'; // Tamil
+  if (/[\u0980-\u09FF]/.test(text)) return 'bn-IN'; // Bengali / Assamese
+  if (/[\u0A80-\u0AFF]/.test(text)) return 'gu-IN'; // Gujarati
+  if (/[\u0A00-\u0A7F]/.test(text)) return 'pa-IN'; // Gurmukhi / Punjabi
+  if (/[\u0C80-\u0CFF]/.test(text)) return 'kn-IN'; // Kannada
+  if (/[\u0D00-\u0D7F]/.test(text)) return 'ml-IN'; // Malayalam
+  if (/[\u0B00-\u0B7F]/.test(text)) return 'od-IN'; // Odia
+  if (/[\u0600-\u06FF]/.test(text)) return 'ur-IN'; // Arabic / Urdu / Kashmiri / Sindhi
+  return null;
+}
+
 export function toProviderLanguage(language: string | undefined): string {
-  if (!language) return 'unknown';
+  if (!language || language === 'unknown' || language === 'auto' || language === 'en' || language === 'en-IN') {
+    return 'unknown';
+  }
 
   const base = language.split('-')[0]?.toLowerCase() ?? '';
   return REGIONAL_STT_MAP[base] ?? 'unknown';
@@ -65,7 +86,10 @@ export function parseTranscript(payload: unknown): Transcription | null {
   const text = raw.trim();
   if (text === '') return null;
 
-  const language = body.language_code ?? body.language;
+  let language = body.language_code ?? body.language ?? body.detected_language_code;
+  if (typeof language !== 'string' || !language || language === 'unknown') {
+    language = detectLanguageFromText(text) ?? null;
+  }
 
   return {
     text,
