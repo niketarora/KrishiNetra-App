@@ -61,16 +61,33 @@ export function toGeoJSON(points: LatLng[]): BoundaryGeoJSON {
 }
 
 /** Read a stored boundary back into map vertices, dropping the closing point. */
-export function fromGeoJSON(boundary: BoundaryGeoJSON): LatLng[] {
-  const ring = boundary.coordinates[0] ?? [];
+export function fromGeoJSON(boundary: BoundaryGeoJSON | any): LatLng[] {
+  if (!boundary) return [];
+  let parsed = boundary;
+  if (typeof boundary === 'string') {
+    try {
+      parsed = JSON.parse(boundary);
+    } catch {
+      return [];
+    }
+  }
+  if (!parsed || !parsed.coordinates || !Array.isArray(parsed.coordinates) || !parsed.coordinates[0]) {
+    return [];
+  }
+  const ring = parsed.coordinates[0];
+  if (!Array.isArray(ring) || ring.length === 0) return [];
   const open =
     ring.length > 1 &&
+    ring[0] &&
+    ring[ring.length - 1] &&
     ring[0][0] === ring[ring.length - 1][0] &&
     ring[0][1] === ring[ring.length - 1][1]
       ? ring.slice(0, -1)
       : ring;
 
-  return open.map(([longitude, latitude]) => ({ latitude, longitude }));
+  return open
+    .filter((pt: any) => Array.isArray(pt) && pt.length >= 2 && !isNaN(Number(pt[0])) && !isNaN(Number(pt[1])))
+    .map(([longitude, latitude]: [number, number]) => ({ latitude: Number(latitude), longitude: Number(longitude) }));
 }
 
 /**
