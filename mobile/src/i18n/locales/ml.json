@@ -656,7 +656,17 @@
     "answerDisclaimer": "ഇതൊരു AI മോഡൽ ഉത്തരമാണ്, ഔദ്യോഗിക ഉപദേശമല്ല.",
     "errors": {
       "generic": "ഉത്തരം ലഭിച്ചില്ല. നെറ്റ്‌വർക്ക് പരിശോധിച്ച് വീണ്ടും ശ്രമിക്കുക."
-    }
+    },
+    "liveTitle": "KrishiNetra Live",
+    "startLive": "Start Live Assistant",
+    "endLive": "End Session",
+    "listening": "Listening...",
+    "thinking": "Analyzing...",
+    "speaking": "Speaking...",
+    "connecting": "Connecting...",
+    "connected": "Connected",
+    "switchCamera": "Flip camera",
+    "defaultGreeting": "I am watching your crop. Speak naturally to ask questions."
   },
   "myLands": {
     "title": "My Lands",

@@ -656,7 +656,17 @@
     "answerDisclaimer": "આ AI મોડેલનો પ્રાથમિક જવાબ છે, સત્તાવાર સલાહ નથી.",
     "errors": {
       "generic": "જવાબ મળ્યો નથી. નેટવર્ક તપાસો અને ફરી પ્રયાસ કરો."
-    }
+    },
+    "liveTitle": "KrishiNetra Live",
+    "startLive": "Start Live Assistant",
+    "endLive": "End Session",
+    "listening": "Listening...",
+    "thinking": "Analyzing...",
+    "speaking": "Speaking...",
+    "connecting": "Connecting...",
+    "connected": "Connected",
+    "switchCamera": "Flip camera",
+    "defaultGreeting": "I am watching your crop. Speak naturally to ask questions."
   },
   "myLands": {
     "title": "My Lands",

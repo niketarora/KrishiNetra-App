@@ -48,7 +48,7 @@ export function analyzeFieldVegetation(input: VegetationAnalysisInput): Vegetati
     5: { ndvi: 0.36, savi: 0.27, lai: 1.10 }, // Maturity / Senescence
   };
 
-  const baseline = stageProfiles[stage] ?? stageProfiles[2];
+  const baseline = stageProfiles[stage] ?? stageProfiles[2]!;
 
   // If RGB sample is available from image analysis
   if (input.rgbSample) {

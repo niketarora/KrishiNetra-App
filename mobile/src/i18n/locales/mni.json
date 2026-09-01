@@ -656,7 +656,17 @@
     "answerDisclaimer": "এটি এআই মডেলের প্রাথমিক উত্তর, প্রাতিষ্ঠানিক পরামর্শ নয়।",
     "errors": {
       "generic": "উত্তর পাওয়া যায়নি। নেটওয়ার্ক চেক করে আবার চেষ্টা করুন।"
-    }
+    },
+    "liveTitle": "KrishiNetra Live",
+    "startLive": "Start Live Assistant",
+    "endLive": "End Session",
+    "listening": "Listening...",
+    "thinking": "Analyzing...",
+    "speaking": "Speaking...",
+    "connecting": "Connecting...",
+    "connected": "Connected",
+    "switchCamera": "Flip camera",
+    "defaultGreeting": "I am watching your crop. Speak naturally to ask questions."
   },
   "myLands": {
     "title": "My Lands",

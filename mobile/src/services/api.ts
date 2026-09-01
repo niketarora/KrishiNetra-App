@@ -21,9 +21,22 @@ type ApiEnvelope<T> =
   | { success: true; data: T; message?: string }
   | { success: false; error: { code: string; message: string } };
 
+const CANDIDATE_BASE_URLS: string[] = Array.from(
+  new Set(
+    [
+      process.env.EXPO_PUBLIC_API_URL,
+      'http://127.0.0.1:4000',
+      'http://192.168.1.86:4000',
+      'http://10.0.2.2:4000',
+      'https://krishinetra-app-1.onrender.com',
+    ].filter(Boolean) as string[],
+  ),
+);
+
+let workingBaseUrl: string = CANDIDATE_BASE_URLS[0] || 'http://127.0.0.1:4000';
+
 export function getApiBaseUrl(): string {
-  // On an Android emulator the host machine is 10.0.2.2, not localhost.
-  return process.env.EXPO_PUBLIC_API_URL || 'http://10.0.2.2:4000';
+  return workingBaseUrl;
 }
 
 type ApiRequest = {
@@ -65,38 +78,46 @@ export async function apiFetch<T>(
     headers.Authorization = `Bearer ${token}`;
   }
 
-  const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), timeoutMs);
+  const urlsToTry = [workingBaseUrl, ...CANDIDATE_BASE_URLS.filter((u) => u !== workingBaseUrl)];
+  let lastCause: unknown = null;
 
-  let response: Response;
-  try {
-    response = await fetch(`${getApiBaseUrl()}${path}`, {
-      method,
-      headers,
-      body: body === undefined ? undefined : JSON.stringify(body),
-      signal: controller.signal,
-    });
-  } catch (cause) {
-    // A dead server, no connectivity, or the abort above.
-    throw new DataError('auth.errors.network', cause);
-  } finally {
-    clearTimeout(timeout);
+  for (const baseUrl of urlsToTry) {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), timeoutMs);
+
+    try {
+      const response = await fetch(`${baseUrl}${path}`, {
+        method,
+        headers,
+        body: body === undefined ? undefined : JSON.stringify(body),
+        signal: controller.signal,
+      });
+      clearTimeout(timeout);
+
+      let envelope: ApiEnvelope<T>;
+      try {
+        envelope = (await response.json()) as ApiEnvelope<T>;
+      } catch (cause) {
+        throw new DataError(fallbackKey, cause);
+      }
+
+      if (!response.ok || !envelope.success) {
+        const error = 'error' in envelope ? envelope.error : undefined;
+        throw toApiError(error?.code, fallbackKey);
+      }
+
+      workingBaseUrl = baseUrl;
+      return envelope.data;
+    } catch (cause) {
+      clearTimeout(timeout);
+      if (cause instanceof DataError && cause.translationKey !== 'auth.errors.network') {
+        throw cause;
+      }
+      lastCause = cause;
+    }
   }
 
-  let envelope: ApiEnvelope<T>;
-  try {
-    envelope = (await response.json()) as ApiEnvelope<T>;
-  } catch (cause) {
-    // A proxy or crash returned something that is not our envelope.
-    throw new DataError(fallbackKey, cause);
-  }
-
-  if (!response.ok || !envelope.success) {
-    const error = 'error' in envelope ? envelope.error : undefined;
-    throw toApiError(error?.code, fallbackKey);
-  }
-
-  return envelope.data;
+  throw new DataError('auth.errors.network', lastCause);
 }
 
 /**

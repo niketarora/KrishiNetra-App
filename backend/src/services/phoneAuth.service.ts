@@ -11,7 +11,7 @@ export async function findOrCreateUser(
   email: string,
   phone: string,
   language = 'en',
-): Promise<{ tokenHash: string }> {
+): Promise<{ tokenHash: string; session?: { access_token: string; refresh_token: string; user: unknown } | null }> {
   const admin = adminClient();
 
   // Check if a profile with this phone number already exists
