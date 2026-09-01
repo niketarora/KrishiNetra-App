@@ -63,7 +63,7 @@ describe('scoreUpdate — location', () => {
     const update = baseUpdate({ location: { district: 'Gorakhpur' } });
     const relevance = scoreUpdate(update, FARM);
 
-    expect(relevance.reasons).toContain('Relevant to Gorakhpur');
+    expect(relevance.reasons).toContain('Agriculture update from Gorakhpur.');
     expect(relevance.score).toBeGreaterThan(0);
   });
 
@@ -78,7 +78,7 @@ describe('scoreUpdate — location', () => {
     const update = baseUpdate({ location: { country: 'India' }, category: 'government' });
     const relevance = scoreUpdate(update, FARM);
 
-    expect(relevance.reasons).toContain('National agriculture update');
+    expect(relevance.reasons).toContain('National agriculture development relevant to farmers.');
     expect(relevance.score).toBeGreaterThan(0);
   });
 
@@ -86,7 +86,15 @@ describe('scoreUpdate — location', () => {
     const update = baseUpdate({ location: { district: 'Alwar', state: 'Rajasthan', country: 'India' } });
     const relevance = scoreUpdate(update, FARM);
 
-    expect(relevance.reasons.some((r) => r.startsWith('Relevant to') || r.startsWith('Regional news'))).toBe(false);
+    expect(relevance.reasons.some((r) => r.startsWith('Agriculture update from'))).toBe(false);
+  });
+
+  it('does not repeat a generic national reason alongside the agritech-specific one', () => {
+    const update = baseUpdate({ category: 'technology', location: { country: 'India' } });
+    const relevance = scoreUpdate(update, FARM);
+
+    expect(relevance.reasons).toContain('Indian agricultural technology update.');
+    expect(relevance.reasons).not.toContain('National agriculture development relevant to farmers.');
   });
 });
 
@@ -156,7 +164,7 @@ describe('scoreUpdate — disaster ("why this matters") reasons', () => {
     });
     const relevance = scoreUpdate(update, FARM);
 
-    expect(relevance.reasons).toContain('Relevant to Gorakhpur');
+    expect(relevance.reasons).toContain('Agriculture update from Gorakhpur.');
     expect(relevance.reasons).not.toContain('Official alert for your farm district.');
   });
 });
@@ -166,7 +174,7 @@ describe('scoreUpdate — agritech reason', () => {
     const update = baseUpdate({ category: 'technology', location: { country: 'India' } });
     const relevance = scoreUpdate(update, FARM);
 
-    expect(relevance.reasons).toContain('This update covers a new technology being used in agriculture.');
+    expect(relevance.reasons).toContain('Indian agricultural technology update.');
   });
 });
 

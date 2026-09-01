@@ -36,7 +36,15 @@ const envSchema = z.object({
   // None of these need a key. Defaults point at the real public endpoints
   // named in the product brief; overridable so a test can point them at a
   // local fixture server instead of the real network.
-  GDELT_API_URL: z.string().url().default('https://api.gdeltproject.org/api/v2/doc/doc'),
+  // The *host*, not the full endpoint — gdelt.provider.ts appends the DOC 2.0
+  // path (`/api/v2/doc/doc`) itself, so switching transport (e.g. to plain
+  // HTTP on a network where the HTTPS endpoint is unreachable but the same
+  // API answers over HTTP) is a one-line env change, not a code change.
+  GDELT_BASE_URL: z.string().url().default('https://api.gdeltproject.org'),
+  // Google News RSS search — a fallback-only aggregator for agriculture/
+  // agritech discovery when GDELT fails or comes back thin, never a
+  // replacement for SACHET's official alerts. No key needed.
+  GOOGLE_NEWS_RSS_URL: z.string().url().default('https://news.google.com/rss/search'),
   // `https://sachet.ndma.gov.in/CapFeed` (the previous default) is the human
   // documentation/subscription page, not a feed — it serves HTML with no
   // `<info>`/`<item>` tags anywhere, so a provider pointed at it always

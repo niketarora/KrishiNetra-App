@@ -5,7 +5,8 @@ import type { FarmCropRow, FarmRow } from '../types/domain.js';
 
 import { dedupeUpdates } from './dedupe.js';
 import { fetchSachetUpdates } from './providers/sachet.provider.js';
-import { fetchGdeltUpdates } from './providers/gdelt.provider.js';
+import { fetchGdeltUpdatesDetailed } from './providers/gdelt.provider.js';
+import { fetchGoogleNewsUpdates } from './providers/google-news.provider.js';
 import { scoreUpdate } from './relevance.js';
 import type { KrishiUpdate, UpdatesQueryContext } from './types.js';
 
@@ -14,7 +15,7 @@ import type { KrishiUpdate, UpdatesQueryContext } from './types.js';
  *
  *   verify ownership (via `getFarm`, same as every other farm-scoped route)
  *     -> resolve centroid/district/state/crop
- *     -> fetch GDELT + SACHET in parallel, each independently failable
+ *     -> fetch SACHET + (GDELT, then conditionally Google News RSS) in parallel
  *     -> normalize (done inside each provider) -> dedupe -> score -> sort
  *     -> return the top slice
  *
@@ -22,14 +23,27 @@ import type { KrishiUpdate, UpdatesQueryContext } from './types.js';
  * from every external vantage point tried during investigation and was never
  * validated against a live response (see `pib.provider.ts`'s own header
  * comment). The provider function still exists and is independently correct
- * and tested, but nothing wires it into this feed; SACHET + GDELT are the
- * two reliable MVP providers.
+ * and tested, but nothing wires it into this feed.
+ *
+ * Google News RSS (`google-news.provider.ts`) is a fallback-only aggregator,
+ * never called unconditionally — see `shouldUseGoogleNewsFallback`. It is
+ * never an official source and never substitutes for SACHET.
  *
  * The initial max result count keeps this a short, scannable feed rather
  * than a firehose — the product brief is explicit that 100 articles is the
  * wrong shape for this feature.
  */
 const MAX_RESULTS = 15;
+
+/**
+ * Below this many *already-filtered* GDELT results, the feed is thin enough
+ * that Google News RSS is worth the extra request — chosen so a farmer never
+ * sees an obviously sparse agriculture/agritech section when a second free
+ * aggregator could fill it in, without calling that aggregator on every
+ * request regardless of need (GDELT has demonstrated rate-limit sensitivity;
+ * Google News gets the same courtesy of not being called needlessly).
+ */
+const MIN_USEFUL_GDELT_RESULTS = 3;
 
 export type FarmUpdatesResult = {
   farm: {
@@ -76,6 +90,42 @@ async function resolveCurrentCrop(
   }
 }
 
+type NewsResult = { updates: KrishiUpdate[]; gdeltCount: number; googleNewsCount: number };
+
+/**
+ * GDELT first, then Google News RSS only when GDELT actually needs the
+ * help — either it failed a query outright, or it came back with fewer than
+ * `MIN_USEFUL_GDELT_RESULTS` *already-filtered* results. Both conditions are
+ * logged explicitly so a thin feed is always traceable to a specific cause.
+ */
+async function fetchAgricultureNews(ctx: UpdatesQueryContext): Promise<NewsResult> {
+  const gdelt = await fetchGdeltUpdatesDetailed(ctx).catch((err: unknown) => {
+    console.log(`[updates:gdelt] unexpected provider error: ${String(err)}`);
+    return { updates: [] as KrishiUpdate[], hadFailure: true, usefulCount: 0 };
+  });
+
+  const reason = gdelt.hadFailure
+    ? 'gdelt-query-failure'
+    : gdelt.usefulCount < MIN_USEFUL_GDELT_RESULTS
+      ? 'gdelt-thin-results'
+      : 'not-needed';
+  const shouldFallback = reason !== 'not-needed';
+
+  console.log(`[updates:google-news] fallbackTriggered=${shouldFallback} reason=${reason} gdeltUsefulCount=${gdelt.usefulCount}`);
+
+  let googleNewsUpdates: KrishiUpdate[] = [];
+  if (shouldFallback) {
+    try {
+      const googleNews = await fetchGoogleNewsUpdates(ctx);
+      googleNewsUpdates = googleNews.updates;
+    } catch (err) {
+      console.log(`[updates:google-news] unexpected provider error: ${String(err)}`);
+    }
+  }
+
+  return { updates: [...gdelt.updates, ...googleNewsUpdates], gdeltCount: gdelt.updates.length, googleNewsCount: googleNewsUpdates.length };
+}
+
 export async function getUpdatesForFarm(
   token: string,
   userId: string,
@@ -99,23 +149,31 @@ export async function getUpdatesForFarm(
   // Each provider already resolves to `[]` internally on failure, but
   // `allSettled` is a second line of defence: one provider throwing an
   // unexpected error must never take the other down with it.
-  const [gdelt, sachet] = await Promise.allSettled([fetchGdeltUpdates(ctx), fetchSachetUpdates(ctx)]);
+  const [news, sachet] = await Promise.allSettled([fetchAgricultureNews(ctx), fetchSachetUpdates(ctx)]);
 
-  const raw: KrishiUpdate[] = [
-    ...(gdelt.status === 'fulfilled' ? gdelt.value : []),
-    ...(sachet.status === 'fulfilled' ? sachet.value : []),
-  ];
+  const newsResult = news.status === 'fulfilled' ? news.value : { updates: [], gdeltCount: 0, googleNewsCount: 0 };
+  const sachetCount = sachet.status === 'fulfilled' ? sachet.value.length : 0;
+  if (news.status === 'rejected') console.log(`[updates] gdelt/google-news pipeline rejected: ${String(news.reason)}`);
+  if (sachet.status === 'rejected') console.log(`[updates] sachet provider rejected: ${String(sachet.reason)}`);
+
+  const raw: KrishiUpdate[] = [...newsResult.updates, ...(sachet.status === 'fulfilled' ? sachet.value : [])];
+
+  const updates = rankUpdates(raw, {
+    district: ctx.district,
+    state: ctx.state,
+    cropName: ctx.cropName,
+    farmLat: ctx.latitude,
+    farmLng: ctx.longitude,
+  });
+
+  console.log(
+    `[updates] farm=${farm.id} sachet=${sachetCount} gdelt=${newsResult.gdeltCount} googleNews=${newsResult.googleNewsCount} final=${updates.length}`,
+  );
 
   return {
     farm: { id: farm.id, name: farm.name, district: farm.district, state: farm.state },
     crop,
-    updates: rankUpdates(raw, {
-      district: ctx.district,
-      state: ctx.state,
-      cropName: ctx.cropName,
-      farmLat: ctx.latitude,
-      farmLng: ctx.longitude,
-    }),
+    updates,
   };
 }
 
@@ -130,6 +188,7 @@ type RankContext = {
 /** Shared by the farm-scoped feed and the farmless national feed below. */
 function rankUpdates(raw: KrishiUpdate[], ctx: RankContext): KrishiUpdate[] {
   const deduped = dedupeUpdates(raw);
+  console.log(`[updates] raw=${raw.length} deduped=${deduped.length}`);
 
   const scored = deduped.map((update) => ({
     ...update,
@@ -163,11 +222,11 @@ export async function getNationalUpdates(): Promise<FarmUpdatesResult> {
     cropName: null,
   };
 
-  const gdelt = await fetchGdeltUpdates(ctx).catch(() => []);
+  const news = await fetchAgricultureNews(ctx).catch(() => ({ updates: [], gdeltCount: 0, googleNewsCount: 0 }) as NewsResult);
 
   return {
     farm: null,
     crop: null,
-    updates: rankUpdates(gdelt, { district: null, state: null, cropName: null, farmLat: 0, farmLng: 0 }),
+    updates: rankUpdates(news.updates, { district: null, state: null, cropName: null, farmLat: 0, farmLng: 0 }),
   };
 }

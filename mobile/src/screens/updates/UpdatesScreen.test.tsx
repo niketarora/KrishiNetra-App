@@ -111,13 +111,39 @@ describe('UpdatesScreen — real updates', () => {
     expect(screen.getByText('Official Alert')).toBeTruthy();
   });
 
-  it('labels an ordinary GDELT article as regional news, never "Verified"', async () => {
-    mockedUseUpdatesData.mockReturnValue(data({ updates: [update({ source: { name: 'news.example.com', type: 'reported' } })] }));
+  it('labels an ordinary GDELT article naming the farm district as regional news, never "Verified"', async () => {
+    mockedUseUpdatesData.mockReturnValue(
+      data({
+        updates: [
+          update({ source: { name: 'news.example.com', type: 'reported' }, location: { district: 'Gorakhpur' } }),
+        ],
+      }),
+    );
 
     await renderWithProviders(<UpdatesScreen {...props} />);
 
     expect(screen.getByText('Regional News')).toBeTruthy();
     expect(screen.queryByText(/verified/i)).toBeNull();
+  });
+
+  it('labels a national-scope article "National News", never "Regional News"', async () => {
+    mockedUseUpdatesData.mockReturnValue(
+      data({
+        updates: [
+          update({
+            source: { name: 'news.example.com', type: 'reported' },
+            category: 'agriculture',
+            title: 'India raises MSP for wheat nationally',
+            location: { country: 'India' },
+          }),
+        ],
+      }),
+    );
+
+    await renderWithProviders(<UpdatesScreen {...props} />);
+
+    expect(screen.getByText('National News')).toBeTruthy();
+    expect(screen.queryByText('Regional News')).toBeNull();
   });
 
   it('opens the real update when its card is tapped', async () => {

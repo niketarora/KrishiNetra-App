@@ -123,18 +123,24 @@ export function scoreUpdate(update: KrishiUpdate, ctx: RelevanceContext): Krishi
     reasons.push(
       update.category === 'risk' && update.source.type === 'official'
         ? 'Official alert for your farm district.'
-        : `Relevant to ${ctx.district}`,
+        : `Agriculture update from ${ctx.district}.`,
     );
   } else if (ctx.state && location?.state && sameText(location.state, ctx.state)) {
     score += RELEVANCE_WEIGHTS.location * 0.65;
     reasons.push(
       update.category === 'risk' && update.source.type === 'official'
         ? 'Official alert for your state.'
-        : `Regional news for ${ctx.state}`,
+        : `Agriculture update from ${ctx.state}.`,
     );
   } else if (location?.country && sameText(location.country, 'india')) {
     score += RELEVANCE_WEIGHTS.location * 0.3;
-    reasons.push('National agriculture update');
+    // Agritech's own reason (below) already says why a nation-wide item
+    // matters — pushing this generic line too would bury it as a second,
+    // redundant "why this matters" entry for exactly the items that most
+    // need a specific one.
+    if (update.category !== 'technology') {
+      reasons.push('National agriculture development relevant to farmers.');
+    }
   }
 
   // A disaster's practical impact is worth stating even though it doesn't
@@ -149,7 +155,7 @@ export function scoreUpdate(update: KrishiUpdate, ctx: RelevanceContext): Krishi
   // dedicated national query in gdelt.provider.ts) — this is its "why this
   // matters" line regardless of distance.
   if (update.category === 'technology') {
-    reasons.push('This update covers a new technology being used in agriculture.');
+    reasons.push('Indian agricultural technology update.');
   }
 
   // --- agriculture topic ------------------------------------------------------

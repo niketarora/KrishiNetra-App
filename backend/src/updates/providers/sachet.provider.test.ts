@@ -118,6 +118,26 @@ describe('fetchSachetUpdates — real RSS feed shape', () => {
     expect(updates[0]?.relevance.distanceKm).toBeUndefined();
   });
 
+  it('tags a thunderstorm/hail alert from its title, even though those hazards are not in HIGH_SEVERITY_EVENTS', async () => {
+    const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"><channel>
+  <item>
+    <title>Thunderstorm with hail warning for Jaipur district, Rajasthan</title>
+    <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=444</link>
+    <guid>444</guid>
+    <category>Met</category>
+    <description>Thunderstorm accompanied by hail likely over Jaipur district.</description>
+    <pubDate>Tue, 01 Sep 2026 05:00:00 GMT</pubDate>
+  </item>
+</channel></rss>`;
+    global.fetch = xmlAlways(xml);
+
+    const updates = await fetchSachetUpdates(CTX);
+
+    expect(updates).toHaveLength(1);
+    expect(updates[0]?.severity).toBe('moderate');
+  });
+
   it('matches on state alone when the district is not mentioned', async () => {
     const ctx: UpdatesQueryContext = { ...CTX, district: 'Alwar' };
     global.fetch = xmlAlways(REAL_RSS_XML);

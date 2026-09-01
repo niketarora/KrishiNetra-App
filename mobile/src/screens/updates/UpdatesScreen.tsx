@@ -79,10 +79,19 @@ function relativeDemoDate(daysAgo: number, t: (key: string, opts?: Record<string
 }
 
 /**
- * "Official Alert" / "Government Update" / "Regional News" — the visual line
- * between an authority speaking (NDMA SACHET, PIB) and ordinary news
- * coverage (GDELT). Never "Verified": that word is reserved for a claim this
- * app is not making about an arbitrary news article.
+ * "Official Alert" / "Government Update" / "Regional News" / "National
+ * News" — the visual line between an authority speaking (NDMA SACHET, PIB)
+ * and ordinary news coverage (GDELT, Google News RSS fallback). Never
+ * "Verified": that word is reserved for a claim this app is not making
+ * about an arbitrary news article.
+ *
+ * Regional vs. national is read off `update.location` — the backend
+ * (`gdelt.provider.ts`/`google-news.provider.ts`) only ever sets
+ * `location.district`/`.state` for a result its *regional* query produced
+ * AND whose own title actually names that district/state (see those files'
+ * header comments), so a story with neither is genuinely national-scope,
+ * never mislabelled "Regional" just because it happened to surface from a
+ * national/agritech query.
  */
 function sourceBadge(update: KrishiUpdate, t: (key: string) => string): { label: string; tone: BadgeTone } {
   if (update.source.type === 'official') {
@@ -90,7 +99,10 @@ function sourceBadge(update: KrishiUpdate, t: (key: string) => string): { label:
       ? { label: t('updates.officialAlert'), tone: 'danger' }
       : { label: t('updates.governmentUpdate'), tone: 'success' };
   }
-  return { label: t('updates.regionalNews'), tone: 'neutral' };
+  const isRegional = Boolean(update.location?.district || update.location?.state);
+  return isRegional
+    ? { label: t('updates.regionalNews'), tone: 'neutral' }
+    : { label: t('updates.nationalNews'), tone: 'neutral' };
 }
 
 /**
