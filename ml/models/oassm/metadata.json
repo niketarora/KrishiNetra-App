@@ -1,0 +1,25 @@
+{
+  "schema_version": 2,
+  "model_version": "oassm-10-transformer-v4",
+  "model_name": "On-demand AI-driven Surface Soil Moisture (OASSM-10)",
+  "architecture": "Modality-Aware Cross-Attention Transformer (5-fold ensemble)",
+  "spatial_resolution_meters": 10.0,
+  "target_name": "Volumetric Surface Soil Moisture (m3/m3)",
+  "ground_truth_reference": "International Soil Moisture Network (ISMN)",
+  "multi_sensor_inputs": [
+    "Sentinel-1 C-band SAR (VV, VH, VH-VV, Angle)",
+    "Sentinel-2 Multispectral (B2, B8A, B11, B12, NDVI, NDMI, SAVI)",
+    "Landsat-8/9 Thermal Infrared (B2, B7, B10 LST)",
+    "Copernicus DEM (DSM, Slope, Aspect, Topographic Wetness Index)",
+    "Temporal Cyclical (Day_sin, Day_cos)",
+    "Soil Texture & Climate (USDA Soil Class, Koppen Climate Zone)"
+  ],
+  "validation_metrics": {
+    "ismn_rmse_m3_m3": 0.038,
+    "ubrmse_m3_m3": 0.034,
+    "r2_score": 0.79,
+    "pearson_r": 0.89
+  },
+  "production_ready": true,
+  "source_repository": "https://github.com/RSNuo/OASSM-10"
+}

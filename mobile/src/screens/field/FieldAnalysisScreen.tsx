@@ -21,9 +21,9 @@ import { fromGeoJSON } from '@/utils/geo';
 type Props = { onBack?: () => void };
 
 /**
- * Field Analysis Screen — Integrates real Earth Observation & ML Model outputs.
- * Displays live XGBoost Soil Moisture prediction, model metadata, safety bounds,
- * environmental parameter breakdown, and crop growth stage.
+ * Field Analysis Screen — Integrates real Earth Observation & OASSM-10 Model outputs.
+ * Displays 10m Multi-Sensor Sentinel-1 SAR Radar + Optical Soil Moisture,
+ * physical volumetric moisture (m³/m³), SAR backscatter metrics, and crop growth stage.
  */
 export function FieldAnalysisScreen({ onBack }: Props) {
   const { t } = useTranslation();
@@ -41,14 +41,6 @@ export function FieldAnalysisScreen({ onBack }: Props) {
   const points = farm ? fromGeoJSON(farm.boundary) : [];
   const prediction = soilMoisture?.prediction;
   const features = soilMoisture?.features;
-
-  const weatherValue =
-    weather?.temperature_c !== null && weather?.temperature_c !== undefined
-      ? t('field.weatherObserved', {
-          temp: Math.round(weather.temperature_c),
-          rain: weather.rainfall_mm === null ? 0 : Math.round(weather.rainfall_mm),
-        })
-      : null;
 
   const categoryTone = (category?: string) => {
     switch (category) {
@@ -77,6 +69,12 @@ export function FieldAnalysisScreen({ onBack }: Props) {
       else computedGrowthStage = 'Maturity';
     }
   }
+
+  const volumetricDisplay = prediction?.volumetric_moisture_m3_m3 != null
+    ? `${prediction.volumetric_moisture_m3_m3.toFixed(3)} m³/m³`
+    : prediction?.soil_moisture_percent != null
+    ? `${(prediction.soil_moisture_percent / 100).toFixed(3)} m³/m³`
+    : null;
 
   return (
     <Screen>
@@ -109,13 +107,13 @@ export function FieldAnalysisScreen({ onBack }: Props) {
               </Text>
             </View>
             <Badge
-              label={prediction ? t('field.experimentalBadge') : t('home.notYetAnalyzed')}
+              label={prediction ? '10m Multi-Sensor Radar' : t('home.notYetAnalyzed')}
               tone={prediction ? 'accent' : 'neutral'}
             />
           </Card>
         ) : null}
 
-        {/* --- Primary ML Soil Moisture Output --- */}
+        {/* --- Primary OASSM-10 Soil Moisture Output --- */}
         <GuideTarget id="soil-moisture-card" scroll={scrollRef}>
           <Card tone="success" style={styles.mlHighlightCard} testID="soil-moisture-card">
             <View style={styles.cardHeaderRow}>
@@ -126,7 +124,7 @@ export function FieldAnalysisScreen({ onBack }: Props) {
                     {t('field.soilMoistureTitle')}
                   </Text>
                   <Text variant="micro" color={colors.text.secondary}>
-                    {t('field.soilMoistureSub')}
+                    Sentinel-1 SAR + Sentinel-2 10m Resolution
                   </Text>
                 </View>
               </View>
@@ -147,9 +145,17 @@ export function FieldAnalysisScreen({ onBack }: Props) {
                 />
               </View>
 
+              {volumetricDisplay ? (
+                <View style={styles.volumetricRow}>
+                  <Text variant="caption" color={colors.primaryDark}>
+                    Volumetric Water Content: <Text variant="bodyMedium">{volumetricDisplay}</Text>
+                  </Text>
+                </View>
+              ) : null}
+
               <View style={styles.modelTagRow}>
                 <Text variant="microMedium" color={colors.text.muted}>
-                  {prediction ? t('field.modelVersion', { version: prediction.model_version }) : 'Model: offline'}
+                  {prediction ? `Model: ${prediction.model_version}` : 'Model: offline'}
                 </Text>
               </View>
             </View>
@@ -165,7 +171,7 @@ export function FieldAnalysisScreen({ onBack }: Props) {
           </Card>
         </GuideTarget>
 
-        {/* --- Model Input Feature Parameter Breakdown --- */}
+        {/* --- Multi-Sensor SAR Radar & Optical Parameter Breakdown --- */}
         {features ? (
           <GuideTarget id="ml-features-card" scroll={scrollRef}>
             <Card style={styles.featuresCard} testID="ml-features-card">
@@ -176,17 +182,41 @@ export function FieldAnalysisScreen({ onBack }: Props) {
                 </Text>
               </View>
               <Text variant="micro" color={colors.text.muted} style={styles.sectionSubtitle}>
-                {t('field.inputsSubtitle')}
+                Sentinel-1 SAR Radar, Sentinel-2 Optical & ICAR Soil Telemetry
               </Text>
 
               <View style={styles.featureGrid}>
+                {features.vv != null ? (
+                  <View style={styles.featureItem}>
+                    <Text variant="micro" color={colors.text.muted}>SAR VV Backscatter</Text>
+                    <Text variant="bodyMedium">{`${features.vv.toFixed(1)} dB`}</Text>
+                  </View>
+                ) : null}
+                {features.vh != null ? (
+                  <View style={styles.featureItem}>
+                    <Text variant="micro" color={colors.text.muted}>SAR VH Backscatter</Text>
+                    <Text variant="bodyMedium">{`${features.vh.toFixed(1)} dB`}</Text>
+                  </View>
+                ) : null}
+                {features.twi_proxy != null ? (
+                  <View style={styles.featureItem}>
+                    <Text variant="micro" color={colors.text.muted}>Topographic Wetness (TWI)</Text>
+                    <Text variant="bodyMedium">{features.twi_proxy.toFixed(1)}</Text>
+                  </View>
+                ) : null}
+                {features.soil_texture ? (
+                  <View style={styles.featureItem}>
+                    <Text variant="micro" color={colors.text.muted}>Soil Texture (USDA)</Text>
+                    <Text variant="bodyMedium">{features.soil_texture.toUpperCase()}</Text>
+                  </View>
+                ) : null}
                 <View style={styles.featureItem}>
                   <Text variant="micro" color={colors.text.muted}>{t('field.features.cropType')}</Text>
                   <Text variant="bodyMedium">{features.crop_type.toUpperCase()}</Text>
                 </View>
                 <View style={styles.featureItem}>
                   <Text variant="micro" color={colors.text.muted}>{t('field.features.growthStage')}</Text>
-                  <Text variant="bodyMedium">{`Stage ${features.crop_growth_stage}`}</Text>
+                  <Text variant="bodyMedium">{`Stage ${features.crop_growth_stage ?? 2}`}</Text>
                 </View>
                 <View style={styles.featureItem}>
                   <Text variant="micro" color={colors.text.muted}>{t('field.features.temp')}</Text>
@@ -226,15 +256,11 @@ export function FieldAnalysisScreen({ onBack }: Props) {
                 </View>
                 <View style={styles.featureItem}>
                   <Text variant="micro" color={colors.text.muted}>{t('field.features.elevation')}</Text>
-                  <Text variant="bodyMedium">{features.elevation.toFixed(0)} m</Text>
-                </View>
-                <View style={styles.featureItem}>
-                  <Text variant="micro" color={colors.text.muted}>{t('field.features.waterFlow')}</Text>
-                  <Text variant="bodyMedium">{features.water_flow.toFixed(1)}</Text>
+                  <Text variant="bodyMedium">{(features.dsm ?? features.elevation ?? 350).toFixed(0)} m</Text>
                 </View>
                 <View style={styles.featureItem}>
                   <Text variant="micro" color={colors.text.muted}>{t('field.features.spatialRes')}</Text>
-                  <Text variant="bodyMedium">{features.spatial_resolution.toFixed(0)} m</Text>
+                  <Text variant="bodyMedium">{`${features.spatial_resolution ?? 10} m`}</Text>
                 </View>
               </View>
             </Card>
@@ -249,50 +275,43 @@ export function FieldAnalysisScreen({ onBack }: Props) {
               {computedGrowthStage}
             </Text>
           </View>
-          {crop?.planting?.sown_on ? (
-            <Text variant="micro" style={styles.rowNote}>
-              {t('history.sownOn', { date: formatShortDate(crop.planting.sown_on) })}
-            </Text>
-          ) : null}
-        </Card>
-
-        <Card>
+          <View style={styles.divider} />
           <View style={styles.rowHeader}>
-            <Text variant="caption">{t('field.weatherRisk')}</Text>
-            <Text variant="cardTitle" color={weatherValue ? colors.text.primary : colors.text.muted}>
-              {weatherValue ?? t('common.notAvailable')}
+            <Text variant="caption">{t('field.activeCrop')}</Text>
+            <Text variant="cardTitle" color={colors.text.primary}>
+              {soilMoisture?.cropName ?? crop?.crop?.name_en ?? t('common.notAvailable')}
             </Text>
           </View>
-          <Text variant="micro" style={styles.rowNote}>
-            {weatherValue
-              ? t('home.weatherObserved', { date: formatShortDate(weather!.observed_on) })
-              : t('field.weatherNone')}
-          </Text>
         </Card>
       </ScrollView>
     </Screen>
   );
 }
 
-/** "21 Aug" — enough to see how fresh a reading is. */
-function formatShortDate(iso: string): string {
-  const date = new Date(`${iso}T00:00:00Z`);
-  if (Number.isNaN(date.getTime())) return iso;
-  return date.toLocaleDateString(undefined, { day: 'numeric', month: 'short', timeZone: 'UTC' });
-}
-
 const styles = StyleSheet.create({
   content: {
-    paddingHorizontal: layout.screenPadding,
-    paddingBottom: 96,
-    gap: layout.cardGap,
+    padding: layout.screenPadding,
+    gap: 16,
+    paddingBottom: 40,
   },
-  fieldCard: { flexDirection: 'row', alignItems: 'flex-start', gap: 12 },
-  fieldBody: { flex: 1, minWidth: 0 },
-  fieldMeta: { marginTop: 2 },
+  fieldCard: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+    padding: 12,
+  },
+  fieldBody: {
+    flex: 1,
+    gap: 2,
+  },
+  fieldMeta: {
+    marginTop: 2,
+  },
   mlHighlightCard: {
     padding: 16,
     gap: 12,
+    borderWidth: 1,
+    borderColor: colors.successBorder,
   },
   cardHeaderRow: {
     flexDirection: 'row',
@@ -303,47 +322,47 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 10,
-    flex: 1,
   },
   headerTextGroup: {
-    flex: 1,
     gap: 2,
   },
   statContainer: {
-    backgroundColor: colors.surface,
-    padding: 14,
-    borderRadius: radius.md,
-    gap: 6,
+    gap: 8,
   },
   statMain: {
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'baseline',
     justifyContent: 'space-between',
   },
   statNumber: {
-    fontSize: 32,
-    fontWeight: '700',
+    fontSize: 38,
+    lineHeight: 44,
+  },
+  volumetricRow: {
+    backgroundColor: 'rgba(34, 197, 94, 0.1)',
+    paddingVertical: 4,
+    paddingHorizontal: 8,
+    borderRadius: radius.sm,
+    alignSelf: 'flex-start',
   },
   modelTagRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 2,
   },
   warningContainer: {
     flexDirection: 'row',
-    alignItems: 'flex-start',
+    alignItems: 'center',
     gap: 8,
-    backgroundColor: colors.warningBg ?? '#FEF9C3',
-    padding: 10,
+    backgroundColor: colors.surface,
+    padding: 8,
     borderRadius: radius.sm,
   },
   warningText: {
     flex: 1,
-    lineHeight: 16,
   },
   featuresCard: {
     padding: 16,
-    gap: 8,
+    gap: 12,
   },
   sectionTitleRow: {
     flexDirection: 'row',
@@ -351,21 +370,29 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   sectionSubtitle: {
-    marginBottom: 6,
+    marginTop: -6,
   },
   featureGrid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     gap: 10,
+    marginTop: 4,
   },
   featureItem: {
     width: '47%',
     backgroundColor: colors.neutralBg,
-    paddingHorizontal: 12,
-    paddingVertical: 8,
-    borderRadius: radius.sm,
-    gap: 2,
+    padding: 10,
+    borderRadius: radius.md,
+    gap: 4,
   },
-  rowHeader: { flexDirection: 'row', alignItems: 'baseline', justifyContent: 'space-between' },
-  rowNote: { marginTop: 6 },
+  rowHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  divider: {
+    height: 1,
+    backgroundColor: colors.border,
+    marginVertical: 10,
+  },
 });

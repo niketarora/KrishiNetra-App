@@ -1,29 +1,25 @@
-"""Trainable model components for KrishiNetra Phase 3."""
+"""KrishiNetra Machine Learning Service — OASSM-10 10m Multi-Sensor System."""
 
-from .features import FEATURE_NAMES, FeatureValidationError, SoilMoistureFeatures
-from .experimental import (
-    EXPERIMENTAL_FEATURE_NAMES,
-    EXPERIMENTAL_WARNING,
-    ExperimentalFeatures,
-    ExperimentalPrediction,
-    ExperimentalSoilMoistureModel,
-)
-from .soil_moisture import (
+from .oassm import (
+    OASSM_CATEGORICAL_FEATURES,
+    OASSM_NUMERICAL_FEATURES,
+    OASSM_VERSION,
+    FeatureValidationError,
     ModelNotReadyError,
-    SoilMoistureModel,
-    SoilMoisturePrediction,
+    OASSMFeatures,
+    OASSMPrediction,
+    OASSMTransformerPredictor,
+    categorize_soil_moisture,
 )
 
 __all__ = [
-    "FEATURE_NAMES",
-    "EXPERIMENTAL_FEATURE_NAMES",
-    "EXPERIMENTAL_WARNING",
-    "ExperimentalFeatures",
-    "ExperimentalPrediction",
-    "ExperimentalSoilMoistureModel",
+    "OASSM_CATEGORICAL_FEATURES",
+    "OASSM_NUMERICAL_FEATURES",
+    "OASSM_VERSION",
     "FeatureValidationError",
     "ModelNotReadyError",
-    "SoilMoistureFeatures",
-    "SoilMoistureModel",
-    "SoilMoisturePrediction",
+    "OASSMFeatures",
+    "OASSMPrediction",
+    "OASSMTransformerPredictor",
+    "categorize_soil_moisture",
 ]
