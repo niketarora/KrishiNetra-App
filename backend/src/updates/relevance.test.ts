@@ -113,6 +113,63 @@ describe('scoreUpdate — crop relevance', () => {
   });
 });
 
+describe('scoreUpdate — disaster ("why this matters") reasons', () => {
+  it('leads with "Official alert for your farm district." for an official district-matching risk update', () => {
+    const update = baseUpdate({
+      category: 'risk',
+      source: { name: 'NDMA SACHET', type: 'official' },
+      location: { district: 'Gorakhpur' },
+    });
+    const relevance = scoreUpdate(update, FARM);
+
+    expect(relevance.reasons[0]).toBe('Official alert for your farm district.');
+  });
+
+  it('leads with "Official alert for your state." for an official state-matching risk update', () => {
+    const update = baseUpdate({
+      category: 'risk',
+      source: { name: 'NDMA SACHET', type: 'official' },
+      location: { state: 'Uttar Pradesh' },
+    });
+    const relevance = scoreUpdate(update, FARM);
+
+    expect(relevance.reasons[0]).toBe('Official alert for your state.');
+  });
+
+  it('adds a deterministic operational-impact line for a known hazard tag', () => {
+    const update = baseUpdate({
+      category: 'risk',
+      source: { name: 'NDMA SACHET', type: 'official' },
+      location: { district: 'Gorakhpur' },
+      tags: ['flood'],
+    });
+    const relevance = scoreUpdate(update, FARM);
+
+    expect(relevance.reasons).toContain('Flooding may affect field access and standing crops.');
+  });
+
+  it('does not use the official-alert wording for a reported (non-official) risk story', () => {
+    const update = baseUpdate({
+      category: 'risk',
+      source: { name: 'news.example.com', type: 'reported' },
+      location: { district: 'Gorakhpur' },
+    });
+    const relevance = scoreUpdate(update, FARM);
+
+    expect(relevance.reasons).toContain('Relevant to Gorakhpur');
+    expect(relevance.reasons).not.toContain('Official alert for your farm district.');
+  });
+});
+
+describe('scoreUpdate — agritech reason', () => {
+  it('explains why a technology update matters, regardless of location', () => {
+    const update = baseUpdate({ category: 'technology', location: { country: 'India' } });
+    const relevance = scoreUpdate(update, FARM);
+
+    expect(relevance.reasons).toContain('This update covers a new technology being used in agriculture.');
+  });
+});
+
 describe('scoreUpdate — source trust', () => {
   it('scores an official source higher than a reported one, all else equal', () => {
     const official = scoreUpdate(

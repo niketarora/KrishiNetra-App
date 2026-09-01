@@ -527,11 +527,12 @@ describe('GET /api/v1/updates', () => {
     global.fetch = originalFetch;
   });
 
-  it('requires farmId', async () => {
+  it('returns the national feed (200, no farm lookup) when farmId is omitted', async () => {
     const res = await request(app).get('/api/v1/updates').set(AUTH);
 
-    expect(res.status).toBe(400);
-    expect(res.body.error.code).toBe('INVALID_REQUEST');
+    expect(res.status).toBe(200);
+    expect(res.body.success).toBe(true);
+    expect(Array.isArray(res.body.data)).toBe(true);
   });
 
   it('rejects a farmId that is not a uuid', async () => {

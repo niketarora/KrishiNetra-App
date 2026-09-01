@@ -2,36 +2,40 @@ import { createHash } from 'node:crypto';
 
 import { getEnv } from '../../config/env.js';
 import { cached } from '../cache.js';
+import { RISK_TERMS, matchKeywords } from '../keywords.js';
 import type { KrishiUpdate, UpdatesQueryContext } from '../types.js';
 
 /**
  * NDMA SACHET — India's official Common Alerting Protocol (CAP) disaster
- * feed (https://sachet.ndma.gov.in/CapFeed). P0/P1 in the product brief.
+ * feed. The sole disaster/natural-risk source for Krishi Updates.
  *
- * Status: this is a real, wired provider (not a stub returning canned
- * data), but it has not been validated against a live response the way
- * `gdelt.provider.ts` was — the sandbox this was built in could not reach
- * the public network to inspect SACHET's actual feed shape (its `format`
- * flag, the exact CAP field names it emits, or whether an unauthenticated
- * GET even returns a body). Per the product brief — "If the RSS/CAP
- * structure cannot be implemented cleanly in the first pass, keep the
- * provider interface ready and implement GDELT fully first" — the parser
- * below follows the standard OASIS CAP 1.2 `<alert><info>...</info></alert>`
- * shape, and every step is defensive: a request that fails, times out, or
- * returns anything that does not parse as CAP resolves to `[]`, never to
- * fabricated alert data. This needs a live request against the real feed
- * before it can be trusted in production — see the final report's "what
- * should be done next" note.
+ * The configured URL is the real, verified-live feed:
+ * `https://sachet.ndma.gov.in/cap_public_website/rss/rss_india.xml` — an RSS
+ * 2.0 feed whose `<item>` entries describe current alerts in prose (no
+ * `<info>`/`<area>` block inline). SACHET also publishes a full per-alert CAP
+ * 1.2 record at `.../FetchXMLFile?identifier=<id>`, reachable from an
+ * `<item>`'s `<guid>`, whose tags are namespaced (`<cap:info>`, `<cap:area>`,
+ * `<cap:areaDesc>`) — this provider does not fetch that second document per
+ * alert (an extra network round-trip per item was judged not worth the
+ * added latency/failure surface for a prototype), but is namespace-tolerant
+ * and structured to parse a full CAP `<alert>/<info>` document directly if
+ * SACHET ever serves one at this URL instead of (or alongside) the RSS list.
  *
- * Alerts are only kept when their `areaDesc` names the farm's own district
- * or state, so an unrelated state's disaster alert is never shown as
- * farm-relevant — the same rule GDELT's provider applies to its own
- * district/state text matching.
+ * Either shape is only ever kept when its own text (title/description/
+ * areaDesc, whichever exists) names the farm's own district or state — an
+ * unrelated state's disaster alert is never shown as farm-relevant. Because
+ * the RSS shape has no coordinates or structured area geometry at all, this
+ * provider never invents a distance; the "why this matters" reason is always
+ * a plain district/state name match — see relevance.ts.
  */
 
-const TTL_MS = 8 * 60 * 1000;
+const TTL_MS = 10 * 60 * 1000;
 const REQUEST_TIMEOUT_MS = 6_000;
 const MAX_ALERTS = 10;
+const FETCH_XML_BASE = 'https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile';
+
+/** Events whose real-world impact on a farm is severe enough to rank as `high`. */
+const HIGH_SEVERITY_EVENTS = ['flood', 'cyclone', 'landslide', 'cloudburst'];
 
 export class SachetProviderError extends Error {
   constructor(message: string, cause?: unknown) {
@@ -47,7 +51,7 @@ async function fetchCapFeed(url: string): Promise<string> {
   try {
     let response: Response;
     try {
-      response = await fetch(url, { signal: controller.signal, headers: { Accept: 'application/xml, text/xml' } });
+      response = await fetch(url, { signal: controller.signal, headers: { Accept: 'application/xml, text/xml, application/rss+xml' } });
     } catch (cause) {
       throw new SachetProviderError('Could not reach SACHET', cause);
     }
@@ -58,8 +62,9 @@ async function fetchCapFeed(url: string): Promise<string> {
   }
 }
 
+/** Namespace-tolerant tag read: matches `<tag>`, `<cap:tag>`, `<ns2:tag ...>`, etc. */
 function tagValue(block: string, tag: string): string | null {
-  const match = new RegExp(`<${tag}[^>]*>([\\s\\S]*?)<\\/${tag}>`, 'i').exec(block);
+  const match = new RegExp(`<(?:[\\w-]+:)?${tag}(?:\\s[^>]*)?>([\\s\\S]*?)<\\/(?:[\\w-]+:)?${tag}>`, 'i').exec(block);
   if (!match || !match[1]) return null;
   return match[1]
     .replace(/<!\[CDATA\[([\s\S]*?)\]\]>/, '$1')
@@ -71,51 +76,100 @@ function tagValue(block: string, tag: string): string | null {
     .trim();
 }
 
-function severityFromCap(value: string | null): KrishiUpdate['severity'] {
+/**
+ * Namespace-tolerant block extraction: `<(?:ns:)?tag ...>...</(?:ns:)?tag>`,
+ * using a backreference so a namespaced opening tag only matches its own
+ * (identically namespaced) closing tag rather than any tag with the same
+ * local name.
+ */
+function extractBlocks(xml: string, tag: string): string[] {
+  const re = new RegExp(`<((?:[\\w-]+:)?${tag})(?:\\s[^>]*)?>[\\s\\S]*?<\\/\\1>`, 'gi');
+  return xml.match(re) ?? [];
+}
+
+function hasTag(xml: string, tag: string): boolean {
+  return new RegExp(`<(?:[\\w-]+:)?${tag}[\\s>]`, 'i').test(xml);
+}
+
+/** Lowercase, trim, and drop the word "district" so "Jaipur District, Rajasthan" matches farm.district="Jaipur". */
+function normalizeLocationName(value: string): string {
+  return value
+    .toLowerCase()
+    .replace(/\bdistrict\b/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function matchLocation(text: string, ctx: UpdatesQueryContext): { matchesDistrict: boolean; matchesState: boolean } {
+  const normalizedText = normalizeLocationName(text);
+  const matchesDistrict = !!ctx.district && normalizedText.includes(normalizeLocationName(ctx.district));
+  const matchesState = !!ctx.state && normalizedText.includes(normalizeLocationName(ctx.state));
+  return { matchesDistrict, matchesState };
+}
+
+function severityFromCapValue(value: string | null): KrishiUpdate['severity'] {
   const normalized = (value ?? '').toLowerCase();
   if (normalized === 'extreme' || normalized === 'severe') return 'high';
   if (normalized === 'moderate') return 'moderate';
   return 'info';
 }
 
-function parseAlerts(xml: string, ctx: UpdatesQueryContext): KrishiUpdate[] {
-  const infoBlocks = xml.match(/<info[^>]*>[\s\S]*?<\/info>/gi) ?? [];
+/** No explicit CAP `<severity>` tag (the RSS shape) — infer from the hazard word itself, same tiering GDELT uses. */
+function severityFromText(text: string): KrishiUpdate['severity'] {
+  const lower = text.toLowerCase();
+  if (HIGH_SEVERITY_EVENTS.some((event) => lower.includes(event))) return 'high';
+  if (matchKeywords(lower, RISK_TERMS).length > 0) return 'moderate';
+  return 'info';
+}
+
+function buildFetchXmlUrl(identifier: string): string {
+  return `${FETCH_XML_BASE}?identifier=${encodeURIComponent(identifier)}`;
+}
+
+/** Full CAP `<alert>/<info>` documents — namespaced or not. Not the shape the configured feed serves today, but kept ready in case that changes. */
+function parseCapAlerts(xml: string, ctx: UpdatesQueryContext): KrishiUpdate[] {
+  const alertBlocks = extractBlocks(xml, 'alert');
   const updates: KrishiUpdate[] = [];
 
-  for (const block of infoBlocks) {
-    const areaDesc = tagValue(block, 'areaDesc') ?? '';
-    const event = tagValue(block, 'event');
-    const headline = tagValue(block, 'headline');
-    const description = tagValue(block, 'description');
-    const web = tagValue(block, 'web');
-    const effective = tagValue(block, 'effective') ?? tagValue(block, 'sent');
-    const severity = tagValue(block, 'severity');
+  for (const alertBlock of alertBlocks) {
+    const infoBlocks = extractBlocks(alertBlock, 'info');
+    const infoBlock = infoBlocks[0] ?? alertBlock;
+
+    const identifier = tagValue(alertBlock, 'identifier');
+    const sent = tagValue(alertBlock, 'sent');
+
+    const event = tagValue(infoBlock, 'event');
+    const headline = tagValue(infoBlock, 'headline');
+    const description = tagValue(infoBlock, 'description');
+    const instruction = tagValue(infoBlock, 'instruction');
+    const severity = tagValue(infoBlock, 'severity');
+    const effective = tagValue(infoBlock, 'effective') ?? sent;
+    const areaDesc = tagValue(infoBlock, 'areaDesc') ?? '';
+    const web = tagValue(infoBlock, 'web');
 
     const title = headline ?? event;
-    if (!title || !web) continue; // No stable source link, no headline: nothing safe to show.
+    const sourceUrl = web ?? (identifier ? buildFetchXmlUrl(identifier) : null);
+    if (!title || !sourceUrl) continue; // No stable source link, no headline: nothing safe to show.
 
-    const lowerArea = areaDesc.toLowerCase();
-    const matchesDistrict = !!ctx.district && lowerArea.includes(ctx.district.toLowerCase());
-    const matchesState = !!ctx.state && lowerArea.includes(ctx.state.toLowerCase());
-    // Never show an alert for a district/state the farm is not in.
-    if (!matchesDistrict && !matchesState) continue;
+    const { matchesDistrict, matchesState } = matchLocation(`${areaDesc} ${title} ${description ?? ''}`, ctx);
+    if (!matchesDistrict && !matchesState) continue; // Never show an alert for a district/state the farm is not in.
 
     const publishedAt = effective && !Number.isNaN(Date.parse(effective)) ? new Date(effective).toISOString() : new Date().toISOString();
 
     updates.push({
-      id: `sachet:${createHash('sha1').update(web + title).digest('hex').slice(0, 20)}`,
+      id: `sachet:${createHash('sha1').update(sourceUrl + title).digest('hex').slice(0, 20)}`,
       title,
-      summary: description ?? undefined,
+      summary: description ?? instruction ?? undefined,
       category: 'risk',
       source: { name: 'National Disaster Management Authority (SACHET)', type: 'official' },
-      sourceUrl: web,
+      sourceUrl,
       publishedAt,
       location: {
         country: 'India',
         district: matchesDistrict ? (ctx.district ?? undefined) : undefined,
         state: ctx.state ?? undefined,
       },
-      severity: severityFromCap(severity),
+      severity: severityFromCapValue(severity),
       relevance: { score: 0, reasons: [] },
       tags: event ? [event.toLowerCase()] : undefined,
     });
@@ -124,6 +178,63 @@ function parseAlerts(xml: string, ctx: UpdatesQueryContext): KrishiUpdate[] {
   }
 
   return updates;
+}
+
+/** The shape the configured feed actually serves today: plain RSS 2.0 `<item>`s, with the hazard/district/state named in prose (title/description), not a structured area block. */
+function parseRssItems(xml: string, ctx: UpdatesQueryContext): KrishiUpdate[] {
+  const itemBlocks = extractBlocks(xml, 'item');
+  const updates: KrishiUpdate[] = [];
+
+  for (const block of itemBlocks) {
+    const title = tagValue(block, 'title');
+    const link = tagValue(block, 'link');
+    const description = tagValue(block, 'description');
+    const pubDate = tagValue(block, 'pubDate');
+    const category = tagValue(block, 'category');
+    const guid = tagValue(block, 'guid') ?? tagValue(block, 'identifier');
+
+    if (!title) continue;
+
+    const haystack = `${title} ${description ?? ''}`;
+    const sourceUrl = link ?? (guid ? buildFetchXmlUrl(guid) : null);
+    if (!sourceUrl) continue; // No stable source link: nothing safe to show.
+
+    const { matchesDistrict, matchesState } = matchLocation(haystack, ctx);
+    if (!matchesDistrict && !matchesState) continue; // Never show an alert for a district/state the farm is not in.
+
+    const matchedHazards = matchKeywords(haystack, RISK_TERMS);
+    const event = category ?? matchedHazards[0] ?? null;
+
+    const publishedAt = pubDate && !Number.isNaN(Date.parse(pubDate)) ? new Date(pubDate).toISOString() : new Date().toISOString();
+
+    updates.push({
+      id: `sachet:${createHash('sha1').update(sourceUrl + title).digest('hex').slice(0, 20)}`,
+      title,
+      summary: description ?? undefined,
+      category: 'risk',
+      source: { name: 'National Disaster Management Authority (SACHET)', type: 'official' },
+      sourceUrl,
+      publishedAt,
+      location: {
+        country: 'India',
+        district: matchesDistrict ? (ctx.district ?? undefined) : undefined,
+        state: ctx.state ?? undefined,
+      },
+      severity: severityFromText(haystack),
+      relevance: { score: 0, reasons: [] },
+      tags: event ? [event.toLowerCase()] : undefined,
+    });
+
+    if (updates.length >= MAX_ALERTS) break;
+  }
+
+  return updates;
+}
+
+function parseAlerts(xml: string, ctx: UpdatesQueryContext): KrishiUpdate[] {
+  const capAlerts = parseCapAlerts(xml, ctx);
+  if (capAlerts.length > 0) return capAlerts;
+  return parseRssItems(xml, ctx);
 }
 
 function cacheKeyFor(ctx: UpdatesQueryContext): string {
@@ -135,7 +246,7 @@ export async function fetchSachetUpdates(ctx: UpdatesQueryContext): Promise<Kris
 
   try {
     const xml = await cached(cacheKeyFor(ctx), TTL_MS, () => fetchCapFeed(env.SACHET_CAP_URL));
-    if (!xml || !xml.includes('<info')) return [];
+    if (!xml || (!hasTag(xml, 'alert') && !hasTag(xml, 'item'))) return [];
     return parseAlerts(xml, ctx);
   } catch {
     // Any failure — network, timeout, malformed XML — is a "nothing to show",
