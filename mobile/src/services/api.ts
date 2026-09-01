@@ -14,7 +14,7 @@ import { getAccessToken } from './supabase';
  * token so the backend knows who is calling.
  */
 
-const DEFAULT_TIMEOUT_MS = 15_000;
+const DEFAULT_TIMEOUT_MS = 35_000;
 
 /** The TRD §15 envelope, as it arrives on the wire. */
 type ApiEnvelope<T> =
