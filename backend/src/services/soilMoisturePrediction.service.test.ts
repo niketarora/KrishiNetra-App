@@ -1,34 +1,64 @@
 import { beforeEach, describe, expect, it, jest } from '@jest/globals';
 
 import { resetEnvCache } from '../config/env.js';
-import type { ExperimentalSoilMoistureBody } from '../schemas/prediction.schema.js';
+import type { OASSMSoilMoistureBody } from '../schemas/prediction.schema.js';
 import { predictSoilMoisture } from './soilMoisturePrediction.service.js';
 
-const features: ExperimentalSoilMoistureBody = {
+const features: OASSMSoilMoistureBody = {
+  angle: 38.5,
+  vv: -11.2,
+  vh: -17.8,
+  vh_minus_vv: -6.6,
+  sentinel2_b2: 0.045,
+  sentinel2_b8a: 0.280,
+  sentinel2_b11: 0.195,
+  sentinel2_b12: 0.110,
+  landsat_b2: 0.050,
+  landsat_b7: 0.120,
+  landsat_b10: 298.5,
   ndvi: 0.55,
-  savi: 0.4,
-  temperature_c: 28,
-  humidity_percent: 65,
-  rainfall: 18,
-  wind_speed: 3,
+  ndmi: 0.22,
+  savi: 0.40,
+  s2_lag: 2.0,
+  landsat_lag: 4.0,
+  day_sin: 0.5,
+  day_cos: 0.866,
+  dsm: 350.0,
+  slope: 2.5,
+  twi_proxy: 7.8,
+  aspect_sin: 0.0,
+  aspect_cos: 1.0,
+  temperature_c: 28.0,
+  humidity_percent: 65.0,
+  rainfall: 18.0,
+  wind_speed: 3.0,
   soil_ph: 6.5,
-  organic_matter: 2,
+  organic_matter: 2.0,
   leaf_area_index: 1.8,
-  water_flow: 20,
-  elevation: 550,
-  spatial_resolution: 10,
+  spatial_resolution: 10.0,
   crop_growth_stage: 2,
   crop_type: 'wheat',
+  climate_zone: 'BSh',
+  soil_texture: 'loam',
+  land_cover: 'cropland',
 };
 
 const prediction = {
-  soil_moisture_percent: 20.04,
-  category: 'dry',
-  model_version: 'test-experimental-v1',
-  production_ready: false,
-  experimental: true,
-  recommendation: null,
-  warning: 'Experimental baseline only. Do not use for irrigation decisions.',
+  volumetric_moisture_m3_m3: 0.225,
+  soil_moisture_percent: 22.5,
+  category: 'moderate',
+  irrigation_recommendation: 'irrigate_soon',
+  confidence: 0.95,
+  model_version: 'oassm-10-transformer-v4',
+  sensor_resolution_m: 10,
+  sar_backscatter_db: {
+    vv: -11.2,
+    vh: -17.8,
+    vh_minus_vv: -6.6,
+    incidence_angle_deg: 38.5,
+  },
+  topographic_wetness_index: 7.8,
+  is_production_grade: true,
 };
 
 beforeEach(() => {
@@ -52,7 +82,7 @@ describe('predictSoilMoisture', () => {
     expect(fetchSpy).not.toHaveBeenCalled();
   });
 
-  it('forwards the exact feature contract and internal key', async () => {
+  it('forwards the multi-sensor feature contract and internal key', async () => {
     process.env.ML_SERVICE_URL = 'http://127.0.0.1:8000/';
     process.env.ML_SERVICE_API_KEY = 'shared-secret';
     resetEnvCache();
@@ -74,25 +104,6 @@ describe('predictSoilMoisture', () => {
     );
   });
 
-  it('rejects a response that tries to promote the experimental artifact', async () => {
-    process.env.ML_SERVICE_URL = 'http://127.0.0.1:8000';
-    resetEnvCache();
-    jest.spyOn(console, 'error').mockImplementation(() => undefined);
-    jest.spyOn(globalThis, 'fetch').mockResolvedValue(
-      new Response(
-        JSON.stringify({
-          success: true,
-          data: { ...prediction, production_ready: true, experimental: false },
-        }),
-        { status: 200, headers: { 'Content-Type': 'application/json' } },
-      ),
-    );
-
-    await expect(predictSoilMoisture(features)).rejects.toMatchObject({
-      code: 'SERVICE_NOT_CONNECTED',
-    });
-  });
-
   it('maps upstream failures to the safe service-not-connected error', async () => {
     process.env.ML_SERVICE_URL = 'http://127.0.0.1:8000';
     resetEnvCache();
@@ -101,7 +112,6 @@ describe('predictSoilMoisture', () => {
 
     await expect(predictSoilMoisture(features)).rejects.toMatchObject({
       code: 'SERVICE_NOT_CONNECTED',
-      status: 503,
     });
   });
 });

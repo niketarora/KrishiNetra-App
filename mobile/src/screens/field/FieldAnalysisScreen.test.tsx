@@ -78,11 +78,10 @@ describe('FieldAnalysisScreen', () => {
       prediction: {
         soil_moisture_percent: 20.53,
         category: 'dry',
-        model_version: 'agriculture-baseline-xgb-v1',
-        production_ready: false,
-        experimental: true,
+        model_version: 'oassm-10-transformer-v4',
+        production_ready: true,
+        experimental: false,
         recommendation: null,
-        warning: 'Experimental baseline only: validation found no improvement over predicting the median.',
       },
       features: {
         ndvi: 0.58,
@@ -108,7 +107,7 @@ describe('FieldAnalysisScreen', () => {
     expect(screen.getByTestId('soil-moisture-card')).toBeTruthy();
     expect(screen.getByText('20.53%')).toBeTruthy();
     expect(screen.getByText('Dry')).toBeTruthy();
-    expect(screen.getByText('Model agriculture-baseline-xgb-v1')).toBeTruthy();
+    expect(screen.getByText('Model: oassm-10-transformer-v4')).toBeTruthy();
     expect(screen.getByTestId('ml-features-card')).toBeTruthy();
     expect(screen.getByText('WHEAT')).toBeTruthy();
   });

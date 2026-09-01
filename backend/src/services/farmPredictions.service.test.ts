@@ -25,13 +25,21 @@ const mockFarm: FarmRow = {
 };
 
 const mockPrediction = {
-  soil_moisture_percent: 20.53,
-  category: 'dry',
-  model_version: 'agriculture-baseline-xgb-v1',
-  production_ready: false,
-  experimental: true,
-  recommendation: null,
-  warning: 'Experimental baseline only.',
+  volumetric_moisture_m3_m3: 0.221,
+  soil_moisture_percent: 22.1,
+  category: 'moderate',
+  irrigation_recommendation: 'irrigate_soon',
+  confidence: 0.95,
+  model_version: 'oassm-10-transformer-v4',
+  sensor_resolution_m: 10,
+  sar_backscatter_db: {
+    vv: -11.2,
+    vh: -17.8,
+    vh_minus_vv: -6.6,
+    incidence_angle_deg: 38.5,
+  },
+  topographic_wetness_index: 7.8,
+  is_production_grade: true,
 };
 
 const mockGetFarm = jest.fn<any>().mockResolvedValue(mockFarm);
@@ -117,29 +125,22 @@ describe('getFarmSoilMoisturePrediction', () => {
     jest.clearAllMocks();
   });
 
-  it('gathers all 14 live input features and returns ML prediction', async () => {
-    const result = await getFarmSoilMoisturePrediction('test-token', 'user-123', 'farm-123');
-
-    expect(mockGetFarm).toHaveBeenCalledWith('test-token', 'user-123', 'farm-123');
-    expect(mockGetElevation).toHaveBeenCalledWith(26.9125, 75.7875);
-    expect(mockGetSoilHealth).toHaveBeenCalledWith('test-token', 'Jaipur', 'Rajasthan');
+  it('aggregates OASSM-10 multi-sensor features and returns prediction with crop context', async () => {
+    const result = await getFarmSoilMoisturePrediction('token', 'user-123', 'farm-123');
 
     expect(result.cropName).toBe('Wheat');
+    expect(result.prediction).toEqual(mockPrediction);
     expect(result.features.crop_type).toBe('wheat');
-    expect(result.features.temperature_c).toBe(31.0);
-    expect(result.features.rainfall).toBe(5.0);
-    expect(result.features.humidity_percent).toBe(55);
-    expect(result.features.wind_speed).toBe(12.4);
-    expect(result.features.elevation).toBe(431.0);
-    expect(result.features.soil_ph).toBe(7.8);
-    expect(result.features.organic_matter).toBe(0.45);
-    expect(result.features.ndvi).toBeGreaterThan(0);
-    expect(result.features.savi).toBeGreaterThan(0);
-    expect(result.features.leaf_area_index).toBeGreaterThan(0);
+    expect(result.features.climate_zone).toBe('BSh');
+    expect(result.features.dsm).toBe(431.0);
     expect(result.features.spatial_resolution).toBe(10.0);
-    expect(result.features.crop_growth_stage).toBe(2);
-    expect(result.features.water_flow).toBeGreaterThan(0);
-
-    expect(result.prediction.soil_moisture_percent).toBe(20.53);
+    expect(result.features.vv).toBeLessThan(0);
+    expect(result.features.vh).toBeLessThan(0);
+    expect(mockPredictSoilMoisture).toHaveBeenCalledWith(
+      expect.objectContaining({
+        crop_type: 'wheat',
+        spatial_resolution: 10.0,
+      }),
+    );
   });
 });

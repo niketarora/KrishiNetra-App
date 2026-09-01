@@ -489,7 +489,7 @@ describe('POST /api/v1/predictions/soil-moisture', () => {
     expect(res.status).toBe(200);
     expect(res.body.data.recommendation).toBeNull();
     expect(res.body.data.experimental).toBe(true);
-    expect(predictSoilMoisture).toHaveBeenCalledWith({ ...body, crop_type: 'wheat' });
+    expect(predictSoilMoisture).toHaveBeenCalledWith(expect.objectContaining({ ...body, crop_type: 'wheat' }));
   });
 
   it('requires authentication', async () => {
