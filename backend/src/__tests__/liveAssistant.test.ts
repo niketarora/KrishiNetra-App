@@ -51,7 +51,7 @@ describe('Live Assistant Backend Services', () => {
       const config = await createLiveSessionToken();
 
       expect(config).toHaveProperty('token');
-      expect(config.model).toBe('models/gemini-2.0-flash-exp');
+      expect(config.model).toBe('models/gemini-3.1-flash-live-preview');
       expect(config.wsUrl).toContain('wss://generativelanguage.googleapis.com');
       expect(config.expiresInSeconds).toBeGreaterThan(0);
     });
@@ -65,7 +65,7 @@ describe('Live Assistant Backend Services', () => {
 
       expect(res.status).toBe(200);
       expect(res.body.success).toBe(true);
-      expect(res.body.data.model).toBe('models/gemini-2.0-flash-exp');
+      expect(res.body.data.model).toBe('models/gemini-3.1-flash-live-preview');
       expect(res.body.data.wsUrl).toContain('wss://');
     });
 
@@ -93,6 +93,16 @@ describe('Live Assistant Backend Services', () => {
       expect(res.body.data).toHaveProperty('possible_issue');
       expect(res.body.data).toHaveProperty('confidence');
       expect(Array.isArray(res.body.data.observations)).toBe(true);
+    });
+
+    it('POST /api/v1/ai/visual-ask rejects invalid requests cleanly', async () => {
+      const res = await request(app)
+        .post('/api/v1/ai/visual-ask')
+        .set('Authorization', 'Bearer valid-token')
+        .send({ imageBase64: '', question: '' });
+
+      expect(res.status).toBe(400);
+      expect(res.body.success).toBe(false);
     });
   });
 });

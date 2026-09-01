@@ -57,7 +57,6 @@ export async function resolveVisualAssistantAnswer(
         question: observation.questionText,
       },
       fallbackKey: 'visualAssistant.errors.generic',
-      auth: false,
     });
     if (res?.answer) {
       return { answer: res.answer, isDemo: false };

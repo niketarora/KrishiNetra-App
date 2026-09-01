@@ -19,7 +19,7 @@ export async function createLiveSessionToken(): Promise<LiveSessionConfig> {
     throw ApiError.notConnected('Gemini API key is not configured on the server.');
   }
 
-  const model = 'models/gemini-2.0-flash-exp';
+  const model = 'models/gemini-3.1-flash-live-preview';
 
   // Try to create an ephemeral token using Google GenAI / Gemini v1alpha auth_tokens API
   try {

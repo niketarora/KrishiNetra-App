@@ -60,12 +60,12 @@ export class GeminiLiveClient {
     try {
       // 1. Fetch live session token and WebSocket URL from backend
       let wsUrl = this.config.wsUrl;
-      let model = this.config.model || 'models/gemini-2.0-flash-exp';
+      let model = this.config.model || 'models/gemini-3.1-flash-live-preview';
 
       if (!wsUrl) {
         try {
           const session = await apiFetch<{ wsUrl: string; model: string; token: string }>(
-            '/ai/live-token',
+            '/api/v1/ai/live-token',
             { method: 'POST', fallbackKey: 'visualAssistant.errors.generic' },
           );
           if (session?.wsUrl) {

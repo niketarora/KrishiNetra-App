@@ -157,5 +157,6 @@ apiRouter.post('/ai/assist', validate('body', assistSchema), assistantController
 // --- Gemini Multimodal Live API & Assistant Tools ---------------------------
 apiRouter.post('/ai/live-token', liveController.getLiveToken);
 apiRouter.get('/ai/live-token', liveController.getLiveToken);
+apiRouter.post('/ai/visual-ask', aiController.visualAsk);
 apiRouter.post('/irrigation/advice', irrigationController.getIrrigationAdvice);
 apiRouter.post('/crop/analyze', cropAnalysisController.analyzeCrop);
