@@ -49,4 +49,12 @@ describe('getUpdates', () => {
 
     expect(updates).toEqual([sample]);
   });
+
+  it('hits the plain endpoint with no farmId when none is given (national feed)', async () => {
+    mockedFetch.mockResolvedValue([] as never);
+
+    await getUpdates();
+
+    expect(mockedFetch).toHaveBeenCalledWith('/api/v1/updates', expect.objectContaining({ fallbackKey: 'updates.loadError' }));
+  });
 });

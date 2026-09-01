@@ -88,7 +88,7 @@ describe('useUpdatesData — loading the first field', () => {
 describe('useUpdatesData — switching fields', () => {
   it('reloads the feed for the newly selected field, per the success test in the product brief', async () => {
     mockedListFarms.mockResolvedValue([farm({ id: 'farm-1' }), farm({ id: 'farm-2', name: 'South Field', district: 'Alwar', state: 'Rajasthan' })]);
-    mockedGetUpdates.mockImplementation(async (farmId: string) =>
+    mockedGetUpdates.mockImplementation(async (farmId?: string) =>
       farmId === 'farm-1' ? [update({ id: 'north-1' })] : [update({ id: 'south-1', title: 'MSP news for Alwar' })],
     );
 
@@ -147,8 +147,9 @@ describe('useUpdatesData — error handling', () => {
 });
 
 describe('useUpdatesData — no field yet', () => {
-  it('reports no farms rather than throwing when the farmer has none', async () => {
+  it('still fetches a (national) feed rather than throwing when the farmer has no farm', async () => {
     mockedListFarms.mockResolvedValue([]);
+    mockedGetUpdates.mockResolvedValue([update({ id: 'national-1', title: 'National agritech update' })]);
 
     const { result } = await renderHook(() => useUpdatesData());
 
@@ -156,7 +157,19 @@ describe('useUpdatesData — no field yet', () => {
 
     expect(result.current.farms).toEqual([]);
     expect(result.current.selectedFarmId).toBeNull();
+    expect(result.current.updates).toHaveLength(1);
+    expect(mockedGetUpdates).toHaveBeenCalledWith(undefined);
+  });
+
+  it('shows an honest empty state, not an error, when the national feed itself is empty', async () => {
+    mockedListFarms.mockResolvedValue([]);
+    mockedGetUpdates.mockResolvedValue([]);
+
+    const { result } = await renderHook(() => useUpdatesData());
+
+    await waitFor(() => expect(result.current.loading).toBe(false));
+
     expect(result.current.updates).toEqual([]);
-    expect(mockedGetUpdates).not.toHaveBeenCalled();
+    expect(result.current.errorKey).toBeNull();
   });
 });

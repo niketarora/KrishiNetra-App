@@ -28,16 +28,14 @@ const listFarmCrops = jest.fn<any>().mockResolvedValue([]);
 const listCrops = jest.fn<any>().mockResolvedValue([]);
 const fetchGdeltUpdates = jest.fn<any>().mockResolvedValue([]);
 const fetchSachetUpdates = jest.fn<any>().mockResolvedValue([]);
-const fetchPibUpdates = jest.fn<any>().mockResolvedValue([]);
 
 jest.unstable_mockModule('../services/farms.service.js', () => ({ getFarm }));
 jest.unstable_mockModule('../services/farmCrops.service.js', () => ({ listFarmCrops }));
 jest.unstable_mockModule('../services/reference.service.js', () => ({ listCrops }));
 jest.unstable_mockModule('./providers/gdelt.provider.js', () => ({ fetchGdeltUpdates }));
 jest.unstable_mockModule('./providers/sachet.provider.js', () => ({ fetchSachetUpdates }));
-jest.unstable_mockModule('./providers/pib.provider.js', () => ({ fetchPibUpdates }));
 
-const { getUpdatesForFarm } = await import('./updates.service.js');
+const { getUpdatesForFarm, getNationalUpdates } = await import('./updates.service.js');
 const { ApiError } = await import('../utils/ApiError.js');
 
 function update(overrides: Record<string, unknown> = {}) {
@@ -59,7 +57,6 @@ beforeEach(() => {
   listCrops.mockClear().mockResolvedValue([]);
   fetchGdeltUpdates.mockClear().mockResolvedValue([]);
   fetchSachetUpdates.mockClear().mockResolvedValue([]);
-  fetchPibUpdates.mockClear().mockResolvedValue([]);
 });
 
 describe('getUpdatesForFarm — ownership', () => {
@@ -91,7 +88,6 @@ describe('getUpdatesForFarm — provider failure handling', () => {
   it('returns an empty list, not a throw, when every provider fails', async () => {
     fetchGdeltUpdates.mockRejectedValue(new Error('down'));
     fetchSachetUpdates.mockRejectedValue(new Error('down'));
-    fetchPibUpdates.mockRejectedValue(new Error('down'));
 
     const result = await getUpdatesForFarm('token', 'user-1', 'farm-1');
 
@@ -157,5 +153,27 @@ describe('getUpdatesForFarm — dedup and ordering', () => {
     const result = await getUpdatesForFarm('token', 'user-1', 'farm-1');
 
     expect(result.updates.length).toBeLessThanOrEqual(20);
+  });
+});
+
+describe('getNationalUpdates — no farm registered yet', () => {
+  it('returns a feed without ever calling getFarm or SACHET', async () => {
+    fetchGdeltUpdates.mockResolvedValue([update({ id: 'national-1', title: 'National agritech update' })]);
+
+    const result = await getNationalUpdates();
+
+    expect(result.farm).toBeNull();
+    expect(result.crop).toBeNull();
+    expect(result.updates).toHaveLength(1);
+    expect(getFarm).not.toHaveBeenCalled();
+    expect(fetchSachetUpdates).not.toHaveBeenCalled();
+  });
+
+  it('returns an empty list, not a throw, when GDELT fails', async () => {
+    fetchGdeltUpdates.mockRejectedValue(new Error('down'));
+
+    const result = await getNationalUpdates();
+
+    expect(result.updates).toEqual([]);
   });
 });

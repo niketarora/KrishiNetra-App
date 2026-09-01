@@ -138,3 +138,62 @@ describe('fetchGdeltUpdates', () => {
     expect(fetchMock.mock.calls.length).toBe(callsAfterFirst);
   });
 });
+
+describe('fetchGdeltUpdates — agritech classification', () => {
+  it('classifies a drone/precision-agriculture headline as technology', async () => {
+    global.fetch = jsonAlways({
+      articles: [gdeltArticle({ title: 'New agricultural drone spraying platform launched for farmers', url: 'https://news.example.com/drone' })],
+    });
+
+    const updates = await fetchGdeltUpdates(CTX);
+    const update = updates.find((u) => u.sourceUrl === 'https://news.example.com/drone');
+
+    expect(update?.category).toBe('technology');
+  });
+
+  it('classifies an AI-in-agriculture headline as technology', async () => {
+    global.fetch = jsonAlways({
+      articles: [gdeltArticle({ title: 'Artificial intelligence model predicts crop disease early for wheat farmers', url: 'https://news.example.com/ai-crop' })],
+    });
+
+    const updates = await fetchGdeltUpdates(CTX);
+    const update = updates.find((u) => u.sourceUrl === 'https://news.example.com/ai-crop');
+
+    expect(update?.category).toBe('technology');
+  });
+
+  it('classifies satellite crop-monitoring coverage as technology', async () => {
+    global.fetch = jsonAlways({
+      articles: [gdeltArticle({ title: 'Satellite monitoring introduced for irrigation planning', url: 'https://news.example.com/satellite' })],
+    });
+
+    const updates = await fetchGdeltUpdates(CTX);
+    const update = updates.find((u) => u.sourceUrl === 'https://news.example.com/satellite');
+
+    expect(update?.category).toBe('technology');
+  });
+
+  it('classifies an ordinary agriculture headline (no tech terms) as agriculture, not technology', async () => {
+    global.fetch = jsonAlways({
+      articles: [gdeltArticle({ title: 'Irrigation canal repair completed ahead of sowing season', url: 'https://news.example.com/irrigation' })],
+    });
+
+    const updates = await fetchGdeltUpdates(CTX);
+    const update = updates.find((u) => u.sourceUrl === 'https://news.example.com/irrigation');
+
+    expect(update?.category).toBe('agriculture');
+  });
+
+  it("builds a dedicated agritech query that ANDs technology terms with an agriculture-context clause — so an unrelated 'AI'/'drone' story never reaches the results", async () => {
+    const fetchMock = jsonAlways({ articles: [] });
+    global.fetch = fetchMock;
+
+    await fetchGdeltUpdates(CTX);
+
+    const calledUrls = fetchMock.mock.calls.map((call) => String(call[0]));
+    const agritechCall = calledUrls.find((url) => url.includes('agritech'));
+    expect(agritechCall).toBeDefined();
+    const query = decodeURIComponent(agritechCall!);
+    expect(query).toMatch(/agriculture|farming|farmer|crop/);
+  });
+});

@@ -2,7 +2,7 @@ import { createHash } from 'node:crypto';
 
 import { getEnv } from '../../config/env.js';
 import { cached } from '../cache.js';
-import { AGRICULTURE_TERMS, MARKET_TERMS, RISK_TERMS, matchKeywords, orClause } from '../keywords.js';
+import { AGRICULTURE_TERMS, MARKET_TERMS, RISK_TERMS, TECHNOLOGY_TERMS, matchKeywords, orClause } from '../keywords.js';
 import type { KrishiUpdate, UpdateCategory, UpdatesQueryContext } from '../types.js';
 
 /**
@@ -118,6 +118,11 @@ async function fetchGdelt(query: string, apiUrl: string): Promise<GdeltArticle[]
 
 function categoryFor(matched: string[]): UpdateCategory {
   if (matched.some((term) => RISK_TERMS.includes(term))) return 'risk';
+  // Agritech/innovation: the dedicated query (see `buildQueries`) already ANDs
+  // a technology term with an agriculture-context term server-side, so a
+  // title matching one of these here is never a false positive from an
+  // unrelated "AI"/"drone" story outside farming.
+  if (matched.some((term) => TECHNOLOGY_TERMS.some((m) => m.toLowerCase() === term.toLowerCase()))) return 'technology';
   if (matched.some((term) => MARKET_TERMS.some((m) => m.toLowerCase() === term.toLowerCase()))) return 'market';
   return 'agriculture';
 }
@@ -151,6 +156,7 @@ function toKrishiUpdate(article: GdeltArticle, ctx: UpdatesQueryContext): Krishi
 
   const matchedTerms = [
     ...matchKeywords(title, RISK_TERMS),
+    ...matchKeywords(title, TECHNOLOGY_TERMS),
     ...matchKeywords(title, AGRICULTURE_TERMS),
     ...(ctx.cropName ? matchKeywords(title, [ctx.cropName]) : []),
   ];
@@ -175,12 +181,20 @@ function toKrishiUpdate(article: GdeltArticle, ctx: UpdatesQueryContext): Krishi
   };
 }
 
+/** Agriculture/farming context terms an agritech story must also carry — kept separate from `AGRICULTURE_TERMS` so this stays a short, deliberate clause rather than the whole (much larger) list. */
+const AGRITECH_CONTEXT_TERMS = ['agriculture', 'farming', 'farmer', 'crop'];
+
 /**
  * Builds the small, fixed set of queries this provider runs per farm
- * request: one scoped to the farm's district/state (when known) and one
+ * request: one scoped to the farm's district/state (when known), one
  * national-scope query for agriculture/crop/policy news that is not tied to
- * a locality. Two requests, not twenty — kept small and cacheable per the
- * product brief.
+ * a locality, and one national agritech/innovation query. Three requests,
+ * not twenty — kept small and cacheable per the product brief.
+ *
+ * The agritech query ANDs a technology term with an agriculture-context term
+ * (GDELT's query syntax is an implicit AND between space-separated clauses) —
+ * this is what keeps a generic "AI"/"drone" story with no farming connection
+ * out of the feed entirely, rather than relying on classification alone.
  */
 function buildQueries(ctx: UpdatesQueryContext): string[] {
   const topicTerms = [...RISK_TERMS, ...AGRICULTURE_TERMS, ...(ctx.cropName ? [ctx.cropName] : [])];
@@ -196,6 +210,8 @@ function buildQueries(ctx: UpdatesQueryContext): string[] {
 
   const nationalTerms = [...AGRICULTURE_TERMS, ...(ctx.cropName ? [ctx.cropName] : [])];
   queries.push(`${orClause(nationalTerms)} sourcecountry:India`);
+
+  queries.push(`${orClause(TECHNOLOGY_TERMS)} ${orClause(AGRITECH_CONTEXT_TERMS)} sourcecountry:India`);
 
   return queries;
 }

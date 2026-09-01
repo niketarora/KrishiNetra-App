@@ -4,7 +4,6 @@ import { listCrops } from '../services/reference.service.js';
 import type { FarmCropRow, FarmRow } from '../types/domain.js';
 
 import { dedupeUpdates } from './dedupe.js';
-import { fetchPibUpdates } from './providers/pib.provider.js';
 import { fetchSachetUpdates } from './providers/sachet.provider.js';
 import { fetchGdeltUpdates } from './providers/gdelt.provider.js';
 import { scoreUpdate } from './relevance.js';
@@ -15,9 +14,16 @@ import type { KrishiUpdate, UpdatesQueryContext } from './types.js';
  *
  *   verify ownership (via `getFarm`, same as every other farm-scoped route)
  *     -> resolve centroid/district/state/crop
- *     -> fetch GDELT + SACHET + PIB in parallel, each independently failable
+ *     -> fetch GDELT + SACHET in parallel, each independently failable
  *     -> normalize (done inside each provider) -> dedupe -> score -> sort
  *     -> return the top slice
+ *
+ * PIB is deliberately not called here — its RSS endpoint returned HTTP 403
+ * from every external vantage point tried during investigation and was never
+ * validated against a live response (see `pib.provider.ts`'s own header
+ * comment). The provider function still exists and is independently correct
+ * and tested, but nothing wires it into this feed; SACHET + GDELT are the
+ * two reliable MVP providers.
  *
  * The initial max result count keeps this a short, scannable feed rather
  * than a firehose — the product brief is explicit that 100 articles is the
@@ -31,7 +37,7 @@ export type FarmUpdatesResult = {
     name: string | null;
     district: string | null;
     state: string | null;
-  };
+  } | null;
   crop: { code: string; name: string } | null;
   updates: KrishiUpdate[];
 };
@@ -92,30 +98,42 @@ export async function getUpdatesForFarm(
 
   // Each provider already resolves to `[]` internally on failure, but
   // `allSettled` is a second line of defence: one provider throwing an
-  // unexpected error must never take the others down with it.
-  const [gdelt, sachet, pib] = await Promise.allSettled([
-    fetchGdeltUpdates(ctx),
-    fetchSachetUpdates(ctx),
-    fetchPibUpdates(ctx),
-  ]);
+  // unexpected error must never take the other down with it.
+  const [gdelt, sachet] = await Promise.allSettled([fetchGdeltUpdates(ctx), fetchSachetUpdates(ctx)]);
 
   const raw: KrishiUpdate[] = [
     ...(gdelt.status === 'fulfilled' ? gdelt.value : []),
     ...(sachet.status === 'fulfilled' ? sachet.value : []),
-    ...(pib.status === 'fulfilled' ? pib.value : []),
   ];
 
-  const deduped = dedupeUpdates(raw);
-
-  const scored = deduped.map((update) => ({
-    ...update,
-    relevance: scoreUpdate(update, {
+  return {
+    farm: { id: farm.id, name: farm.name, district: farm.district, state: farm.state },
+    crop,
+    updates: rankUpdates(raw, {
       district: ctx.district,
       state: ctx.state,
       cropName: ctx.cropName,
       farmLat: ctx.latitude,
       farmLng: ctx.longitude,
     }),
+  };
+}
+
+type RankContext = {
+  district: string | null;
+  state: string | null;
+  cropName: string | null;
+  farmLat: number;
+  farmLng: number;
+};
+
+/** Shared by the farm-scoped feed and the farmless national feed below. */
+function rankUpdates(raw: KrishiUpdate[], ctx: RankContext): KrishiUpdate[] {
+  const deduped = dedupeUpdates(raw);
+
+  const scored = deduped.map((update) => ({
+    ...update,
+    relevance: scoreUpdate(update, ctx),
   }));
 
   scored.sort((a, b) => {
@@ -123,9 +141,33 @@ export async function getUpdatesForFarm(
     return Date.parse(b.publishedAt) - Date.parse(a.publishedAt);
   });
 
+  return scored.slice(0, MAX_RESULTS);
+}
+
+/**
+ * A farmer with no registered field yet still gets a feed — national
+ * agriculture/agritech news, per the product brief's "show national updates
+ * rather than crashing" rule. SACHET is skipped entirely here: it only ever
+ * shows an alert that names a specific district/state (see
+ * `sachet.provider.ts`), and there is no farm location to match against, so
+ * calling it would only waste a request for a guaranteed `[]`.
+ */
+export async function getNationalUpdates(): Promise<FarmUpdatesResult> {
+  const ctx: UpdatesQueryContext = {
+    farmId: '',
+    latitude: 0,
+    longitude: 0,
+    district: null,
+    state: null,
+    cropCode: null,
+    cropName: null,
+  };
+
+  const gdelt = await fetchGdeltUpdates(ctx).catch(() => []);
+
   return {
-    farm: { id: farm.id, name: farm.name, district: farm.district, state: farm.state },
-    crop,
-    updates: scored.slice(0, MAX_RESULTS),
+    farm: null,
+    crop: null,
+    updates: rankUpdates(gdelt, { district: null, state: null, cropName: null, farmLat: 0, farmLng: 0 }),
   };
 }

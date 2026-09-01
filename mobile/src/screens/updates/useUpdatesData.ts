@@ -27,13 +27,12 @@ export type UpdatesData = {
 /**
  * Everything Krishi Updates shows, for one farm at a time.
  *
- * The app has no global "selected farm" concept (`FarmProvider` only ever
- * tracks the single newest field — see its file comment) and this feature is
- * the first that genuinely needs one, so it keeps its own small farm
- * selection here rather than growing `FarmContext` for a need only this
- * screen has. Changing `selectedFarmId` reloads the feed for that field —
- * see the product brief's success test: the feed must change when the
- * selected field does.
+ * This screen intentionally does not use `FarmContext` — for this feature
+ * the farm is only a geographic anchor (its district/state/centroid), not
+ * the multi-farm-aware "which field am I managing" concept the rest of the
+ * app uses. It keeps its own small, local farm selection here instead:
+ * `listFarms()`, first entry, same as before. Changing `selectedFarmId`
+ * (via the in-screen farm chips) reloads the feed for that field.
  */
 export function useUpdatesData(): UpdatesData {
   const [farms, setFarms] = useState<Farm[]>([]);
@@ -43,7 +42,7 @@ export function useUpdatesData(): UpdatesData {
   const [errorKey, setErrorKey] = useState<string | null>(null);
   const [demoFallback, setDemoFallback] = useState(false);
 
-  const loadUpdatesFor = useCallback(async (farmId: string) => {
+  const loadUpdatesFor = useCallback(async (farmId?: string) => {
     setLoading(true);
     setErrorKey(null);
     setDemoFallback(false);
@@ -76,17 +75,12 @@ export function useUpdatesData(): UpdatesData {
       const list = await listFarms();
       setFarms(list);
 
+      // No registered field yet: still show a feed (national agriculture/
+      // agritech updates from the backend) rather than a bare empty state —
+      // `getUpdates(undefined)` hits `/api/v1/updates` with no farmId.
       const first = list[0];
-      if (!first) {
-        setSelectedFarmId(null);
-        setUpdates([]);
-        setLoading(false);
-        if (isDemoMode()) setDemoFallback(true);
-        return;
-      }
-
-      setSelectedFarmId(first.id);
-      await loadUpdatesFor(first.id);
+      setSelectedFarmId(first?.id ?? null);
+      await loadUpdatesFor(first?.id);
     } catch (error) {
       setFarms([]);
       setUpdates([]);

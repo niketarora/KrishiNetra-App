@@ -24,12 +24,16 @@ export const RISK_TERMS = [
 export const AGRICULTURE_TERMS = [
   'agriculture',
   'farmer',
+  'farming',
   'crop',
   'harvest',
   'irrigation',
+  'soil',
+  'seed',
   'fertilizer',
   'pest',
   'disease',
+  'horticulture',
   'mandi',
   'procurement',
   'MSP',
@@ -38,13 +42,44 @@ export const AGRICULTURE_TERMS = [
 /** These particular agriculture terms read as market news rather than general farming coverage. */
 export const MARKET_TERMS = ['mandi', 'procurement', 'MSP'];
 
-/** PIB-flavoured government/scheme terms (P1) — see providers/pib.provider.ts. */
+/** PIB-flavoured government/scheme terms (P1) — see providers/pib.provider.ts. Not currently queried (PIB is disabled — see updates.service.ts), kept for that provider's own use if it is ever re-enabled. */
 export const GOVERNMENT_TERMS = [
   'PM-KISAN',
   'PMFBY',
   'crop insurance',
   'Kisan Credit Card',
   'subsidy',
+];
+
+/**
+ * Agritech/innovation terms — GDELT's third query (see providers/gdelt.provider.ts
+ * `buildQueries`). The query itself always ANDs these with an agriculture-context
+ * clause, so an unrelated "AI"/"drone" story outside farming can never be
+ * returned by that query in the first place — classification below just has
+ * to recognize the terms, not re-prove the agriculture context.
+ */
+export const TECHNOLOGY_TERMS = [
+  'agritech',
+  'precision agriculture',
+  'precision farming',
+  'agricultural drone',
+  'drone farming',
+  'drone',
+  'satellite agriculture',
+  'satellite farming',
+  'satellite',
+  'remote sensing',
+  'artificial intelligence',
+  'machine learning',
+  'smart irrigation',
+  'farm automation',
+  'automation',
+  'agricultural robotics',
+  'robotics',
+  'crop monitoring technology',
+  'digital agriculture',
+  'sensor',
+  'IoT',
 ];
 
 /** Case-insensitive substring match, returning which of `terms` actually appear in `text`. */

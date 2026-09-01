@@ -37,7 +37,18 @@ const envSchema = z.object({
   // named in the product brief; overridable so a test can point them at a
   // local fixture server instead of the real network.
   GDELT_API_URL: z.string().url().default('https://api.gdeltproject.org/api/v2/doc/doc'),
-  SACHET_CAP_URL: z.string().url().default('https://sachet.ndma.gov.in/CapFeed'),
+  // `https://sachet.ndma.gov.in/CapFeed` (the previous default) is the human
+  // documentation/subscription page, not a feed — it serves HTML with no
+  // `<info>`/`<item>` tags anywhere, so a provider pointed at it always
+  // silently returns zero alerts. This is the real live CAP/RSS feed,
+  // confirmed by manual request during investigation.
+  SACHET_CAP_URL: z.string().url().default('https://sachet.ndma.gov.in/cap_public_website/rss/rss_india.xml'),
+  // PIB is no longer part of the active Krishi Updates aggregation (see
+  // updates.service.ts) — its RSS endpoint returned 403 from every external
+  // vantage point tried during investigation and was never validated against
+  // a live response. The env var and provider are left in place, unused, in
+  // case a validated URL/access path is found later; nothing currently calls
+  // `fetchPibUpdates`.
   PIB_RSS_URL: z
     .string()
     .url()
