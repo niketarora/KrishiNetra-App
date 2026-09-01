@@ -7,13 +7,15 @@ import { ApiError } from '../utils/ApiError.js';
 import { sendOk } from '../utils/apiResponse.js';
 
 export async function requestOtp(req: Request, res: Response): Promise<void> {
-  const { phone } = req.body as RequestOtpBody;
+  const { phone: rawPhone } = req.body as RequestOtpBody;
+  const phone = rawPhone.replace(/\D/g, '').slice(-10);
   const result = demoOtpService.request(phone);
   sendOk(res, result, 'OTP requested successfully');
 }
 
 export async function verifyOtp(req: Request, res: Response): Promise<void> {
-  const { phone, code, language } = req.body as VerifyOtpBody;
+  const { phone: rawPhone, code, language } = req.body as VerifyOtpBody;
+  const phone = rawPhone.replace(/\D/g, '').slice(-10);
 
   const verification = demoOtpService.verify(phone, code);
   if (!verification.success) {

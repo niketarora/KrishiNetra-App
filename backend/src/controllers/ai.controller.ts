@@ -1,9 +1,11 @@
 import type { Request, Response } from 'express';
+import { GoogleGenAI } from '@google/genai';
 
 import { buildFarmerContext } from '../ai/context.service.js';
 import { chat as askModel } from '../ai/llm.service.js';
 import { transcribe as runTranscription } from '../ai/stt.service.js';
 import { synthesize } from '../ai/tts.service.js';
+import { getEnv } from '../config/env.js';
 import { getAuth } from '../middleware/requireAuth.js';
 import type { ChatBody, SpeakBody } from '../schemas/ai.schema.js';
 import { ApiError } from '../utils/ApiError.js';
@@ -74,3 +76,51 @@ export async function speak(req: Request, res: Response): Promise<void> {
 
   sendOk(res, speech, 'Spoken');
 }
+
+export async function visualAsk(req: Request, res: Response): Promise<void> {
+  const { imageBase64, mimeType, question } = req.body as {
+    imageBase64?: string;
+    mimeType?: string;
+    question?: string;
+  };
+
+  if (!imageBase64 || !question?.trim()) {
+    throw ApiError.invalidRequest('Missing imageBase64 or question.');
+  }
+
+  const env = getEnv();
+  if (!env.GEMINI_API_KEY) {
+    throw ApiError.notConnected('Vision AI service is unconfigured.');
+  }
+
+  const ai = new GoogleGenAI({ apiKey: env.GEMINI_API_KEY });
+  const response = await ai.models.generateContent({
+    model: env.GEMINI_MODEL || 'gemini-3.6-flash',
+    contents: [
+      {
+        role: 'user',
+        parts: [
+          {
+            text:
+              `You are KrishiNetra Live visual assistant for Indian farmers. ` +
+              `A farmer is asking a question about a photo of their crop or field. ` +
+              `Answer concisely in simple Hindi or Hinglish (or the same language the question is in). ` +
+              `Describe only observable symptoms or features. Do not claim a definitive disease diagnosis without certainty. ` +
+              `Give 2-3 practical, actionable sentences a farmer can understand.\n\n` +
+              `Farmer's question: ${question.trim()}`,
+          },
+          {
+            inlineData: {
+              mimeType: mimeType || 'image/jpeg',
+              data: imageBase64,
+            },
+          },
+        ],
+      },
+    ],
+  });
+
+  const answer = response.text?.trim() || 'No answer generated.';
+  sendOk(res, { answer }, 'Visual answer resolved');
+}
+

@@ -656,7 +656,17 @@
     "answerDisclaimer": "यह जवाब सीधे एक AI मॉडल से आया है और अभी कृषिनेत्र ने इसकी जाँच नहीं की है — यह एक झलक है, आधिकारिक सलाह नहीं।",
     "errors": {
       "generic": "हम जवाब नहीं ला पाए। अपना इंटरनेट जाँचें और फिर कोशिश करें।"
-    }
+    },
+    "liveTitle": "KrishiNetra Live",
+    "startLive": "Start Live Assistant",
+    "endLive": "End Session",
+    "listening": "Listening...",
+    "thinking": "Analyzing...",
+    "speaking": "Speaking...",
+    "connecting": "Connecting...",
+    "connected": "Connected",
+    "switchCamera": "Flip camera",
+    "defaultGreeting": "I am watching your crop. Speak naturally to ask questions."
   },
   "myLands": {
     "title": "My Lands",

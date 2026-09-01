@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-const phoneRegex = /^[0-9]{10}$/;
+const phoneRegex = /^(\+?91|0)?[0-9]{10}$/;
 const codeRegex = /^[0-9]{6}$/;
 
 export const requestOtpSchema = z

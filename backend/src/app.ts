@@ -24,9 +24,8 @@ export function createApp(): Express {
   app.use(cors({ origin: env.corsOrigins, credentials: false }));
   app.use(requestLogger);
 
-  // A boundary is a few kilobytes. A megabyte-sized body is an attack, not a
-  // farm.
-  app.use(express.json({ limit: '256kb' }));
+  // Increased limit to 10mb for vision base64 image requests.
+  app.use(express.json({ limit: '10mb' }));
 
   // Liveness, not readiness: no database call, so an outage downstream does not
   // make the process look dead.

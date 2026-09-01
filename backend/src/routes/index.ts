@@ -10,6 +10,9 @@ import * as predictionsController from '../controllers/predictions.controller.js
 import * as referenceController from '../controllers/reference.controller.js';
 import * as updatesController from '../controllers/updates.controller.js';
 import * as schemesController from '../controllers/schemes.controller.js';
+import * as liveController from '../controllers/live.controller.js';
+import * as irrigationController from '../controllers/irrigation.controller.js';
+import * as cropAnalysisController from '../controllers/cropAnalysis.controller.js';
 import { requireAuth } from '../middleware/requireAuth.js';
 import { validate } from '../middleware/validate.js';
 import {
@@ -49,6 +52,9 @@ import {
  * still fall through to notFound rather than returning fabricated stubs.
  */
 export const apiRouter = Router();
+
+// Public vision assistant route (for live camera and still queries)
+apiRouter.post('/ai/visual-ask', aiController.visualAsk);
 
 apiRouter.use(requireAuth);
 
@@ -147,3 +153,9 @@ apiRouter.post('/ai/speak', validate('body', speakSchema), aiController.speak);
 // either side of it; this replaces `/ai/chat` as what the app asks in between,
 // because a spoken request now has three possible destinations rather than one.
 apiRouter.post('/ai/assist', validate('body', assistSchema), assistantController.assist);
+
+// --- Gemini Multimodal Live API & Assistant Tools ---------------------------
+apiRouter.post('/ai/live-token', liveController.getLiveToken);
+apiRouter.get('/ai/live-token', liveController.getLiveToken);
+apiRouter.post('/irrigation/advice', irrigationController.getIrrigationAdvice);
+apiRouter.post('/crop/analyze', cropAnalysisController.analyzeCrop);

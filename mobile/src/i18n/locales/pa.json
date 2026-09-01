@@ -656,7 +656,17 @@
     "answerDisclaimer": "ਇਹ AI ਮਾਡਲ ਦਾ ਜਵਾਬ ਹੈ, ਅਧਿਕਾਰਤ ਸਲਾਹ ਨਹੀਂ।",
     "errors": {
       "generic": "ਜਵਾਬ ਨਹੀਂ ਮਿਲ ਸਕਿਆ। ਨੈੱਟਵਰਕ ਚੈੱਕ ਕਰਕੇ ਕੋਸ਼ਿਸ਼ ਕਰੋ।"
-    }
+    },
+    "liveTitle": "KrishiNetra Live",
+    "startLive": "Start Live Assistant",
+    "endLive": "End Session",
+    "listening": "Listening...",
+    "thinking": "Analyzing...",
+    "speaking": "Speaking...",
+    "connecting": "Connecting...",
+    "connected": "Connected",
+    "switchCamera": "Flip camera",
+    "defaultGreeting": "I am watching your crop. Speak naturally to ask questions."
   },
   "myLands": {
     "title": "My Lands",

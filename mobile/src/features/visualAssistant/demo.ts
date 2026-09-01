@@ -1,5 +1,6 @@
 import type { TFunction } from 'i18next';
 
+import { apiFetch } from '@/services/api';
 import { supabase } from '@/services/supabase';
 
 /**
@@ -17,19 +18,6 @@ import { supabase } from '@/services/supabase';
  *         → structured result
  *         → LLM explanation
  *         → this same "answer" string, spoken/shown the same way
- *
- * Today this calls a temporary Supabase Edge Function
- * (`supabase/functions/visual-assistant-ask`) that forwards the image and
- * question straight to a vision-capable LLM and returns its raw text. That
- * function is documented as temporary in its own README — it is not, and
- * must not become, Engine 2. The answer is genuine model output, not a
- * KrishiNetra agricultural decision, which is why `isDemo` stays part of the
- * return shape: `false` marks a real (if unverified) answer, `true` marks the
- * one hardcoded fallback sentence used when the call fails outright.
- *
- * The file name and the module's original mock are kept deliberately — this
- * is still a temporary/demo architecture (no Engine 2, no backend/ proxy),
- * even though the text itself is now real.
  */
 
 export type VisualAssistantState = 'idle' | 'captured' | 'asking' | 'answered' | 'error';
@@ -51,7 +39,7 @@ export type VisualAssistantAnswer = {
 };
 
 /**
- * Calls the temporary vision proxy and returns its answer. Throws on
+ * Calls the vision proxy and returns its answer. Throws on
  * failure — the screen owns the loading/error UI, this module only owns
  * "how do I get an answer".
  */
@@ -59,20 +47,45 @@ export async function resolveVisualAssistantAnswer(
   t: TFunction,
   observation: VisualAssistantObservation,
 ): Promise<VisualAssistantAnswer> {
-  const { data, error } = await supabase.functions.invoke<{ answer?: string; error?: string }>(
-    'visual-assistant-ask',
-    {
+  // 1. Try KrishiNetra backend API
+  try {
+    const res = await apiFetch<{ answer: string }>('/api/v1/ai/visual-ask', {
+      method: 'POST',
       body: {
         imageBase64: observation.imageBase64,
         mimeType: observation.mimeType,
         question: observation.questionText,
       },
-    },
-  );
-
-  if (error || !data?.answer) {
-    throw new Error(t('visualAssistant.errors.generic'));
+      fallbackKey: 'visualAssistant.errors.generic',
+      auth: false,
+    });
+    if (res?.answer) {
+      return { answer: res.answer, isDemo: false };
+    }
+  } catch (err) {
+    console.warn('[VisualAssistant] Backend visual-ask failed:', err);
   }
 
-  return { answer: data.answer, isDemo: false };
+  // 2. Try Supabase Edge Function
+  try {
+    const { data, error } = await supabase.functions.invoke<{ answer?: string; error?: string }>(
+      'visual-assistant-ask',
+      {
+        body: {
+          imageBase64: observation.imageBase64,
+          mimeType: observation.mimeType,
+          question: observation.questionText,
+        },
+      },
+    );
+
+    if (!error && data?.answer) {
+      return { answer: data.answer, isDemo: false };
+    }
+  } catch {
+    // Fall through
+  }
+
+  throw new Error(t('visualAssistant.errors.generic'));
 }
+

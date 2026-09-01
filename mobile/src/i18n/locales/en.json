@@ -664,6 +664,16 @@
     "asking": "Asking KrishiNetra…",
     "answerLabel": "AI answer",
     "answerDisclaimer": "This answer comes directly from an AI model and is not yet checked by KrishiNetra — a preview, not official advice.",
+    "liveTitle": "KrishiNetra Live",
+    "startLive": "Start Live Assistant",
+    "endLive": "End Session",
+    "listening": "Listening...",
+    "thinking": "Analyzing...",
+    "speaking": "Speaking...",
+    "connecting": "Connecting...",
+    "connected": "Connected",
+    "switchCamera": "Flip camera",
+    "defaultGreeting": "I am watching your crop. Speak naturally to ask questions.",
     "errors": {
       "generic": "We couldn't get an answer. Check your connection and try again."
     }

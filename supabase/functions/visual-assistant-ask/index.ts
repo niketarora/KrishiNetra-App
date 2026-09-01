@@ -21,8 +21,8 @@
 //   supabase secrets set GEMINI_API_KEY=your-key-from-aistudio.google.com
 //   supabase functions deploy visual-assistant-ask
 
-const GEMINI_MODEL = 'gemini-3.5-flash-lite';
-const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/interactions`;
+const GEMINI_MODEL = 'gemini-3.6-flash';
+const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`;
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -34,7 +34,7 @@ type AskRequest = {
   imageBase64: string;
   /** Always 'image/jpeg' today — expo-camera's stills are JPEG. */
   mimeType: string;
-  /** The farmer's typed question (temporary stand-in for real speech-to-text). */
+  /** The farmer's question (typed or transcribed speech). */
   question: string;
 };
 
@@ -82,18 +82,32 @@ Deno.serve(async (req: Request) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: GEMINI_MODEL,
-        input: [
+        contents: [
           {
-            type: 'text',
-            text:
-              `A farmer is asking a question about a photo of their crop or field. ` +
-              `Answer in one short, plain, practical paragraph a farmer can act on. ` +
-              `Do not use technical jargon. If you cannot tell from the photo, say so ` +
-              `plainly rather than guessing.\n\nFarmer's question: ${question.trim()}`,
+            role: 'user',
+            parts: [
+              {
+                text:
+                  `You are KrishiNetra Live visual assistant for Indian farmers. ` +
+                  `A farmer is asking a question about a photo of their crop or field. ` +
+                  `Answer concisely in simple Hindi or Hinglish (or the same language the question is in). ` +
+                  `Describe only observable symptoms or features. Do not claim a definitive disease diagnosis without certainty. ` +
+                  `Give 2-3 practical, actionable sentences a farmer can understand.\n\n` +
+                  `Farmer's question: ${question.trim()}`,
+              },
+              {
+                inline_data: {
+                  mime_type: mimeType,
+                  data: imageBase64,
+                },
+              },
+            ],
           },
-          { type: 'image', data: imageBase64, mime_type: mimeType },
         ],
+        generationConfig: {
+          temperature: 0.3,
+          maxOutputTokens: 400,
+        },
       }),
     });
   } catch (err) {
@@ -102,8 +116,6 @@ Deno.serve(async (req: Request) => {
   }
 
   if (!geminiResponse.ok) {
-    // Never forward the provider's raw error body to the client (may include
-    // request details); log it server-side for debugging instead.
     console.error(
       'visual-assistant-ask: Gemini returned',
       geminiResponse.status,
@@ -114,16 +126,10 @@ Deno.serve(async (req: Request) => {
 
   const data = await geminiResponse.json().catch(() => null);
 
-  // The exact raw JSON field name was not independently confirmed against a
-  // literal example at implementation time — only the SDK convenience
-  // accessor `output_text` was. Try the documented accessor name first, then
-  // one plausible nested shape, and fail loudly (never return an empty or
-  // fabricated string) if neither matches.
-  const answer: unknown =
-    data?.output_text ??
-    data?.output?.[0]?.content?.find?.((c: { type?: string }) => c?.type === 'text')?.text;
+  const candidatePart = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+  const answer = typeof candidatePart === 'string' ? candidatePart : null;
 
-  if (typeof answer !== 'string' || !answer.trim()) {
+  if (!answer || !answer.trim()) {
     console.error('visual-assistant-ask: unexpected Gemini response shape', JSON.stringify(data));
     return jsonResponse({ error: 'vision_api_unexpected_response' }, 502);
   }

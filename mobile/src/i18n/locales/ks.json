@@ -656,7 +656,17 @@
     "answerDisclaimer": "یہ AI ماڈل کا ابتدائی جواب ہے، سرکاری مشورہ نہیں۔",
     "errors": {
       "generic": "جواب نہیں مل سکا۔ نیٹ ورک چیک کر کے کوشش کریں۔"
-    }
+    },
+    "liveTitle": "KrishiNetra Live",
+    "startLive": "Start Live Assistant",
+    "endLive": "End Session",
+    "listening": "Listening...",
+    "thinking": "Analyzing...",
+    "speaking": "Speaking...",
+    "connecting": "Connecting...",
+    "connected": "Connected",
+    "switchCamera": "Flip camera",
+    "defaultGreeting": "I am watching your crop. Speak naturally to ask questions."
   },
   "myLands": {
     "title": "My Lands",
