@@ -90,17 +90,23 @@ export function AvatarProvider({ children }: { children: ReactNode }) {
    * through — translating it here would be re-writing the model's answer.
    */
   const spokenText = useCallback(
-    (response: AssistantResponse): string =>
-      response.localised ? t(response.speech) : response.speech,
-    [t],
+    (response: AssistantResponse, lang?: string | null): string => {
+      if (response.localised) {
+        const targetLng = lang ? lang.split('-')[0] : i18n.language;
+        return i18n.t(response.speech, { lng: targetLng });
+      }
+      return response.speech;
+    },
+    [i18n],
   );
 
   /** Route one farmer utterance, then move the app and speak the answer. */
   const respond = useCallback(
-    async (spoken: string, turn: number) => {
+    async (spoken: string, turn: number, language?: string | null) => {
+      const effectiveLanguage = language || i18n.language;
       let response: AssistantResponse;
       try {
-        response = await assist(spoken, i18n.language);
+        response = await assist(spoken, effectiveLanguage);
         if (exchange.current !== turn) return;
 
         dispatch({ type: 'RESOLVE', response });
@@ -121,7 +127,7 @@ export function AvatarProvider({ children }: { children: ReactNode }) {
       // answered, so a synthesis failure ends the turn quietly rather than
       // replacing a good answer with an error.
       try {
-        await speech.play(spokenText(response), i18n.language);
+        await speech.play(spokenText(response, effectiveLanguage), effectiveLanguage);
       } catch (error) {
         console.warn('[avatar] could not speak the reply:', error);
       }
@@ -168,13 +174,15 @@ export function AvatarProvider({ children }: { children: ReactNode }) {
     const turn = exchange.current;
 
     let spoken: string;
+    let detectedLang: string | null = null;
     try {
       const uri = await recorder.stop();
       const transcription = await transcribe(uri, i18n.language);
       if (exchange.current !== turn) return;
 
       spoken = transcription.text;
-      dispatch({ type: 'STOP_LISTENING', transcript: spoken });
+      detectedLang = transcription.language;
+      dispatch({ type: 'STOP_LISTENING', transcript: spoken, language: detectedLang });
     } catch (error) {
       if (exchange.current !== turn) return;
 
@@ -195,7 +203,7 @@ export function AvatarProvider({ children }: { children: ReactNode }) {
       return;
     }
 
-    await respond(spoken, turn);
+    await respond(spoken, turn, detectedLang);
   }, [fail, i18n.language, recorder, respond]);
 
   /**
@@ -214,9 +222,9 @@ export function AvatarProvider({ children }: { children: ReactNode }) {
 
       const spoken = questionText(i18n.t.bind(i18n), question);
       dispatch({ type: 'START_LISTENING', question });
-      dispatch({ type: 'STOP_LISTENING', transcript: spoken });
+      dispatch({ type: 'STOP_LISTENING', transcript: spoken, language: i18n.language });
 
-      void respond(spoken, turn);
+      void respond(spoken, turn, i18n.language);
     },
     [guide, i18n, respond, speech],
   );

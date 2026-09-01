@@ -59,7 +59,7 @@ export function AvatarPeek() {
   const insets = useSafeAreaInsets();
   const reduceMotion = useReduceMotion();
 
-  const { state, response, transcript, errorKey, close, pressMic } = useAvatar();
+  const { state, response, transcript, language, errorKey, close, pressMic } = useAvatar();
 
   const visible = isAvatarVisible(state);
   const offset = useSharedValue(visible ? 0 : 1);
@@ -89,6 +89,8 @@ export function AvatarPeek() {
   const sources: ResearchSource[] =
     response?.type === 'RESEARCH_RESPONSE' ? response.sources : [];
 
+  const currentLang = language ? language.split('-')[0] : undefined;
+
   // What the avatar is showing right now: the farmer's own words while it
   // works, the answer once it has one, and — while listening — nothing at all,
   // because the farmer is the one talking.
@@ -98,14 +100,14 @@ export function AvatarPeek() {
   // them "sorry, I couldn't hear you" for both would send them to the wrong fix.
   const message =
     state === 'error'
-      ? t(errorKey ?? 'avatar.errors.generic')
+      ? t(errorKey ?? 'avatar.errors.generic', { lng: currentLang })
       : state === 'listening'
-        ? t('avatar.status.listening')
+        ? t('avatar.status.listening', { lng: currentLang })
         : response
           ? response.localised
-            ? t(response.message)
+            ? t(response.message, { lng: currentLang })
             : response.message
-          : (transcript ?? t('avatar.status.thinking'));
+          : (transcript ?? t('avatar.status.thinking', { lng: currentLang }));
 
   return (
     <Animated.View
@@ -114,7 +116,7 @@ export function AvatarPeek() {
       pointerEvents="box-none"
       style={[
         styles.peek,
-        { bottom: layout.navHeight + insets.bottom + 8 },
+        { bottom: layout.navHeight },
         slide,
       ]}
     >
@@ -122,14 +124,14 @@ export function AvatarPeek() {
         <View style={styles.statusRow}>
           <View style={[styles.dot, { backgroundColor: avatarColors.state[state] }]} />
           <Text variant="micro" color={colors.text.muted} style={styles.status}>
-            {t(`avatar.status.${state}`)}
+            {t(`avatar.status.${state}`, { lng: currentLang })}
           </Text>
 
           <Pressable
             onPress={close}
             hitSlop={12}
             accessibilityRole="button"
-            accessibilityLabel={t('avatar.close')}
+            accessibilityLabel={t('avatar.close', { lng: currentLang })}
           >
             <Icon name="close" size={16} color={colors.text.muted} strokeWidth={2} />
           </Pressable>
@@ -140,7 +142,7 @@ export function AvatarPeek() {
             <View style={styles.transcriptHeader}>
               <Icon name="mic" size={12} color={colors.accent} strokeWidth={2} />
               <Text variant="micro" color={colors.accent} style={styles.transcriptLabel}>
-                {t('avatar.youAsked')}
+                {t('avatar.youAsked', { lng: currentLang })}
               </Text>
             </View>
             <Text variant="caption" color={colors.text.primary} style={styles.transcriptText}>
@@ -162,7 +164,7 @@ export function AvatarPeek() {
         {sources.length > 0 ? (
           <View style={styles.sources}>
             <Text variant="micro" color={colors.text.muted}>
-              {t('avatar.sources.label')}
+              {t('avatar.sources.label', { lng: currentLang })}
             </Text>
             <ScrollView
               horizontal
@@ -196,12 +198,12 @@ export function AvatarPeek() {
             pressed && styles.micPressed,
           ]}
           accessibilityRole="button"
-          accessibilityLabel={t(`avatar.mic.${state}`)}
+          accessibilityLabel={t(`avatar.mic.${state}`, { lng: currentLang })}
           accessibilityState={{ disabled: state === 'thinking' }}
         >
           <Icon name="mic" size={16} color={colors.text.onPrimary} strokeWidth={2} />
           <Text variant="micro" color={colors.text.onPrimary}>
-            {t(`avatar.mic.${state}`)}
+            {t(`avatar.mic.${state}`, { lng: currentLang })}
           </Text>
         </Pressable>
       </View>

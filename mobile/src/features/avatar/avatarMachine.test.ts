@@ -38,6 +38,7 @@ describe('avatarReducer', () => {
       state: 'idle',
       question: null,
       transcript: null,
+      language: null,
       response: null,
     });
   });
@@ -50,9 +51,10 @@ describe('avatarReducer', () => {
       expect(state.state).toBe('listening');
       expect(state.question).toBe('area');
 
-      state = avatarReducer(state, { type: 'STOP_LISTENING', transcript: 'how big is my field' });
+      state = avatarReducer(state, { type: 'STOP_LISTENING', transcript: 'how big is my field', language: 'en-IN' });
       expect(state.state).toBe('thinking');
       expect(state.transcript).toBe('how big is my field');
+      expect(state.language).toBe('en-IN');
 
       state = avatarReducer(state, { type: 'RESOLVE', response: EXPERT });
       expect(state.state).toBe('speaking');

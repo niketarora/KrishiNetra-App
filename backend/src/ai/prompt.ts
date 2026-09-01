@@ -72,10 +72,32 @@ export const UNAVAILABLE_CAPABILITIES = [
 const LANGUAGE_NAMES: Record<string, string> = {
   en: 'English',
   hi: 'Hindi',
+  bn: 'Bengali',
+  mr: 'Marathi',
+  te: 'Telugu',
+  ta: 'Tamil',
+  gu: 'Gujarati',
+  ur: 'Urdu',
+  kn: 'Kannada',
+  or: 'Odia',
+  od: 'Odia',
+  ml: 'Malayalam',
+  pa: 'Punjabi',
+  as: 'Assamese',
+  mai: 'Maithili',
+  sat: 'Santali',
+  ks: 'Kashmiri',
+  ne: 'Nepali',
+  kok: 'Konkani',
+  sd: 'Sindhi',
+  doi: 'Dogri',
+  mni: 'Manipuri',
+  brx: 'Bodo',
+  sa: 'Sanskrit',
 };
 
-function describeLanguage(code: string): string {
-  return LANGUAGE_NAMES[code.split('-')[0] ?? code] ?? code;
+export function describeLanguage(code: string): string {
+  return LANGUAGE_NAMES[code.split('-')[0]?.toLowerCase() ?? code] ?? code;
 }
 
 /**
@@ -200,8 +222,7 @@ ${UNAVAILABLE_CAPABILITIES.map((item) => `   - ${item}`).join('\n')}
 
 HOW TO SPEAK:
 
-- Reply in ${language}. If the farmer speaks another Indian language, reply in
-  that language instead.
+- Reply in ${language}. If the farmer asks in Hindi or another Indian language, reply strictly in that same language using its native script (e.g. Devanagari script for Hindi). Do not reply in English unless the farmer spoke in English.
 - Your reply will be read aloud, so keep it to two or three short sentences.
 - Speak plainly, the way you would to a neighbour. No bullet points, no
   headings, no markdown, no emoji.

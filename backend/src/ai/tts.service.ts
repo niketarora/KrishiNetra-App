@@ -53,6 +53,8 @@ export function trimForSpeech(text: string): string {
  * Sarvam wants a BCP-47 tag and, unlike transcription, has no `unknown` to
  * fall back on — it must be told which language to read the text in.
  */
+import { detectLanguageFromText } from './stt.service.js';
+
 const REGIONAL_TTS_MAP: Record<string, string> = {
   hi: 'hi-IN',
   bn: 'bn-IN',
@@ -60,17 +62,37 @@ const REGIONAL_TTS_MAP: Record<string, string> = {
   ml: 'ml-IN',
   mr: 'mr-IN',
   or: 'od-IN',
+  od: 'od-IN',
   pa: 'pa-IN',
   ta: 'ta-IN',
   te: 'te-IN',
   gu: 'gu-IN',
+  as: 'as-IN',
+  ur: 'ur-IN',
   en: 'en-IN',
 };
 
-export function toSpeechLanguage(language: string | undefined): string {
-  if (!language) return 'en-IN';
-  const base = language.split('-')[0]?.toLowerCase() ?? '';
-  return REGIONAL_TTS_MAP[base] ?? 'en-IN';
+export function toSpeechLanguage(language: string | undefined, text?: string): string {
+  if (language) {
+    const base = language.split('-')[0]?.toLowerCase() ?? '';
+    const mapped = REGIONAL_TTS_MAP[base];
+    if (mapped && base !== 'en') return mapped;
+  }
+
+  if (text) {
+    const detected = detectLanguageFromText(text);
+    if (detected) {
+      const base = detected.split('-')[0] ?? '';
+      if (REGIONAL_TTS_MAP[base]) return REGIONAL_TTS_MAP[base];
+    }
+  }
+
+  if (language) {
+    const base = language.split('-')[0]?.toLowerCase() ?? '';
+    return REGIONAL_TTS_MAP[base] ?? 'en-IN';
+  }
+
+  return 'en-IN';
 }
 
 
@@ -111,7 +133,7 @@ export async function synthesize(
       },
       body: JSON.stringify({
         inputs: [spoken],
-        target_language_code: toSpeechLanguage(language),
+        target_language_code: toSpeechLanguage(language, spoken),
         model: env.SARVAM_TTS_MODEL,
         speaker: env.SARVAM_TTS_SPEAKER,
         speech_sample_rate: SPEECH_SAMPLE_RATE,

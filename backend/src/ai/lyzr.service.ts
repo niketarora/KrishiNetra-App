@@ -1,7 +1,7 @@
 import { getEnv } from '../config/env.js';
 import { ApiError } from '../utils/ApiError.js';
 
-import { buildContextBlock, type FarmerContext } from './prompt.js';
+import { buildContextBlock, describeLanguage, type FarmerContext } from './prompt.js';
 
 /**
  * The farming expert, behind one adapter.
@@ -75,19 +75,24 @@ export async function askExpert(
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), options.timeoutMs ?? 20_000);
 
-  const message = [
-    buildContextBlock(context),
-    '',
-    `The farmer asks: ${transcript}`,
-    '',
-    // The same discipline the in-house prompt enforces (prompt.ts §CRITICAL
-    // RULES). An external agent has no idea which numbers it may quote at this
-    // farmer, so it is told, every time.
-    'Answer in two or three short sentences, in plain spoken language, with no',
-    'markdown, bullets or emoji. Only quote figures listed above; if you do not',
-    'have a figure, say so rather than estimating one.',
-    context.language ? `Reply in the farmer's language: ${context.language}.` : '',
-  ]
+    const langName = context.language ? describeLanguage(context.language) : null;
+    const langInstruction = langName
+      ? `Reply strictly in ${langName} (${context.language}) using its native script (e.g. Devanagari script for Hindi). Do not reply in English unless the question was in English.`
+      : '';
+
+    const message = [
+      buildContextBlock(context),
+      '',
+      `The farmer asks: ${transcript}`,
+      '',
+      // The same discipline the in-house prompt enforces (prompt.ts §CRITICAL
+      // RULES). An external agent has no idea which numbers it may quote at this
+      // farmer, so it is told, every time.
+      'Answer in two or three short sentences, in plain spoken language, with no',
+      'markdown, bullets or emoji. Only quote figures listed above; if you do not',
+      'have a figure, say so rather than estimating one.',
+      langInstruction,
+    ]
     .filter(Boolean)
     .join('\n');
 

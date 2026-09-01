@@ -1,10 +1,16 @@
+import { GoogleGenAI, ThinkingLevel } from '@google/genai';
+
+import { getEnv } from '../config/env.js';
 import type { AssistantResponse, AvatarDirective } from '../types/assistant.js';
 import { ApiError } from '../utils/ApiError.js';
 
 import { buildFarmerContext } from './context.service.js';
+import { chat as askModel } from './llm.service.js';
 import { askExpert } from './lyzr.service.js';
 import { findDestination, type Destination } from './navigationRegistry.js';
+import { describeLanguage } from './prompt.js';
 import { classify } from './router.service.js';
+import { detectLanguageFromText } from './stt.service.js';
 import { research } from './tavily.service.js';
 import { trimForSpeech } from './tts.service.js';
 
@@ -52,6 +58,53 @@ function notConnected(messageKey: string): AssistantResponse {
   };
 }
 
+async function translateResearchAnswer(
+  answer: string,
+  language: string | undefined,
+  transcript: string,
+): Promise<string> {
+  const effectiveLang = language && language !== 'unknown' ? language : detectLanguageFromText(transcript);
+  if (!effectiveLang || effectiveLang.startsWith('en')) return answer;
+
+  const langName = describeLanguage(effectiveLang);
+  const env = getEnv();
+  if (!env.GEMINI_API_KEY) return answer;
+
+  try {
+    const ai = new GoogleGenAI({ apiKey: env.GEMINI_API_KEY });
+    const res = await ai.models.generateContent({
+      model: env.GEMINI_MODEL,
+      contents: [
+        {
+          role: 'user',
+          parts: [
+            {
+              text: `Translate and summarize the following agricultural research findings into ${langName} (${effectiveLang}) using its native script (e.g. Devanagari for Hindi).
+Farmer's spoken question: "${transcript}"
+Research findings: "${answer}"
+
+Rules:
+1. Reply strictly in ${langName} using its native script.
+2. Keep it to 2 or 3 short, spoken sentences.
+3. No bullet points, headings, markdown, or emojis.`,
+            },
+          ],
+        },
+      ],
+      config: {
+        temperature: 0.2,
+        maxOutputTokens: 300,
+        thinkingConfig: { thinkingLevel: ThinkingLevel.MINIMAL },
+      },
+    });
+
+    return res.text?.trim() || answer;
+  } catch (error) {
+    console.warn('[orchestrator] research translation failed, using original:', error);
+    return answer;
+  }
+}
+
 export async function assist(args: {
   transcript: string;
   language?: string;
@@ -59,9 +112,14 @@ export async function assist(args: {
   userId: string;
 }): Promise<AssistantResponse> {
   const { transcript, language, token, userId } = args;
+  const effectiveLang =
+    language && language !== 'unknown'
+      ? language
+      : detectLanguageFromText(transcript) ?? language;
+
   let route;
   try {
-    route = await classify(transcript, language);
+    route = await classify(transcript, effectiveLang);
   } catch (error) {
     console.warn('[orchestrator] classifier error, attempting fallback:', error);
     const local = findDestination(transcript);
@@ -84,13 +142,14 @@ export async function assist(args: {
   if (route.intent === 'DEEP_RESEARCH') {
     try {
       const result = await research(transcript, route.entities.depth === 'deep' ? 'advanced' : 'basic');
+      const answer = await translateResearchAnswer(result.answer, effectiveLang, transcript);
 
       return {
         type: 'RESEARCH_RESPONSE',
-        message: result.answer,
+        message: answer,
         // The bubble can hold a paragraph; the voice cannot. Same answer, cut
         // at a sentence boundary for the ear only.
-        speech: trimForSpeech(result.answer),
+        speech: trimForSpeech(answer),
         localised: false,
         sources: result.sources,
         avatar: TALKING,
@@ -107,7 +166,7 @@ export async function assist(args: {
   // Context is read first so the agent answers from this farmer's records
   // rather than from whatever the question implied about them.
   const context = await buildFarmerContext(token, userId);
-  if (language) context.language = language;
+  if (effectiveLang) context.language = effectiveLang;
 
   try {
     const reply = await askExpert(transcript, context, userId);
@@ -121,7 +180,18 @@ export async function assist(args: {
     };
   } catch (error) {
     if (error instanceof ApiError && error.code === 'SERVICE_NOT_CONNECTED') {
-      return notConnected('avatar.errors.expertNotConnected');
+      try {
+        const fallbackReply = await askModel([{ role: 'user', text: transcript }], context);
+        return {
+          type: 'EXPERT_RESPONSE',
+          message: fallbackReply.text,
+          speech: trimForSpeech(fallbackReply.text),
+          localised: false,
+          avatar: TALKING,
+        };
+      } catch {
+        return notConnected('avatar.errors.expertNotConnected');
+      }
     }
     throw error;
   }

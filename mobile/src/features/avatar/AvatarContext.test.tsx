@@ -162,7 +162,7 @@ describe('the voice loop', () => {
     await act(async () => result.current.pressMic());
     await waitFor(() => expect(mockedAssist).toHaveBeenCalled());
 
-    expect(mockedAssist).toHaveBeenCalledWith('मेरा खेत कितना बड़ा है', expect.any(String));
+    expect(mockedAssist).toHaveBeenCalledWith('मेरा खेत कितना बड़ा है', 'hi-IN');
   });
 
   it('reads an expert answer aloud exactly as it came back', async () => {
@@ -172,7 +172,7 @@ describe('the voice loop', () => {
     await act(async () => result.current.pressMic());
     await waitFor(() => expect(mockSpeech.play).toHaveBeenCalled());
 
-    expect(mockSpeech.play).toHaveBeenCalledWith('आपका खेत 2.50 एकड़ है।', expect.any(String));
+    expect(mockSpeech.play).toHaveBeenCalledWith('आपका खेत 2.50 एकड़ है।', 'hi-IN');
   });
 
   it('keeps the answer when the voice fails', async () => {
