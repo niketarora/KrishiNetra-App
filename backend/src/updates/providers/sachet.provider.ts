@@ -55,6 +55,7 @@ async function fetchCapFeed(url: string): Promise<string> {
     } catch (cause) {
       throw new SachetProviderError('Could not reach SACHET', cause);
     }
+    console.log(`[updates:sachet] HTTP ${response.status}`);
     if (!response.ok) throw new SachetProviderError(`SACHET returned HTTP ${response.status}`);
     return await response.text();
   } finally {
@@ -237,6 +238,13 @@ function parseAlerts(xml: string, ctx: UpdatesQueryContext): KrishiUpdate[] {
   return parseRssItems(xml, ctx);
 }
 
+/** How many raw `<item>`/`<alert>` blocks the feed carried, before any location filtering — for the "items parsed" debug line. */
+function countRawItems(xml: string): number {
+  const alertCount = extractBlocks(xml, 'alert').length;
+  if (alertCount > 0) return alertCount;
+  return extractBlocks(xml, 'item').length;
+}
+
 function cacheKeyFor(ctx: UpdatesQueryContext): string {
   return `sachet:${ctx.district ?? ''}:${ctx.state ?? ''}`;
 }
@@ -246,11 +254,18 @@ export async function fetchSachetUpdates(ctx: UpdatesQueryContext): Promise<Kris
 
   try {
     const xml = await cached(cacheKeyFor(ctx), TTL_MS, () => fetchCapFeed(env.SACHET_CAP_URL));
-    if (!xml || (!hasTag(xml, 'alert') && !hasTag(xml, 'item'))) return [];
-    return parseAlerts(xml, ctx);
-  } catch {
+    if (!xml || (!hasTag(xml, 'alert') && !hasTag(xml, 'item'))) {
+      console.log('[updates:sachet] items parsed=0 (no <alert>/<item> tags in response)');
+      return [];
+    }
+    const rawCount = countRawItems(xml);
+    const matched = parseAlerts(xml, ctx);
+    console.log(`[updates:sachet] items parsed=${rawCount} location-matched=${matched.length}`);
+    return matched;
+  } catch (cause) {
     // Any failure — network, timeout, malformed XML — is a "nothing to show",
     // never a fabricated official alert.
+    console.log(`[updates:sachet] failed: ${cause instanceof Error ? cause.message : 'unknown error'}`);
     return [];
   }
 }

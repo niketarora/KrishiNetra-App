@@ -26,13 +26,15 @@ const FARM = {
 const getFarm = jest.fn<any>().mockResolvedValue(FARM);
 const listFarmCrops = jest.fn<any>().mockResolvedValue([]);
 const listCrops = jest.fn<any>().mockResolvedValue([]);
-const fetchGdeltUpdates = jest.fn<any>().mockResolvedValue([]);
+const fetchGdeltUpdatesDetailed = jest.fn<any>().mockResolvedValue({ updates: [], hadFailure: false, usefulCount: 0 });
+const fetchGoogleNewsUpdates = jest.fn<any>().mockResolvedValue({ updates: [], usefulCount: 0 });
 const fetchSachetUpdates = jest.fn<any>().mockResolvedValue([]);
 
 jest.unstable_mockModule('../services/farms.service.js', () => ({ getFarm }));
 jest.unstable_mockModule('../services/farmCrops.service.js', () => ({ listFarmCrops }));
 jest.unstable_mockModule('../services/reference.service.js', () => ({ listCrops }));
-jest.unstable_mockModule('./providers/gdelt.provider.js', () => ({ fetchGdeltUpdates }));
+jest.unstable_mockModule('./providers/gdelt.provider.js', () => ({ fetchGdeltUpdatesDetailed }));
+jest.unstable_mockModule('./providers/google-news.provider.js', () => ({ fetchGoogleNewsUpdates }));
 jest.unstable_mockModule('./providers/sachet.provider.js', () => ({ fetchSachetUpdates }));
 
 const { getUpdatesForFarm, getNationalUpdates } = await import('./updates.service.js');
@@ -51,11 +53,20 @@ function update(overrides: Record<string, unknown> = {}) {
   };
 }
 
+function gdeltResult(updates: ReturnType<typeof update>[], hadFailure = false) {
+  return { updates, hadFailure, usefulCount: updates.length };
+}
+
+function googleNewsResult(updates: ReturnType<typeof update>[]) {
+  return { updates, usefulCount: updates.length };
+}
+
 beforeEach(() => {
   getFarm.mockClear().mockResolvedValue(FARM);
   listFarmCrops.mockClear().mockResolvedValue([]);
   listCrops.mockClear().mockResolvedValue([]);
-  fetchGdeltUpdates.mockClear().mockResolvedValue([]);
+  fetchGdeltUpdatesDetailed.mockClear().mockResolvedValue(gdeltResult([]));
+  fetchGoogleNewsUpdates.mockClear().mockResolvedValue(googleNewsResult([]));
   fetchSachetUpdates.mockClear().mockResolvedValue([]);
 });
 
@@ -70,13 +81,14 @@ describe('getUpdatesForFarm — ownership', () => {
     getFarm.mockRejectedValue(ApiError.notFound('No such field.'));
 
     await expect(getUpdatesForFarm('token', 'user-1', 'not-mine')).rejects.toThrow('No such field.');
-    expect(fetchGdeltUpdates).not.toHaveBeenCalled();
+    expect(fetchGdeltUpdatesDetailed).not.toHaveBeenCalled();
   });
 });
 
 describe('getUpdatesForFarm — provider failure handling', () => {
-  it('still returns results when one provider rejects', async () => {
-    fetchGdeltUpdates.mockRejectedValue(new Error('GDELT down'));
+  it('still returns SACHET results when GDELT/Google News both come back empty (e.g. GDELT down, no fallback content either)', async () => {
+    fetchGdeltUpdatesDetailed.mockResolvedValue(gdeltResult([], true));
+    fetchGoogleNewsUpdates.mockResolvedValue(googleNewsResult([]));
     fetchSachetUpdates.mockResolvedValue([update({ id: 'sachet-1', source: { name: 'NDMA', type: 'official' } })]);
 
     const result = await getUpdatesForFarm('token', 'user-1', 'farm-1');
@@ -85,8 +97,9 @@ describe('getUpdatesForFarm — provider failure handling', () => {
     expect(result.updates[0]?.id).toBe('sachet-1');
   });
 
-  it('returns an empty list, not a throw, when every provider fails', async () => {
-    fetchGdeltUpdates.mockRejectedValue(new Error('down'));
+  it('returns an empty list, not a throw, when every provider fails/returns nothing', async () => {
+    fetchGdeltUpdatesDetailed.mockRejectedValue(new Error('down'));
+    fetchGoogleNewsUpdates.mockResolvedValue(googleNewsResult([]));
     fetchSachetUpdates.mockRejectedValue(new Error('down'));
 
     const result = await getUpdatesForFarm('token', 'user-1', 'farm-1');
@@ -105,20 +118,20 @@ describe('getUpdatesForFarm — crop relevance', () => {
     const result = await getUpdatesForFarm('token', 'user-1', 'farm-1');
 
     expect(result.crop).toEqual({ code: 'wheat', name: 'Wheat' });
-    expect(fetchGdeltUpdates).toHaveBeenCalledWith(expect.objectContaining({ cropCode: 'wheat', cropName: 'Wheat' }));
+    expect(fetchGdeltUpdatesDetailed).toHaveBeenCalledWith(expect.objectContaining({ cropCode: 'wheat', cropName: 'Wheat' }));
   });
 
   it('reports no crop, honestly, rather than guessing one', async () => {
     const result = await getUpdatesForFarm('token', 'user-1', 'farm-1');
 
     expect(result.crop).toBeNull();
-    expect(fetchGdeltUpdates).toHaveBeenCalledWith(expect.objectContaining({ cropCode: null, cropName: null }));
+    expect(fetchGdeltUpdatesDetailed).toHaveBeenCalledWith(expect.objectContaining({ cropCode: null, cropName: null }));
   });
 });
 
 describe('getUpdatesForFarm — dedup and ordering', () => {
-  it('deduplicates the same story surfaced by two providers', async () => {
-    fetchGdeltUpdates.mockResolvedValue([update({ id: 'a', sourceUrl: 'https://x.com/story', title: 'Flood in Gorakhpur' })]);
+  it('deduplicates the same story surfaced by two providers (SACHET + GDELT)', async () => {
+    fetchGdeltUpdatesDetailed.mockResolvedValue(gdeltResult([update({ id: 'a', sourceUrl: 'https://x.com/story', title: 'Flood in Gorakhpur' })]));
     fetchSachetUpdates.mockResolvedValue([update({ id: 'b', sourceUrl: 'https://x.com/story', title: 'Flood in Gorakhpur' })]);
 
     const result = await getUpdatesForFarm('token', 'user-1', 'farm-1');
@@ -126,10 +139,27 @@ describe('getUpdatesForFarm — dedup and ordering', () => {
     expect(result.updates).toHaveLength(1);
   });
 
+  it('deduplicates the same story surfaced by GDELT and the Google News fallback', async () => {
+    fetchGdeltUpdatesDetailed.mockResolvedValue(gdeltResult([], true)); // triggers fallback
+    fetchGoogleNewsUpdates.mockResolvedValue(
+      googleNewsResult([update({ id: 'gn-1', sourceUrl: 'https://news.example.com/mandi-story', title: 'Mandi prices rise for wheat' })]),
+    );
+    fetchSachetUpdates.mockResolvedValue([]);
+    // Simulate GDELT having actually returned the same story before the (mocked) failure flag —
+    // more realistically this exercises dedupe across the two *raw* arrays the service combines.
+    fetchGdeltUpdatesDetailed.mockResolvedValue(
+      gdeltResult([update({ id: 'gd-1', sourceUrl: 'https://news.example.com/mandi-story', title: 'Mandi prices rise for wheat' })], true),
+    );
+
+    const result = await getUpdatesForFarm('token', 'user-1', 'farm-1');
+
+    expect(result.updates).toHaveLength(1);
+  });
+
   it('sorts by relevance score, most relevant first', async () => {
-    fetchGdeltUpdates.mockResolvedValue([
-      update({ id: 'low', sourceUrl: 'https://x.com/1', title: 'Unrelated general update', location: { country: 'India' } }),
-    ]);
+    fetchGdeltUpdatesDetailed.mockResolvedValue(
+      gdeltResult([update({ id: 'low', sourceUrl: 'https://x.com/1', title: 'Unrelated general update', location: { country: 'India' } })]),
+    );
     fetchSachetUpdates.mockResolvedValue([
       update({
         id: 'high',
@@ -148,7 +178,7 @@ describe('getUpdatesForFarm — dedup and ordering', () => {
 
   it('caps the result at the documented maximum rather than returning everything', async () => {
     const many = Array.from({ length: 40 }, (_, i) => update({ id: `u${i}`, sourceUrl: `https://x.com/${i}`, title: `Story ${i}` }));
-    fetchGdeltUpdates.mockResolvedValue(many);
+    fetchGdeltUpdatesDetailed.mockResolvedValue(gdeltResult(many));
 
     const result = await getUpdatesForFarm('token', 'user-1', 'farm-1');
 
@@ -156,9 +186,55 @@ describe('getUpdatesForFarm — dedup and ordering', () => {
   });
 });
 
+describe('getUpdatesForFarm — Google News fallback trigger', () => {
+  it('calls Google News when GDELT had a query failure', async () => {
+    fetchGdeltUpdatesDetailed.mockResolvedValue(gdeltResult([update({ id: 'g1' })], true));
+
+    await getUpdatesForFarm('token', 'user-1', 'farm-1');
+
+    expect(fetchGoogleNewsUpdates).toHaveBeenCalledTimes(1);
+  });
+
+  it('calls Google News when GDELT succeeded but returned too few useful results', async () => {
+    fetchGdeltUpdatesDetailed.mockResolvedValue(gdeltResult([update({ id: 'g1' }), update({ id: 'g2', sourceUrl: 'https://x.com/2' })], false));
+
+    await getUpdatesForFarm('token', 'user-1', 'farm-1');
+
+    expect(fetchGoogleNewsUpdates).toHaveBeenCalledTimes(1);
+  });
+
+  it('does NOT call Google News when GDELT already returned enough useful results', async () => {
+    const plenty = Array.from({ length: 5 }, (_, i) => update({ id: `g${i}`, sourceUrl: `https://x.com/${i}` }));
+    fetchGdeltUpdatesDetailed.mockResolvedValue(gdeltResult(plenty, false));
+
+    await getUpdatesForFarm('token', 'user-1', 'farm-1');
+
+    expect(fetchGoogleNewsUpdates).not.toHaveBeenCalled();
+  });
+
+  it('includes Google News fallback results in the final feed when triggered', async () => {
+    fetchGdeltUpdatesDetailed.mockResolvedValue(gdeltResult([], true));
+    fetchGoogleNewsUpdates.mockResolvedValue(googleNewsResult([update({ id: 'gn-1', sourceUrl: 'https://news.example.com/fallback-story' })]));
+
+    const result = await getUpdatesForFarm('token', 'user-1', 'farm-1');
+
+    expect(result.updates.some((u) => u.id === 'gn-1')).toBe(true);
+  });
+
+  it('still returns SACHET results when GDELT and the Google News fallback both fail', async () => {
+    fetchGdeltUpdatesDetailed.mockResolvedValue(gdeltResult([], true));
+    fetchGoogleNewsUpdates.mockRejectedValue(new Error('google news down'));
+    fetchSachetUpdates.mockResolvedValue([update({ id: 'sachet-1', source: { name: 'NDMA', type: 'official' } })]);
+
+    const result = await getUpdatesForFarm('token', 'user-1', 'farm-1');
+
+    expect(result.updates.some((u) => u.id === 'sachet-1')).toBe(true);
+  });
+});
+
 describe('getNationalUpdates — no farm registered yet', () => {
   it('returns a feed without ever calling getFarm or SACHET', async () => {
-    fetchGdeltUpdates.mockResolvedValue([update({ id: 'national-1', title: 'National agritech update' })]);
+    fetchGdeltUpdatesDetailed.mockResolvedValue(gdeltResult([update({ id: 'national-1', title: 'National agritech update' })]));
 
     const result = await getNationalUpdates();
 
@@ -169,8 +245,9 @@ describe('getNationalUpdates — no farm registered yet', () => {
     expect(fetchSachetUpdates).not.toHaveBeenCalled();
   });
 
-  it('returns an empty list, not a throw, when GDELT fails', async () => {
-    fetchGdeltUpdates.mockRejectedValue(new Error('down'));
+  it('returns an empty list, not a throw, when GDELT and Google News both fail', async () => {
+    fetchGdeltUpdatesDetailed.mockRejectedValue(new Error('down'));
+    fetchGoogleNewsUpdates.mockRejectedValue(new Error('down'));
 
     const result = await getNationalUpdates();
 
