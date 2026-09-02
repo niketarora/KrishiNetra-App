@@ -72,6 +72,8 @@ export const HIGHLIGHT_TARGETS = [
   'price-card',
   'price-trend',
   'recommendation-card',
+  'buyers-list',
+  'quality-grade-card',
   // Farm
   'my-farm-summary',
   'my-farm-edit-boundary',

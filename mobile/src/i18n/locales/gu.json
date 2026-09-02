@@ -651,7 +651,9 @@
         "sell_or_wait": "વેચવું કે રાહ જોવી — તેના માટે ભાવનું અનુમાન જોઈએ, જે હજી જોડાયેલું નથી. આ એ કાર્ડ છે જ્યાં તે દેખાશે.",
         "field_analysis": "પાકની તંદુરસ્તી અને વૃદ્ધિનો તબક્કો હજી જોડાયેલો નથી. અહીં હાલ ફક્ત હવામાન જોખમની હરોળ સાચી છે.",
         "soil_moisture": "આ ભેજનો આંકડો પ્રાયોગિક મૉડેલમાંથી આવે છે, તેથી તેને આશરે અંદાજ ગણો, સિંચાઈની સલાહ નહીં."
-      }
+      },
+      "buyers": "Here are verified direct buyers and demand offers for your crop.",
+      "quality_grading": "Here is the crop quality assay and moisture grading breakdown."
     },
     "youAsked": "You asked"
   },

@@ -651,7 +651,9 @@
         "sell_or_wait": "যোনগদ্রা ঙাইগদ্রা — মসিগীদমক্তা মমলগী ৱারোল মথৌ তাই, মদু হৌজিকফাওবা শম্নহন্দ্রি। মসি মদু উগদবা কার্দ অদুনি।",
         "field_analysis": "মহৈগী হকশেল অমসুং চাউখৎপগী তাংকক হৌজিকফাওবা শম্নহন্দ্রি। মফমসিদা হৌজিক নুংশা-নোংগী খুদোংথিবগী পরিং অদুখক্তনি অচুম্বা।",
         "soil_moisture": "ইশিং চাংগী মসিং অসি অচংবা মোদেল অমদগী লাকপনি, মরম অদুনা মসিবু অচুম্বা মীৎয়েং অমা হায়না লৌবিয়ু, ইশিং থাদবগী পাউতাক অমা নত্তে।"
-      }
+      },
+      "buyers": "Here are verified direct buyers and demand offers for your crop.",
+      "quality_grading": "Here is the crop quality assay and moisture grading breakdown."
     },
     "youAsked": "You asked"
   },

@@ -651,7 +651,9 @@
         "sell_or_wait": "ਵੇਚਣਾ ਹੈ ਜਾਂ ਰੁਕਣਾ — ਇਸ ਲਈ ਭਾਅ ਦਾ ਅੰਦਾਜ਼ਾ ਚਾਹੀਦਾ, ਜੋ ਹਾਲੇ ਜੁੜਿਆ ਨਹੀਂ। ਇਹ ਉਹ ਕਾਰਡ ਹੈ ਜਿੱਥੇ ਉਹ ਦਿਖੇਗਾ।",
         "field_analysis": "ਫ਼ਸਲ ਦੀ ਸਿਹਤ ਤੇ ਵਾਧੇ ਦਾ ਪੜਾਅ ਹਾਲੇ ਜੁੜਿਆ ਨਹੀਂ। ਇੱਥੇ ਫ਼ਿਲਹਾਲ ਸਿਰਫ਼ ਮੌਸਮੀ ਖ਼ਤਰੇ ਵਾਲੀ ਸਤਰ ਅਸਲ ਹੈ।",
         "soil_moisture": "ਇਹ ਨਮੀ ਦਾ ਅੰਕੜਾ ਇੱਕ ਤਜਰਬੇ ਵਾਲੇ ਮਾਡਲ ਤੋਂ ਆਉਂਦਾ ਹੈ, ਇਸ ਲਈ ਇਸਨੂੰ ਮੋਟਾ ਅੰਦਾਜ਼ਾ ਮੰਨੋ, ਸਿੰਚਾਈ ਦੀ ਸਲਾਹ ਨਹੀਂ।"
-      }
+      },
+      "buyers": "Here are verified direct buyers and demand offers for your crop.",
+      "quality_grading": "Here is the crop quality assay and moisture grading breakdown."
     },
     "youAsked": "You asked"
   },

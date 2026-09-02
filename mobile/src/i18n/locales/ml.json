@@ -651,7 +651,9 @@
         "sell_or_wait": "വിൽക്കണോ കാത്തിരിക്കണോ — അതിന് വിലയുടെ പ്രവചനം വേണം, അത് ഇനിയും ബന്ധിപ്പിച്ചിട്ടില്ല. അത് കാണിക്കുന്ന കാർഡ് ഇതാണ്.",
         "field_analysis": "വിളയുടെ ആരോഗ്യവും വളർച്ചാഘട്ടവും ഇനിയും ബന്ധിപ്പിച്ചിട്ടില്ല. ഇവിടെ ഇപ്പോൾ കാലാവസ്ഥാ അപകട വരി മാത്രമാണ് യഥാർത്ഥം.",
         "soil_moisture": "ഈ ഈർപ്പ കണക്ക് ഒരു പരീക്ഷണാത്മക മാതൃകയിൽ നിന്നാണ്, അതിനാൽ ഇതൊരു ഏകദേശ കണക്കായി കാണുക, ജലസേചന ഉപദേശമായല്ല."
-      }
+      },
+      "buyers": "Here are verified direct buyers and demand offers for your crop.",
+      "quality_grading": "Here is the crop quality assay and moisture grading breakdown."
     },
     "youAsked": "You asked"
   },

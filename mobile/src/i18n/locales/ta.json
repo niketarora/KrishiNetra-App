@@ -651,7 +651,9 @@
         "sell_or_wait": "விற்கலாமா காத்திருக்கலாமா — இதற்கு விலை முன்னறிவிப்பு தேவை, அது இன்னும் இணைக்கப்படவில்லை. அது தோன்றும் அட்டை இதுவே.",
         "field_analysis": "பயிர் நலமும் வளர்ச்சி நிலையும் இன்னும் இணைக்கப்படவில்லை. இங்கே இப்போது வானிலை அபாய வரி மட்டுமே உண்மையானது.",
         "soil_moisture": "இந்த ஈரப்பத எண் ஒரு சோதனை மாதிரியிலிருந்து வருகிறது, எனவே இதை தோராயமான மதிப்பீடாகக் கொள்ளுங்கள், நீர்ப்பாசன ஆலோசனையாக அல்ல."
-      }
+      },
+      "buyers": "Here are verified direct buyers and demand offers for your crop.",
+      "quality_grading": "Here is the crop quality assay and moisture grading breakdown."
     },
     "youAsked": "You asked"
   },

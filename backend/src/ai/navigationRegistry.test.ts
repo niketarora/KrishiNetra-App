@@ -62,7 +62,7 @@ describe('the destination table', () => {
   });
 });
 
-describe('destinations with no real data behind them', () => {
+describe('destinations with real data and caveats', () => {
   it('warns about the irrigation schedule instead of implying one exists', () => {
     const irrigation = findDestination('irrigation_schedule');
 
@@ -72,8 +72,24 @@ describe('destinations with no real data behind them', () => {
     expect(irrigation?.caveatKey).toBe('avatar.guide.caveat.irrigation');
   });
 
-  it('warns about sell-or-wait, which is pending ML prediction', () => {
-    expect(findDestination('sell_or_wait')?.caveatKey).toBeTruthy();
+  it('routes sell-or-wait directly to the recommendation card', () => {
+    const sellOrWait = findDestination('sell_or_wait');
+    expect(sellOrWait).not.toBeNull();
+    expect(sellOrWait?.steps).toEqual([
+      { action: 'NAVIGATE', target: 'Market' },
+      { action: 'SCROLL', target: 'recommendation-card' },
+      { action: 'HIGHLIGHT', target: 'recommendation-card' },
+    ]);
+  });
+
+  it('routes verified buyers to the buyers list', () => {
+    const buyers = findDestination('buyers');
+    expect(buyers).not.toBeNull();
+    expect(buyers?.steps).toEqual([
+      { action: 'NAVIGATE', target: 'Market' },
+      { action: 'SCROLL', target: 'buyers-list' },
+      { action: 'HIGHLIGHT', target: 'buyers-list' },
+    ]);
   });
 });
 
@@ -107,11 +123,18 @@ describe('matchDestinationLocally', () => {
     expect(matchDestinationLocally('what is the mandi price today')?.id).toBe('market_price');
     expect(matchDestinationLocally('show me the weather')?.id).toBe('weather');
     expect(matchDestinationLocally('I want to add land')?.id).toBe('register_land');
+    expect(matchDestinationLocally('locate the marketplace')?.id).toBe('market_price');
   });
 
-  it('works in Hindi as well as English', () => {
+  it('works in Hindi and Hinglish as well as English', () => {
     expect(matchDestinationLocally('आज मंडी भाव क्या है')?.id).toBe('market_price');
     expect(matchDestinationLocally('मौसम कैसा है')?.id).toBe('weather');
+    expect(matchDestinationLocally('मेरे ऐप में मार्केट किधर है बताओ')?.id).toBe('market_price');
+    expect(matchDestinationLocally('mere app me market kidhar ha bato')?.id).toBe('market_price');
+    expect(matchDestinationLocally('mandi kahan hai')?.id).toBe('market_price');
+    expect(matchDestinationLocally('who will buy my crop')?.id).toBe('buyers');
+    expect(matchDestinationLocally('खरीदार दिखाओ')?.id).toBe('buyers');
+    expect(matchDestinationLocally('crop quality grading')?.id).toBe('quality_grading');
   });
 
   it('ignores punctuation and casing', () => {
@@ -137,10 +160,6 @@ describe('matchDestinationLocally', () => {
   });
 
   it('does not swallow a research question that happens to contain an alias', () => {
-    // The regression this guards: a bare substring match sends this to the farm
-    // calendar on the strength of the word "irrigation", answering a question
-    // about government subsidies with a screen. Anything with substance left
-    // over after the alias belongs to the router, not to this shortcut.
     expect(
       matchDestinationLocally('what are the latest solar irrigation subsidies in Maharashtra'),
     ).toBeNull();
@@ -149,8 +168,6 @@ describe('matchDestinationLocally', () => {
   });
 
   it('still matches the same request phrased as navigation', () => {
-    // The pair above and below differ only in what is left over, which is
-    // exactly the signal the coverage rule reads.
     expect(matchDestinationLocally('show me the irrigation schedule')?.id).toBe(
       'irrigation_schedule',
     );

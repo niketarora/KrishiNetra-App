@@ -639,7 +639,9 @@
     "guide": {
       "market_price": "Here is today's mandi price for your crop, next to the MSP.",
       "price_trend": "This is how the price has moved over the last seven days.",
-      "sell_or_wait": "This is where a sell-or-wait recommendation will appear.",
+      "sell_or_wait": "Here is the AI sale recommendation with estimated holding profit and days.",
+      "buyers": "Here are verified direct buyers and demand offers for your crop.",
+      "quality_grading": "Here is the crop quality assay and moisture grading breakdown.",
       "weather": "Here is the latest weather recorded for your field.",
       "crop_status": "This shows the crop you have sown and when.",
       "msp": "This is the published minimum support price for your crop.",

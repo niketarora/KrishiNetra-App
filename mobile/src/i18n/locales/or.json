@@ -651,7 +651,9 @@
         "sell_or_wait": "ବିକ୍ରି କରିବେ କି ଅପେକ୍ଷା — ଏଥିପାଇଁ ଦରର ପୂର୍ବାନୁମାନ ଦରକାର, ଯାହା ଏପର୍ଯ୍ୟନ୍ତ ଯୋଡ଼ାଯାଇନାହିଁ। ଏହା ସେହି କାର୍ଡ ଯେଉଁଠି ତାହା ଦେଖାଯିବ।",
         "field_analysis": "ଫସଲର ସ୍ୱାସ୍ଥ୍ୟ ଓ ବୃଦ୍ଧି ପର୍ଯ୍ୟାୟ ଏପର୍ଯ୍ୟନ୍ତ ଯୋଡ଼ାଯାଇନାହିଁ। ଏଠାରେ ବର୍ତ୍ତମାନ କେବଳ ପାଣିପାଗ ବିପଦ ଧାଡ଼ି ଅସଲ।",
         "soil_moisture": "ଏହି ଆର୍ଦ୍ରତା ସଂଖ୍ୟା ଏକ ପରୀକ୍ଷାମୂଳକ ମଡେଲରୁ ଆସେ, ତେଣୁ ଏହାକୁ ମୋଟାମୋଟି ଅନୁମାନ ଭାବନ୍ତୁ, ଜଳସେଚନ ପରାମର୍ଶ ନୁହେଁ।"
-      }
+      },
+      "buyers": "Here are verified direct buyers and demand offers for your crop.",
+      "quality_grading": "Here is the crop quality assay and moisture grading breakdown."
     },
     "youAsked": "You asked"
   },

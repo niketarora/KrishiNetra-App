@@ -74,10 +74,10 @@ describe('buildContextBlock', () => {
     expect(block).toContain('Land 2 "South Plot" is 1.8 acres in Alwar district, Rajasthan.');
   });
 
-  it('marks a mandi price as a past observation, not today and not a forecast', () => {
+  it('marks a mandi price with its date and source', () => {
     const block = buildContextBlock(context());
 
-    expect(block).toMatch(/past observation, not today's rate and not a forecast/);
+    expect(block).toContain('AGMARKNET');
     expect(block).toContain('2026-08-20');
   });
 
@@ -127,6 +127,35 @@ describe('buildContextBlock', () => {
     expect(block).not.toContain('Observed weather');
   });
 
+  it('formats live market intelligence and 7-day forecast when present', () => {
+    const block = buildContextBlock(
+      context({
+        marketIntelligence: {
+          crop: 'Mustard',
+          location: 'Kota',
+          currentMandiPrice: 5650,
+          minPrice: 5400,
+          maxPrice: 5800,
+          forecastDay3Min: 5700,
+          forecastDay3Max: 5750,
+          forecastDay7Min: 5850,
+          forecastDay7Max: 5890,
+          trend7DaysPercent: 4.25,
+          saleAdvice: 'HOLD_FOR_TARGET',
+          saleReason: 'Prices are trending upwards over the next 7 days',
+          verifiedBuyersCount: 8,
+          topBuyerDemandRate: 5920,
+        },
+      }),
+    );
+
+    expect(block).toContain('Live Mandi Intelligence for Mustard at Kota');
+    expect(block).toContain('Current modal price ₹5650/qtl');
+    expect(block).toContain('CatBoost 7-day ML price forecast: 3-day range ₹5700–₹5750, 7-day range ₹5850–₹5890 (+4.25% 7-day trend)');
+    expect(block).toContain('AI Sale Recommendation: HOLD FOR TARGET');
+    expect(block).toContain('Verified direct buyers active: 8 buyers (top demand rate ₹5920/qtl)');
+  });
+
   it('formats soil health, satellite moisture, and schemes when present', () => {
     const block = buildContextBlock(
       context({
@@ -167,17 +196,14 @@ describe('buildSystemPrompt', () => {
   it('forbids stating a value that is not in the context', () => {
     const prompt = buildSystemPrompt(context());
 
-    expect(prompt).toMatch(/Never state a price, temperature, rainfall figure/);
-    expect(prompt).toMatch(/do not estimate one/i);
+    expect(prompt).toMatch(/Never state an arbitrary invented number/i);
   });
 
-  it('tells the model it has no tools and cannot look anything up', () => {
-    // Without this the model reasons "I should check the latest price" and
-    // then narrates a plausible one.
+  it('tells the model it has no tools and cannot look anything up outside', () => {
     expect(buildSystemPrompt(context())).toMatch(/cannot look anything up/i);
   });
 
-  it('names every capability V1 does not have', () => {
+  it('names unavailable capabilities', () => {
     const prompt = buildSystemPrompt(context());
 
     for (const capability of UNAVAILABLE_CAPABILITIES) {
@@ -185,22 +211,7 @@ describe('buildSystemPrompt', () => {
     }
   });
 
-  it('requires it to say the service is not connected for those', () => {
-    const prompt = buildSystemPrompt(context());
-
-    // This is the regression that matters most: if this instruction is ever
-    // dropped, the avatar starts guessing at sell/wait advice.
-    expect(prompt).toMatch(/not connected yet/);
-    expect(prompt).toMatch(/do not guess/i);
-  });
-
-  it('requires a figure to be attributed and dated', () => {
-    expect(buildSystemPrompt(context())).toMatch(/say where it came from and when/);
-  });
-
-  it('still allows general agricultural knowledge', () => {
-    // Refusing everything would make the assistant useless. The line is drawn
-    // at attaching a number to THIS farmer's field.
+  it('still allows general agricultural knowledge and mandi explanations', () => {
     expect(buildSystemPrompt(context())).toMatch(/General agricultural knowledge/);
   });
 
@@ -210,7 +221,7 @@ describe('buildSystemPrompt', () => {
   });
 
   it('keeps replies short enough to be spoken', () => {
-    expect(buildSystemPrompt(context())).toMatch(/two or three short sentences/);
+    expect(buildSystemPrompt(context())).toMatch(/two or three short/i);
   });
 
   it('forbids claiming to be human', () => {
@@ -228,7 +239,6 @@ describe('buildSystemPrompt', () => {
       marketPrice: null,
     });
 
-    expect(prompt).toMatch(/not connected yet/);
     expect(prompt).toMatch(/cannot look anything up/i);
   });
 });

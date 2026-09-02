@@ -651,7 +651,9 @@
         "sell_or_wait": "بیچیں یا رکیں — اس کے لیے قیمت کی پیش گوئی چاہیے، جو ابھی جڑی نہیں۔ یہ وہ کارڈ ہے جہاں یہ دکھے گا۔",
         "field_analysis": "فصل کی صحت اور بڑھوتری کا مرحلہ ابھی جڑا نہیں۔ یہاں فی الحال صرف موسمی خطرے کی سطر اصلی ہے۔",
         "soil_moisture": "یہ نمی کا عدد ایک تجرباتی ماڈل سے آتا ہے، اس لیے اسے موٹا اندازہ سمجھیں، آبپاشی کا مشورہ نہیں۔"
-      }
+      },
+      "buyers": "Here are verified direct buyers and demand offers for your crop.",
+      "quality_grading": "Here is the crop quality assay and moisture grading breakdown."
     },
     "youAsked": "You asked"
   },
