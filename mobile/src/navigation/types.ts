@@ -58,4 +58,12 @@ export type MainStackParamList = {
    * src/features/visualAssistant/demo.ts).
    */
   VisualAssistant: undefined;
+  /**
+   * Home → AR Moisture Guidance — camera + GPS/compass directional
+   * navigation toward demo-labelled moisture *sampling targets*, not
+   * measured moisture zones (see `features/arMoisture/types.ts`). A
+   * separate route from the unrelated mock `ARGuide` (tutorial-linked,
+   * no real camera/location).
+   */
+  ARMoistureGuidance: undefined;
 };

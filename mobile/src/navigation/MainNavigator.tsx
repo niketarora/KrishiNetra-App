@@ -11,6 +11,7 @@ import { useFarm } from '@/features/farm/FarmContext';
 import { AlertDetailScreen } from '@/screens/alerts/AlertDetailScreen';
 import { AlertsScreen } from '@/screens/alerts/AlertsScreen';
 import { ARLearningScreen } from '@/screens/ar/ARLearningScreen';
+import { ARMoistureGuidanceScreen } from '@/screens/ar/ARMoistureGuidanceScreen';
 import { CalendarEventDetailScreen } from '@/screens/calendar/CalendarEventDetailScreen';
 import { CalendarScreen } from '@/screens/calendar/CalendarScreen';
 import { FieldAnalysisScreen } from '@/screens/field/FieldAnalysisScreen';
@@ -123,6 +124,7 @@ function MainTabs() {
             onOpenUpdates={() => navigation.navigate('Updates')}
             onOpenAlerts={() => navigation.navigate('Alerts')}
             onOpenVisualAssistant={() => navigation.navigate('VisualAssistant')}
+            onOpenArMoisture={() => navigation.navigate('ARMoistureGuidance')}
           />
         )}
       </Tab.Screen>
@@ -419,6 +421,11 @@ export function MainNavigator() {
 
       <Stack.Screen name="VisualAssistant">
         {({ navigation }) => <VisualAssistantScreen onBack={() => navigation.goBack()} />}
+      </Stack.Screen>
+
+      {/* Home → AR Moisture Guidance — camera+GPS/compass directional guidance to a demo sampling target, not a measured moisture zone. */}
+      <Stack.Screen name="ARMoistureGuidance">
+        {({ navigation }) => <ARMoistureGuidanceScreen onBack={() => navigation.goBack()} />}
       </Stack.Screen>
 
       {/* Home/Profile → Alerts — demo communication history, reused from both entry points. */}

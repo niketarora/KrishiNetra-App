@@ -157,6 +157,8 @@
     "soilMoisture": "मिट्टी की नमी",
     "soilMoistureValue": "{{percent}}%",
     "soilMoistureNote": "{{category}} · एआई मॉडल",
+    "arMoistureTitle": "एआर नमी मार्गदर्शन",
+    "arMoistureSub": "कैमरे की मदद से खेत के सटीक नमी स्थान तक पहुँचें।",
     "marketTitle": "मंडी भाव व AI बाज़ार",
     "marketSub": "लाइव मंडी भाव · 7-दिवसीय AI पूर्वानुमान · सत्यापित खरीदार",
     "marketExploreCta": "बाज़ार देखें और खरीदारों से जुड़ें",
@@ -736,5 +738,35 @@
     "errors": {
       "generic": "हम जवाब नहीं ला पाए। अपना इंटरनेट जाँचें और फिर कोशिश करें।"
     }
+  },
+  "arMoisture": {
+    "title": "एआर नमी मार्गदर्शन",
+    "cameraPermissionTitle": "कैमरा अनुमति आवश्यक",
+    "cameraPermissionBody": "खेत में मार्गदर्शन करने के लिए कृषिनेत्र को कैमरा अनुमति चाहिए।",
+    "cameraPermissionDenied": "कैमरा अनुमति बंद है। उपयोग करने के लिए सेटिंग में जाकर चालू करें।",
+    "allowCamera": "कैमरा अनुमति दें",
+    "locationPermissionTitle": "स्थान (GPS) अनुमति आवश्यक",
+    "locationPermissionBody": "सटीक स्थान तक मार्गदर्शन के लिए स्थान अनुमति चाहिए।",
+    "allowLocation": "स्थान अनुमति दें",
+    "noFarmTitle": "कोई खेत पंजीकृत नहीं",
+    "noFarmBody": "पहले खेत पंजीकृत करें ताकि कृषिनेत्र आपको रास्ता दिखा सके।",
+    "acquiringFix": "आपका स्थान ढूँढ रहे हैं…",
+    "outsideFarm": "आप खेत से काफ़ी दूर लग रहे हैं",
+    "arrivedLabel": "आप पहुँच गए हैं",
+    "targetLabel": "नमी नमूना स्थान",
+    "distanceValue": "~{{meters}} मी",
+    "navigateHere": "यहाँ जाएँ",
+    "headingUnavailable": "दिशा सूचक अनुपलब्ध — केवल दूरी दिख रही है",
+    "demoDataLabel": "डेमो डेटा — वास्तविक नमूना जाँच नहीं",
+    "gpsQuality": "GPS: {{quality}}",
+    "headingQuality": "दिशा: {{quality}}",
+    "quality": {
+      "good": "उत्तम",
+      "fair": "मध्यम",
+      "poor": "कमज़ोर",
+      "unknown": "अज्ञात",
+      "unavailable": "अनुपलब्ध"
+    },
+    "nextTarget": "अगला स्थान"
   }
 }
