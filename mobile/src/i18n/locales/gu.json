@@ -1,4 +1,4 @@
-{
+﻿{
   "common": {
     "continue": "આગળ વધો",
     "back": "પાછળ",
@@ -440,6 +440,7 @@
     "governmentUpdate": "સરકારી અપડેટ",
     "officialSourceBadge": "સત્તાવાર સ્ત્રોત",
     "regionalNews": "પ્રાદેશિક સમાચાર",
+    "nationalNews": "National News",
     "unnamedField": "ખેતર {{number}}",
     "locationUnknown": "સ્થાન નોંધાયેલ નથી",
     "categories": {

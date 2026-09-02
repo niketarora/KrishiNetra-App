@@ -1,4 +1,4 @@
-{
+﻿{
   "common": {
     "continue": "برونٛہہ پکو",
     "back": "واپس",
@@ -440,6 +440,7 @@
     "governmentUpdate": "سرکاری اپڈیٹ",
     "officialSourceBadge": "سرکاری ماخذ",
     "regionalNews": "علاقائی خبریں",
+    "nationalNews": "National News",
     "unnamedField": "کھیت {{number}}",
     "locationUnknown": "مقام درج نہیں ہے",
     "categories": {

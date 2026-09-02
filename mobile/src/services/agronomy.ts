@@ -167,17 +167,39 @@ export async function getLatestMsp(cropCode: string): Promise<Msp | null> {
   return { ...latest, price_per_quintal: asNumber(latest.price_per_quintal) };
 }
 
+export type WeatherQueryParams = {
+  farmId?: string | null;
+  lat?: number | null;
+  lng?: number | null;
+};
+
 /**
- * The latest observed weather for the field's district, or null.
+ * The latest real-time weather for the farm or location, or null.
  *
- * The API answers 503 when the field has no resolved district or no
- * observation has been ingested for it. That is an expected state, not a
- * failure, so it becomes null here and the tile stays in its empty form.
+ * Supports passing either a farmId string, an options object with { farmId, lat, lng },
+ * or null/undefined (falling back to user profile location).
  */
-export async function getWeather(farmId: string): Promise<Weather | null> {
+export async function getWeather(
+  input?: string | WeatherQueryParams | null,
+): Promise<Weather | null> {
   return orNullWhenAbsent(async () => {
+    let query = '';
+    if (typeof input === 'string') {
+      query = `?farmId=${encodeURIComponent(input)}`;
+    } else if (input) {
+      const parts: string[] = [];
+      if (input.farmId) parts.push(`farmId=${encodeURIComponent(input.farmId)}`);
+      if (input.lat !== null && input.lat !== undefined) {
+        parts.push(`lat=${encodeURIComponent(String(input.lat))}`);
+      }
+      if (input.lng !== null && input.lng !== undefined) {
+        parts.push(`lng=${encodeURIComponent(String(input.lng))}`);
+      }
+      query = parts.length ? `?${parts.join('&')}` : '';
+    }
+
     const weather = await apiFetch<Weather>(
-      `/api/v1/weather?farmId=${encodeURIComponent(farmId)}`,
+      `/api/v1/weather${query}`,
       { fallbackKey: 'home.loadError' },
     );
 
@@ -186,6 +208,7 @@ export async function getWeather(farmId: string): Promise<Weather | null> {
       temperature_c: weather.temperature_c === null ? null : asNumber(weather.temperature_c),
       rainfall_mm: weather.rainfall_mm === null ? null : asNumber(weather.rainfall_mm),
       humidity_pct: weather.humidity_pct === null ? null : asNumber(weather.humidity_pct),
+      wind_speed_kmh: weather.wind_speed_kmh === null || weather.wind_speed_kmh === undefined ? null : asNumber(weather.wind_speed_kmh),
     };
   });
 }

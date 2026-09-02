@@ -100,6 +100,7 @@ export type WeatherRow = {
   rainfall_mm: number | null;
   humidity_pct: number | null;
   wind_speed_kmh?: number | null;
+  condition?: string | null;
   source: string;
 };
 

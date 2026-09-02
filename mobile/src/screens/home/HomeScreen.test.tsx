@@ -104,7 +104,8 @@ const observation: Weather = {
   temperature_c: 30.1,
   rainfall_mm: 12.5,
   humidity_pct: 62,
-  source: 'Open-Meteo ERA5 archive, fetched 2026-08-26',
+  condition: 'Partly cloudy',
+  source: 'Open-Meteo live forecast API',
 };
 
 jest.mock('@/features/farm/FarmContext', () => ({
@@ -186,12 +187,12 @@ describe('HomeScreen', () => {
       expect(screen.getByText('Support price 2025-26')).toBeTruthy();
     });
 
-    it('shows a real observed temperature with the date it was recorded', async () => {
+    it('shows a real observed temperature and weather condition', async () => {
       Object.assign(mockInsights, { weather: observation });
       await renderWithProviders(<HomeScreen {...props} />);
 
       expect(await screen.findByText('30°C')).toBeTruthy();
-      expect(screen.getByText(/Observed/)).toBeTruthy();
+      expect(screen.getByText('Partly cloudy')).toBeTruthy();
     });
 
     it('shows the latest recorded mandi price with the date it was recorded', async () => {

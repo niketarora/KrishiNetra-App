@@ -38,5 +38,9 @@ export const mspQuerySchema = z
 export const weatherQuerySchema = z
   .object({
     farmId: uuid('Not a valid farm id.').optional(),
+    lat: z.coerce.number().min(-90).max(90).optional(),
+    lng: z.coerce.number().min(-180).max(180).optional(),
+    latitude: z.coerce.number().min(-90).max(90).optional(),
+    longitude: z.coerce.number().min(-180).max(180).optional(),
   })
   .strict();

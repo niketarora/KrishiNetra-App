@@ -1,4 +1,4 @@
-{
+﻿{
   "common": {
     "continue": "फुडे वचात",
     "back": "फाटी",
@@ -440,6 +440,7 @@
     "governmentUpdate": "सरकारी अपडेट",
     "officialSourceBadge": "अधिकृत स्रोत",
     "regionalNews": "प्रादेशिक बातम्या",
+    "nationalNews": "National News",
     "unnamedField": "शेत {{number}}",
     "locationUnknown": "स्थान नोंदवलेले नाही",
     "categories": {

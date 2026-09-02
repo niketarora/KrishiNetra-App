@@ -1,4 +1,4 @@
-{
+﻿{
   "common": {
     "continue": "ಮುಂದುವರಿಸಿ",
     "back": "ಹಿಂದೆ",
@@ -440,6 +440,7 @@
     "governmentUpdate": "ಸರ್ಕಾರಿ ಅಪ್‌ಡೇಟ್",
     "officialSourceBadge": "ಅಧಿಕೃತ ಮೂಲ",
     "regionalNews": "ಪ್ರಾದೇಶಿಕ ಸುದ್ದಿ",
+    "nationalNews": "National News",
     "unnamedField": "ಹೊಲ {{number}}",
     "locationUnknown": "ಸ್ಥಳ ದಾಖಲಾಗಿಲ್ಲ",
     "categories": {

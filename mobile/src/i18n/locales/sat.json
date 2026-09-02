@@ -1,4 +1,4 @@
-{
+﻿{
   "common": {
     "continue": "ᱞᱟᱦᱟᱜ ᱢᱮ",
     "back": "ᱛᱟᱭᱚᱢ",
@@ -440,6 +440,7 @@
     "governmentUpdate": "सरकारी अपडेट",
     "officialSourceBadge": "आधिकारिक स्रोत",
     "regionalNews": "क्षेत्रीय समाचार",
+    "nationalNews": "National News",
     "unnamedField": "खेत {{number}}",
     "locationUnknown": "स्थान दर्ज नहीं है",
     "categories": {

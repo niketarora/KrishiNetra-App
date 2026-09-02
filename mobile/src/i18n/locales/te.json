@@ -1,4 +1,4 @@
-{
+﻿{
   "common": {
     "continue": "కొనసాగించండి",
     "back": "వెనుకకు",
@@ -440,6 +440,7 @@
     "governmentUpdate": "ప్రభుత్వ అప్‌డేట్",
     "officialSourceBadge": "అధికారిక మూలం",
     "regionalNews": "ప్రాంతీయ వార్తలు",
+    "nationalNews": "National News",
     "unnamedField": "పొలం {{number}}",
     "locationUnknown": "స్థానం నమోదు కాలేదు",
     "categories": {

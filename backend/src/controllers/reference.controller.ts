@@ -2,9 +2,14 @@ import type { Request, Response } from 'express';
 
 import { adminClient } from '../config/supabase.js';
 import { normalizeWeatherResponse } from '../ingestion/weather/weatherNormalizer.js';
-import { fetchObservedWeather, weatherSourceLabel } from '../ingestion/weather/weatherSource.js';
+import {
+  fetchLiveWeather,
+  fetchObservedWeather,
+  weatherSourceLabel,
+} from '../ingestion/weather/weatherSource.js';
 import { getAuth } from '../middleware/requireAuth.js';
 import * as farms from '../services/farms.service.js';
+import * as profiles from '../services/profiles.service.js';
 import * as reference from '../services/reference.service.js';
 import type { WeatherRow } from '../types/domain.js';
 import { ApiError } from '../utils/ApiError.js';
@@ -145,19 +150,98 @@ async function fetchAndStoreGridWeather(
  */
 export async function weather(req: Request, res: Response): Promise<void> {
   const { token, userId } = getAuth(req);
-  const { farmId } = req.query as { farmId?: string };
+  const query = req.query as {
+    farmId?: string;
+    lat?: string;
+    lng?: string;
+    latitude?: string;
+    longitude?: string;
+  };
 
-  if (!farmId) throw ApiError.notConnected(NOT_CONNECTED.weather);
+  let targetLat: number | null = null;
+  let targetLng: number | null = null;
+  let district: string | null = null;
+  let state: string | null = null;
 
-  const farm = await farms.getFarm(token, userId, farmId);
-  if (farm.centroid_lat === null || farm.centroid_lng === null) {
+  // 1. Direct coordinates from query
+  const rawLat = query.lat ?? query.latitude;
+  const rawLng = query.lng ?? query.longitude;
+  if (rawLat !== undefined && rawLng !== undefined) {
+    const pLat = Number(rawLat);
+    const pLng = Number(rawLng);
+    if (!Number.isNaN(pLat) && !Number.isNaN(pLng)) {
+      targetLat = pLat;
+      targetLng = pLng;
+    }
+  }
+
+  // 2. Farm coordinates
+  if (targetLat === null && query.farmId) {
+    try {
+      const farm = await farms.getFarm(token, userId, query.farmId);
+      if (farm.centroid_lat !== null && farm.centroid_lng !== null) {
+        targetLat = farm.centroid_lat;
+        targetLng = farm.centroid_lng;
+        district = farm.district ?? null;
+        state = farm.state ?? null;
+      }
+    } catch {
+      // ignore
+    }
+  }
+
+  // 3. User's profile coordinates if available
+  if (targetLat === null && userId) {
+    try {
+      const profile = await profiles.getProfile(token, userId);
+      if (
+        profile?.location_latitude !== null &&
+        profile?.location_latitude !== undefined &&
+        profile?.location_longitude !== null &&
+        profile?.location_longitude !== undefined
+      ) {
+        targetLat = profile.location_latitude;
+        targetLng = profile.location_longitude;
+        district = district ?? profile.location_district ?? null;
+        state = state ?? profile.location_state ?? null;
+      }
+    } catch {
+      // ignore
+    }
+  }
+
+  if (targetLat === null || targetLng === null) {
     throw ApiError.notConnected(NOT_CONNECTED.weather);
   }
 
-  const gridLat = snapGrid(farm.centroid_lat);
-  const gridLng = snapGrid(farm.centroid_lng);
-  const key = gridKey(gridLat, gridLng);
+  const gridLat = snapGrid(targetLat);
+  const gridLng = snapGrid(targetLng);
 
+  // Try real-time live weather first
+  try {
+    const live = await fetchLiveWeather(targetLat, targetLng);
+    const liveResult: WeatherRow = {
+      id: `live-${gridLat}-${gridLng}-${live.observed_on}`,
+      grid_lat: gridLat,
+      grid_lng: gridLng,
+      district,
+      state,
+      observed_on: live.observed_on,
+      temperature_c: live.temperature_c,
+      rainfall_mm: live.rainfall_mm,
+      humidity_pct: live.humidity_pct,
+      wind_speed_kmh: live.wind_speed_kmh,
+      condition: live.condition,
+      source: 'Open-Meteo live forecast API',
+      created_at: new Date().toISOString(),
+    };
+    sendOk(res, liveResult, 'Weather loaded');
+    return;
+  } catch {
+    // If live fetch fails, fall back to stored/archive grid weather
+  }
+
+  const key = gridKey(gridLat, gridLng);
   let observation = await reference.latestWeatherForGridCell(token, gridLat, gridLng);
 
   if (!observation) {

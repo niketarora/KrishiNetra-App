@@ -1,4 +1,4 @@
-{
+﻿{
   "common": {
     "continue": "ਅੱਗੇ ਵਧੋ",
     "back": "ਪਿੱਛੇ",
@@ -440,6 +440,7 @@
     "governmentUpdate": "ਸਰਕਾਰੀ ਅਪਡੇਟ",
     "officialSourceBadge": "ਅਧਿਕਾਰਤ ਸਰੋਤ",
     "regionalNews": "ਖੇਤਰੀ ਖ਼ਬਰਾਂ",
+    "nationalNews": "National News",
     "unnamedField": "ਖੇਤ {{number}}",
     "locationUnknown": "ਟਿਕਾਣਾ ਦਰਜ ਨਹੀਂ ਹੈ",
     "categories": {

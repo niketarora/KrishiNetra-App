@@ -76,3 +76,92 @@ export async function fetchObservedWeather(
     clearTimeout(timeout);
   }
 }
+
+export type LiveWeatherData = {
+  temperature_c: number | null;
+  humidity_pct: number | null;
+  rainfall_mm: number | null;
+  wind_speed_kmh: number | null;
+  weather_code: number | null;
+  condition: string;
+  observed_on: string;
+};
+
+export function getWeatherConditionText(code: number | null | undefined): string {
+  if (code === null || code === undefined) return 'Clear';
+  if (code === 0) return 'Clear sky';
+  if (code === 1) return 'Mainly clear';
+  if (code === 2) return 'Partly cloudy';
+  if (code === 3) return 'Overcast';
+  if (code === 45 || code === 48) return 'Fog';
+  if (code >= 51 && code <= 55) return 'Drizzle';
+  if (code >= 61 && code <= 65) return 'Rain';
+  if (code >= 71 && code <= 75) return 'Snow';
+  if (code >= 80 && code <= 82) return 'Rain showers';
+  if (code >= 95 && code <= 99) return 'Thunderstorm';
+  return 'Clear';
+}
+
+/**
+ * Fetches real-time current weather from Open-Meteo's live forecast endpoint.
+ */
+export async function fetchLiveWeather(
+  latitude: number,
+  longitude: number,
+  options: { timeoutMs?: number } = {},
+): Promise<LiveWeatherData> {
+  const url = new URL('https://api.open-meteo.com/v1/forecast');
+  url.searchParams.set('latitude', String(latitude));
+  url.searchParams.set('longitude', String(longitude));
+  url.searchParams.set(
+    'current',
+    'temperature_2m,relative_humidity_2m,precipitation,weather_code,wind_speed_10m',
+  );
+  url.searchParams.set('timezone', 'auto');
+
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), options.timeoutMs ?? 10_000);
+
+  try {
+    let response: Response;
+    try {
+      response = await fetch(url, {
+        signal: controller.signal,
+        headers: { Accept: 'application/json' },
+      });
+    } catch (cause) {
+      throw new WeatherSourceError('Could not reach Open-Meteo live endpoint', cause);
+    }
+
+    if (!response.ok) {
+      throw new WeatherSourceError(`Open-Meteo live endpoint returned HTTP ${response.status}`);
+    }
+
+    const data = (await response.json()) as {
+      current?: {
+        time?: string;
+        temperature_2m?: number;
+        relative_humidity_2m?: number;
+        precipitation?: number;
+        weather_code?: number;
+        wind_speed_10m?: number;
+      };
+    };
+
+    const cur = data.current;
+    const weatherCode = cur?.weather_code ?? null;
+    const nowIso = new Date().toISOString().slice(0, 10);
+
+    return {
+      temperature_c: cur?.temperature_2m !== undefined ? cur.temperature_2m : null,
+      humidity_pct: cur?.relative_humidity_2m !== undefined ? cur.relative_humidity_2m : null,
+      rainfall_mm: cur?.precipitation !== undefined ? cur.precipitation : null,
+      wind_speed_kmh: cur?.wind_speed_10m !== undefined ? cur.wind_speed_10m : null,
+      weather_code: weatherCode,
+      condition: getWeatherConditionText(weatherCode),
+      observed_on: cur?.time ? cur.time.slice(0, 10) : nowIso,
+    };
+  } finally {
+    clearTimeout(timeout);
+  }
+}

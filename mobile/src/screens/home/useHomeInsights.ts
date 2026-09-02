@@ -29,7 +29,10 @@ export type HomeInsights = {
  * Every one of them can legitimately be null and each tile renders its established empty state.
  * Nothing here substitutes a placeholder number.
  */
-export function useHomeInsights(farmId: string | null): HomeInsights {
+export function useHomeInsights(
+  farmId: string | null,
+  location?: { latitude: number; longitude: number } | null,
+): HomeInsights {
   const [crop, setCrop] = useState<CurrentCrop | null>(null);
   const [msp, setMsp] = useState<Msp | null>(null);
   const [price, setPrice] = useState<MarketPrice | null>(null);
@@ -38,7 +41,7 @@ export function useHomeInsights(farmId: string | null): HomeInsights {
   const [loading, setLoading] = useState(false);
 
   const load = useCallback(async () => {
-    if (!farmId) {
+    if (!farmId && !location) {
       setCrop(null);
       setMsp(null);
       setWeather(null);
@@ -51,9 +54,13 @@ export function useHomeInsights(farmId: string | null): HomeInsights {
 
     // Settled, not all: one failing source must not blank the other tiles.
     const [cropResult, weatherResult, soilResult] = await Promise.allSettled([
-      getCurrentCrop(farmId),
-      getWeather(farmId),
-      getFarmSoilMoisture(farmId),
+      farmId ? getCurrentCrop(farmId) : Promise.resolve(null),
+      getWeather({
+        farmId,
+        lat: location?.latitude ?? null,
+        lng: location?.longitude ?? null,
+      }),
+      farmId ? getFarmSoilMoisture(farmId) : Promise.resolve(null),
     ]);
 
     const currentCrop = cropResult.status === 'fulfilled' ? cropResult.value : null;
@@ -76,7 +83,7 @@ export function useHomeInsights(farmId: string | null): HomeInsights {
     }
 
     setLoading(false);
-  }, [farmId]);
+  }, [farmId, location?.latitude, location?.longitude]);
 
   useEffect(() => {
     void load();

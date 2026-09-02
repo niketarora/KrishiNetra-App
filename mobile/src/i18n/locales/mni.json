@@ -1,4 +1,4 @@
-{
+﻿{
   "common": {
     "continue": "মখা চত্থবিয়ু",
     "back": "হন্না চত্পা",
@@ -440,6 +440,7 @@
     "governmentUpdate": "সরকারি আপডেট",
     "officialSourceBadge": "অফিসিয়াল উৎস",
     "regionalNews": "আঞ্চলিক সংবাদ",
+    "nationalNews": "National News",
     "unnamedField": "জমি {{number}}",
     "locationUnknown": "অবস্থান নির্ধারিত নয়",
     "categories": {

@@ -78,6 +78,16 @@ jest.unstable_mockModule('./ingestion/weather/weatherSource.js', () => ({
       relative_humidity_2m_mean: [65],
     },
   }),
+  fetchLiveWeather: jest.fn<any>().mockResolvedValue({
+    temperature_c: 29.5,
+    humidity_pct: 65,
+    rainfall_mm: 0,
+    wind_speed_kmh: 8,
+    weather_code: 1,
+    condition: 'Mainly clear',
+    observed_on: '2026-09-02',
+  }),
+  getWeatherConditionText: () => 'Mainly clear',
   weatherSourceLabel: () => 'Open-Meteo ERA5 archive',
   WeatherSourceError: class extends Error {},
 }));

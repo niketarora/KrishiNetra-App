@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Pressable, RefreshControl, ScrollView, StyleSheet, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
@@ -22,6 +22,7 @@ import { useAuth } from '@/features/auth/AuthContext';
 import { useAvatar } from '@/features/avatar/AvatarContext';
 import { useFarm } from '@/features/farm/FarmContext';
 import type { CurrentCrop } from '@/services/agronomy';
+import { getCurrentFieldFix } from '@/services/location';
 import { colors, layout, radius } from '@/theme';
 import { firstName, greetingKey, initials } from '@/utils/format';
 import { fromGeoJSON } from '@/utils/geo';
@@ -96,7 +97,51 @@ export function HomeScreen({
   const { profile } = useAuth();
   const { farm, lands, selectedLandId, selectLand, loading, errorKey, refresh } = useFarm();
   const { open: openAvatar } = useAvatar();
-  const { crop, msp, weather, price, soilMoisture, refresh: refreshInsights } = useHomeInsights(farm?.id ?? null);
+
+  const [deviceLocation, setDeviceLocation] = useState<{ latitude: number; longitude: number } | null>(null);
+
+  useEffect(() => {
+    let active = true;
+    void (async () => {
+      try {
+        const fix = await getCurrentFieldFix(4000);
+        if (active && fix.state === 'ok') {
+          setDeviceLocation({ latitude: fix.latitude, longitude: fix.longitude });
+        }
+      } catch {
+        // non-blocking fallback
+      }
+    })();
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  const effectiveLocation = useMemo(() => {
+    if (
+      farm?.centroid_lat !== null &&
+      farm?.centroid_lat !== undefined &&
+      farm?.centroid_lng !== null &&
+      farm?.centroid_lng !== undefined
+    ) {
+      return { latitude: farm.centroid_lat, longitude: farm.centroid_lng };
+    }
+    if (deviceLocation) return deviceLocation;
+    if (
+      profile?.location_latitude !== null &&
+      profile?.location_latitude !== undefined &&
+      profile?.location_longitude !== null &&
+      profile?.location_longitude !== undefined
+    ) {
+      return { latitude: profile.location_latitude, longitude: profile.location_longitude };
+    }
+    return null;
+  }, [farm, deviceLocation, profile]);
+
+  const { crop, msp, weather, price, soilMoisture, refresh: refreshInsights } = useHomeInsights(
+    farm?.id ?? null,
+    effectiveLocation,
+  );
 
   const [refreshing, setRefreshing] = useState(false);
 
@@ -306,7 +351,7 @@ export function HomeScreen({
               }
               note={
                 weather
-                  ? t('home.weatherObserved', { date: formatShortDate(weather.observed_on) })
+                  ? (weather.condition || (weather.humidity_pct !== null && weather.humidity_pct !== undefined ? `${weather.humidity_pct}% humidity` : t('home.weatherLive', { defaultValue: 'Real-time' })))
                   : t('home.weatherNone')
               }
               muted={weather?.temperature_c === null || weather?.temperature_c === undefined}

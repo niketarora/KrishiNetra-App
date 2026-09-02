@@ -1,4 +1,4 @@
-{
+﻿{
   "common": {
     "continue": "தொடரவும்",
     "back": "பின்னே",
@@ -440,6 +440,7 @@
     "governmentUpdate": "அரசு புதுப்பிப்பு",
     "officialSourceBadge": "அதிகாரப்பூர்வ ஆதாரம்",
     "regionalNews": "பிராந்திய செய்தி",
+    "nationalNews": "National News",
     "unnamedField": "வயல் {{number}}",
     "locationUnknown": "இடம் பதிவு செய்யப்படவில்லை",
     "categories": {

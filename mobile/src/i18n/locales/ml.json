@@ -1,4 +1,4 @@
-{
+﻿{
   "common": {
     "continue": "തുടരുക",
     "back": "പിന്നിലേക്ക്",
@@ -440,6 +440,7 @@
     "governmentUpdate": "സർക്കാർ അപ്‌ഡേറ്റ്",
     "officialSourceBadge": "ഔദ്യോഗിക ഉറവിടം",
     "regionalNews": "പ്രാദേശിക വാർത്ത",
+    "nationalNews": "National News",
     "unnamedField": "വയൽ {{number}}",
     "locationUnknown": "സ്ഥലം രേഖപ്പെടുത്തിയിട്ടില്ല",
     "categories": {

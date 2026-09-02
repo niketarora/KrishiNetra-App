@@ -1,4 +1,4 @@
-{
+﻿{
   "common": {
     "continue": "ଆଗକୁ ବଢ଼ନ୍ତୁ",
     "back": "ପଛକୁ",
@@ -440,6 +440,7 @@
     "governmentUpdate": "ସରକାରୀ ଅପଡେଟ୍",
     "officialSourceBadge": "ଅଫିସିଆଲ୍ ଉତ୍ସ",
     "regionalNews": "ଆଞ୍ଚଳିକ ଖବର",
+    "nationalNews": "National News",
     "unnamedField": "ଜମି {{number}}",
     "locationUnknown": "ଅବସ୍ଥାନ ଦର୍ଜ ହୋଇନାହିଁ",
     "categories": {
