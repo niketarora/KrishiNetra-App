@@ -27,6 +27,10 @@ jest.mock('expo-location', () => ({
   // The default never calls back — tests that need points drive it by
   // grabbing the callback off `.mock.calls` and invoking it themselves.
   watchPositionAsync: jest.fn(async () => ({ remove: jest.fn() })),
+  // AR Moisture Guidance's compass — the default never calls back, matching
+  // watchPositionAsync's own convention above; a test that needs heading
+  // updates drives the callback itself off `.mock.calls`.
+  watchHeadingAsync: jest.fn(async () => ({ remove: jest.fn() })),
   Accuracy: { Lowest: 1, Low: 2, Balanced: 3, High: 4, Highest: 5, BestForNavigation: 6 },
 }));
 

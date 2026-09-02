@@ -134,6 +134,7 @@ const props = {
   onOpenUpdates: jest.fn(),
   onOpenAlerts: jest.fn(),
   onOpenVisualAssistant: jest.fn(),
+  onOpenArMoisture: jest.fn(),
 };
 
 describe('HomeScreen', () => {

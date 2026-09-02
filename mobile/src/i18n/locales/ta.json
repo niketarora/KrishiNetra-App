@@ -156,7 +156,9 @@
     "visualAssistantSub": "பயிரைப் புகைப்படம் எடுத்து ஆலோசனை பெறுங்கள்.",
     "soilMoisture": "Soil moisture",
     "soilMoistureValue": "{{percent}}%",
-    "soilMoistureNote": "{{category}} · ML Model"
+    "soilMoistureNote": "{{category}} · ML Model",
+    "arMoistureTitle": "AR Moisture Guidance",
+    "arMoistureSub": "Camera-guided walk to a sampling spot on your field."
   },
   "field": {
     "title": "நில பகுப்பாய்வு",
@@ -684,5 +686,35 @@
     "selected": "Selected",
     "deleteConfirmTitle": "Delete {{name}}?",
     "deleteConfirmBody": "This will permanently delete this land and all crop records associated with it."
+  },
+  "arMoisture": {
+    "title": "AR Moisture Guidance",
+    "cameraPermissionTitle": "Camera access needed",
+    "cameraPermissionBody": "KrishiNetra needs your camera to guide you across your field.",
+    "cameraPermissionDenied": "Camera permission is off. Turn it on in your phone's settings to use this feature.",
+    "allowCamera": "Allow camera",
+    "locationPermissionTitle": "Location access needed",
+    "locationPermissionBody": "KrishiNetra needs your location to guide you toward the sampling target.",
+    "allowLocation": "Allow location",
+    "noFarmTitle": "No field registered",
+    "noFarmBody": "Register a field first so KrishiNetra knows where to guide you.",
+    "acquiringFix": "Finding your location…",
+    "outsideFarm": "You appear to be far from this field",
+    "arrivedLabel": "You're here",
+    "targetLabel": "MOISTURE TARGET",
+    "distanceValue": "~{{meters}} m",
+    "navigateHere": "Navigate to this area",
+    "headingUnavailable": "Compass unavailable — showing distance only",
+    "demoDataLabel": "DEMO DATA — not a measured moisture reading",
+    "gpsQuality": "GPS: {{quality}}",
+    "headingQuality": "Compass: {{quality}}",
+    "quality": {
+      "good": "GOOD",
+      "fair": "FAIR",
+      "poor": "POOR",
+      "unknown": "UNKNOWN",
+      "unavailable": "UNAVAILABLE"
+    },
+    "nextTarget": "Next target"
   }
 }

@@ -68,6 +68,7 @@ type Props = {
   onOpenUpdates: () => void;
   onOpenAlerts: () => void;
   onOpenVisualAssistant: () => void;
+  onOpenArMoisture: () => void;
 };
 
 /**
@@ -92,6 +93,7 @@ export function HomeScreen({
   onOpenUpdates,
   onOpenAlerts,
   onOpenVisualAssistant,
+  onOpenArMoisture,
 }: Props) {
   const { t, i18n } = useTranslation();
   const { profile } = useAuth();
@@ -459,6 +461,30 @@ export function HomeScreen({
               </Text>
             </View>
             <Icon name="chevron" size={20} color={colors.accent} />
+          </Card>
+
+          {/*
+            AR Moisture Guidance entry point — camera + GPS/compass
+            directional guidance to a demo-labelled sampling target, not a
+            measured moisture zone (src/screens/ar/ARMoistureGuidanceScreen.tsx).
+          */}
+          <Card
+            tone="harvest"
+            onPress={onOpenArMoisture}
+            style={styles.companionCard}
+            testID="ar-moisture-card"
+            accessibilityLabel={t('home.arMoistureTitle')}
+          >
+            <IconBadge icon="locate" tone="primary" />
+            <View style={styles.companionBody}>
+              <Text variant="bodyMedium" color={colors.primaryDark}>
+                {t('home.arMoistureTitle')}
+              </Text>
+              <Text variant="micro" color={colors.text.secondary} style={styles.companionSub}>
+                {t('home.arMoistureSub')}
+              </Text>
+            </View>
+            <Icon name="chevron" size={20} color={colors.primary} />
           </Card>
         </View>
       </ScrollView>
