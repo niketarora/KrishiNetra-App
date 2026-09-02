@@ -1,6 +1,6 @@
 import type { OASSMSoilMoistureBody } from '../schemas/prediction.schema.js';
 import type { OASSMSoilMoisturePrediction } from './soilMoisturePrediction.service.js';
-import { predictSoilMoisture } from './soilMoisturePrediction.service.js';
+import { calculateLocalOASSM10, predictSoilMoisture } from './soilMoisturePrediction.service.js';
 import { getFarm } from './farms.service.js';
 import { listFarmCrops } from './farmCrops.service.js';
 import { listCrops, latestWeatherForDistrict, latestWeatherForGridCell } from './reference.service.js';
@@ -170,8 +170,13 @@ export async function getFarmSoilMoisturePrediction(
     land_cover: 'cropland',
   };
 
-  // 14. Run inference via ML service
-  const prediction = await predictSoilMoisture(features);
+  // 14. Run inference via ML service with graceful local OASSM-10 fallback
+  let prediction: OASSMSoilMoisturePrediction;
+  try {
+    prediction = await predictSoilMoisture(features);
+  } catch {
+    prediction = calculateLocalOASSM10(features);
+  }
 
   return {
     prediction,

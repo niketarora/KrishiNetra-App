@@ -126,6 +126,41 @@ describe('buildContextBlock', () => {
 
     expect(block).not.toContain('Observed weather');
   });
+
+  it('formats soil health, satellite moisture, and schemes when present', () => {
+    const block = buildContextBlock(
+      context({
+        phone: '+919876543210',
+        location: { city: 'Pratapgarh', district: 'Pratapgarh', state: 'Rajasthan', source: 'gps' },
+        soilHealth: {
+          soilType: 'Alluvial Loam',
+          soilPh: 7.2,
+          organicMatterPct: 0.65,
+          nitrogenKgHa: 240,
+          phosphorusKgHa: 18,
+          potassiumKgHa: 190,
+          source: 'ICAR / Soil Health Card',
+        },
+        soilMoisture: {
+          moisturePercent: 34.03,
+          category: 'optimal',
+          recommendation: 'optimal_monitor',
+          sensorResolutionM: 10,
+        },
+        schemes: [
+          { id: 'pm-kisan', name: 'PM-KISAN Samman Nidhi', benefitSummary: '₹6000 annual income support' },
+          { id: 'pmfby', name: 'Pradhan Mantri Fasal Bima Yojana', benefitSummary: 'Comprehensive crop insurance' },
+        ],
+      }),
+    );
+
+    expect(block).toContain('+919876543210');
+    expect(block).toContain('Pratapgarh, Rajasthan');
+    expect(block).toContain('Soil Health benchmark: Alluvial Loam, pH 7.2, Organic Matter 0.65%');
+    expect(block).toContain('Nitrogen: 240 kg/ha');
+    expect(block).toContain('Live Sentinel-1 SAR & OASSM-10 Soil Moisture: 34.03% (optimal status)');
+    expect(block).toContain('PM-KISAN Samman Nidhi (₹6000 annual income support)');
+  });
 });
 
 describe('buildSystemPrompt', () => {

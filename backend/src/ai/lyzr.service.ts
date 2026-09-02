@@ -85,12 +85,9 @@ export async function askExpert(
       '',
       `The farmer asks: ${transcript}`,
       '',
-      // The same discipline the in-house prompt enforces (prompt.ts §CRITICAL
-      // RULES). An external agent has no idea which numbers it may quote at this
-      // farmer, so it is told, every time.
       'Answer in two or three short sentences, in plain spoken language, with no',
-      'markdown, bullets or emoji. Only quote figures listed above; if you do not',
-      'have a figure, say so rather than estimating one.',
+      'markdown, bullets or emoji. Only quote figures listed above for this farmer\'s specific land, weather, and prices;',
+      'if you do not have a figure, say so rather than estimating one. You may freely share general agricultural advice, scheme info, and best practices tailored to their state and crop.',
       langInstruction,
     ]
     .filter(Boolean)

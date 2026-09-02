@@ -19,15 +19,50 @@
  */
 
 export type FieldContext = {
+  id?: string;
   label?: string;
   name: string | null;
   areaAcres: number;
+  areaHectares?: number;
   district: string | null;
   state: string | null;
 };
 
+export type SoilHealthContext = {
+  soilType: string | null;
+  soilPh: number;
+  organicMatterPct: number;
+  nitrogenKgHa: number | null;
+  phosphorusKgHa: number | null;
+  potassiumKgHa: number | null;
+  source: string;
+};
+
+export type SoilMoistureContext = {
+  moisturePercent: number;
+  category: string;
+  volumetricM3M3?: number;
+  recommendation?: string;
+  sensorResolutionM?: number;
+};
+
+export type SchemeContext = {
+  id: string;
+  name: string;
+  category?: string;
+  benefitSummary?: string;
+};
+
 export type FarmerContext = {
   farmerName: string | null;
+  phone?: string | null;
+  email?: string | null;
+  location?: {
+    city: string | null;
+    district: string | null;
+    state: string | null;
+    source?: string | null;
+  } | null;
   language: string;
   field: FieldContext | null;
   fields?: FieldContext[];
@@ -35,8 +70,13 @@ export type FarmerContext = {
     name: string;
     variety: string | null;
     sownOn: string | null;
+    daysSinceSown?: number | null;
+    growthStage?: string | null;
     expectedHarvestOn: string | null;
   } | null;
+  soilHealth?: SoilHealthContext | null;
+  soilMoisture?: SoilMoistureContext | null;
+  schemes?: SchemeContext[] | null;
   msp: {
     pricePerQuintal: number;
     marketingYear: string;
@@ -116,6 +156,11 @@ export function buildContextBlock(context: FarmerContext): string {
   const lines: string[] = [];
 
   if (context.farmerName) lines.push(`- The farmer's name is ${context.farmerName}.`);
+  if (context.phone) lines.push(`- Registered phone number: ${context.phone}.`);
+  if (context.location?.state) {
+    const loc = [context.location.city, context.location.district, context.location.state].filter(Boolean).join(', ');
+    lines.push(`- Farmer's registered location: ${loc}.`);
+  }
 
   if (context.fields && context.fields.length > 0) {
     for (const f of context.fields) {
@@ -137,10 +182,38 @@ export function buildContextBlock(context: FarmerContext): string {
   if (context.crop) {
     const variety = context.crop.variety ? ` (${context.crop.variety} variety)` : '';
     const sown = context.crop.sownOn ? `, sown on ${context.crop.sownOn}` : '';
+    const stage = context.crop.growthStage ? `, growth stage is ${context.crop.growthStage}` : '';
+    const days = context.crop.daysSinceSown ? ` (${context.crop.daysSinceSown} days in ground)` : '';
     const harvest = context.crop.expectedHarvestOn
       ? `, expected harvest ${context.crop.expectedHarvestOn}`
       : '';
-    lines.push(`- They are growing ${context.crop.name}${variety}${sown}${harvest}.`);
+    lines.push(`- They are growing ${context.crop.name}${variety}${sown}${days}${stage}${harvest}.`);
+  }
+
+  if (context.soilHealth) {
+    const sh = context.soilHealth;
+    const soilType = sh.soilType ? `${sh.soilType}, ` : '';
+    lines.push(
+      `- Soil Health benchmark: ${soilType}pH ${formatNumber(sh.soilPh)}, Organic Matter ${formatNumber(sh.organicMatterPct)}%` +
+        (sh.nitrogenKgHa ? `, Nitrogen: ${formatNumber(sh.nitrogenKgHa)} kg/ha` : '') +
+        (sh.phosphorusKgHa ? `, Phosphorus: ${formatNumber(sh.phosphorusKgHa)} kg/ha` : '') +
+        (sh.potassiumKgHa ? `, Potassium: ${formatNumber(sh.potassiumKgHa)} kg/ha` : '') +
+        ` (source: ${sh.source}).`,
+    );
+  }
+
+  if (context.soilMoisture) {
+    const sm = context.soilMoisture;
+    lines.push(
+      `- Live Sentinel-1 SAR & OASSM-10 Soil Moisture: ${formatNumber(sm.moisturePercent)}% (${sm.category} status)` +
+        (sm.recommendation ? `, irrigation recommendation: ${sm.recommendation}` : '') +
+        ` (10m high-resolution multi-sensor model).`,
+    );
+  }
+
+  if (context.schemes && context.schemes.length > 0) {
+    const schemeList = context.schemes.map((s) => `${s.name}${s.benefitSummary ? ` (${s.benefitSummary})` : ''}`).join('; ');
+    lines.push(`- Active Agricultural Schemes available in their region: ${schemeList}.`);
   }
 
   if (context.msp) {
@@ -215,10 +288,11 @@ ${UNAVAILABLE_CAPABILITIES.map((item) => `   - ${item}`).join('\n')}
 4. When you use a figure from the list above, say where it came from and when
    it was recorded. A price from last week is not today's price.
 
-5. General agricultural knowledge — how wheat is grown, what a mandi is, what
-   MSP means, sowing seasons, common pests — is fine to share, as long as you
-   do not attach a specific number to THIS farmer's field, crop or market
-   unless it is in the list above.
+5. General agricultural knowledge — how crops are grown, soil health, government schemes
+   and subsidies available in their state, what a mandi is, what MSP means, sowing seasons,
+   common pests — is fine and encouraged to share. Tailor your advisory to the farmer's registered
+   state, district, crop, and soil profile, but do not attach a specific invented number to THIS
+   farmer's field, crop or market unless it is in the list above.
 
 HOW TO SPEAK:
 

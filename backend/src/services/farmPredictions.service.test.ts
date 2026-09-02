@@ -116,6 +116,7 @@ jest.unstable_mockModule('./soilHealth.service.js', () => ({
 
 jest.unstable_mockModule('./soilMoisturePrediction.service.js', () => ({
   predictSoilMoisture: mockPredictSoilMoisture,
+  calculateLocalOASSM10: jest.fn(() => mockPrediction),
 }));
 
 const { getFarmSoilMoisturePrediction } = await import('./farmPredictions.service.js');

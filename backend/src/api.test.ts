@@ -94,6 +94,18 @@ jest.unstable_mockModule('./ingestion/weather/weatherSource.js', () => ({
 
 jest.unstable_mockModule('./services/soilMoisturePrediction.service.js', () => ({
   predictSoilMoisture,
+  calculateLocalOASSM10: () => ({
+    volumetric_moisture_m3_m3: 0.22,
+    soil_moisture_percent: 22.0,
+    category: 'moderate',
+    irrigation_recommendation: 'optimal_monitor',
+    confidence: 0.95,
+    model_version: 'oassm-10-transformer-v4',
+    sensor_resolution_m: 10,
+    sar_backscatter_db: { vv: -11.2, vh: -17.8, vh_minus_vv: -6.6, incidence_angle_deg: 38.5 },
+    topographic_wetness_index: 7.8,
+    is_production_grade: true,
+  }),
 }));
 
 // The orchestrator reaches three separate AI providers. What is under test here
