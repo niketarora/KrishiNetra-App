@@ -470,111 +470,114 @@ export function MarketScreen() {
 
           {/* Quality & Grade Breakdown */}
           {quality && explanation ? (
-            <Card>
-              <View style={styles.cardHeaderRow}>
-                <Text variant="cardTitle">{t('market.qualityBreakdown')}</Text>
-                <Badge label={`Grade ${quality.quality_grade}`} tone="accent" />
-              </View>
-
-              <View style={styles.qualityMetricsRow}>
-                <View style={styles.metricBox}>
-                  <Text variant="micro" color={colors.text.secondary}>
-                    {t('market.qualityScore')}
-                  </Text>
-                  <Text variant="cardTitle" style={styles.metricVal}>
-                    {quality.quality_score}/100
-                  </Text>
+            <GuideTarget id="quality-grade-card" scroll={scrollRef}>
+              <Card>
+                <View style={styles.cardHeaderRow}>
+                  <Text variant="cardTitle">{t('market.qualityBreakdown')}</Text>
+                  <Badge label={`Grade ${quality.quality_grade}`} tone="accent" />
                 </View>
-                <View style={styles.metricBox}>
-                  <Text variant="micro" color={colors.text.secondary}>
-                    {t('market.damage')}
-                  </Text>
-                  <Text variant="cardTitle" style={styles.metricVal}>
-                    {quality.visible_damage_percentage}%
-                  </Text>
-                </View>
-                <View style={styles.metricBox}>
-                  <Text variant="micro" color={colors.text.secondary}>
-                    {t('market.moistureLabel')}
-                  </Text>
-                  <Text variant="cardTitle" style={styles.metricVal}>
-                    {moisture}%
-                  </Text>
-                </View>
-              </View>
 
-              <Pressable
-                style={styles.toggleAdjustmentsBtn}
-                onPress={() => setShowAdjustments((prev) => !prev)}
-              >
-                <Text variant="micro" color={colors.primary} style={styles.toggleText}>
-                  {showAdjustments ? 'Hide Quality Adjustments' : t('market.viewAdjustments')}
-                </Text>
-                <Icon
-                  name="chevron"
-                  size={14}
-                  color={colors.primary}
-                  strokeWidth={2}
-                />
-              </Pressable>
-
-              {showAdjustments ? (
-                <View style={styles.adjustmentsList}>
-                  {explanation.adjustments.map((adj, idx) => (
-                    <View key={idx} style={styles.adjustmentItem}>
-                      <Text variant="caption" color={colors.text.secondary}>
-                        {adj.label}
-                      </Text>
-                      <Text
-                        variant="caption"
-                        color={
-                          adj.type === 'base'
-                            ? colors.text.primary
-                            : adj.amount >= 0
-                            ? colors.success
-                            : colors.danger
-                        }
-                        style={styles.adjAmount}
-                      >
-                        {adj.amount >= 0 && adj.type !== 'base' ? `+₹${adj.amount}` : `₹${adj.amount}`}
-                      </Text>
-                    </View>
-                  ))}
-                  <View style={styles.adjSummaryRow}>
-                    <Text variant="bodyMedium" color={colors.text.primary}>
-                      {t('market.adjustedPrice')}
+                <View style={styles.qualityMetricsRow}>
+                  <View style={styles.metricBox}>
+                    <Text variant="micro" color={colors.text.secondary}>
+                      {t('market.qualityScore')}
                     </Text>
-                    <Text variant="cardTitle" color={colors.primary}>
-                      {formatRupees(explanation.adjusted_price)}/q
+                    <Text variant="cardTitle" style={styles.metricVal}>
+                      {quality.quality_score}/100
+                    </Text>
+                  </View>
+                  <View style={styles.metricBox}>
+                    <Text variant="micro" color={colors.text.secondary}>
+                      {t('market.damage')}
+                    </Text>
+                    <Text variant="cardTitle" style={styles.metricVal}>
+                      {quality.visible_damage_percentage}%
+                    </Text>
+                  </View>
+                  <View style={styles.metricBox}>
+                    <Text variant="micro" color={colors.text.secondary}>
+                      {t('market.moistureLabel')}
+                    </Text>
+                    <Text variant="cardTitle" style={styles.metricVal}>
+                      {moisture}%
                     </Text>
                   </View>
                 </View>
-              ) : null}
-            </Card>
+
+                <Pressable
+                  style={styles.toggleAdjustmentsBtn}
+                  onPress={() => setShowAdjustments((prev) => !prev)}
+                >
+                  <Text variant="micro" color={colors.primary} style={styles.toggleText}>
+                    {showAdjustments ? 'Hide Quality Adjustments' : t('market.viewAdjustments')}
+                  </Text>
+                  <Icon
+                    name="chevron"
+                    size={14}
+                    color={colors.primary}
+                    strokeWidth={2}
+                  />
+                </Pressable>
+
+                {showAdjustments ? (
+                  <View style={styles.adjustmentsList}>
+                    {explanation.adjustments.map((adj, idx) => (
+                      <View key={idx} style={styles.adjustmentItem}>
+                        <Text variant="caption" color={colors.text.secondary}>
+                          {adj.label}
+                        </Text>
+                        <Text
+                          variant="caption"
+                          color={
+                            adj.type === 'base'
+                              ? colors.text.primary
+                              : adj.amount >= 0
+                              ? colors.success
+                              : colors.danger
+                          }
+                          style={styles.adjAmount}
+                        >
+                          {adj.amount >= 0 && adj.type !== 'base' ? `+₹${adj.amount}` : `₹${adj.amount}`}
+                        </Text>
+                      </View>
+                    ))}
+                    <View style={styles.adjSummaryRow}>
+                      <Text variant="bodyMedium" color={colors.text.primary}>
+                        {t('market.adjustedPrice')}
+                      </Text>
+                      <Text variant="cardTitle" color={colors.primary}>
+                        {formatRupees(explanation.adjusted_price)}/q
+                      </Text>
+                    </View>
+                  </View>
+                ) : null}
+              </Card>
+            </GuideTarget>
           ) : null}
 
           {/* Direct Verified Buyers Marketplace */}
           {buyers.length > 0 ? (
-            <View style={styles.buyersSection}>
-              <View style={styles.buyersHeaderRow}>
-                <Text variant="cardTitle" color={colors.text.primary}>
-                  {t('market.buyerMatchesTitle')}
-                </Text>
-                <Badge label={`${buyers.length} Matches`} tone="success" />
-              </View>
+            <GuideTarget id="buyers-list" scroll={scrollRef}>
+              <View style={styles.buyersSection}>
+                <View style={styles.buyersHeaderRow}>
+                  <Text variant="cardTitle" color={colors.text.primary}>
+                    {t('market.buyerMatchesTitle')}
+                  </Text>
+                  <Badge label={`${buyers.length} Matches`} tone="success" />
+                </View>
 
-              {buyers.map((buyer) => {
-                const isBest = bestBuyer && bestBuyer.id === buyer.id;
-                return (
-                  <Card key={buyer.id} style={[styles.buyerCard, isBest && styles.bestBuyerCard]}>
-                    {isBest ? (
-                      <View style={styles.bestBuyerRibbon}>
-                        <Icon name="check" size={14} color="#fff" />
-                        <Text variant="micro" color="#fff" style={styles.ribbonText}>
-                          {t('market.bestBuyerTitle')}
-                        </Text>
-                      </View>
-                    ) : null}
+                {buyers.map((buyer) => {
+                  const isBest = bestBuyer && bestBuyer.id === buyer.id;
+                  return (
+                    <Card key={buyer.id} style={[styles.buyerCard, isBest && styles.bestBuyerCard]}>
+                      {isBest ? (
+                        <View style={styles.bestBuyerRibbon}>
+                          <Icon name="check" size={14} color="#fff" />
+                          <Text variant="micro" color="#fff" style={styles.ribbonText}>
+                            {t('market.bestBuyerTitle')}
+                          </Text>
+                        </View>
+                      ) : null}
 
                     <View style={styles.buyerHeader}>
                       <View style={styles.buyerInfo}>
@@ -650,9 +653,10 @@ export function MarketScreen() {
                 );
               })}
             </View>
-          ) : (
-            <EmptyState icon="market" title={t('market.emptyTitle')} testID="market-empty" />
-          )}
+          </GuideTarget>
+        ) : (
+          <EmptyState icon="market" title={t('market.emptyTitle')} testID="market-empty" />
+        )}
         </ScrollView>
       </KeyboardAvoidingView>
     </Screen>

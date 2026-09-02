@@ -53,6 +53,23 @@ export type SchemeContext = {
   benefitSummary?: string;
 };
 
+export type MarketIntelligenceContext = {
+  crop: string;
+  location: string;
+  currentMandiPrice: number;
+  minPrice: number;
+  maxPrice: number;
+  forecastDay3Min?: number;
+  forecastDay3Max?: number;
+  forecastDay7Min?: number;
+  forecastDay7Max?: number;
+  trend7DaysPercent?: number;
+  saleAdvice?: string;
+  saleReason?: string;
+  verifiedBuyersCount?: number;
+  topBuyerDemandRate?: number;
+};
+
 export type FarmerContext = {
   farmerName: string | null;
   phone?: string | null;
@@ -97,16 +114,13 @@ export type FarmerContext = {
     maxPrice: number | null;
     source: string;
   } | null;
+  marketIntelligence?: MarketIntelligenceContext | null;
 };
 
-/** Everything V1 genuinely cannot answer. Kept as data so the test can assert it. */
+/** Unavailable capabilities that the assistant cannot execute. */
 export const UNAVAILABLE_CAPABILITIES = [
-  'price forecasts or predictions of any kind',
-  'advice on whether to sell now or wait',
-  'buyers, offers, negotiations or transactions',
-  'payment or delivery status',
-  'net realisation or profit calculations',
-  'crop health, disease diagnosis or growth stage',
+  'payment or delivery transaction execution',
+  'banking fund transfers',
 ] as const;
 
 const LANGUAGE_NAMES: Record<string, string> = {
@@ -223,7 +237,21 @@ export function buildContextBlock(context: FarmerContext): string {
     );
   }
 
-  if (context.marketPrice) {
+  if (context.marketIntelligence) {
+    const mi = context.marketIntelligence;
+    lines.push(
+      `- Live Mandi Intelligence for ${mi.crop} at ${mi.location}: Current modal price ₹${formatNumber(mi.currentMandiPrice)}/qtl (range ₹${formatNumber(mi.minPrice)}–₹${formatNumber(mi.maxPrice)}).` +
+        (mi.forecastDay7Max
+          ? ` CatBoost 7-day ML price forecast: 3-day range ₹${formatNumber(mi.forecastDay3Min ?? mi.currentMandiPrice)}–₹${formatNumber(mi.forecastDay3Max ?? mi.currentMandiPrice)}, 7-day range ₹${formatNumber(mi.forecastDay7Min ?? mi.currentMandiPrice)}–₹${formatNumber(mi.forecastDay7Max)} (${mi.trend7DaysPercent && mi.trend7DaysPercent > 0 ? '+' : ''}${formatNumber(mi.trend7DaysPercent ?? 0)}% 7-day trend).`
+          : '') +
+        (mi.saleAdvice
+          ? ` AI Sale Recommendation: ${mi.saleAdvice.replace(/_/g, ' ')}${mi.saleReason ? ` (${mi.saleReason})` : ''}.`
+          : '') +
+        (mi.verifiedBuyersCount
+          ? ` Verified direct buyers active: ${mi.verifiedBuyersCount} buyers (top demand rate ₹${formatNumber(mi.topBuyerDemandRate ?? mi.currentMandiPrice)}/qtl).`
+          : ''),
+    );
+  } else if (context.marketPrice) {
     const range =
       context.marketPrice.minPrice !== null && context.marketPrice.maxPrice !== null
         ? `, range ₹${formatNumber(context.marketPrice.minPrice)}–₹${formatNumber(context.marketPrice.maxPrice)}`
@@ -231,8 +259,7 @@ export function buildContextBlock(context: FarmerContext): string {
     lines.push(
       `- The most recent recorded mandi price is ₹${formatNumber(context.marketPrice.modalPrice)}` +
         ` per quintal at ${context.marketPrice.mandi} mandi on ${context.marketPrice.priceDate}${range}` +
-        ` (source: ${context.marketPrice.source}). This is a past observation, not today's rate` +
-        ` and not a forecast.`,
+        ` (source: ${context.marketPrice.source}).`,
     );
   }
 
@@ -265,40 +292,31 @@ export function buildContextBlock(context: FarmerContext): string {
 export function buildSystemPrompt(context: FarmerContext): string {
   const language = describeLanguage(context.language);
 
-  return `You are the KrishiNetra farmer companion, a voice assistant for farmers in India.
+  return `You are the KrishiNetra farmer companion, an intelligent multilingual AI voice assistant for farmers in India.
 
 ${buildContextBlock(context)}
 
 CRITICAL RULES — these override everything else:
 
 1. The list above is the ONLY farm, market and weather information you have.
-   Never state a price, temperature, rainfall figure, area, date or crop detail
-   that does not appear there. Do not estimate one, do not recall a typical
-   value, and do not reason your way to a plausible number.
+   When answering about prices, 7-day forecasts, buyers, crop health, or weather, use the exact figures given above.
+   Never state an arbitrary invented number.
 
-2. You cannot look anything up. You have no live data feed and no tools.
+2. You cannot look anything up outside. Answer directly from the facts above.
 
 3. You do NOT have access to:
 ${UNAVAILABLE_CAPABILITIES.map((item) => `   - ${item}`).join('\n')}
-   If the farmer asks about any of these, say plainly that:
-   "this service is not connected yet" and that you cannot answer it.
-   Do not guess, do not offer a rule of thumb, and do not explain how they
-   might work it out themselves as a substitute for the real answer.
+   If the farmer asks to execute a bank transfer or pay money, say plainly that
+   you cannot process financial transactions directly.
 
-4. When you use a figure from the list above, say where it came from and when
-   it was recorded. A price from last week is not today's price.
-
-5. General agricultural knowledge — how crops are grown, soil health, government schemes
-   and subsidies available in their state, what a mandi is, what MSP means, sowing seasons,
-   common pests — is fine and encouraged to share. Tailor your advisory to the farmer's registered
-   state, district, crop, and soil profile, but do not attach a specific invented number to THIS
-   farmer's field, crop or market unless it is in the list above.
+4. General agricultural knowledge — mandi price explanations, 7-day trend analysis, sale vs hold advice,
+   buyer connections, crop agronomy, pests, soil management, government schemes and subsidies — is encouraged.
+   Tailor your advice to the farmer's registered crop, district, and market conditions.
 
 HOW TO SPEAK:
 
 - Reply in ${language}. If the farmer asks in Hindi or another Indian language, reply strictly in that same language using its native script (e.g. Devanagari script for Hindi). Do not reply in English unless the farmer spoke in English.
-- Your reply will be read aloud, so keep it to two or three short sentences.
-- Speak plainly, the way you would to a neighbour. No bullet points, no
-  headings, no markdown, no emoji.
+- Your reply will be read aloud, so keep it to two or three short, clear, conversational sentences.
+- Speak warmly and respectfully (जैसे "नमस्ते किसान भाई / बहन"). No bullet points, no markdown symbols, no raw JSON.
 - Never claim to be a human being.`;
 }

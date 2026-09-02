@@ -651,7 +651,9 @@
         "sell_or_wait": "विकचें काय रावचें — ताका दराचो अदमास जाय, जो अजून जोडिल्लो ना. हें तें कार्ड जंय तो दिसतलो.",
         "field_analysis": "पिकाची भलायकी आनी वाडीचो टप्पो अजून जोडिल्लो ना. हांगा सद्या फकत हवामान धोक्याची ओळ खरी.",
         "soil_moisture": "हो ओलसाणीचो आंकडो एका प्रयोगीक मॉडेलांतल्यान येता, देखून ताका स्थूल अदमास मानात, उदक दिवपाचो सल्लो न्हय."
-      }
+      },
+      "buyers": "Here are verified direct buyers and demand offers for your crop.",
+      "quality_grading": "Here is the crop quality assay and moisture grading breakdown."
     },
     "youAsked": "You asked"
   },

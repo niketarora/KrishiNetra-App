@@ -651,7 +651,9 @@
         "sell_or_wait": "అమ్మాలా ఆగాలా — దీనికి ధర అంచనా కావాలి, అది ఇంకా అనుసంధానం కాలేదు. అది కనిపించే కార్డు ఇదే.",
         "field_analysis": "పంట ఆరోగ్యం మరియు ఎదుగుదల దశ ఇంకా అనుసంధానం కాలేదు. ఇక్కడ ప్రస్తుతం వాతావరణ ప్రమాద వరుస మాత్రమే నిజమైనది.",
         "soil_moisture": "ఈ తేమ అంకె ఒక ప్రయోగాత్మక నమూనా నుంచి వస్తుంది, కాబట్టి దీనిని స్థూల అంచనాగా చూడండి, నీటిపారుదల సలహాగా కాదు."
-      }
+      },
+      "buyers": "Here are verified direct buyers and demand offers for your crop.",
+      "quality_grading": "Here is the crop quality assay and moisture grading breakdown."
     },
     "youAsked": "You asked"
   },

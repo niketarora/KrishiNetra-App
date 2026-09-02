@@ -651,7 +651,9 @@
         "sell_or_wait": "बेचें या रुकें — इसके लिए कीमत का पूर्वानुमान चाहिए, जो अभी जुड़ा नहीं है। यह रहा वह कार्ड जहाँ यह दिखेगा।",
         "field_analysis": "फसल की सेहत और बढ़वार अभी जुड़ी नहीं है। यहाँ अभी सिर्फ़ मौसम जोखिम की पंक्ति असली है।",
         "soil_moisture": "यह नमी का आँकड़ा एक प्रयोगात्मक मॉडल से आता है, इसलिए इसे मोटा अनुमान मानें, सिंचाई की सलाह नहीं।"
-      }
+      },
+      "buyers": "Here are verified direct buyers and demand offers for your crop.",
+      "quality_grading": "Here is the crop quality assay and moisture grading breakdown."
     },
     "youAsked": "You asked"
   },

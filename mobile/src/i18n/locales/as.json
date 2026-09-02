@@ -651,7 +651,9 @@
         "sell_or_wait": "বিক্ৰী কৰিব নে ৰ'ব — ইয়াৰ বাবে দামৰ পূৰ্বানুমান লাগে, যিটো এতিয়াও সংযোগ হোৱা নাই। এইখনেই সেই কাৰ্ড য'ত সেয়া ওলাব।",
         "field_analysis": "শস্যৰ স্বাস্থ্য আৰু বৃদ্ধিৰ স্তৰ এতিয়াও সংযোগ হোৱা নাই। ইয়াত এতিয়া কেৱল বতৰৰ বিপদৰ শাৰীটোহে প্ৰকৃত।",
         "soil_moisture": "এই আৰ্দ্ৰতাৰ সংখ্যা এটা পৰীক্ষামূলক মডেলৰ পৰা আহে, গতিকে ইয়াক মোটামুটি অনুমান বুলি ধৰক, জলসিঞ্চনৰ পৰামৰ্শ নহয়।"
-      }
+      },
+      "buyers": "Here are verified direct buyers and demand offers for your crop.",
+      "quality_grading": "Here is the crop quality assay and moisture grading breakdown."
     },
     "youAsked": "You asked"
   },

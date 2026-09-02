@@ -651,7 +651,9 @@
         "sell_or_wait": "ژھَٹراوُن یا رُکُن — یَتھ خٲطرٕ چھِ قیمژ ہٕنٛز پیش گوئی ضرورؠ، یُس چھِنہٕ وُنؠ جوڑنہٕ آمُت۔ یہ چھُ سُہ کارڈ یَتھ پؠٹھ یہ ہاوَنہٕ۔",
         "field_analysis": "فصلٕچ صحت تہٕ بڈھونُک مرحلہٕ چھِنہٕ وُنؠ جوڑنہٕ آمُت۔ یَتہِ چھِ وُنؠ صرف مۆسمی خطرُک سطر اصلی۔",
         "soil_moisture": "یہ نمی ہُنٛد عدد چھُ اَکہِ تجرباتی ماڈلہٕ پؠٹھہٕ یِوان، تَتھ کِنؠ سمجھِو یہ موٹ اندازٕ، آبپاشی ہُنٛد مشورٕ نہٕ۔"
-      }
+      },
+      "buyers": "Here are verified direct buyers and demand offers for your crop.",
+      "quality_grading": "Here is the crop quality assay and moisture grading breakdown."
     },
     "youAsked": "You asked"
   },

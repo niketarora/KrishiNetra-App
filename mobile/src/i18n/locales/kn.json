@@ -651,7 +651,9 @@
         "sell_or_wait": "ಮಾರಬೇಕೋ ಕಾಯಬೇಕೋ — ಇದಕ್ಕೆ ಬೆಲೆ ಮುನ್ಸೂಚನೆ ಬೇಕು, ಅದು ಇನ್ನೂ ಸಂಪರ್ಕಗೊಂಡಿಲ್ಲ. ಅದು ಕಾಣಿಸುವ ಕಾರ್ಡ್ ಇದೇ.",
         "field_analysis": "ಬೆಳೆಯ ಆರೋಗ್ಯ ಮತ್ತು ಬೆಳವಣಿಗೆಯ ಹಂತ ಇನ್ನೂ ಸಂಪರ್ಕಗೊಂಡಿಲ್ಲ. ಇಲ್ಲಿ ಸದ್ಯಕ್ಕೆ ಹವಾಮಾನ ಅಪಾಯದ ಸಾಲು ಮಾತ್ರ ನಿಜ.",
         "soil_moisture": "ಈ ತೇವಾಂಶದ ಅಂಕಿ ಪ್ರಾಯೋಗಿಕ ಮಾದರಿಯಿಂದ ಬರುತ್ತದೆ, ಆದ್ದರಿಂದ ಇದನ್ನು ಸ್ಥೂಲ ಅಂದಾಜು ಎಂದು ಪರಿಗಣಿಸಿ, ನೀರಾವರಿ ಸಲಹೆ ಅಲ್ಲ."
-      }
+      },
+      "buyers": "Here are verified direct buyers and demand offers for your crop.",
+      "quality_grading": "Here is the crop quality assay and moisture grading breakdown."
     },
     "youAsked": "You asked"
   },

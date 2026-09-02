@@ -5,8 +5,11 @@ import * as profiles from '../services/profiles.service.js';
 import * as reference from '../services/reference.service.js';
 import * as schemes from '../services/schemes.service.js';
 import * as soilHealthService from '../services/soilHealth.service.js';
+import { MarketIntelligenceService } from '../services/marketIntelligence.service.js';
 
 import type { FarmerContext } from './prompt.js';
+
+const marketIntelligenceService = new MarketIntelligenceService();
 
 /**
  * Gathers what the API already knows about a farmer, so the assistant can
@@ -198,9 +201,17 @@ export async function buildFarmerContext(token: string, userId: string): Promise
     expectedHarvestOn: planting.expected_harvest_on,
   };
 
-  const [msp, prices] = await Promise.all([
+  const [msp, prices, marketIntel] = await Promise.all([
     safely(() => reference.listMsp(token, { crop: crop.code })),
     safely(() => reference.listMarketPrices(token, { crop: crop.code, limit: 1 })),
+    safely(() =>
+      marketIntelligenceService.analyse({
+        crop: crop.name_en,
+        quantity: 50,
+        location: effectiveDistrict || effectiveState || 'Kota',
+        locale: profile?.language?.startsWith('hi') ? 'hi' : 'en',
+      }),
+    ),
   ]);
 
   const latestMsp = msp?.[0];
@@ -221,6 +232,25 @@ export async function buildFarmerContext(token: string, userId: string): Promise
       minPrice: latestPrice.min_price,
       maxPrice: latestPrice.max_price,
       source: latestPrice.source,
+    };
+  }
+
+  if (marketIntel) {
+    context.marketIntelligence = {
+      crop: marketIntel.market_intelligence.crop,
+      location: marketIntel.market_intelligence.location,
+      currentMandiPrice: marketIntel.market_intelligence.current_mandi_price,
+      minPrice: marketIntel.market_intelligence.min_price,
+      maxPrice: marketIntel.market_intelligence.max_price,
+      forecastDay3Min: marketIntel.price_prediction.predicted_3_day_price_min,
+      forecastDay3Max: marketIntel.price_prediction.predicted_3_day_price_max,
+      forecastDay7Min: marketIntel.price_prediction.predicted_7_day_price_min,
+      forecastDay7Max: marketIntel.price_prediction.predicted_7_day_price_max,
+      trend7DaysPercent: marketIntel.market_intelligence.trend_7_days,
+      saleAdvice: marketIntel.sale_recommendation.recommendation,
+      saleReason: marketIntel.sale_recommendation.reason,
+      verifiedBuyersCount: marketIntel.buyer_matches.length,
+      topBuyerDemandRate: marketIntel.best_buyer?.offered_price,
     };
   }
 

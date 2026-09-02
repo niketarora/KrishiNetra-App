@@ -651,7 +651,9 @@
         "sell_or_wait": "وڪڻجي يا ترسجي — ان لاءِ قيمت جو اندازو گھرجي، جيڪو اڃا نه ڳنڍيل آهي. هي اهو ڪارڊ آهي جتي اهو ڏيکاربو.",
         "field_analysis": "فصل جي صحت ۽ واڌ جو مرحلو اڃا نه ڳنڍيل آهي. هتي هينئر رڳو موسمي خطري واري سٽ اصلي آهي.",
         "soil_moisture": "هي نميءَ جو انگ هڪ تجرباتي ماڊل مان اچي ٿو، ان ڪري ان کي ٿلهو اندازو سمجهو، آبپاشيءَ جي صلاح نه."
-      }
+      },
+      "buyers": "Here are verified direct buyers and demand offers for your crop.",
+      "quality_grading": "Here is the crop quality assay and moisture grading breakdown."
     },
     "youAsked": "You asked"
   },

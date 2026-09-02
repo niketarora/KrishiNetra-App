@@ -61,11 +61,17 @@ export type Destination = {
 };
 
 export const DESTINATIONS: readonly Destination[] = [
-  // --- Market -------------------------------------------------------------
+  // --- Market & Mandi Intelligence ----------------------------------------
   {
     id: 'market_price',
-    summary: "today's mandi price for the farmer's crop, and how it compares to MSP",
-    aliases: ['mandi price', 'market price', 'crop price', 'rate', 'bhav', 'मंडी भाव', 'भाव', 'दाम'],
+    summary: "today's live mandi price, market rates for the crop, and mandi screen",
+    aliases: [
+      'mandi price', 'market price', 'crop price', 'rate', 'bhav', 'mandi bhav',
+      'mandi rate', 'market rate', 'market', 'marketplace', 'mandi', 'bazaar', 'bazar',
+      'mandi kidhar', 'market kidhar', 'market kahan', 'mandi kahan', 'locate market',
+      'open market', 'show market', 'मंडी भाव', 'भाव', 'दाम', 'दर', 'मंडी', 'मार्केट',
+      'बाजार', 'बाज़ार', 'मंडी रेट', 'मार्केट रेट', 'मंडी किधर', 'मार्केट किधर', 'मंडी कहाँ',
+    ],
     steps: [
       { action: 'NAVIGATE', target: 'Market' },
       { action: 'HIGHLIGHT', target: 'price-card' },
@@ -74,8 +80,12 @@ export const DESTINATIONS: readonly Destination[] = [
   },
   {
     id: 'price_trend',
-    summary: 'the last seven days of mandi prices as a trend',
-    aliases: ['price trend', 'price history', 'last week price', 'भाव का रुझान'],
+    summary: 'the 7-day CatBoost price forecast and price history trend chart',
+    aliases: [
+      'price trend', 'price history', 'last week price', '7 day forecast', '7 day trend',
+      'price forecast', 'future price', 'price graph', 'forecast', 'trend',
+      'अगले सात दिन का भाव', 'सात दिन का भाव', 'भाव का रुझान', 'भाव का ग्राफ', 'आगामी भाव', 'भाव अनुमान',
+    ],
     steps: [
       { action: 'NAVIGATE', target: 'Market' },
       { action: 'SCROLL', target: 'price-trend' },
@@ -85,27 +95,59 @@ export const DESTINATIONS: readonly Destination[] = [
   },
   {
     id: 'sell_or_wait',
-    summary: 'whether to sell the crop now or wait',
-    aliases: ['sell or wait', 'should i sell', 'sell now', 'बेचूं या रुकूं', 'कब बेचें'],
+    summary: 'whether to sell the crop now or wait based on net realisation and forecast',
+    aliases: [
+      'sell or wait', 'should i sell', 'sell now', 'when to sell', 'best time to sell',
+      'sale recommendation', 'sale advice', 'kab bechu', 'bechu ya ruku', 'bechna chahiye',
+      'कब बेचें', 'बेचूं या रुकूं', 'बेचना चाहिए', 'बिक्री सलाह', 'कब बेचना है',
+    ],
     steps: [
       { action: 'NAVIGATE', target: 'Market' },
       { action: 'SCROLL', target: 'recommendation-card' },
       { action: 'HIGHLIGHT', target: 'recommendation-card' },
     ],
     messageKey: 'avatar.guide.sell_or_wait',
-    // Phase 3 owns the prediction behind this; the card is an empty state today.
-    caveatKey: 'avatar.guide.caveat.sell_or_wait',
+  },
+  {
+    id: 'buyers',
+    summary: 'verified direct buyers and demand offers for the crop',
+    aliases: [
+      'buyers', 'buyer', 'verified buyers', 'direct buyers', 'who will buy', 'crop buyers',
+      'khariddar', 'kharidar', 'vyapari', 'traders', 'demand', 'buyer list',
+      'खरीदार', 'व्यापारी', 'खरीददार', 'फसल खरीदार', 'व्यापारी सूची', 'कौन खरीदेगा',
+    ],
+    steps: [
+      { action: 'NAVIGATE', target: 'Market' },
+      { action: 'SCROLL', target: 'buyers-list' },
+      { action: 'HIGHLIGHT', target: 'buyers-list' },
+    ],
+    messageKey: 'avatar.guide.buyers',
+  },
+  {
+    id: 'quality_grading',
+    summary: 'crop quality grading, moisture testing, and MSP benchmarking',
+    aliases: [
+      'quality', 'crop quality', 'grading', 'quality check', 'moisture assay', 'moisture check',
+      'grade', 'msp benchmark', 'quality grade', 'क्वालिटी', 'गुणवत्ता', 'ग्रेडिंग', 'नमी जांच', 'ग्रेड',
+    ],
+    steps: [
+      { action: 'NAVIGATE', target: 'Market' },
+      { action: 'SCROLL', target: 'quality-grade-card' },
+      { action: 'HIGHLIGHT', target: 'quality-grade-card' },
+    ],
+    messageKey: 'avatar.guide.quality_grading',
   },
 
   // --- Home dashboard -----------------------------------------------------
   {
     id: 'weather',
     summary: 'the latest weather observation for the farmer’s field',
-    aliases: ['weather', 'rain', 'temperature', 'forecast', 'मौसम', 'बारिश', 'तापमान'],
+    aliases: [
+      'weather', 'rain', 'temperature', 'forecast', 'weather forecast', 'mausam', 'barish',
+      'तापमान', 'मौसम', 'बारिश', 'मौसम कैसा है', 'बारिश होगी क्या',
+    ],
     steps: [
       { action: 'NAVIGATE', target: 'Home' },
-      // Home is a long scroll. Bringing the card into view before spotlighting
-      // it is the difference between guiding and spotlighting an empty screen.
       { action: 'SCROLL', target: 'weather-card' },
       { action: 'HIGHLIGHT', target: 'weather-card' },
     ],
@@ -114,7 +156,7 @@ export const DESTINATIONS: readonly Destination[] = [
   {
     id: 'crop_status',
     summary: 'which crop is sown on the selected land and when',
-    aliases: ['my crop', 'crop status', 'what did i sow', 'फसल', 'मेरी फसल'],
+    aliases: ['my crop', 'crop status', 'what did i sow', 'fasal', 'meri fasal', 'फसल', 'मेरी फसल', 'बोई गई फसल'],
     steps: [
       { action: 'NAVIGATE', target: 'Home' },
       { action: 'SCROLL', target: 'crop-card' },
@@ -125,7 +167,7 @@ export const DESTINATIONS: readonly Destination[] = [
   {
     id: 'msp',
     summary: 'the published minimum support price for the crop',
-    aliases: ['msp', 'minimum support price', 'support price', 'एमएसपी', 'न्यूनतम समर्थन मूल्य'],
+    aliases: ['msp', 'minimum support price', 'support price', 'sarkari rate', 'एमएसपी', 'न्यूनतम समर्थन मूल्य', 'सरकारी भाव'],
     steps: [
       { action: 'NAVIGATE', target: 'Home' },
       { action: 'SCROLL', target: 'msp-card' },
@@ -136,7 +178,11 @@ export const DESTINATIONS: readonly Destination[] = [
   {
     id: 'field_analysis',
     summary: 'satellite analysis of the field — crop health, growth stage, weather risk, and live ML factors',
-    aliases: ['field analysis', 'crop health', 'satellite', 'growth stage', 'खेत का विश्लेषण', 'features', '14 inputs', 'model factors', 'vegetation', 'ndvi'],
+    aliases: [
+      'field analysis', 'crop health', 'satellite', 'growth stage', 'features', '14 inputs',
+      'model factors', 'vegetation', 'ndvi', 'khet ka vishleshan', 'fasal health',
+      'खेत का विश्लेषण', 'फसल स्वास्थ्य', 'उपग्रह',
+    ],
     steps: [
       { action: 'NAVIGATE', target: 'Field' },
       { action: 'SCROLL', target: 'ml-features-card' },
@@ -149,14 +195,14 @@ export const DESTINATIONS: readonly Destination[] = [
   {
     id: 'my_lands',
     summary: 'the list of all registered lands, where one can be selected',
-    aliases: ['my lands', 'my farm', 'my fields', 'all lands', 'मेरी जमीन', 'मेरे खेत'],
+    aliases: ['my lands', 'my farm', 'my fields', 'all lands', 'mere khet', 'meri zameen', 'मेरी जमीन', 'मेरे खेत', 'खेत सूची'],
     steps: [{ action: 'NAVIGATE', target: 'MyLands' }],
     messageKey: 'avatar.guide.my_lands',
   },
   {
     id: 'land_detail',
     summary: 'the summary of one particular land — boundary, area, current crop',
-    aliases: ['land detail', 'this land', 'field detail', 'खेत का ब्यौरा'],
+    aliases: ['land detail', 'this land', 'field detail', 'farm info', 'khet ka byora', 'खेत का ब्यौरा', 'जमीन का विवरण'],
     steps: [
       { action: 'NAVIGATE', target: 'MyLands' },
       { action: 'SELECT', target: 'land' },
@@ -167,14 +213,14 @@ export const DESTINATIONS: readonly Destination[] = [
   {
     id: 'register_land',
     summary: 'registering a new land by walking or drawing its boundary',
-    aliases: ['register land', 'add land', 'new field', 'map my field', 'जमीन जोड़ें', 'नया खेत'],
+    aliases: ['register land', 'add land', 'new field', 'map my field', 'add farm', 'naya khet', 'zameen jode', 'जमीन जोड़ें', 'नया खेत', 'खेत नापें'],
     steps: [{ action: 'NAVIGATE', target: 'RegisterLandMethod' }],
     messageKey: 'avatar.guide.register_land',
   },
   {
     id: 'edit_boundary',
     summary: 'changing the boundary of an already-registered land',
-    aliases: ['edit boundary', 'change boundary', 'fix my field', 'सीमा बदलें'],
+    aliases: ['edit boundary', 'change boundary', 'fix my field', 'seema badle', 'boundary badle', 'सीमा बदलें', 'खेत की सीमा'],
     steps: [
       { action: 'NAVIGATE', target: 'MyFarm' },
       { action: 'HIGHLIGHT', target: 'my-farm-edit-boundary' },
@@ -184,7 +230,10 @@ export const DESTINATIONS: readonly Destination[] = [
   {
     id: 'soil_moisture',
     summary: 'the estimated soil moisture for the field',
-    aliases: ['soil moisture', 'how wet is my soil', 'moisture', 'मिट्टी की नमी', 'नमी', 'moisture level', 'soil hydration', 'soil status'],
+    aliases: [
+      'soil moisture', 'how wet is my soil', 'moisture', 'moisture level', 'soil hydration',
+      'soil status', 'mitti ki nami', 'nami', 'mitti me pani', 'मिट्टी की नमी', 'नमी', 'खेत में पानी',
+    ],
     steps: [
       { action: 'NAVIGATE', target: 'Field' },
       { action: 'SCROLL', target: 'soil-moisture-card' },
@@ -197,22 +246,19 @@ export const DESTINATIONS: readonly Destination[] = [
   {
     id: 'calendar',
     summary: 'the smart farm calendar of upcoming farm activities',
-    aliases: ['calendar', 'schedule', 'what should i do', 'कैलेंडर', 'कार्यक्रम'],
+    aliases: ['calendar', 'schedule', 'what should i do', 'karyakram', 'activities', 'कैलेंडर', 'कार्यक्रम', 'फार्म कैलेंडर'],
     steps: [{ action: 'NAVIGATE', target: 'Calendar' }],
     messageKey: 'avatar.guide.calendar',
   },
   {
     id: 'irrigation_schedule',
     summary: 'when to irrigate — watering schedule and reminders',
-    aliases: ['irrigation', 'watering', 'when to water', 'irrigation schedule', 'सिंचाई', 'पानी कब दें'],
+    aliases: ['irrigation', 'watering', 'when to water', 'irrigation schedule', 'sinchai', 'pani kab de', 'सिंचाई', 'पानी कब दें', 'सिंचाई का समय'],
     steps: [
       { action: 'NAVIGATE', target: 'Calendar' },
       { action: 'HIGHLIGHT', target: 'calendar-events' },
     ],
     messageKey: 'avatar.guide.calendar',
-    // There is no irrigation schedule in this product yet — no table, no
-    // service, no screen. Pointing at the calendar is the closest honest
-    // answer, and the caveat is what stops it becoming a false one.
     caveatKey: 'avatar.guide.caveat.irrigation',
   },
 
@@ -220,49 +266,49 @@ export const DESTINATIONS: readonly Destination[] = [
   {
     id: 'schemes',
     summary: 'the directory of government agricultural schemes and subsidies',
-    aliases: ['schemes', 'subsidy', 'government scheme', 'yojana', 'योजना', 'सरकारी योजना'],
+    aliases: ['schemes', 'subsidy', 'government scheme', 'yojana', 'sarkari yojana', 'subsidies', 'योजना', 'सरकारी योजना', 'सब्सिडी', 'सरकारी मदद'],
     steps: [{ action: 'NAVIGATE', target: 'Schemes' }],
     messageKey: 'avatar.guide.schemes',
   },
   {
     id: 'updates',
     summary: 'the agricultural news and updates feed',
-    aliases: ['news', 'updates', 'what is happening', 'समाचार', 'खबर'],
+    aliases: ['news', 'updates', 'what is happening', 'samachar', 'khabar', 'taza khabar', 'समाचार', 'खबर', 'कृषि समाचार'],
     steps: [{ action: 'NAVIGATE', target: 'Updates' }],
     messageKey: 'avatar.guide.updates',
   },
   {
     id: 'alerts',
     summary: 'past alerts and messages sent to the farmer',
-    aliases: ['alerts', 'notifications', 'messages', 'warnings', 'चेतावनी', 'सूचना'],
+    aliases: ['alerts', 'notifications', 'messages', 'warnings', 'chetavni', 'suchna', 'चेतावनी', 'सूचना', 'संदेश', 'नोटिफिकेशन'],
     steps: [{ action: 'NAVIGATE', target: 'Alerts' }],
     messageKey: 'avatar.guide.alerts',
   },
   {
     id: 'learning',
     summary: 'Krishi Academy — video tutorials on farming techniques',
-    aliases: ['learn', 'tutorial', 'academy', 'how to video', 'teach me', 'सीखें', 'वीडियो'],
+    aliases: ['learn', 'tutorial', 'academy', 'how to video', 'teach me', 'sikho', 'video', 'सीखें', 'वीडियो', 'ट्यूटोरियल', 'कृषि अकादमी'],
     steps: [{ action: 'NAVIGATE', target: 'Learning' }],
     messageKey: 'avatar.guide.learning',
   },
   {
     id: 'visual_assistant',
     summary: 'pointing the camera at a plant to have it looked at',
-    aliases: ['camera', 'photo', 'scan my plant', 'take a picture', 'कैमरा', 'फोटो'],
+    aliases: ['camera', 'photo', 'scan my plant', 'take a picture', 'pudha scan', 'photo lo', 'कैमरा', 'फोटो', 'पौधे की फोटो', 'स्कैन'],
     steps: [{ action: 'NAVIGATE', target: 'VisualAssistant' }],
     messageKey: 'avatar.guide.visual_assistant',
   },
   {
     id: 'history',
     summary: 'the farm overview and past activity timeline',
-    aliases: ['history', 'past activity', 'timeline', 'इतिहास', 'पिछला'],
+    aliases: ['history', 'past activity', 'timeline', 'purana record', 'itahas', 'इतिहास', 'पिछला', 'पिछली गतिविधियां'],
     steps: [{ action: 'NAVIGATE', target: 'History' }],
     messageKey: 'avatar.guide.history',
   },
   {
     id: 'profile',
     summary: 'the farmer’s own profile, language and notification settings',
-    aliases: ['profile', 'my account', 'settings', 'change language', 'प्रोफाइल', 'भाषा बदलें'],
+    aliases: ['profile', 'my account', 'settings', 'change language', 'bhasha badle', 'khata', 'प्रोफाइल', 'भाषा बदलें', 'मेरी प्रोफाइल', 'सेटिंग्स'],
     steps: [{ action: 'NAVIGATE', target: 'Profile' }],
     messageKey: 'avatar.guide.profile',
   },
@@ -277,10 +323,6 @@ export function findDestination(id: string | null | undefined): Destination | nu
 
 /**
  * The destination list as the router sees it.
- *
- * Built from the same array the lookup uses, so a destination can never be
- * offered to the model without being resolvable, or resolvable without being
- * offered.
  */
 export function destinationCatalogue(): string {
   return DESTINATIONS.map((destination) => `${destination.id}: ${destination.summary}`).join('\n');
@@ -288,11 +330,6 @@ export function destinationCatalogue(): string {
 
 /**
  * Lower-cased, punctuation-stripped, single-spaced — for alias matching.
- *
- * `\p{M}` has to be kept alongside `\p{L}`: Indic vowel signs and the virama
- * are combining marks, not letters, so dropping them shatters every Devanagari
- * word into loose consonants. Zero-width joiners go first and silently, since
- * replacing them with a space would split a word in half instead.
  */
 function normalise(text: string): string {
   return text
@@ -305,12 +342,7 @@ function normalise(text: string): string {
 
 /**
  * Words that carry no information about *which* destination is wanted.
- *
- * Removing them is what lets "what is the mandi price today" match the same
- * alias as "mandi price". Note what is deliberately absent: anything that
- * signals the question is about the wider world rather than this app — a
- * "latest", a place name, a year. Those must survive, because they are the
- * evidence that this is not a navigation request at all.
+ * Covers English, Latin Hinglish transliterations, and Devanagari Hindi.
  */
 const FILLER = new Set([
   // English framing
@@ -318,12 +350,25 @@ const FILLER = new Set([
   'where', 'when', 'which', 'can', 'could', 'i', 'see', 'view', 'look', 'open',
   'go', 'to', 'take', 'want', 'need', 'please', 'tell', 'find', 'get', 'about',
   'of', 'for', 'on', 'in', 'at', 'today', 'now', 'this', 'currently', 'much',
-  'how', 'do', 'does', 'it', 'you', 'us', 'we', 'and', 'week', 'right',
-  // Hindi framing
-  'मुझे', 'मेरा', 'मेरी', 'मेरे', 'क्या', 'कहाँ', 'कहां', 'है', 'हैं', 'हूँ',
-  'दिखाओ', 'दिखाइए', 'दिखाईये', 'बताओ', 'बताइए', 'खोलो', 'खोलिए', 'आज', 'अभी',
-  'का', 'की', 'के', 'को', 'में', 'पर', 'कैसा', 'कैसी', 'कैसे', 'कितना', 'कितनी',
-  'चाहिए', 'देखना', 'देखें', 'और',
+  'how', 'do', 'does', 'it', 'you', 'us', 'we', 'and', 'week', 'right', 'locate',
+  'app', 'application',
+
+  // Latin Hinglish framing
+  'mujhe', 'mujhko', 'mera', 'meri', 'mere', 'mereko', 'hum', 'humare', 'apna', 'apni', 'apne',
+  'kya', 'kaha', 'kahan', 'kidhar', 'kidhr', 'kab', 'kaise', 'kaisa', 'kaisi', 'kitna', 'kitni', 'kitne',
+  'kaun', 'kon', 'hai', 'hain', 'ha', 'h', 'hoon', 'ho', 'batao', 'bato', 'bata', 'bataiye', 'bataye',
+  'dikhao', 'dikha', 'dikhaye', 'dikhaiye', 'kholo', 'khol', 'kholiye', 'kholna',
+  'jana', 'jaana', 'jaa', 'jao', 'dekhna', 'dekho', 'dekh', 'chahiye', 'chahie', 'chahata', 'chahati',
+  'bhejo', 'karo', 'kar', 'kare', 'karen', 'ka', 'ki', 'ke', 'ko', 'me', 'mein', 'par', 'pe', 'se', 'tak',
+  'aur', 'bhi', 'to', 'toh', 'wala', 'wali', 'wale', 'bhai', 'ji',
+
+  // Devanagari Hindi framing
+  'मुझे', 'मुझको', 'मेरा', 'मेरी', 'मेरे', 'हम', 'हमारा', 'हमारे', 'अपना', 'अपनी', 'अपने',
+  'क्या', 'कहाँ', 'कहां', 'किधर', 'कब', 'कैसे', 'कैसा', 'कैसी', 'कितना', 'कितनी', 'कितने', 'कौन',
+  'है', 'हैं', 'हूँ', 'हो', 'दिखाओ', 'दिखाइए', 'दिखाईये', 'दिखा', 'बताओ', 'बताइए', 'बता',
+  'खोलो', 'खोलिए', 'खोलें', 'खोलना', 'जाना', 'जाओ', 'जाएं', 'देखना', 'देखो', 'देखें', 'चाहिए',
+  'चाहता', 'चाहती', 'आज', 'अभी', 'का', 'की', 'के', 'को', 'में', 'पर', 'से', 'तक', 'भी', 'तो', 'और',
+  'ऐप', 'एप्लीकेशन', 'वाला', 'वाली', 'वाले', 'भाई', 'जी',
 ]);
 
 function stripFiller(text: string): string {
@@ -336,28 +381,15 @@ function stripFiller(text: string): string {
 /**
  * How much of what the farmer actually said has to be the alias.
  *
- * The local path exists to skip a model call on "mandi bhav", not to guess at
- * a sentence. Below this, the request carries substance the alias does not
- * account for — and that leftover is usually the whole point of the question.
+ * The local path exists to skip a model call on "mandi bhav" or "market kidhar hai",
+ * not to guess at a complex sentence. Requiring the alias to account for at least 40%
+ * of the stripped request means research questions (e.g. "latest subsidies in Maharashtra")
+ * pass through to the router.
  */
 const COVERAGE_THRESHOLD = 0.4;
 
 /**
  * Resolve a destination without asking the model.
- *
- * This is the latency shortcut. Most navigation requests are a handful of
- * phrasings repeated endlessly ("mandi bhav", "what's the weather"), and none
- * of them need a language model to understand. A miss here is not a failure —
- * it just means the request goes to the router like any other.
- *
- * The coverage rule is what stops it overreaching. A bare substring match
- * would route "what are the latest solar irrigation subsidies in Maharashtra"
- * to the farm calendar on the strength of the word "irrigation" — swallowing a
- * research question, and answering it with a screen. Requiring the alias to
- * account for most of the request means anything with substance left over goes
- * to the router to be understood properly.
- *
- * Longest alias wins, so "price trend" is not swallowed by "price".
  */
 export function matchDestinationLocally(transcript: string): Destination | null {
   const haystack = stripFiller(transcript);
@@ -370,6 +402,7 @@ export function matchDestinationLocally(transcript: string): Destination | null 
       const needle = stripFiller(alias);
       if (!needle || !haystack.includes(needle)) continue;
       if (needle.length / haystack.length < COVERAGE_THRESHOLD) continue;
+
       if (!best || needle.length > best.length) {
         best = { destination, length: needle.length };
       }
@@ -378,3 +411,4 @@ export function matchDestinationLocally(transcript: string): Destination | null 
 
   return best?.destination ?? null;
 }
+

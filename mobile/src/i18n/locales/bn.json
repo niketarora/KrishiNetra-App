@@ -651,7 +651,9 @@
         "sell_or_wait": "বেচবেন না অপেক্ষা করবেন — এর জন্য দামের পূর্বাভাস দরকার, যা এখনও যুক্ত হয়নি। এই সেই কার্ড যেখানে তা আসবে।",
         "field_analysis": "ফসলের স্বাস্থ্য ও বৃদ্ধির পর্যায় এখনও যুক্ত হয়নি। এখানে এখন শুধু আবহাওয়ার ঝুঁকির সারিটিই আসল।",
         "soil_moisture": "এই আর্দ্রতার হিসাব একটি পরীক্ষামূলক মডেল থেকে আসে, তাই এটিকে মোটামুটি অনুমান ভাবুন, সেচের পরামর্শ নয়।"
-      }
+      },
+      "buyers": "Here are verified direct buyers and demand offers for your crop.",
+      "quality_grading": "Here is the crop quality assay and moisture grading breakdown."
     },
     "youAsked": "You asked"
   },

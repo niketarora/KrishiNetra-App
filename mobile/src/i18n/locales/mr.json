@@ -651,7 +651,9 @@
         "sell_or_wait": "विकावे की थांबावे — यासाठी भावाचा अंदाज लागतो, जो अजून जोडलेला नाही. हे ते कार्ड जिथे तो दिसेल.",
         "field_analysis": "पिकाचे आरोग्य आणि वाढीचा टप्पा अजून जोडलेला नाही. इथे सध्या फक्त हवामान धोक्याची ओळ खरी आहे.",
         "soil_moisture": "हा ओलाव्याचा आकडा प्रायोगिक मॉडेलमधून येतो, त्यामुळे तो ढोबळ अंदाज माना, सिंचनाचा सल्ला नव्हे."
-      }
+      },
+      "buyers": "Here are verified direct buyers and demand offers for your crop.",
+      "quality_grading": "Here is the crop quality assay and moisture grading breakdown."
     },
     "youAsked": "You asked"
   },
