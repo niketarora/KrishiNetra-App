@@ -2,15 +2,17 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
-import { Screen, ScreenHeader, Text } from '@/components/ui';
+import { EmptyState, Screen, ScreenHeader, Text } from '@/components/ui';
 import { TutorialFlashcardPager } from '@/components/learning/TutorialFlashcardPager';
+import { useAuth } from '@/features/auth/AuthContext';
 import { getTutorial, localize } from '@/features/learning/tutorials';
-import { layout, colors } from '@/theme';
+import { useLearningProgress } from '@/features/learning/useLearningProgress';
+import { colors, layout } from '@/theme';
 
 type Props = {
   tutorialId: string;
   onBack: () => void;
-  onComplete: () => void;
+  onComplete?: () => void;
 };
 
 /**
@@ -21,13 +23,35 @@ type Props = {
  */
 export function TutorialFlashcardScreen({ tutorialId, onBack, onComplete }: Props) {
   const { t, i18n } = useTranslation();
+  const { user } = useAuth();
+  const { markComplete } = useLearningProgress(user?.id ?? null);
+
   const tutorial = getTutorial(tutorialId);
 
   if (!tutorial) {
-    return null;
+    return (
+      <Screen>
+        <ScreenHeader title={t('learning.title')} onBack={onBack} />
+        <EmptyState
+          icon="book"
+          title={t('learning.notFoundTitle')}
+          body={t('learning.notFoundBody')}
+          testID="tutorial-not-found"
+        />
+      </Screen>
+    );
   }
 
   const language = i18n.language;
+
+  const handleComplete = () => {
+    void markComplete(tutorial.id);
+    if (onComplete) {
+      onComplete();
+    } else {
+      onBack();
+    }
+  };
 
   return (
     <Screen>
@@ -45,7 +69,7 @@ export function TutorialFlashcardScreen({ tutorialId, onBack, onComplete }: Prop
 
         <TutorialFlashcardPager
           steps={tutorial.steps}
-          onComplete={onComplete}
+          onComplete={handleComplete}
         />
 
         <View style={styles.footer}>
@@ -78,3 +102,4 @@ const styles = StyleSheet.create({
     fontStyle: 'italic',
   },
 });
+

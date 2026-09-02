@@ -291,7 +291,12 @@
     "emptyTitle": "હજુ કોઈ પાઠ ઉપલબ્ધ નથી",
     "emptyBody": "નવા પાઠ ટૂંક સમયમાં ઉમેરવામાં આવશે.",
     "notFoundTitle": "પાઠ મળ્યો નથી",
-    "notFoundBody": "આ પાઠ ઉપલબ્ધ નથી."
+    "notFoundBody": "આ પાઠ ઉપલબ્ધ નથી.",
+    "flashcards": "Flashcards",
+    "flashcardIntro": "Step-by-step flashcards for this tutorial",
+    "flashcardHint": "Tap arrows or advance to step through each phase",
+    "stepCount": "Step {{current}} of {{total}}",
+    "studyFlashcards": "Study as Flashcards"
   },
   "calendar": {
     "title": "સ્માર્ટ ફાર્મ કેલેન્ડર",

@@ -291,7 +291,12 @@
     "emptyTitle": "പാഠങ്ങൾ ലഭ്യമല്ല",
     "emptyBody": "പുതിയ പാഠങ്ങൾ ഉടൻ ചേർക്കുന്നതാണ്.",
     "notFoundTitle": "പാഠം കണ്ടെത്താനായില്ല",
-    "notFoundBody": "ഈ പാഠം ലഭ്യമല്ല."
+    "notFoundBody": "ഈ പാഠം ലഭ്യമല്ല.",
+    "flashcards": "Flashcards",
+    "flashcardIntro": "Step-by-step flashcards for this tutorial",
+    "flashcardHint": "Tap arrows or advance to step through each phase",
+    "stepCount": "Step {{current}} of {{total}}",
+    "studyFlashcards": "Study as Flashcards"
   },
   "calendar": {
     "title": "സ്മാർട്ട് ഫാം കലണ്ടർ",

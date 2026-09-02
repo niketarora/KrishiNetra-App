@@ -291,7 +291,12 @@
     "emptyTitle": "अद्याप धडे नाहीत",
     "emptyBody": "नवीन धडे लवकरच जोडले जातील.",
     "notFoundTitle": "धडा सापडला नाही",
-    "notFoundBody": "हा धडा उपलब्ध नाही."
+    "notFoundBody": "हा धडा उपलब्ध नाही.",
+    "flashcards": "Flashcards",
+    "flashcardIntro": "Step-by-step flashcards for this tutorial",
+    "flashcardHint": "Tap arrows or advance to step through each phase",
+    "stepCount": "Step {{current}} of {{total}}",
+    "studyFlashcards": "Study as Flashcards"
   },
   "calendar": {
     "title": "स्मार्ट कृषी दिनदर्शिका",

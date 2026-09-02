@@ -302,7 +302,12 @@
     "emptyTitle": "No tutorials yet",
     "emptyBody": "Tutorials will appear here once they're added.",
     "notFoundTitle": "Tutorial not found",
-    "notFoundBody": "This tutorial isn't available. Go back and pick another one."
+    "notFoundBody": "This tutorial isn't available. Go back and pick another one.",
+    "flashcards": "Flashcards",
+    "flashcardIntro": "Step-by-step flashcards for this tutorial",
+    "flashcardHint": "Tap arrows or advance to step through each phase",
+    "stepCount": "Step {{current}} of {{total}}",
+    "studyFlashcards": "Study as Flashcards"
   },
   "calendar": {
     "title": "Smart Farm Calendar",

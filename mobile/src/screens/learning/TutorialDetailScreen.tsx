@@ -12,6 +12,7 @@ type Props = {
   tutorialId: string;
   onBack: () => void;
   onOpenAr: (tutorialId: string) => void;
+  onOpenFlashcards?: (tutorialId: string) => void;
 };
 
 /**
@@ -22,7 +23,7 @@ type Props = {
  * regardless of whether this tutorial has either — most tutorials have
  * neither, and that must keep working exactly as before.
  */
-export function TutorialDetailScreen({ tutorialId, onBack, onOpenAr }: Props) {
+export function TutorialDetailScreen({ tutorialId, onBack, onOpenAr, onOpenFlashcards }: Props) {
   const { t, i18n } = useTranslation();
   const { user } = useAuth();
   const { isComplete, markComplete } = useLearningProgress(user?.id ?? null);
@@ -84,6 +85,16 @@ export function TutorialDetailScreen({ tutorialId, onBack, onOpenAr }: Props) {
             </View>
           ))}
         </Card>
+
+        {onOpenFlashcards ? (
+          <Button
+            label={t('learning.studyFlashcards')}
+            onPress={() => onOpenFlashcards(tutorial.id)}
+            variant="secondary"
+            icon="book"
+            testID="study-flashcards"
+          />
+        ) : null}
 
         <Card>
           <Text variant="caption" style={styles.sectionTitle}>

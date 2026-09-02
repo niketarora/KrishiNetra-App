@@ -291,7 +291,12 @@
     "emptyTitle": "ابھی کوئی سبق نہیں ہے",
     "emptyBody": "نئے اسباق جلد شامل کیے جائیں گے۔",
     "notFoundTitle": "سبق نہیں ملا",
-    "notFoundBody": "یہ سبق دستیاب نہیں ہے۔"
+    "notFoundBody": "یہ سبق دستیاب نہیں ہے۔",
+    "flashcards": "Flashcards",
+    "flashcardIntro": "Step-by-step flashcards for this tutorial",
+    "flashcardHint": "Tap arrows or advance to step through each phase",
+    "stepCount": "Step {{current}} of {{total}}",
+    "studyFlashcards": "Study as Flashcards"
   },
   "calendar": {
     "title": "اسمارٹ فارم کیلنڈر",

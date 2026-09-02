@@ -1,6 +1,6 @@
 import type { User } from '@supabase/supabase-js';
 
-import { adminClient } from '../config/supabase.js';
+import { adminClient, authClient } from '../config/supabase.js';
 import { ApiError } from '../utils/ApiError.js';
 
 const EMAIL_DOMAIN = 'phone.demo.krishinetra.app';
@@ -97,10 +97,11 @@ export async function findOrCreateUser(
     }
   }
 
-  // Verify token hash on backend to get real Supabase session tokens
+  // Verify token hash on backend using anon authClient to get real Supabase session tokens
   let session: PhoneAuthSession | null = null;
   try {
-    const { data: verifyData } = await admin.auth.verifyOtp({
+    const auth = authClient();
+    const { data: verifyData } = await auth.auth.verifyOtp({
       token_hash: tokenHash,
       type: 'magiclink',
     });

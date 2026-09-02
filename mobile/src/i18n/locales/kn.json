@@ -291,7 +291,12 @@
     "emptyTitle": "ಯಾವುದೇ ಪಾಠಗಳು ಲಭ್ಯವಿಲ್ಲ",
     "emptyBody": "ಹೊಸ ಪಾಠಗಳನ್ನು ಶೀಘ್ರದಲ್ಲೇ ಸೇರಿಸಲಾಗುವುದು.",
     "notFoundTitle": "ಪಾಠ ಕಂಡುಬಂದಿಲ್ಲ",
-    "notFoundBody": "ಈ ಪಾಠ ಲಭ್ಯವಿಲ್ಲ."
+    "notFoundBody": "ಈ ಪಾಠ ಲಭ್ಯವಿಲ್ಲ.",
+    "flashcards": "Flashcards",
+    "flashcardIntro": "Step-by-step flashcards for this tutorial",
+    "flashcardHint": "Tap arrows or advance to step through each phase",
+    "stepCount": "Step {{current}} of {{total}}",
+    "studyFlashcards": "Study as Flashcards"
   },
   "calendar": {
     "title": "ಸ್ಮಾರ್ಟ್ ಫಾರ್ಮ್ ಕ್ಯಾಲೆಂಡರ್",

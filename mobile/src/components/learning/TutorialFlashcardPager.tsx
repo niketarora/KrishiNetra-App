@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
-import { Dimensions, StyleSheet, View } from 'react-native';
+import { Pressable, StyleSheet, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
-import { Button, Card, Icon, Text } from '@/components/ui';
+import { Card, Icon, Text } from '@/components/ui';
 import { localize, type LocalizedText } from '@/features/learning/tutorials';
-import { colors, layout, radius } from '@/theme';
-
-const { width } = Dimensions.get('window');
+import { colors, radius } from '@/theme';
 
 type Props = {
   steps: LocalizedText[];
@@ -17,13 +15,15 @@ type Props = {
  * An interactive way to view tutorial steps one by one.
  *
  * This component handles the state of which step is currently being viewed.
- * It uses the existing `Card` and `Button` components from the design system
+ * It uses the existing `Card` component from the design system
  * to maintain visual consistency.
  */
 export function TutorialFlashcardPager({ steps, onComplete }: Props) {
   const { i18n, t } = useTranslation();
   const [index, setIndex] = useState(0);
   const language = i18n.language;
+
+  const isLast = index === steps.length - 1;
 
   const handleNext = () => {
     if (index < steps.length - 1) {
@@ -39,7 +39,7 @@ export function TutorialFlashcardPager({ steps, onComplete }: Props) {
     }
   };
 
-  const progress = (index + 1) / steps.length;
+  const progress = steps.length > 0 ? (index + 1) / steps.length : 0;
 
   return (
     <View style={styles.container}>
@@ -54,20 +54,33 @@ export function TutorialFlashcardPager({ steps, onComplete }: Props) {
         </View>
 
         <View style={styles.body}>
-          <Text variant="bodyLarge" style={styles.stepText}>
+          <Text variant="body" style={styles.stepText}>
             {localize(steps[index], language)}
           </Text>
         </View>
 
         <View style={styles.footer}>
-          <Button
-            variant="secondary"
-            icon="chevron"
+          <Pressable
             onPress={handlePrev}
             disabled={index === 0}
-            style={styles.navButton}
+            testID="flashcard-prev"
+            style={({ pressed }) => [
+              styles.navButton,
+              styles.secondaryNavButton,
+              index === 0 && styles.navButtonDisabled,
+              pressed && index > 0 && styles.navButtonPressed,
+            ]}
+            accessibilityRole="button"
             accessibilityLabel={t('common.back')}
-          />
+          >
+            <View style={styles.prevIconWrap}>
+              <Icon
+                name="chevron"
+                size={20}
+                color={index === 0 ? colors.text.muted : colors.text.primary}
+              />
+            </View>
+          </Pressable>
 
           <View style={styles.dots}>
             {steps.map((_, i) => (
@@ -81,16 +94,23 @@ export function TutorialFlashcardPager({ steps, onComplete }: Props) {
             ))}
           </View>
 
-          <Button
-            variant={index === steps.length - 1 ? 'primary' : 'secondary'}
-            icon={index === steps.length - 1 ? 'check' : 'chevron'}
+          <Pressable
             onPress={handleNext}
-            style={[
+            testID="flashcard-next"
+            style={({ pressed }) => [
               styles.navButton,
-              index < steps.length - 1 && styles.nextButton,
+              isLast ? styles.primaryNavButton : styles.secondaryNavButton,
+              pressed && (isLast ? styles.primaryNavButtonPressed : styles.navButtonPressed),
             ]}
-            accessibilityLabel={index === steps.length - 1 ? t('learning.completed') : t('common.continue')}
-          />
+            accessibilityRole="button"
+            accessibilityLabel={isLast ? t('learning.completed') : t('common.continue')}
+          >
+            <Icon
+              name={isLast ? 'check' : 'chevron'}
+              size={20}
+              color={isLast ? colors.text.onPrimary : colors.text.primary}
+            />
+          </Pressable>
         </View>
       </Card>
     </View>
@@ -141,11 +161,27 @@ const styles = StyleSheet.create({
     width: 48,
     height: 48,
     borderRadius: 24,
-    paddingHorizontal: 0,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  nextButton: {
+  secondaryNavButton: {
+    borderWidth: 1,
+    borderColor: colors.borderStrong,
+    backgroundColor: 'transparent',
+  },
+  primaryNavButton: {
+    backgroundColor: colors.primary,
+  },
+  primaryNavButtonPressed: {
+    backgroundColor: colors.primaryDark,
+  },
+  navButtonPressed: {
+    backgroundColor: colors.neutralBg,
+  },
+  navButtonDisabled: {
+    opacity: 0.35,
+  },
+  prevIconWrap: {
     transform: [{ rotate: '180deg' }],
   },
   dots: {
@@ -163,3 +199,4 @@ const styles = StyleSheet.create({
     width: 12,
   },
 });
+

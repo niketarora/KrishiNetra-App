@@ -291,7 +291,12 @@
     "emptyTitle": "பயிற்சிகள் எதுவும் இல்லை",
     "emptyBody": "புதிய பயிற்சிகள் விரைவில் சேர்க்கப்படும்.",
     "notFoundTitle": "பயிற்சி கிடைக்கவில்லை",
-    "notFoundBody": "இந்தப் பயிற்சி தற்போது கிடைக்கவில்லை."
+    "notFoundBody": "இந்தப் பயிற்சி தற்போது கிடைக்கவில்லை.",
+    "flashcards": "Flashcards",
+    "flashcardIntro": "Step-by-step flashcards for this tutorial",
+    "flashcardHint": "Tap arrows or advance to step through each phase",
+    "stepCount": "Step {{current}} of {{total}}",
+    "studyFlashcards": "Study as Flashcards"
   },
   "calendar": {
     "title": "ஸ்மார்ட் விவசாய நாள்காட்டி",

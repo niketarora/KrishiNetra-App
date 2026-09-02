@@ -291,7 +291,12 @@
     "emptyTitle": "এখনও কোনো টিউটোরিয়াল নেই",
     "emptyBody": "নতুন টিউটোরিয়াল শীঘ্রই যুক্ত হবে।",
     "notFoundTitle": "টিউটোরিয়াল পাওয়া যায়নি",
-    "notFoundBody": "এই টিউটোরিয়ালটি উপলব্ধ নয়।"
+    "notFoundBody": "এই টিউটোরিয়ালটি উপলব্ধ নয়।",
+    "flashcards": "Flashcards",
+    "flashcardIntro": "Step-by-step flashcards for this tutorial",
+    "flashcardHint": "Tap arrows or advance to step through each phase",
+    "stepCount": "Step {{current}} of {{total}}",
+    "studyFlashcards": "Study as Flashcards"
   },
   "calendar": {
     "title": "স্মার্ট কৃষি ক্যালেন্ডার",

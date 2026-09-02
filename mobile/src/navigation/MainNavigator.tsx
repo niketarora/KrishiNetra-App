@@ -22,6 +22,7 @@ import { HistoryScreen } from '@/screens/history/HistoryScreen';
 import { HomeScreen } from '@/screens/home/HomeScreen';
 import { LearningHomeScreen } from '@/screens/learning/LearningHomeScreen';
 import { TutorialDetailScreen } from '@/screens/learning/TutorialDetailScreen';
+import { TutorialFlashcardScreen } from '@/screens/learning/TutorialFlashcardScreen';
 import { MarketScreen } from '@/screens/market/MarketScreen';
 import { ProfileScreen } from '@/screens/profile/ProfileScreen';
 import { ConfirmFieldScreen } from '@/screens/onboarding/ConfirmFieldScreen';
@@ -334,6 +335,16 @@ export function MainNavigator() {
             tutorialId={route.params.tutorialId}
             onBack={() => navigation.goBack()}
             onOpenAr={(tutorialId) => navigation.navigate('ARGuide', { tutorialId })}
+            onOpenFlashcards={(tutorialId) => navigation.navigate('TutorialFlashcard', { tutorialId })}
+          />
+        )}
+      </Stack.Screen>
+
+      <Stack.Screen name="TutorialFlashcard">
+        {({ navigation, route }) => (
+          <TutorialFlashcardScreen
+            tutorialId={route.params.tutorialId}
+            onBack={() => navigation.goBack()}
           />
         )}
       </Stack.Screen>

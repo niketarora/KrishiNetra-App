@@ -291,7 +291,12 @@
     "emptyTitle": "କୌଣସି ପାଠ ନାହିଁ",
     "emptyBody": "ଶୀଘ୍ର ନୂଆ ପାଠ ଯୋଡ଼ାଯିବ।",
     "notFoundTitle": "ପାଠ ମିଳିଲାନାହିଁ",
-    "notFoundBody": "ଏହି ପାଠ ଉପଲବ୍ଧ ନାହିଁ।"
+    "notFoundBody": "ଏହି ପାଠ ଉପଲବ୍ଧ ନାହିଁ।",
+    "flashcards": "Flashcards",
+    "flashcardIntro": "Step-by-step flashcards for this tutorial",
+    "flashcardHint": "Tap arrows or advance to step through each phase",
+    "stepCount": "Step {{current}} of {{total}}",
+    "studyFlashcards": "Study as Flashcards"
   },
   "calendar": {
     "title": "ସ୍ମାର୍ଟ କୃଷି କ୍ୟାଲେଣ୍ଡର",

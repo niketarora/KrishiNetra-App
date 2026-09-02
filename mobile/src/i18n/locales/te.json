@@ -291,7 +291,12 @@
     "emptyTitle": "పాఠాలు ఇంకా అందుబాటులో లేవు",
     "emptyBody": "త్వరలో కొత్త పాఠాలు చేర్చబడతాయి.",
     "notFoundTitle": "పాఠం కనుగొనబడలేదు",
-    "notFoundBody": "ఈ పాఠం అందుబాటులో లేదు."
+    "notFoundBody": "ఈ పాఠం అందుబాటులో లేదు.",
+    "flashcards": "Flashcards",
+    "flashcardIntro": "Step-by-step flashcards for this tutorial",
+    "flashcardHint": "Tap arrows or advance to step through each phase",
+    "stepCount": "Step {{current}} of {{total}}",
+    "studyFlashcards": "Study as Flashcards"
   },
   "calendar": {
     "title": "స్మార్ట్ వ్యవసాయ క్యాలెండర్",
