@@ -148,7 +148,7 @@ describe('buildFarmerContext', () => {
     expect(ctx.soilMoisture?.category).toBe('optimal');
 
     expect(ctx.schemes).toHaveLength(1);
-    expect(ctx.schemes?.[0].name).toBe('PM-KISAN');
+    expect(ctx.schemes?.[0]?.name).toBe('PM-KISAN');
 
     expect(ctx.msp?.pricePerQuintal).toBe(1980);
     expect(ctx.marketPrice?.modalPrice).toBe(2150);

@@ -341,6 +341,13 @@ describe('HomeScreen', () => {
       expect(props.onOpenAlerts).toHaveBeenCalled();
     });
 
+    it('opens Market screen from the market card', async () => {
+      await renderWithProviders(<HomeScreen {...props} />);
+      await fireEvent.press(screen.getByTestId('market-card'));
+
+      expect(props.onOpenMarket).toHaveBeenCalled();
+    });
+
     it('opens the avatar from the companion card', async () => {
       await renderWithProviders(<HomeScreen {...props} />);
       await fireEvent.press(screen.getByTestId('companion-card'));

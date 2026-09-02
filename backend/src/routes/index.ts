@@ -13,8 +13,10 @@ import * as schemesController from '../controllers/schemes.controller.js';
 import * as liveController from '../controllers/live.controller.js';
 import * as irrigationController from '../controllers/irrigation.controller.js';
 import * as cropAnalysisController from '../controllers/cropAnalysis.controller.js';
+import * as marketIntelligenceController from '../controllers/marketIntelligence.controller.js';
 import { requireAuth } from '../middleware/requireAuth.js';
 import { validate } from '../middleware/validate.js';
+import { marketIntelligenceAnalyseSchema } from '../schemas/marketIntelligence.schema.js';
 import {
   createFarmSchema,
   farmIdParamSchema,
@@ -107,6 +109,18 @@ apiRouter.get(
   referenceController.marketPrices,
 );
 apiRouter.get('/weather', validate('query', weatherQuerySchema), referenceController.weather);
+
+// --- Crop Price Intelligence & Marketplace ----------------------------------
+apiRouter.post(
+  '/market-intelligence/analyse',
+  validate('body', marketIntelligenceAnalyseSchema),
+  marketIntelligenceController.analyseMarketIntelligence,
+);
+apiRouter.post(
+  '/market-intelligence/prices',
+  validate('body', marketIntelligenceAnalyseSchema),
+  marketIntelligenceController.analyseMarketIntelligence,
+);
 
 // --- Experimental ML predictions -------------------------------------------
 // The delivered artifact is explicitly not production-ready. Its response

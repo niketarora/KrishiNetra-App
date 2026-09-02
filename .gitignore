@@ -46,3 +46,14 @@ venv/
 # Supabase
 supabase/.temp/
 
+# Large SQLite databases & ML cache
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+*.sqlite-journal
+
+# Temporary debug artifacts
+ui*.xml
+test_screen.png
+emulator_screen.png
+

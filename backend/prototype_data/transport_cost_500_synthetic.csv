@@ -1,0 +1,501 @@
+route_id,origin,destination,estimated_road_km,truck_type,capacity_mt,assumed_rate_rs_per_km,estimated_toll_rs,loading_unloading_rs,estimated_total_trip_cost_rs,data_status
+T0001,Alwar,Bharatpur,119.8,Pickup 2T,2.0,25.01,106.0,300,3403.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0002,Barmer,Ajmer,426.2,Truck 16T,16.0,49.58,336.0,500,21969.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0003,Hanumangarh,Alwar,407.9,Pickup 2T,2.0,26.02,354.0,500,11467.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0004,Alwar,Hanumangarh,407.9,LCV 6T,6.0,30.33,617.0,650,13638.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0005,Kota,Nagaur,392.6,Truck 10T,10.0,36.36,588.0,1000,15862.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0006,Alwar,Sri Ganganagar,480.0,Tata Ace / mini,1.0,23.57,528.0,400,12240.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0007,Barmer,Sri Ganganagar,668.3,Truck 16T,16.0,57.03,561.0,400,39072.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0008,Jodhpur,Udaipur,251.4,Truck 16T,16.0,45.95,329.0,300,12182.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0009,Bikaner,Chittorgarh,476.5,Truck 16T,16.0,49.73,784.0,650,25131.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0010,Alwar,Hanumangarh,407.9,Tata Ace / mini,1.0,26.4,427.0,500,11695.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0011,Jodhpur,Kota,392.3,Truck 10T,10.0,36.23,416.0,650,15280.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0012,Sri Ganganagar,Nagaur,385.0,Tata Ace / mini,1.0,22.84,602.0,300,9695.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0013,Sri Ganganagar,Nagaur,385.0,LCV 6T,6.0,32.75,518.0,1000,14126.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0014,Bhilwara,Barmer,420.0,Truck 10T,10.0,48.26,310.0,500,21079.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0015,Chittorgarh,Bhilwara,65.1,LCV 6T,6.0,30.54,41.0,400,2430.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0016,Udaipur,Jaipur,424.8,Pickup 2T,2.0,29.19,362.0,650,13411.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0017,Barmer,Jaipur,583.9,Tata Ace / mini,1.0,24.77,549.0,1000,16011.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0018,Bhilwara,Bharatpur,452.3,LCV 6T,6.0,37.41,669.0,650,18239.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0019,Ajmer,Hanumangarh,447.4,Truck 16T,16.0,59.44,628.0,1000,28223.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0020,Ajmer,Sikar,176.8,Tata Ace / mini,1.0,26.29,114.0,400,5162.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0021,Bharatpur,Sri Ganganagar,593.1,LCV 6T,6.0,40.91,589.0,500,25354.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0022,Jaipur,Barmer,583.9,Tata Ace / mini,1.0,22.65,918.0,300,14443.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0023,Chittorgarh,Nagaur,348.5,Pickup 2T,2.0,33.14,261.0,650,12460.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0024,Barmer,Udaipur,341.4,Truck 16T,16.0,46.72,271.0,500,16721.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0025,Hanumangarh,Alwar,407.9,Tata Ace / mini,1.0,23.36,319.0,650,10497.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0026,Bikaner,Sri Ganganagar,276.8,Truck 16T,16.0,51.05,392.0,1000,15523.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0027,Jaipur,Bharatpur,221.7,Truck 10T,10.0,42.57,309.0,400,10146.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0028,Sikar,Bhilwara,328.4,Truck 16T,16.0,49.85,408.0,1000,17780.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0029,Kota,Bikaner,515.1,Truck 10T,10.0,46.48,785.0,400,25127.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0030,Ajmer,Alwar,297.7,Truck 16T,16.0,46.08,449.0,400,14568.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0031,Bhilwara,Kota,159.2,Tata Ace / mini,1.0,25.74,129.0,800,5027.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0032,Kota,Alwar,347.1,Pickup 2T,2.0,26.51,470.0,500,10172.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0033,Sikar,Chittorgarh,392.7,Truck 10T,10.0,45.36,466.0,800,19080.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0034,Hanumangarh,Bharatpur,520.8,Pickup 2T,2.0,27.28,565.0,400,15173.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0035,Udaipur,Chittorgarh,125.8,Tata Ace / mini,1.0,25.98,137.0,1000,4406.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0036,Jaipur,Barmer,583.9,Pickup 2T,2.0,33.8,443.0,1000,21178.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0037,Jaipur,Nagaur,263.5,Pickup 2T,2.0,25.62,251.0,800,7802.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0038,Bikaner,Hanumangarh,255.6,LCV 6T,6.0,32.25,360.0,800,9402.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0039,Sri Ganganagar,Bikaner,276.8,Pickup 2T,2.0,28.53,252.0,650,8799.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0040,Kota,Chittorgarh,166.2,LCV 6T,6.0,37.87,166.0,500,6959.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0041,Sikar,Ajmer,176.8,LCV 6T,6.0,34.09,229.0,800,7056.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0042,Bikaner,Bhilwara,416.5,Tata Ace / mini,1.0,25.34,430.0,800,11785.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0043,Bharatpur,Kota,353.4,LCV 6T,6.0,35.12,259.0,800,13470.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0044,Ajmer,Kota,235.7,Pickup 2T,2.0,33.75,319.0,300,8575.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0045,Jodhpur,Chittorgarh,281.5,LCV 6T,6.0,31.52,277.0,650,9801.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0046,Sri Ganganagar,Jodhpur,532.5,Tata Ace / mini,1.0,27.73,873.0,400,16039.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0047,Sri Ganganagar,Nagaur,385.0,Truck 16T,16.0,47.12,566.0,400,19105.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0048,Barmer,Jaipur,583.9,Pickup 2T,2.0,31.33,628.0,800,19721.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0049,Barmer,Ajmer,426.2,Truck 16T,16.0,57.76,512.0,800,25932.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0050,Sikar,Jodhpur,331.8,Pickup 2T,2.0,30.94,524.0,400,11191.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0051,Sikar,Ajmer,176.8,Tata Ace / mini,1.0,25.44,196.0,800,5493.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0052,Alwar,Nagaur,370.0,Pickup 2T,2.0,29.41,579.0,650,12110.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0053,Nagaur,Alwar,370.0,LCV 6T,6.0,30.59,584.0,650,12552.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0054,Bharatpur,Sri Ganganagar,593.1,Truck 16T,16.0,59.55,937.0,650,36908.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0055,Sikar,Ajmer,176.8,LCV 6T,6.0,30.0,144.0,800,6248.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0056,Bhilwara,Bharatpur,452.3,Pickup 2T,2.0,33.23,583.0,300,15912.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0057,Jaipur,Barmer,583.9,Truck 10T,10.0,37.96,697.0,400,23261.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0058,Barmer,Hanumangarh,658.5,Pickup 2T,2.0,27.91,593.0,650,19622.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0059,Sri Ganganagar,Udaipur,757.3,Pickup 2T,2.0,26.49,825.0,400,21285.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0060,Bharatpur,Ajmer,379.6,Truck 10T,10.0,37.73,523.0,1000,15845.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0061,Ajmer,Alwar,297.7,Truck 10T,10.0,37.99,277.0,500,12087.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0062,Jaipur,Bhilwara,267.0,Tata Ace / mini,1.0,24.16,301.0,1000,7753.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0063,Udaipur,Bikaner,491.9,Pickup 2T,2.0,30.6,497.0,300,15850.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0064,Jodhpur,Chittorgarh,281.5,Truck 16T,16.0,51.27,210.0,1000,15645.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0065,Sikar,Bharatpur,303.8,Tata Ace / mini,1.0,23.05,446.0,300,7748.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0066,Bhilwara,Bikaner,416.5,Truck 10T,10.0,44.19,631.0,1000,20037.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0067,Nagaur,Barmer,362.3,Truck 10T,10.0,46.62,330.0,300,17519.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0068,Kota,Chittorgarh,166.2,Truck 16T,16.0,59.36,210.0,400,10475.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0069,Nagaur,Hanumangarh,346.8,Truck 10T,10.0,47.71,541.0,650,17736.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0070,Jaipur,Bhilwara,267.0,Tata Ace / mini,1.0,26.92,245.0,1000,8434.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0071,Chittorgarh,Bharatpur,494.8,LCV 6T,6.0,37.68,513.0,1000,20158.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0072,Nagaur,Bharatpur,477.1,LCV 6T,6.0,31.0,394.0,650,15833.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0073,Alwar,Udaipur,563.8,Truck 10T,10.0,39.1,646.0,500,23192.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0074,Kota,Barmer,579.1,Truck 10T,10.0,43.85,883.0,650,26928.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0075,Udaipur,Jodhpur,251.4,Truck 10T,10.0,36.59,192.0,1000,10391.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0076,Kota,Udaipur,291.9,Tata Ace / mini,1.0,20.94,394.0,500,7006.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0077,Udaipur,Bhilwara,161.1,Truck 16T,16.0,50.75,145.0,1000,9319.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0078,Jaipur,Sikar,128.6,Truck 10T,10.0,47.93,122.0,800,7088.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0079,Jaipur,Sri Ganganagar,488.3,Truck 10T,10.0,45.37,370.0,800,23324.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0080,Ajmer,Jaipur,160.1,LCV 6T,6.0,31.19,207.0,300,5500.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0081,Chittorgarh,Bikaner,476.5,LCV 6T,6.0,34.3,647.0,500,17491.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0082,Alwar,Bharatpur,119.8,Truck 10T,10.0,46.97,90.0,1000,6718.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0083,Bhilwara,Bharatpur,452.3,Pickup 2T,2.0,26.09,648.0,800,13248.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0084,Bhilwara,Sikar,328.4,Truck 10T,10.0,46.55,456.0,400,16144.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0085,Nagaur,Bikaner,128.4,Tata Ace / mini,1.0,22.67,125.0,1000,4036.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0086,Barmer,Nagaur,362.3,Pickup 2T,2.0,27.17,356.0,1000,11199.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0087,Kota,Bhilwara,159.2,Truck 10T,10.0,40.38,155.0,400,6984.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0088,Barmer,Sri Ganganagar,668.3,Pickup 2T,2.0,26.65,947.0,500,19256.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0089,Sikar,Barmer,544.5,Truck 10T,10.0,48.54,784.0,400,27612.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0090,Sikar,Jaipur,128.6,Tata Ace / mini,1.0,21.52,98.0,800,3667.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0091,Chittorgarh,Bhilwara,65.1,Truck 16T,16.0,48.74,34.0,400,3609.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0092,Sri Ganganagar,Udaipur,757.3,Tata Ace / mini,1.0,21.59,639.0,800,17788.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0093,Hanumangarh,Bhilwara,604.0,Truck 10T,10.0,47.93,533.0,500,29985.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0094,Jodhpur,Sikar,331.8,Truck 10T,10.0,37.86,346.0,1000,13910.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0095,Nagaur,Barmer,362.3,LCV 6T,6.0,37.36,571.0,500,14605.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0096,Alwar,Bikaner,423.7,Tata Ace / mini,1.0,21.97,366.0,500,10174.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0097,Jaipur,Bikaner,350.3,Pickup 2T,2.0,32.33,553.0,400,12278.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0098,Hanumangarh,Alwar,407.9,Truck 10T,10.0,45.07,374.0,300,19057.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0099,Bharatpur,Alwar,119.8,Tata Ace / mini,1.0,26.86,102.0,650,3970.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0100,Sri Ganganagar,Jodhpur,532.5,Truck 16T,16.0,59.97,489.0,400,32823.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0101,Nagaur,Jodhpur,164.1,Truck 16T,16.0,50.39,171.0,650,9090.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0102,Chittorgarh,Bharatpur,494.8,LCV 6T,6.0,39.64,484.0,500,20599.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0103,Sikar,Alwar,188.7,LCV 6T,6.0,36.48,130.0,1000,8015.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0104,Ajmer,Sikar,176.8,Pickup 2T,2.0,31.96,189.0,300,6139.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0105,Hanumangarh,Barmer,658.5,Truck 16T,16.0,55.33,826.0,300,37561.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0106,Barmer,Nagaur,362.3,Truck 16T,16.0,47.65,370.0,1000,18632.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0107,Bhilwara,Jodhpur,242.5,Pickup 2T,2.0,28.65,278.0,300,7526.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0108,Bikaner,Udaipur,491.9,Truck 10T,10.0,42.96,559.0,400,22092.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0109,Jaipur,Jodhpur,364.5,Truck 10T,10.0,43.83,278.0,500,16755.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0110,Bikaner,Nagaur,128.4,Pickup 2T,2.0,24.64,102.0,1000,4265.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0111,Bharatpur,Udaipur,612.8,LCV 6T,6.0,41.37,875.0,1000,27227.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0112,Udaipur,Bikaner,491.9,Truck 10T,10.0,45.86,788.0,650,23997.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0113,Alwar,Bhilwara,404.3,Truck 10T,10.0,40.34,545.0,500,17355.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0114,Sikar,Alwar,188.7,Truck 16T,16.0,56.77,195.0,650,11559.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0115,Ajmer,Barmer,426.2,Truck 16T,16.0,59.68,536.0,300,26274.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0116,Udaipur,Jaipur,424.8,LCV 6T,6.0,37.05,606.0,300,16643.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0117,Udaipur,Kota,291.9,Truck 16T,16.0,50.62,242.0,400,15418.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0118,Alwar,Udaipur,563.8,Pickup 2T,2.0,32.36,435.0,650,19331.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0119,Chittorgarh,Kota,166.2,LCV 6T,6.0,31.07,220.0,800,6183.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0120,Chittorgarh,Bhilwara,65.1,Truck 10T,10.0,47.27,30.0,650,3759.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0121,Ajmer,Nagaur,157.2,LCV 6T,6.0,32.2,130.0,400,5591.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0122,Chittorgarh,Sri Ganganagar,720.0,LCV 6T,6.0,36.0,670.0,650,27242.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0123,Alwar,Hanumangarh,407.9,LCV 6T,6.0,41.83,527.0,500,18089.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0124,Bikaner,Barmer,404.4,Tata Ace / mini,1.0,24.19,299.0,800,10882.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0125,Jaipur,Jodhpur,364.5,Tata Ace / mini,1.0,25.46,291.0,300,9872.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0126,Jodhpur,Jaipur,364.5,Tata Ace / mini,1.0,22.61,359.0,800,9401.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0127,Udaipur,Sikar,467.5,Tata Ace / mini,1.0,27.65,423.0,800,14148.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0128,Bikaner,Ajmer,279.9,Truck 16T,16.0,47.49,275.0,1000,14569.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0129,Hanumangarh,Ajmer,447.4,Truck 16T,16.0,49.99,398.0,650,23415.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0130,Chittorgarh,Nagaur,348.5,Pickup 2T,2.0,29.07,498.0,650,11279.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0131,Jaipur,Udaipur,424.8,Tata Ace / mini,1.0,27.48,650.0,300,12622.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0132,Barmer,Bharatpur,805.2,LCV 6T,6.0,31.29,1135.0,800,27129.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0133,Jodhpur,Ajmer,208.2,Tata Ace / mini,1.0,23.98,236.0,800,6030.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0134,Hanumangarh,Sikar,298.4,Truck 10T,10.0,49.0,348.0,650,15620.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0135,Barmer,Bikaner,404.4,Tata Ace / mini,1.0,25.35,315.0,400,10967.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0136,Sikar,Ajmer,176.8,Pickup 2T,2.0,33.6,177.0,650,6767.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0137,Jaipur,Sikar,128.6,Tata Ace / mini,1.0,27.33,153.0,1000,4669.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0138,Chittorgarh,Barmer,433.4,Truck 16T,16.0,45.58,519.0,1000,21271.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0139,Bhilwara,Sikar,328.4,Truck 16T,16.0,53.01,433.0,800,18643.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0140,Sri Ganganagar,Barmer,668.3,Truck 16T,16.0,54.29,680.0,400,37360.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0141,Bikaner,Barmer,404.4,Pickup 2T,2.0,26.93,520.0,650,12061.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0142,Sri Ganganagar,Hanumangarh,72.3,Tata Ace / mini,1.0,23.92,42.0,500,2271.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0143,Jodhpur,Bikaner,256.5,Truck 16T,16.0,50.22,281.0,500,13663.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0144,Barmer,Bhilwara,420.0,Tata Ace / mini,1.0,24.22,320.0,300,10792.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0145,Bharatpur,Udaipur,612.8,Truck 16T,16.0,52.68,825.0,1000,34108.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0146,Jaipur,Jodhpur,364.5,Tata Ace / mini,1.0,20.38,358.0,400,8187.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0147,Sikar,Jodhpur,331.8,Tata Ace / mini,1.0,26.59,433.0,650,9907.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0148,Chittorgarh,Jodhpur,281.5,Truck 16T,16.0,57.59,316.0,1000,17530.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0149,Chittorgarh,Jaipur,324.1,Pickup 2T,2.0,24.99,497.0,400,8996.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0150,Chittorgarh,Sikar,392.7,Tata Ace / mini,1.0,25.71,457.0,800,11354.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0151,Bhilwara,Udaipur,161.1,Tata Ace / mini,1.0,20.36,143.0,1000,4422.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0152,Kota,Bharatpur,353.4,Tata Ace / mini,1.0,27.24,457.0,500,10584.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0153,Ajmer,Sri Ganganagar,500.8,Pickup 2T,2.0,27.72,755.0,300,14938.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0154,Ajmer,Hanumangarh,447.4,Truck 16T,16.0,47.94,598.0,650,22697.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0155,Bhilwara,Udaipur,161.1,LCV 6T,6.0,32.46,203.0,1000,6431.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0156,Hanumangarh,Bharatpur,520.8,Truck 10T,10.0,45.66,585.0,650,25016.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0157,Sri Ganganagar,Bharatpur,593.1,Pickup 2T,2.0,32.17,713.0,800,20594.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0158,Jaipur,Bhilwara,267.0,Truck 10T,10.0,36.59,356.0,400,10527.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0159,Bhilwara,Chittorgarh,65.1,Pickup 2T,2.0,24.71,23.0,400,2033.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0160,Hanumangarh,Barmer,658.5,Truck 10T,10.0,36.93,827.0,400,25546.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0161,Chittorgarh,Bharatpur,494.8,Truck 10T,10.0,39.99,494.0,800,21082.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0162,Bharatpur,Kota,353.4,Tata Ace / mini,1.0,23.16,528.0,400,9113.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0163,Kota,Jodhpur,392.3,Truck 10T,10.0,38.81,464.0,300,15991.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0164,Bikaner,Hanumangarh,255.6,Tata Ace / mini,1.0,20.89,181.0,650,6170.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0165,Ajmer,Kota,235.7,Tata Ace / mini,1.0,21.93,277.0,650,6097.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0166,Chittorgarh,Ajmer,222.2,Truck 10T,10.0,44.36,153.0,800,10810.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0167,Barmer,Alwar,713.8,Pickup 2T,2.0,31.25,569.0,300,23175.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0168,Ajmer,Sikar,176.8,LCV 6T,6.0,41.06,157.0,400,7816.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0169,Hanumangarh,Bhilwara,604.0,Tata Ace / mini,1.0,23.13,538.0,500,15009.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0170,Jodhpur,Kota,392.3,Pickup 2T,2.0,25.84,350.0,1000,11488.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0171,Chittorgarh,Bikaner,476.5,Tata Ace / mini,1.0,26.97,379.0,400,13630.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0172,Udaipur,Jodhpur,251.4,LCV 6T,6.0,36.68,199.0,500,9921.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0173,Jaipur,Kota,242.0,Tata Ace / mini,1.0,23.28,269.0,800,6702.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0174,Chittorgarh,Ajmer,222.2,LCV 6T,6.0,34.44,172.0,300,8125.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0175,Bhilwara,Alwar,404.3,Tata Ace / mini,1.0,23.05,496.0,650,10465.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0176,Barmer,Udaipur,341.4,Tata Ace / mini,1.0,26.86,471.0,300,9941.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0177,Udaipur,Jodhpur,251.4,Tata Ace / mini,1.0,20.16,343.0,650,6062.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0178,Hanumangarh,Udaipur,715.4,Truck 10T,10.0,39.95,956.0,650,30185.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0179,Hanumangarh,Chittorgarh,669.0,Pickup 2T,2.0,30.83,889.0,500,22014.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0180,Bhilwara,Bikaner,416.5,Truck 10T,10.0,48.87,359.0,800,21514.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0181,Hanumangarh,Sikar,298.4,Pickup 2T,2.0,25.44,371.0,400,8362.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0182,Sri Ganganagar,Bharatpur,593.1,Pickup 2T,2.0,27.68,454.0,500,17372.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0183,Ajmer,Jaipur,160.1,Truck 10T,10.0,41.75,202.0,400,7285.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0184,Sri Ganganagar,Ajmer,500.8,LCV 6T,6.0,32.5,556.0,650,17482.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0185,Bikaner,Chittorgarh,476.5,Truck 10T,10.0,42.21,519.0,500,21132.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0186,Sikar,Hanumangarh,298.4,Truck 10T,10.0,37.86,344.0,400,12041.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0187,Alwar,Chittorgarh,457.7,Pickup 2T,2.0,29.68,730.0,1000,15315.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0188,Bhilwara,Barmer,420.0,Truck 16T,16.0,49.81,480.0,650,22050.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0189,Sikar,Bhilwara,328.4,LCV 6T,6.0,32.56,272.0,300,11266.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0190,Jodhpur,Bhilwara,242.5,Truck 10T,10.0,40.2,331.0,800,10880.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0191,Sri Ganganagar,Jaipur,488.3,Pickup 2T,2.0,26.17,606.0,400,13785.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0192,Bhilwara,Sri Ganganagar,655.7,Truck 16T,16.0,50.91,1073.0,300,34754.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0193,Chittorgarh,Alwar,457.7,Truck 10T,10.0,43.94,406.0,1000,21518.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0194,Bhilwara,Udaipur,161.1,Pickup 2T,2.0,30.41,166.0,400,5464.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0195,Ajmer,Sri Ganganagar,500.8,LCV 6T,6.0,35.62,769.0,400,19008.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0196,Barmer,Bikaner,404.4,LCV 6T,6.0,37.32,570.0,800,16463.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0197,Chittorgarh,Bhilwara,65.1,Tata Ace / mini,1.0,25.41,40.0,300,1995.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0198,Jaipur,Hanumangarh,421.6,Tata Ace / mini,1.0,22.65,340.0,500,10388.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0199,Alwar,Chittorgarh,457.7,Pickup 2T,2.0,33.58,463.0,300,16133.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0200,Sikar,Udaipur,467.5,LCV 6T,6.0,37.0,696.0,650,18642.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0201,Sikar,Chittorgarh,392.7,Pickup 2T,2.0,26.9,318.0,800,11682.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0202,Ajmer,Hanumangarh,447.4,Pickup 2T,2.0,28.15,543.0,800,13938.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0203,Sri Ganganagar,Ajmer,500.8,Truck 16T,16.0,52.84,585.0,500,27548.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0204,Chittorgarh,Nagaur,348.5,Pickup 2T,2.0,33.76,452.0,400,12617.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0205,Hanumangarh,Bikaner,255.6,Tata Ace / mini,1.0,26.05,202.0,650,7509.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0206,Bikaner,Sri Ganganagar,276.8,Truck 10T,10.0,38.39,194.0,1000,11821.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0207,Nagaur,Sikar,186.9,Truck 10T,10.0,44.19,144.0,300,8702.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0208,Bikaner,Bhilwara,416.5,Truck 16T,16.0,49.5,429.0,300,21347.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0209,Hanumangarh,Sikar,298.4,Tata Ace / mini,1.0,21.42,368.0,1000,7760.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0210,Sri Ganganagar,Ajmer,500.8,Tata Ace / mini,1.0,27.94,733.0,1000,15726.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0211,Alwar,Bhilwara,404.3,LCV 6T,6.0,33.51,580.0,300,14428.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0212,Sikar,Udaipur,467.5,Truck 10T,10.0,36.22,723.0,650,18305.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0213,Ajmer,Sikar,176.8,LCV 6T,6.0,32.3,148.0,800,6658.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0214,Hanumangarh,Jaipur,421.6,Truck 10T,10.0,40.46,369.0,1000,18426.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0215,Alwar,Chittorgarh,457.7,LCV 6T,6.0,33.16,750.0,500,16427.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0216,Jaipur,Bharatpur,221.7,Truck 10T,10.0,45.23,206.0,300,10533.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0217,Ajmer,Nagaur,157.2,Truck 16T,16.0,44.17,161.0,500,7603.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0218,Sri Ganganagar,Alwar,480.0,Truck 10T,10.0,41.32,368.0,1000,21200.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0219,Bharatpur,Chittorgarh,494.8,Truck 10T,10.0,40.7,729.0,650,21519.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0220,Sri Ganganagar,Chittorgarh,720.0,LCV 6T,6.0,31.59,779.0,500,24025.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0221,Jodhpur,Alwar,494.9,Truck 10T,10.0,39.94,402.0,650,20820.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0222,Hanumangarh,Bhilwara,604.0,Tata Ace / mini,1.0,26.44,966.0,800,17737.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0223,Hanumangarh,Kota,651.2,Tata Ace / mini,1.0,26.49,982.0,300,18532.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0224,Alwar,Kota,347.1,Pickup 2T,2.0,27.73,293.0,400,10318.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0225,Barmer,Kota,579.1,Tata Ace / mini,1.0,20.08,439.0,500,12568.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0226,Nagaur,Udaipur,372.4,Tata Ace / mini,1.0,21.25,474.0,650,9038.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0227,Bhilwara,Nagaur,288.1,LCV 6T,6.0,39.43,225.0,300,11886.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0228,Jaipur,Chittorgarh,324.1,Pickup 2T,2.0,26.0,439.0,300,9165.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0229,Ajmer,Kota,235.7,Tata Ace / mini,1.0,20.03,312.0,400,5434.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0230,Alwar,Jaipur,140.8,Tata Ace / mini,1.0,23.1,144.0,400,3795.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0231,Bikaner,Nagaur,128.4,Pickup 2T,2.0,31.08,114.0,1000,5104.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0232,Ajmer,Bikaner,279.9,LCV 6T,6.0,38.78,334.0,300,11490.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0233,Bikaner,Ajmer,279.9,Truck 16T,16.0,44.1,234.0,400,12979.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0234,Bharatpur,Ajmer,379.6,Truck 16T,16.0,53.21,336.0,300,20833.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0235,Chittorgarh,Barmer,433.4,Tata Ace / mini,1.0,21.51,648.0,400,10369.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0236,Ajmer,Sri Ganganagar,500.8,Truck 16T,16.0,48.75,559.0,1000,25974.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0237,Bharatpur,Alwar,119.8,Truck 10T,10.0,39.51,91.0,400,5225.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0238,Jodhpur,Jaipur,364.5,LCV 6T,6.0,33.38,312.0,300,12780.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0239,Kota,Bikaner,515.1,LCV 6T,6.0,40.83,409.0,650,22091.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0240,Kota,Bhilwara,159.2,Truck 10T,10.0,36.17,184.0,300,6243.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0241,Sikar,Udaipur,467.5,LCV 6T,6.0,38.38,601.0,300,18842.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0242,Udaipur,Bharatpur,612.8,LCV 6T,6.0,35.41,883.0,650,23233.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0243,Sikar,Bikaner,237.5,LCV 6T,6.0,39.16,220.0,1000,10521.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0244,Alwar,Hanumangarh,407.9,Truck 16T,16.0,46.73,548.0,650,20258.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0245,Bikaner,Hanumangarh,255.6,LCV 6T,6.0,41.08,355.0,650,11504.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0246,Bikaner,Nagaur,128.4,Truck 10T,10.0,42.33,83.0,650,6168.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0247,Sri Ganganagar,Jaipur,488.3,Pickup 2T,2.0,31.88,530.0,1000,17097.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0248,Ajmer,Sri Ganganagar,500.8,LCV 6T,6.0,30.17,733.0,1000,16843.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0249,Hanumangarh,Ajmer,447.4,Pickup 2T,2.0,29.93,401.0,300,14092.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0250,Jaipur,Sri Ganganagar,488.3,Truck 10T,10.0,38.1,510.0,300,19414.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0251,Bikaner,Sri Ganganagar,276.8,Pickup 2T,2.0,27.04,416.0,800,8701.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0252,Bharatpur,Alwar,119.8,Pickup 2T,2.0,28.87,122.0,650,4231.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0253,Sri Ganganagar,Nagaur,385.0,Pickup 2T,2.0,28.87,506.0,500,12120.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0254,Kota,Hanumangarh,651.2,LCV 6T,6.0,38.47,860.0,400,26312.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0255,Alwar,Jodhpur,494.9,Truck 10T,10.0,47.25,553.0,300,24239.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0256,Bharatpur,Bhilwara,452.3,Pickup 2T,2.0,27.39,458.0,800,13646.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0257,Sri Ganganagar,Udaipur,757.3,Tata Ace / mini,1.0,24.79,954.0,500,20226.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0258,Chittorgarh,Sikar,392.7,Pickup 2T,2.0,27.7,624.0,300,11803.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0259,Jaipur,Bikaner,350.3,LCV 6T,6.0,35.0,313.0,500,13073.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0260,Chittorgarh,Alwar,457.7,LCV 6T,6.0,37.61,711.0,650,18575.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0261,Barmer,Bharatpur,805.2,Truck 16T,16.0,49.45,1220.0,1000,42037.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0262,Alwar,Ajmer,297.7,LCV 6T,6.0,39.38,354.0,400,12478.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0263,Chittorgarh,Udaipur,125.8,Truck 16T,16.0,47.79,139.0,650,6803.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0264,Udaipur,Bikaner,491.9,Tata Ace / mini,1.0,22.51,760.0,650,12483.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0265,Barmer,Ajmer,426.2,Truck 16T,16.0,49.15,513.0,650,22113.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0266,Udaipur,Chittorgarh,125.8,LCV 6T,6.0,30.8,102.0,400,4378.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0267,Barmer,Hanumangarh,658.5,LCV 6T,6.0,38.54,720.0,300,26399.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0268,Bikaner,Alwar,423.7,Pickup 2T,2.0,30.33,432.0,800,14082.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0269,Bikaner,Jodhpur,256.5,Pickup 2T,2.0,31.84,380.0,650,9197.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0270,Sikar,Udaipur,467.5,Truck 16T,16.0,47.2,689.0,400,23153.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0271,Hanumangarh,Udaipur,715.4,Truck 16T,16.0,45.93,1036.0,1000,34893.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0272,Hanumangarh,Alwar,407.9,Truck 16T,16.0,56.78,398.0,650,24208.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0273,Sri Ganganagar,Chittorgarh,720.0,Tata Ace / mini,1.0,22.39,683.0,500,17305.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0274,Jaipur,Hanumangarh,421.6,Truck 10T,10.0,37.1,483.0,400,16523.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0275,Bikaner,Bhilwara,416.5,Truck 10T,10.0,43.77,525.0,500,19256.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0276,Kota,Bharatpur,353.4,Truck 10T,10.0,39.86,472.0,650,15209.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0277,Bharatpur,Ajmer,379.6,Truck 16T,16.0,46.06,596.0,300,18379.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0278,Jaipur,Nagaur,263.5,LCV 6T,6.0,36.63,261.0,500,10413.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0279,Nagaur,Chittorgarh,348.5,Truck 10T,10.0,43.7,441.0,1000,16670.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0280,Sikar,Sri Ganganagar,362.6,Pickup 2T,2.0,27.27,528.0,300,10715.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0281,Bhilwara,Bharatpur,452.3,LCV 6T,6.0,36.79,564.0,800,18004.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0282,Jaipur,Chittorgarh,324.1,Pickup 2T,2.0,28.97,491.0,400,10280.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0283,Ajmer,Kota,235.7,Truck 16T,16.0,46.61,296.0,300,11584.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0284,Barmer,Sikar,544.5,LCV 6T,6.0,34.06,612.0,300,19457.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0285,Bikaner,Sri Ganganagar,276.8,Truck 16T,16.0,44.99,288.0,650,13392.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0286,Chittorgarh,Ajmer,222.2,Truck 16T,16.0,57.17,294.0,650,13648.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0287,Ajmer,Kota,235.7,LCV 6T,6.0,32.73,168.0,1000,8884.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0288,Jodhpur,Jaipur,364.5,Tata Ace / mini,1.0,25.14,486.0,650,10300.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0289,Jaipur,Hanumangarh,421.6,Pickup 2T,2.0,31.59,668.0,400,14385.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0290,Jodhpur,Sikar,331.8,LCV 6T,6.0,34.65,419.0,650,12567.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0291,Jaipur,Jodhpur,364.5,LCV 6T,6.0,35.91,477.0,1000,14567.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0292,Sri Ganganagar,Jodhpur,532.5,Tata Ace / mini,1.0,20.32,684.0,400,11904.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0293,Alwar,Udaipur,563.8,Truck 10T,10.0,36.1,787.0,800,21941.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0294,Hanumangarh,Sikar,298.4,Truck 16T,16.0,58.38,249.0,400,18070.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0295,Ajmer,Jodhpur,208.2,Tata Ace / mini,1.0,27.32,260.0,500,6449.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0296,Bharatpur,Jodhpur,586.0,LCV 6T,6.0,36.13,524.0,400,22097.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0297,Barmer,Udaipur,341.4,LCV 6T,6.0,34.01,340.0,500,12451.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0298,Sri Ganganagar,Kota,713.0,LCV 6T,6.0,35.42,838.0,1000,27094.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0299,Bhilwara,Jodhpur,242.5,Truck 10T,10.0,38.86,185.0,650,10259.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0300,Barmer,Kota,579.1,Pickup 2T,2.0,26.0,739.0,1000,16796.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0301,Bharatpur,Nagaur,477.1,Pickup 2T,2.0,32.87,707.0,500,16889.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0302,Bikaner,Jaipur,350.3,Pickup 2T,2.0,29.67,523.0,500,11416.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0303,Alwar,Jodhpur,494.9,Tata Ace / mini,1.0,22.48,462.0,400,11988.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0304,Nagaur,Sikar,186.9,Pickup 2T,2.0,29.0,223.0,1000,6642.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0305,Sikar,Bikaner,237.5,Truck 10T,10.0,44.43,191.0,650,11394.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0306,Bikaner,Jodhpur,256.5,Truck 16T,16.0,48.57,387.0,400,13246.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0307,Kota,Udaipur,291.9,Tata Ace / mini,1.0,27.08,416.0,800,9121.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0308,Jaipur,Nagaur,263.5,Tata Ace / mini,1.0,27.57,387.0,500,8152.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0309,Bikaner,Sri Ganganagar,276.8,Truck 16T,16.0,59.38,212.0,500,17149.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0310,Alwar,Bhilwara,404.3,Pickup 2T,2.0,33.71,562.0,500,14691.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0311,Kota,Bharatpur,353.4,Truck 10T,10.0,45.15,344.0,300,16600.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0312,Hanumangarh,Kota,651.2,LCV 6T,6.0,31.7,768.0,400,21811.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0313,Kota,Bhilwara,159.2,Tata Ace / mini,1.0,27.04,206.0,400,4911.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0314,Jaipur,Kota,242.0,Tata Ace / mini,1.0,25.8,254.0,800,7297.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0315,Chittorgarh,Jodhpur,281.5,LCV 6T,6.0,33.24,363.0,650,10372.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0316,Kota,Chittorgarh,166.2,Pickup 2T,2.0,26.15,151.0,650,5147.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0317,Jaipur,Hanumangarh,421.6,Truck 10T,10.0,42.05,483.0,400,18610.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0318,Jaipur,Udaipur,424.8,Tata Ace / mini,1.0,25.25,677.0,500,11902.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0319,Chittorgarh,Bharatpur,494.8,Truck 10T,10.0,38.84,485.0,1000,20704.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0320,Bharatpur,Nagaur,477.1,Pickup 2T,2.0,26.35,545.0,300,13416.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0321,Bhilwara,Jaipur,267.0,Truck 16T,16.0,57.37,280.0,1000,16600.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0322,Bikaner,Barmer,404.4,Pickup 2T,2.0,31.16,562.0,500,13664.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0323,Sikar,Kota,353.3,Truck 16T,16.0,49.88,508.0,800,18929.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0324,Ajmer,Sikar,176.8,LCV 6T,6.0,38.71,183.0,500,7526.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0325,Chittorgarh,Bhilwara,65.1,LCV 6T,6.0,34.88,35.0,500,2807.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0326,Bikaner,Sikar,237.5,LCV 6T,6.0,31.77,291.0,650,8487.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0327,Bhilwara,Jodhpur,242.5,Truck 10T,10.0,41.04,249.0,800,11002.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0328,Bharatpur,Ajmer,379.6,LCV 6T,6.0,41.1,491.0,650,16742.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0329,Barmer,Jodhpur,219.4,Pickup 2T,2.0,32.9,205.0,1000,8425.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0330,Ajmer,Udaipur,290.9,LCV 6T,6.0,36.48,409.0,400,11420.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0331,Nagaur,Barmer,362.3,Truck 16T,16.0,46.23,521.0,400,17669.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0332,Nagaur,Chittorgarh,348.5,Truck 10T,10.0,37.14,376.0,300,13619.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0333,Jodhpur,Hanumangarh,503.3,Tata Ace / mini,1.0,24.16,637.0,500,13296.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0334,Hanumangarh,Jodhpur,503.3,Pickup 2T,2.0,31.4,687.0,500,16989.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0335,Bikaner,Kota,515.1,LCV 6T,6.0,38.78,759.0,800,21535.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0336,Hanumangarh,Sri Ganganagar,72.3,Truck 16T,16.0,54.51,39.0,800,4780.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0337,Sikar,Chittorgarh,392.7,Truck 10T,10.0,45.63,631.0,400,18951.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0338,Bhilwara,Hanumangarh,604.0,Truck 10T,10.0,38.18,843.0,400,24305.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0339,Chittorgarh,Jaipur,324.1,Truck 16T,16.0,56.8,368.0,300,19076.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0340,Chittorgarh,Bharatpur,494.8,Pickup 2T,2.0,31.56,502.0,400,16519.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0341,Jodhpur,Bhilwara,242.5,Tata Ace / mini,1.0,27.61,201.0,300,7197.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0342,Jaipur,Bharatpur,221.7,Tata Ace / mini,1.0,21.66,296.0,1000,6098.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0343,Kota,Hanumangarh,651.2,LCV 6T,6.0,35.43,562.0,500,24134.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0344,Bhilwara,Sri Ganganagar,655.7,Tata Ace / mini,1.0,25.58,677.0,650,18099.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0345,Sikar,Alwar,188.7,LCV 6T,6.0,35.14,207.0,650,7489.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0346,Bhilwara,Udaipur,161.1,Truck 16T,16.0,44.67,156.0,300,7650.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0347,Bikaner,Sikar,237.5,LCV 6T,6.0,30.37,296.0,650,8159.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0348,Barmer,Jodhpur,219.4,Tata Ace / mini,1.0,23.38,249.0,500,5880.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0349,Bhilwara,Bikaner,416.5,Tata Ace / mini,1.0,23.04,664.0,300,10561.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0350,Bikaner,Bharatpur,540.9,Truck 16T,16.0,45.47,524.0,1000,26117.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0351,Bhilwara,Kota,159.2,Truck 10T,10.0,41.32,136.0,800,7515.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0352,Bikaner,Jaipur,350.3,LCV 6T,6.0,33.72,489.0,650,12950.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0353,Alwar,Udaipur,563.8,Truck 10T,10.0,37.33,777.0,800,22625.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0354,Nagaur,Bhilwara,288.1,Tata Ace / mini,1.0,27.48,309.0,800,9027.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0355,Ajmer,Bikaner,279.9,LCV 6T,6.0,38.37,285.0,800,11826.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0356,Bhilwara,Chittorgarh,65.1,Tata Ace / mini,1.0,22.03,23.0,800,2258.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0357,Bikaner,Ajmer,279.9,Truck 10T,10.0,40.11,231.0,500,11959.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0358,Udaipur,Sikar,467.5,Truck 10T,10.0,37.54,408.0,300,18257.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0359,Alwar,Bikaner,423.7,Truck 10T,10.0,39.49,456.0,1000,18187.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0360,Barmer,Bhilwara,420.0,Pickup 2T,2.0,31.72,321.0,400,14043.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0361,Alwar,Sikar,188.7,Truck 16T,16.0,57.53,153.0,650,11661.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0362,Barmer,Chittorgarh,433.4,Tata Ace / mini,1.0,20.81,369.0,1000,10387.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0363,Udaipur,Hanumangarh,715.4,Tata Ace / mini,1.0,23.5,788.0,1000,18599.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0364,Sri Ganganagar,Jaipur,488.3,Truck 16T,16.0,58.36,524.0,800,29821.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0365,Kota,Sri Ganganagar,713.0,Truck 10T,10.0,36.47,832.0,1000,27837.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0366,Sri Ganganagar,Kota,713.0,Tata Ace / mini,1.0,20.7,1129.0,1000,16889.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0367,Sikar,Bikaner,237.5,Truck 10T,10.0,43.1,206.0,400,10843.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0368,Kota,Jaipur,242.0,Pickup 2T,2.0,24.86,199.0,400,6614.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0369,Bikaner,Bhilwara,416.5,Truck 16T,16.0,49.97,400.0,300,21514.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0370,Barmer,Bhilwara,420.0,Pickup 2T,2.0,29.82,348.0,300,13172.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0371,Alwar,Hanumangarh,407.9,Pickup 2T,2.0,27.0,569.0,650,12232.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0372,Jaipur,Sikar,128.6,Tata Ace / mini,1.0,24.08,72.0,800,3970.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0373,Bhilwara,Bharatpur,452.3,Truck 16T,16.0,52.49,455.0,400,24595.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0374,Sikar,Alwar,188.7,Truck 10T,10.0,47.22,147.0,650,9709.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0375,Bikaner,Hanumangarh,255.6,Pickup 2T,2.0,24.99,256.0,1000,7643.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0376,Bhilwara,Jodhpur,242.5,Tata Ace / mini,1.0,21.17,188.0,800,6122.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0377,Ajmer,Nagaur,157.2,Tata Ace / mini,1.0,23.82,210.0,300,4254.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0378,Udaipur,Ajmer,290.9,Pickup 2T,2.0,30.27,304.0,1000,10109.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0379,Sikar,Alwar,188.7,LCV 6T,6.0,34.88,231.0,300,7114.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0380,Nagaur,Sikar,186.9,Truck 10T,10.0,36.39,216.0,500,7516.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0381,Sri Ganganagar,Bikaner,276.8,Truck 16T,16.0,57.38,243.0,400,16526.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0382,Bikaner,Udaipur,491.9,Truck 16T,16.0,58.22,653.0,1000,30293.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0383,Ajmer,Alwar,297.7,Truck 16T,16.0,52.34,334.0,300,16216.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0384,Sri Ganganagar,Udaipur,757.3,Tata Ace / mini,1.0,23.34,977.0,1000,19651.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0385,Hanumangarh,Barmer,658.5,Pickup 2T,2.0,31.73,520.0,500,21914.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0386,Sri Ganganagar,Bharatpur,593.1,Truck 10T,10.0,45.1,988.0,500,28238.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0387,Bharatpur,Nagaur,477.1,Truck 16T,16.0,53.68,751.0,650,27011.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0388,Jodhpur,Bikaner,256.5,Truck 10T,10.0,46.6,355.0,800,13109.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0389,Chittorgarh,Jodhpur,281.5,Truck 16T,16.0,53.59,383.0,400,15871.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0390,Bikaner,Sikar,237.5,Tata Ace / mini,1.0,25.53,351.0,800,7215.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0391,Jodhpur,Udaipur,251.4,Tata Ace / mini,1.0,22.01,226.0,500,6260.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0392,Nagaur,Bharatpur,477.1,Truck 16T,16.0,52.22,486.0,500,25899.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0393,Hanumangarh,Alwar,407.9,Truck 16T,16.0,47.06,652.0,400,20247.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0394,Nagaur,Sikar,186.9,Truck 16T,16.0,54.82,158.0,800,11203.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0395,Sri Ganganagar,Bhilwara,655.7,Pickup 2T,2.0,31.68,1041.0,400,22213.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0396,Barmer,Hanumangarh,658.5,LCV 6T,6.0,32.28,919.0,1000,23176.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0397,Jodhpur,Hanumangarh,503.3,LCV 6T,6.0,32.45,585.0,800,17716.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0398,Ajmer,Kota,235.7,LCV 6T,6.0,37.66,197.0,1000,10075.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0399,Nagaur,Sikar,186.9,Pickup 2T,2.0,32.87,236.0,500,6879.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0400,Alwar,Sri Ganganagar,480.0,Truck 10T,10.0,46.04,762.0,650,23509.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0401,Jodhpur,Sikar,331.8,Pickup 2T,2.0,26.55,255.0,300,9365.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0402,Sri Ganganagar,Nagaur,385.0,Truck 16T,16.0,59.74,277.0,400,23675.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0403,Barmer,Bharatpur,805.2,Truck 10T,10.0,42.37,1370.0,800,36286.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0404,Nagaur,Bharatpur,477.1,Truck 16T,16.0,53.08,437.0,300,26060.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0405,Sri Ganganagar,Bhilwara,655.7,Truck 10T,10.0,44.33,786.0,650,30503.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0406,Sikar,Kota,353.3,Pickup 2T,2.0,25.81,364.0,300,9782.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0407,Jaipur,Nagaur,263.5,Tata Ace / mini,1.0,22.22,301.0,500,6656.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0408,Ajmer,Barmer,426.2,Tata Ace / mini,1.0,27.41,574.0,400,12657.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0409,Jaipur,Bhilwara,267.0,Truck 16T,16.0,44.96,207.0,800,13013.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0410,Chittorgarh,Bharatpur,494.8,LCV 6T,6.0,35.16,469.0,800,18667.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0411,Udaipur,Hanumangarh,715.4,LCV 6T,6.0,41.13,779.0,400,30602.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0412,Ajmer,Jaipur,160.1,Truck 16T,16.0,53.35,188.0,400,9128.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0413,Barmer,Nagaur,362.3,Truck 10T,10.0,38.84,456.0,400,14926.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0414,Kota,Udaipur,291.9,Truck 16T,16.0,59.66,269.0,650,18334.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0415,Kota,Hanumangarh,651.2,Pickup 2T,2.0,32.45,624.0,650,22405.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0416,Udaipur,Ajmer,290.9,Pickup 2T,2.0,33.18,271.0,300,10222.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0417,Alwar,Bhilwara,404.3,LCV 6T,6.0,35.22,605.0,650,15495.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0418,Bikaner,Alwar,423.7,Pickup 2T,2.0,25.0,338.0,1000,11930.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0419,Bikaner,Hanumangarh,255.6,Pickup 2T,2.0,31.39,255.0,800,9077.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0420,Barmer,Sri Ganganagar,668.3,Tata Ace / mini,1.0,24.33,673.0,1000,17932.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0421,Bikaner,Sri Ganganagar,276.8,Truck 16T,16.0,49.48,194.0,800,14690.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0422,Udaipur,Sri Ganganagar,757.3,Truck 10T,10.0,44.49,841.0,1000,35531.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0423,Kota,Udaipur,291.9,Truck 10T,10.0,38.36,303.0,400,11900.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0424,Sikar,Hanumangarh,298.4,Truck 10T,10.0,39.84,391.0,400,12679.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0425,Sri Ganganagar,Udaipur,757.3,Truck 10T,10.0,49.45,1066.0,800,39312.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0426,Alwar,Bhilwara,404.3,Tata Ace / mini,1.0,23.62,583.0,650,10783.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0427,Udaipur,Sikar,467.5,LCV 6T,6.0,34.57,552.0,1000,17712.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0428,Bikaner,Sri Ganganagar,276.8,Tata Ace / mini,1.0,23.5,272.0,500,7277.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0429,Sikar,Bharatpur,303.8,Truck 10T,10.0,38.21,269.0,800,12677.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0430,Bhilwara,Jodhpur,242.5,Truck 16T,16.0,52.49,202.0,300,13232.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0431,Sri Ganganagar,Sikar,362.6,Tata Ace / mini,1.0,26.09,287.0,400,10147.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0432,Kota,Udaipur,291.9,Truck 16T,16.0,44.8,221.0,500,13798.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0433,Bikaner,Ajmer,279.9,LCV 6T,6.0,31.7,297.0,400,9571.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0434,Alwar,Sri Ganganagar,480.0,LCV 6T,6.0,32.0,381.0,300,16039.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0435,Udaipur,Jaipur,424.8,Truck 16T,16.0,54.47,610.0,1000,24747.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0436,Ajmer,Bharatpur,379.6,Truck 16T,16.0,51.52,415.0,400,20371.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0437,Alwar,Jaipur,140.8,Pickup 2T,2.0,30.03,88.0,300,4615.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0438,Bharatpur,Nagaur,477.1,Pickup 2T,2.0,29.34,690.0,800,15488.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0439,Barmer,Sikar,544.5,Pickup 2T,2.0,25.53,874.0,400,15174.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0440,Barmer,Jaipur,583.9,LCV 6T,6.0,40.26,852.0,800,25159.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0441,Nagaur,Jaipur,263.5,Truck 16T,16.0,52.07,192.0,400,14313.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0442,Ajmer,Jaipur,160.1,Truck 10T,10.0,38.18,112.0,800,7024.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0443,Nagaur,Sikar,186.9,Truck 16T,16.0,56.53,185.0,650,11399.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0444,Ajmer,Chittorgarh,222.2,Tata Ace / mini,1.0,25.71,175.0,800,6688.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0445,Barmer,Jaipur,583.9,Tata Ace / mini,1.0,27.86,509.0,500,17276.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0446,Bikaner,Jodhpur,256.5,Truck 10T,10.0,45.49,259.0,800,12728.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0447,Chittorgarh,Sri Ganganagar,720.0,Truck 16T,16.0,51.47,984.0,800,38845.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0448,Sikar,Barmer,544.5,Truck 16T,16.0,53.24,826.0,650,30463.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0449,Barmer,Bharatpur,805.2,Truck 16T,16.0,58.99,740.0,650,48888.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0450,Ajmer,Barmer,426.2,Tata Ace / mini,1.0,21.66,541.0,500,10273.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0451,Nagaur,Bharatpur,477.1,Tata Ace / mini,1.0,24.84,530.0,650,13031.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0452,Bharatpur,Sikar,303.8,Tata Ace / mini,1.0,22.52,263.0,300,7404.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0453,Alwar,Sri Ganganagar,480.0,Pickup 2T,2.0,28.5,612.0,1000,15291.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0454,Ajmer,Bhilwara,157.1,LCV 6T,6.0,34.76,110.0,400,5970.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0455,Hanumangarh,Bikaner,255.6,LCV 6T,6.0,35.84,273.0,650,10082.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0456,Sikar,Alwar,188.7,Truck 10T,10.0,37.83,262.0,400,7802.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0457,Ajmer,Bhilwara,157.1,Tata Ace / mini,1.0,22.36,100.0,650,4262.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0458,Hanumangarh,Sri Ganganagar,72.3,Truck 10T,10.0,37.09,35.0,800,3517.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0459,Jodhpur,Bikaner,256.5,Tata Ace / mini,1.0,27.47,361.0,650,8057.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0460,Kota,Sikar,353.3,LCV 6T,6.0,32.32,539.0,400,12356.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0461,Jaipur,Kota,242.0,Pickup 2T,2.0,31.44,275.0,300,8182.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0462,Jaipur,Jodhpur,364.5,Pickup 2T,2.0,30.31,380.0,650,12079.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0463,Sri Ganganagar,Sikar,362.6,Truck 16T,16.0,51.36,459.0,500,19581.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0464,Sikar,Jaipur,128.6,Truck 16T,16.0,53.37,149.0,650,7665.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0465,Sri Ganganagar,Barmer,668.3,Truck 16T,16.0,44.58,992.0,1000,31783.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0466,Chittorgarh,Udaipur,125.8,Truck 16T,16.0,45.08,152.0,650,6475.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0467,Sikar,Bhilwara,328.4,Truck 10T,10.0,46.24,414.0,400,16001.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0468,Ajmer,Barmer,426.2,Pickup 2T,2.0,24.93,457.0,650,11733.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0469,Alwar,Jaipur,140.8,Tata Ace / mini,1.0,22.42,177.0,400,3733.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0470,Sri Ganganagar,Udaipur,757.3,Pickup 2T,2.0,28.18,1166.0,400,22905.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0471,Sri Ganganagar,Jodhpur,532.5,Truck 16T,16.0,48.08,845.0,300,26748.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0472,Kota,Ajmer,235.7,Tata Ace / mini,1.0,22.12,251.0,300,5766.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0473,Alwar,Bikaner,423.7,Pickup 2T,2.0,33.25,496.0,300,14883.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0474,Bhilwara,Bikaner,416.5,LCV 6T,6.0,37.4,670.0,650,16898.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0475,Bharatpur,Udaipur,612.8,Truck 16T,16.0,52.77,975.0,1000,34313.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0476,Sikar,Bhilwara,328.4,LCV 6T,6.0,36.32,423.0,1000,13352.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0477,Udaipur,Jodhpur,251.4,LCV 6T,6.0,39.67,334.0,400,10708.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0478,Alwar,Nagaur,370.0,Tata Ace / mini,1.0,23.47,354.0,800,9838.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0479,Bharatpur,Bikaner,540.9,Truck 10T,10.0,36.72,697.0,500,21058.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0480,Kota,Nagaur,392.6,Pickup 2T,2.0,29.55,580.0,400,12580.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0481,Hanumangarh,Alwar,407.9,Truck 10T,10.0,48.67,635.0,1000,21487.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0482,Jodhpur,Hanumangarh,503.3,LCV 6T,6.0,34.95,556.0,800,18945.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0483,Sikar,Bharatpur,303.8,Tata Ace / mini,1.0,21.94,375.0,1000,8040.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0484,Kota,Barmer,579.1,LCV 6T,6.0,41.11,462.0,650,24920.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0485,Nagaur,Sri Ganganagar,385.0,Pickup 2T,2.0,28.14,613.0,500,11946.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0486,Sikar,Kota,353.3,LCV 6T,6.0,32.83,526.0,650,12774.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0487,Hanumangarh,Sri Ganganagar,72.3,Truck 16T,16.0,47.42,40.0,400,3868.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0488,Bharatpur,Alwar,119.8,Truck 16T,16.0,56.87,91.0,800,7705.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0489,Sikar,Udaipur,467.5,Truck 10T,10.0,47.94,385.0,300,23095.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0490,Barmer,Chittorgarh,433.4,Tata Ace / mini,1.0,21.2,483.0,300,9970.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0491,Hanumangarh,Barmer,658.5,Pickup 2T,2.0,33.92,496.0,400,23233.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0492,Jaipur,Ajmer,160.1,LCV 6T,6.0,41.8,140.0,1000,7831.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0493,Hanumangarh,Nagaur,346.8,LCV 6T,6.0,37.99,272.0,400,13846.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0494,Hanumangarh,Bharatpur,520.8,LCV 6T,6.0,31.2,864.0,300,17414.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0495,Jaipur,Udaipur,424.8,Tata Ace / mini,1.0,26.57,382.0,400,12068.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0496,Hanumangarh,Sri Ganganagar,72.3,Truck 10T,10.0,37.51,45.0,800,3557.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0497,Nagaur,Jodhpur,164.1,Tata Ace / mini,1.0,26.65,135.0,300,4808.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0498,Bikaner,Udaipur,491.9,LCV 6T,6.0,31.89,712.0,800,17199.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0499,Kota,Bikaner,515.1,Truck 16T,16.0,47.58,515.0,650,25674.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
+T0500,Nagaur,Sikar,186.9,Pickup 2T,2.0,30.95,237.0,500,6521.0,SYNTHETIC/DERIVED PROTOTYPE - get live transporter quote for production
