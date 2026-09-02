@@ -107,3 +107,39 @@ export async function predictSoilMoistureCustom(
     fallbackKey: 'field.predictionError',
   });
 }
+
+export type MoistureZoneTarget = {
+  id: string;
+  center: { lat: number; lng: number };
+  estimatedMoisturePercent: number;
+  relativeStatus: 'LOWER_THAN_FARM_AVERAGE' | 'NEAR_FARM_AVERAGE';
+  priority: number;
+  source: string;
+  provenance: string;
+  generatedAt: string;
+};
+
+export type FarmMoistureZones = {
+  farmId: string;
+  farmAverageMoisturePercent: number | null;
+  method: string;
+  provenance: string;
+  generatedAt: string;
+  gridSpacingMeters: number;
+  cellCount: number;
+  targets: MoistureZoneTarget[];
+};
+
+/**
+ * Prototype spatial extension of the same experimental engine above — see
+ * `backend/src/services/moistureZones.service.ts`'s header. Never a claim of
+ * measured moisture or genuine per-pixel satellite inference.
+ */
+export async function getFarmMoistureZones(farmId: string): Promise<FarmMoistureZones | null> {
+  return orNullWhenAbsent(async () => {
+    return apiFetch<FarmMoistureZones>(
+      `/api/v1/farms/${encodeURIComponent(farmId)}/moisture-zones`,
+      { fallbackKey: 'arMoisture.zonesUnavailable' },
+    );
+  });
+}

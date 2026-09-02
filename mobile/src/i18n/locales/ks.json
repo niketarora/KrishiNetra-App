@@ -715,6 +715,11 @@
       "unknown": "UNKNOWN",
       "unavailable": "UNAVAILABLE"
     },
-    "nextTarget": "Next target"
+    "nextTarget": "Next target",
+    "aiEstimateLabel": "AI ESTIMATE — verify in field",
+    "lowerMoistureLabel": "LOWER MOISTURE AREA",
+    "estimatedMoisture": "Estimated moisture: {{percent}}%",
+    "zonesUnavailableTitle": "Spatial moisture estimate unavailable",
+    "zonesUnavailableBody": "KrishiNetra could not generate spatial moisture targets for this field right now. Try again shortly."
   }
 }

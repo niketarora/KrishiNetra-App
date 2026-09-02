@@ -705,6 +705,11 @@
     "navigateHere": "Navigate to this area",
     "headingUnavailable": "Compass unavailable — showing distance only",
     "demoDataLabel": "DEMO DATA — not a measured moisture reading",
+    "aiEstimateLabel": "AI ESTIMATE — verify in field",
+    "lowerMoistureLabel": "LOWER MOISTURE AREA",
+    "estimatedMoisture": "Estimated moisture: {{percent}}%",
+    "zonesUnavailableTitle": "Spatial moisture estimate unavailable",
+    "zonesUnavailableBody": "KrishiNetra could not generate spatial moisture targets for this field right now. Try again shortly.",
     "gpsQuality": "GPS: {{quality}}",
     "headingQuality": "Compass: {{quality}}",
     "quality": {

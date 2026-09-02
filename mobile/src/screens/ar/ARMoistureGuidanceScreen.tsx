@@ -49,7 +49,7 @@ export function ARMoistureGuidanceScreen({ onBack }: Props) {
     return { latitude: Number(farm.centroid_lat), longitude: Number(farm.centroid_lng) };
   }, [farm?.centroid_lat, farm?.centroid_lng]);
 
-  const { targets } = useMoistureTargets(farmCenter);
+  const { targets, unavailable } = useMoistureTargets(farm?.id ?? null, farmCenter);
   const [activeIndex, setActiveIndex] = useState(0);
   const activeTarget = targets[activeIndex] ?? null;
 
@@ -129,8 +129,8 @@ export function ARMoistureGuidanceScreen({ onBack }: Props) {
     );
   }
 
-  // --- No farm registered / no targets available ------------------------------
-  if (!farm || !farmCenter || targets.length === 0) {
+  // --- No farm registered -----------------------------------------------------
+  if (!farm || !farmCenter) {
     return (
       <Screen>
         <ScreenHeader title={t('arMoisture.title')} onBack={onBack} />
@@ -141,6 +141,36 @@ export function ARMoistureGuidanceScreen({ onBack }: Props) {
             tone="warning"
             icon="field"
           />
+        </View>
+      </Screen>
+    );
+  }
+
+  // --- Spatial estimate unavailable (API failed or produced no usable cells) --
+  // Deliberately never silently substitutes fabricated targets here — see
+  // `useMoistureTargets.ts`'s header comment.
+  if (targets.length === 0 && unavailable) {
+    return (
+      <Screen>
+        <ScreenHeader title={t('arMoisture.title')} onBack={onBack} />
+        <View style={styles.permissionBody} testID="ar-moisture-zones-unavailable">
+          <Banner
+            title={t('arMoisture.zonesUnavailableTitle')}
+            detail={t('arMoisture.zonesUnavailableBody')}
+            tone="warning"
+            icon="field"
+          />
+        </View>
+      </Screen>
+    );
+  }
+
+  if (targets.length === 0) {
+    return (
+      <Screen>
+        <ScreenHeader title={t('arMoisture.title')} onBack={onBack} />
+        <View style={styles.centered}>
+          <ActivityIndicator color={colors.primary} />
         </View>
       </Screen>
     );
@@ -221,10 +251,15 @@ export function ARMoistureGuidanceScreen({ onBack }: Props) {
                   <Text variant="cardTitle" color="#FFFFFF">
                     {activeTarget.label}
                   </Text>
+                  {activeTarget.estimatedMoisturePercent != null ? (
+                    <Text variant="caption" color="#EDEEE9">
+                      {t('arMoisture.estimatedMoisture', { percent: activeTarget.estimatedMoisturePercent })}
+                    </Text>
+                  ) : null}
                   <Text variant="caption" color="#EDEEE9">
                     {activeTarget.note ?? t('arMoisture.navigateHere')}
                   </Text>
-                  <ProvenanceNote t={t} />
+                  <ProvenanceNote t={t} source={activeTarget.provenance.source} />
                 </View>
               ) : (
                 <View style={styles.guidanceCard} testID="ar-moisture-guidance">
@@ -237,8 +272,16 @@ export function ARMoistureGuidanceScreen({ onBack }: Props) {
                   )}
 
                   <Text variant="microMedium" color="#EDEEE9" style={styles.targetLabel}>
-                    {t('arMoisture.targetLabel')}
+                    {activeTarget?.relativeStatus === 'LOWER_THAN_FARM_AVERAGE'
+                      ? t('arMoisture.lowerMoistureLabel')
+                      : t('arMoisture.targetLabel')}
                   </Text>
+
+                  {activeTarget?.estimatedMoisturePercent != null ? (
+                    <Text variant="caption" color="#EDEEE9">
+                      {t('arMoisture.estimatedMoisture', { percent: activeTarget.estimatedMoisturePercent })}
+                    </Text>
+                  ) : null}
 
                   <Text variant="title" color="#FFFFFF">
                     {roundedDistance != null ? t('arMoisture.distanceValue', { meters: roundedDistance }) : '—'}
@@ -248,7 +291,7 @@ export function ARMoistureGuidanceScreen({ onBack }: Props) {
                     {t('arMoisture.navigateHere')}
                   </Text>
 
-                  <ProvenanceNote t={t} />
+                  <ProvenanceNote t={t} source={activeTarget?.provenance.source} />
 
                   <View style={styles.qualityRow}>
                     <Text variant="micro" color={qualityColor(gpsQuality)}>
@@ -277,12 +320,18 @@ export function ARMoistureGuidanceScreen({ onBack }: Props) {
   );
 }
 
-/** Same "never invent data" language shown once per card, not buried — the whole point of this MVP's data-truth requirement. */
-function ProvenanceNote({ t }: { t: (key: string) => string }) {
+/**
+ * Same "never invent data" language shown once per card, not buried — the
+ * whole point of this MVP's data-truth requirement. Demo targets keep the
+ * loud "DEMO DATA" label; API-backed prototype targets get the softer (but
+ * still honest) "AI ESTIMATE — verify in field" label — neither ever claims
+ * a measured reading.
+ */
+function ProvenanceNote({ t, source }: { t: (key: string) => string; source?: 'demo' | 'api' }) {
   return (
     <View style={styles.provenancePill} testID="ar-moisture-provenance">
       <Text variant="micro" color="#151714">
-        {t('arMoisture.demoDataLabel')}
+        {source === 'api' ? t('arMoisture.aiEstimateLabel') : t('arMoisture.demoDataLabel')}
       </Text>
     </View>
   );

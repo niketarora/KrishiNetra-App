@@ -345,7 +345,33 @@ describe('GET /api/v1/farms/:id', () => {
     expect(res.status).toBe(400);
     expect(res.body.error.code).toBe('INVALID_REQUEST');
   });
+});
 
+describe('GET /api/v1/farms/:farmId/moisture-zones', () => {
+  it('requires authentication', async () => {
+    const res = await request(app).get(`/api/v1/farms/${OTHER_FARM_ID}/moisture-zones`);
+
+    expect(res.status).toBe(401);
+  });
+
+  it("reports another farmer's field as missing, not as forbidden — same ownership rule as every other farm-scoped route", async () => {
+    whenQuerying('farms', { data: null, error: null });
+
+    const res = await request(app).get(`/api/v1/farms/${OTHER_FARM_ID}/moisture-zones`).set(AUTH);
+
+    expect(res.status).toBe(404);
+    expect(res.body.error.code).toBe('NOT_FOUND');
+  });
+
+  it('rejects an id that is not a uuid', async () => {
+    const res = await request(app).get('/api/v1/farms/not-a-uuid/moisture-zones').set(AUTH);
+
+    expect(res.status).toBe(400);
+    expect(res.body.error.code).toBe('INVALID_REQUEST');
+  });
+});
+
+describe('GET /api/v1/farms/:id (numeric normalisation)', () => {
   it('normalises numeric columns that PostgREST returned as strings', async () => {
     whenQuerying('farms', {
       data: {

@@ -4,19 +4,19 @@ import type { MoistureTarget } from './types';
 
 /**
  * NOT measured soil-moisture zones — see `types.ts`'s header comment.
- * KrishiNetra's soil-moisture model returns one scalar for the whole farm;
- * nothing anywhere in the system produces spatial/per-point moisture
- * readings today. These are placeholder navigation targets ("go look
- * here"), generated as small offsets from the selected farm's own centroid
- * so a demo always has somewhere plausible to walk toward, never derived
- * from any moisture value. `provenance.source: 'demo'` on every entry is
- * how `ARMoistureGuidanceScreen.tsx` knows to show its "DEMO DATA" banner.
+ * These are placeholder navigation targets ("go look here"), generated as
+ * small offsets from the selected farm's own centroid, never derived from
+ * any moisture value. `provenance.source: 'demo'` on every entry is how
+ * `ARMoistureGuidanceScreen.tsx` knows to show its "DEMO DATA" banner
+ * instead of the "AI ESTIMATE" one.
  *
- * Swap-in path for real data later: `useMoistureTargets.ts` is the only
- * place that would need to change to call `GET /api/v1/farms/:farmId/moisture-zones`
- * (not built yet) instead of this file — the screen and all the
- * distance/bearing/heading math are written against `MoistureTarget[]` and
- * never need to know which source produced it.
+ * Since the spatial-moisture-zones extension, `useMoistureTargets.ts` calls
+ * the real `GET /api/v1/farms/:farmId/moisture-zones` endpoint first and
+ * only reaches this file as an explicitly-gated developer/demo fallback
+ * (`EXPO_PUBLIC_DEMO_MODE === 'true'`) when that call fails or returns no
+ * usable cells — never automatically in a normal build. The screen and all
+ * the distance/bearing/heading math are written against `MoistureTarget[]`
+ * either way and never need to know which source produced it.
  */
 
 const EARTH_RADIUS_M = 6_371_000;
