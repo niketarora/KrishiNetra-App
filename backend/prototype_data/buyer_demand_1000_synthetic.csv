@@ -1,0 +1,1001 @@
+demand_id,buyer_id,buyer_type,buyer_name,commodity,required_quantity_quintal,required_quality,max_moisture_percent,offered_price_rs_per_quintal,payment_terms,delivery_location,requirement_window_days,verification_status,data_status
+D0001,B0036,Wholesale,Jaipur Wholesale Buyer 14,Mustard,100,FAQ,6.8,5770,Immediate UPI/RTGS,Jaipur,3,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0002,B0051,Institutional,Alwar Institutional Buyer 70,Maize,25,Grade A,11.7,2610,30% advance + balance on delivery,Alwar,7,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0003,B0056,Institutional,Chittorgarh Institutional Buyer 44,Bajra,150,FAQ,9.3,2290,Immediate UPI/RTGS,Chittorgarh,7,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0004,B0032,Processor,Barmer Processor Buyer 49,Gram,500,FAQ,8.7,6170,Payment after quality acceptance,Barmer,14,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0005,B0198,Processor,Chittorgarh Processor Buyer 38,Maize,1500,FAQ,13.6,2190,Immediate UPI/RTGS,Chittorgarh,10,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0006,B0091,Retail Chain,Bhilwara Retail Chain Buyer 27,Tomato,75,B,89.1,2690,Payment after quality acceptance,Bhilwara,21,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0007,B0098,Wholesale,Jodhpur Wholesale Buyer 35,Bajra,75,FAQ,11.1,2690,Immediate UPI/RTGS,Jodhpur,5,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0008,B0146,FPO,Sri Ganganagar FPO Buyer 41,Onion,100,Small,74.0,3530,T+7 days,Sri Ganganagar,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0009,B0068,Processor,Bharatpur Processor Buyer 75,Bajra,2000,Clean,11.7,2780,T+7 days,Bharatpur,7,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0010,B0040,Institutional,Jodhpur Institutional Buyer 21,Bajra,25,Clean,10.8,2240,T+7 days,Jodhpur,10,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0011,B0175,Retail Chain,Jodhpur Retail Chain Buyer 69,Gram,25,Grade A,9.3,5090,T+3 days,Jodhpur,3,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0012,B0185,Institutional,Ajmer Institutional Buyer 34,Garlic,2000,Export,69.3,13960,30% advance + balance on delivery,Ajmer,3,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0013,B0200,FPO,Ajmer FPO Buyer 68,Maize,75,FAQ,12.8,2590,T+7 days,Ajmer,3,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0014,B0015,Exporter,Hanumangarh Exporter Buyer 31,Onion,150,Large,74.8,1810,Immediate UPI/RTGS,Hanumangarh,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0015,B0169,Wholesale,Barmer Wholesale Buyer 61,Mustard,75,FAQ,5.8,5520,30% advance + balance on delivery,Barmer,10,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0016,B0113,FPO,Chittorgarh FPO Buyer 67,Maize,1500,Grade A,11.4,2370,T+1 day,Chittorgarh,3,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0017,B0002,Wholesale,Udaipur Wholesale Buyer 10,Wheat,1000,FAQ,9.7,2480,Immediate UPI/RTGS,Udaipur,30,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0018,B0055,Processor,Jodhpur Processor Buyer 70,Mustard,1500,FAQ,7.2,6440,30% advance + balance on delivery,Jodhpur,14,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0019,B0025,Institutional,Barmer Institutional Buyer 13,Maize,300,Grade A,12.1,2140,T+7 days,Barmer,10,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0020,B0064,Institutional,Jaipur Institutional Buyer 25,Mustard,200,FAQ,6.6,5470,T+1 day,Jaipur,10,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0021,B0207,Processor,Bikaner Processor Buyer 71,Gram,50,FAQ,7.2,5930,30% advance + balance on delivery,Bikaner,30,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0022,B0105,Wholesale,Hanumangarh Wholesale Buyer 63,Mustard,100,Bold Seed,5.6,5620,T+7 days,Hanumangarh,3,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0023,B0201,Exporter,Jaipur Exporter Buyer 59,Garlic,150,Large,68.3,14480,Payment after quality acceptance,Jaipur,30,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0024,B0016,FPO,Alwar FPO Buyer 41,Bajra,25,FAQ,9.2,2790,T+7 days,Alwar,14,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0025,B0153,Processor,Jodhpur Processor Buyer 9,Wheat,75,FAQ,10.2,2280,30% advance + balance on delivery,Jodhpur,5,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0026,B0081,Wholesale,Sri Ganganagar Wholesale Buyer 34,Mustard,1000,FAQ,7.0,6530,T+3 days,Sri Ganganagar,5,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0027,B0081,Wholesale,Ajmer Wholesale Buyer 10,Garlic,150,Medium,68.4,9680,30% advance + balance on delivery,Ajmer,3,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0028,B0063,FPO,Jodhpur FPO Buyer 48,Maize,200,Grade A,11.5,1980,30% advance + balance on delivery,Jodhpur,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0029,B0035,Retail Chain,Bhilwara Retail Chain Buyer 34,Wheat,150,FAQ,11.7,2330,Payment after quality acceptance,Bhilwara,14,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0030,B0053,Wholesale,Bharatpur Wholesale Buyer 34,Gram,2000,Grade A,7.8,5670,Immediate UPI/RTGS,Bharatpur,3,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0031,B0068,Processor,Jaipur Processor Buyer 21,Gram,75,Grade A,8.7,6430,T+7 days,Jaipur,14,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0032,B0140,Exporter,Kota Exporter Buyer 5,Mustard,2000,Bold Seed,6.7,5580,T+1 day,Kota,10,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0033,B0054,FPO,Bharatpur FPO Buyer 32,Wheat,25,FAQ,10.1,2650,30% advance + balance on delivery,Bharatpur,30,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0034,B0106,Exporter,Hanumangarh Exporter Buyer 4,Bajra,75,FAQ,11.2,2320,T+3 days,Hanumangarh,30,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0035,B0098,Processor,Bharatpur Processor Buyer 5,Maize,2000,Grade A,11.7,2030,T+7 days,Bharatpur,7,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0036,B0085,Processor,Alwar Processor Buyer 36,Maize,100,FAQ,13.9,2410,T+3 days,Alwar,7,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0037,B0149,Processor,Jaipur Processor Buyer 34,Onion,150,Small,72.3,1650,T+7 days,Jaipur,7,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0038,B0148,Exporter,Udaipur Exporter Buyer 25,Garlic,50,Large,67.1,8940,T+7 days,Udaipur,3,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0039,B0085,Processor,Sri Ganganagar Processor Buyer 80,Onion,1500,Medium,74.0,3550,Immediate UPI/RTGS,Sri Ganganagar,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0040,B0142,Institutional,Bhilwara Institutional Buyer 17,Gram,300,FAQ,8.3,5550,T+7 days,Bhilwara,21,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0041,B0074,Wholesale,Sri Ganganagar Wholesale Buyer 27,Gram,25,Grade A,9.4,5570,30% advance + balance on delivery,Sri Ganganagar,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0042,B0122,Institutional,Bikaner Institutional Buyer 22,Tomato,100,A,87.9,3410,Payment after quality acceptance,Bikaner,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0043,B0058,Exporter,Nagaur Exporter Buyer 26,Mustard,100,FAQ,5.1,5990,T+1 day,Nagaur,10,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0044,B0184,Retail Chain,Sri Ganganagar Retail Chain Buyer 50,Tomato,1000,B,88.2,1790,T+1 day,Sri Ganganagar,21,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0045,B0119,Institutional,Barmer Institutional Buyer 7,Mustard,75,FAQ,7.8,6520,Immediate UPI/RTGS,Barmer,10,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0046,B0082,Wholesale,Bhilwara Wholesale Buyer 57,Tomato,750,B,89.5,3840,30% advance + balance on delivery,Bhilwara,10,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0047,B0071,FPO,Bikaner FPO Buyer 67,Tomato,100,B,88.9,4060,T+3 days,Bikaner,10,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0048,B0021,FPO,Alwar FPO Buyer 18,Gram,200,FAQ,7.7,6180,Payment after quality acceptance,Alwar,5,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0049,B0107,Institutional,Sri Ganganagar Institutional Buyer 8,Mustard,750,FAQ,7.5,6390,T+7 days,Sri Ganganagar,30,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0050,B0193,Processor,Bikaner Processor Buyer 50,Garlic,200,Large,68.6,8050,Payment after quality acceptance,Bikaner,14,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0051,B0100,FPO,Alwar FPO Buyer 44,Tomato,500,B,89.2,940,T+7 days,Alwar,5,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0052,B0165,Wholesale,Udaipur Wholesale Buyer 55,Garlic,25,Medium,69.6,5850,T+1 day,Udaipur,3,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0053,B0195,Processor,Sikar Processor Buyer 49,Garlic,200,Large,69.3,8450,T+7 days,Sikar,7,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0054,B0058,Wholesale,Jaipur Wholesale Buyer 9,Tomato,25,A,89.3,2590,T+1 day,Jaipur,5,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0055,B0145,Processor,Alwar Processor Buyer 28,Bajra,1500,Clean,11.1,2240,T+3 days,Alwar,5,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0056,B0148,Processor,Bharatpur Processor Buyer 49,Bajra,25,Clean,11.8,2490,T+1 day,Bharatpur,3,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0057,B0207,Retail Chain,Chittorgarh Retail Chain Buyer 16,Mustard,1500,FAQ,6.0,6730,T+7 days,Chittorgarh,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0058,B0211,Wholesale,Jodhpur Wholesale Buyer 63,Mustard,25,FAQ,6.3,6270,T+3 days,Jodhpur,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0059,B0158,Processor,Sri Ganganagar Processor Buyer 69,Bajra,750,Clean,10.4,2440,Payment after quality acceptance,Sri Ganganagar,14,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0060,B0116,Processor,Nagaur Processor Buyer 32,Onion,50,Medium,73.7,1910,Payment after quality acceptance,Nagaur,10,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0061,B0055,Retail Chain,Bikaner Retail Chain Buyer 46,Wheat,75,Grade A,10.0,2820,30% advance + balance on delivery,Bikaner,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0062,B0185,Exporter,Jodhpur Exporter Buyer 53,Wheat,50,Grade A,10.7,2500,T+1 day,Jodhpur,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0063,B0057,Retail Chain,Bikaner Retail Chain Buyer 52,Tomato,50,A,87.9,2300,30% advance + balance on delivery,Bikaner,7,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0064,B0091,Exporter,Sri Ganganagar Exporter Buyer 59,Onion,750,Medium,72.9,2040,T+1 day,Sri Ganganagar,3,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0065,B0050,Wholesale,Kota Wholesale Buyer 28,Onion,2000,Large,73.5,1670,Payment after quality acceptance,Kota,14,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0066,B0046,Processor,Nagaur Processor Buyer 39,Mustard,100,FAQ,7.1,6120,T+1 day,Nagaur,7,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0067,B0027,FPO,Jodhpur FPO Buyer 2,Wheat,75,Grade A,10.4,2820,T+7 days,Jodhpur,7,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0068,B0211,Exporter,Bharatpur Exporter Buyer 9,Wheat,500,Grade A,10.5,2340,30% advance + balance on delivery,Bharatpur,21,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0069,B0064,Retail Chain,Ajmer Retail Chain Buyer 16,Bajra,150,Clean,10.8,2200,30% advance + balance on delivery,Ajmer,5,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0070,B0079,Institutional,Hanumangarh Institutional Buyer 73,Tomato,1000,A,88.8,2990,Payment after quality acceptance,Hanumangarh,3,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0071,B0045,Wholesale,Bharatpur Wholesale Buyer 71,Maize,75,FAQ,11.5,2200,T+7 days,Bharatpur,10,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0072,B0180,Processor,Jaipur Processor Buyer 59,Gram,2000,FAQ,9.1,5520,T+3 days,Jaipur,30,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0073,B0069,Wholesale,Kota Wholesale Buyer 19,Garlic,1500,Medium,67.2,6520,T+3 days,Kota,14,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0074,B0070,Institutional,Kota Institutional Buyer 65,Tomato,150,B,88.3,2860,30% advance + balance on delivery,Kota,3,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0075,B0173,FPO,Udaipur FPO Buyer 74,Onion,50,Large,74.9,1780,Payment after quality acceptance,Udaipur,30,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0076,B0167,Wholesale,Barmer Wholesale Buyer 57,Wheat,500,Grade A,9.5,2860,30% advance + balance on delivery,Barmer,10,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0077,B0172,FPO,Bikaner FPO Buyer 14,Mustard,200,FAQ,6.0,6020,Payment after quality acceptance,Bikaner,10,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0078,B0023,Wholesale,Nagaur Wholesale Buyer 41,Garlic,25,Large,68.0,9650,T+7 days,Nagaur,30,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0079,B0160,Processor,Sri Ganganagar Processor Buyer 64,Tomato,750,B,89.3,2650,T+1 day,Sri Ganganagar,7,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0080,B0008,Retail Chain,Bikaner Retail Chain Buyer 78,Gram,500,FAQ,9.1,5110,T+3 days,Bikaner,14,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0081,B0031,Processor,Kota Processor Buyer 20,Garlic,50,Large,69.8,9720,T+3 days,Kota,14,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0082,B0117,Institutional,Nagaur Institutional Buyer 71,Garlic,500,Medium,68.2,7490,30% advance + balance on delivery,Nagaur,14,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0083,B0202,Retail Chain,Bharatpur Retail Chain Buyer 65,Mustard,300,Bold Seed,7.5,6070,T+3 days,Bharatpur,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0084,B0089,Processor,Nagaur Processor Buyer 43,Tomato,750,B,88.4,3270,T+3 days,Nagaur,30,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0085,B0082,FPO,Udaipur FPO Buyer 61,Maize,300,Grade A,12.2,1950,Payment after quality acceptance,Udaipur,30,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0086,B0026,Processor,Jaipur Processor Buyer 57,Tomato,1000,A,88.6,2490,T+7 days,Jaipur,3,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0087,B0121,Wholesale,Nagaur Wholesale Buyer 34,Garlic,75,Large,68.9,5760,T+7 days,Nagaur,21,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0088,B0082,Wholesale,Nagaur Wholesale Buyer 63,Onion,750,Large,72.1,2170,Immediate UPI/RTGS,Nagaur,5,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0089,B0114,Processor,Chittorgarh Processor Buyer 22,Maize,50,Grade A,13.7,2020,Immediate UPI/RTGS,Chittorgarh,7,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0090,B0136,FPO,Sikar FPO Buyer 53,Gram,75,FAQ,7.5,5420,Immediate UPI/RTGS,Sikar,14,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0091,B0119,Exporter,Bikaner Exporter Buyer 33,Maize,75,Grade A,11.8,2190,Immediate UPI/RTGS,Bikaner,30,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0092,B0089,Wholesale,Bhilwara Wholesale Buyer 76,Gram,50,Grade A,8.9,5930,T+7 days,Bhilwara,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0093,B0028,FPO,Nagaur FPO Buyer 31,Tomato,300,B,88.7,3270,30% advance + balance on delivery,Nagaur,7,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0094,B0145,Wholesale,Nagaur Wholesale Buyer 7,Wheat,150,Grade A,11.5,2210,T+3 days,Nagaur,30,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0095,B0174,Wholesale,Alwar Wholesale Buyer 18,Onion,1000,Large,72.3,1840,Payment after quality acceptance,Alwar,21,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0096,B0188,Institutional,Barmer Institutional Buyer 17,Gram,1000,FAQ,9.7,5730,T+3 days,Barmer,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0097,B0136,Processor,Alwar Processor Buyer 65,Bajra,750,Clean,11.5,2560,T+3 days,Alwar,30,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0098,B0020,Retail Chain,Chittorgarh Retail Chain Buyer 19,Gram,50,FAQ,9.6,5990,Payment after quality acceptance,Chittorgarh,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0099,B0138,Retail Chain,Kota Retail Chain Buyer 16,Onion,25,Medium,73.1,1870,Payment after quality acceptance,Kota,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0100,B0173,Wholesale,Nagaur Wholesale Buyer 30,Garlic,200,Large,67.1,6100,30% advance + balance on delivery,Nagaur,7,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0101,B0167,Retail Chain,Bhilwara Retail Chain Buyer 53,Mustard,2000,FAQ,5.4,5970,Immediate UPI/RTGS,Bhilwara,7,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0102,B0100,Processor,Kota Processor Buyer 59,Mustard,750,Bold Seed,7.0,5540,Payment after quality acceptance,Kota,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0103,B0158,Institutional,Hanumangarh Institutional Buyer 53,Bajra,50,Clean,9.1,2720,T+3 days,Hanumangarh,5,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0104,B0140,Retail Chain,Alwar Retail Chain Buyer 46,Tomato,50,A,88.2,2680,T+1 day,Alwar,3,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0105,B0006,Processor,Bhilwara Processor Buyer 7,Mustard,1500,Bold Seed,5.7,6720,T+1 day,Bhilwara,30,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0106,B0056,Wholesale,Nagaur Wholesale Buyer 30,Mustard,100,Bold Seed,7.3,6700,30% advance + balance on delivery,Nagaur,3,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0107,B0170,Wholesale,Ajmer Wholesale Buyer 4,Bajra,75,FAQ,9.0,2240,T+1 day,Ajmer,14,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0108,B0135,FPO,Ajmer FPO Buyer 15,Wheat,75,FAQ,10.4,2730,T+3 days,Ajmer,14,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0109,B0187,Processor,Jodhpur Processor Buyer 67,Tomato,1000,B,88.4,1020,Immediate UPI/RTGS,Jodhpur,3,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0110,B0114,Wholesale,Sri Ganganagar Wholesale Buyer 10,Garlic,500,Medium,68.0,12290,T+1 day,Sri Ganganagar,3,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0111,B0098,Wholesale,Udaipur Wholesale Buyer 77,Gram,750,Grade A,8.4,5630,30% advance + balance on delivery,Udaipur,10,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0112,B0111,Wholesale,Nagaur Wholesale Buyer 58,Mustard,750,FAQ,6.2,5750,T+7 days,Nagaur,10,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0113,B0096,Institutional,Sikar Institutional Buyer 20,Mustard,1500,Bold Seed,5.2,5850,Immediate UPI/RTGS,Sikar,3,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0114,B0016,Wholesale,Chittorgarh Wholesale Buyer 76,Mustard,75,Bold Seed,7.0,6620,T+7 days,Chittorgarh,7,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0115,B0148,Wholesale,Bharatpur Wholesale Buyer 65,Wheat,200,FAQ,9.5,2330,T+7 days,Bharatpur,5,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0116,B0072,Wholesale,Nagaur Wholesale Buyer 74,Onion,50,Small,74.4,3150,30% advance + balance on delivery,Nagaur,30,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0117,B0087,Processor,Jaipur Processor Buyer 45,Gram,2000,FAQ,7.5,5590,T+1 day,Jaipur,14,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0118,B0192,Wholesale,Ajmer Wholesale Buyer 68,Mustard,25,FAQ,6.1,5430,T+7 days,Ajmer,7,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0119,B0022,Wholesale,Bharatpur Wholesale Buyer 7,Onion,1000,Small,72.5,2720,30% advance + balance on delivery,Bharatpur,3,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0120,B0114,Wholesale,Bikaner Wholesale Buyer 54,Gram,500,Grade A,7.6,6350,30% advance + balance on delivery,Bikaner,3,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0121,B0125,FPO,Kota FPO Buyer 68,Garlic,1500,Export,67.9,11070,T+1 day,Kota,10,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0122,B0196,FPO,Alwar FPO Buyer 33,Wheat,100,Grade A,10.0,2370,Immediate UPI/RTGS,Alwar,10,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0123,B0129,FPO,Ajmer FPO Buyer 72,Bajra,2000,Clean,9.2,2390,Payment after quality acceptance,Ajmer,3,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0124,B0147,Exporter,Bikaner Exporter Buyer 52,Wheat,200,Grade A,9.9,2740,T+7 days,Bikaner,3,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0125,B0023,Exporter,Barmer Exporter Buyer 56,Bajra,500,FAQ,9.7,2560,30% advance + balance on delivery,Barmer,10,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0126,B0086,FPO,Nagaur FPO Buyer 22,Garlic,200,Medium,68.5,7260,Immediate UPI/RTGS,Nagaur,14,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0127,B0038,Wholesale,Sikar Wholesale Buyer 31,Onion,1500,Small,72.4,3280,T+1 day,Sikar,5,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0128,B0119,Exporter,Ajmer Exporter Buyer 73,Mustard,1500,Bold Seed,7.0,6460,30% advance + balance on delivery,Ajmer,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0129,B0162,Institutional,Ajmer Institutional Buyer 39,Onion,500,Medium,73.8,2330,T+3 days,Ajmer,14,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0130,B0213,Institutional,Bikaner Institutional Buyer 37,Gram,25,FAQ,8.9,5740,Immediate UPI/RTGS,Bikaner,14,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0131,B0116,Wholesale,Udaipur Wholesale Buyer 74,Tomato,2000,A,88.0,1010,T+7 days,Udaipur,14,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0132,B0130,Processor,Bikaner Processor Buyer 23,Wheat,200,FAQ,9.7,2300,T+7 days,Bikaner,10,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0133,B0199,Exporter,Sikar Exporter Buyer 44,Onion,300,Large,73.8,2240,Payment after quality acceptance,Sikar,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0134,B0073,Processor,Sikar Processor Buyer 33,Mustard,1500,FAQ,6.0,6180,30% advance + balance on delivery,Sikar,21,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0135,B0101,Exporter,Bharatpur Exporter Buyer 17,Onion,2000,Large,74.1,2890,Immediate UPI/RTGS,Bharatpur,7,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0136,B0190,Processor,Nagaur Processor Buyer 68,Onion,2000,Small,73.9,3320,T+7 days,Nagaur,14,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0137,B0197,FPO,Sikar FPO Buyer 63,Wheat,100,FAQ,9.7,2630,T+1 day,Sikar,5,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0138,B0214,Retail Chain,Nagaur Retail Chain Buyer 68,Gram,750,FAQ,9.0,6180,30% advance + balance on delivery,Nagaur,5,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0139,B0185,Processor,Ajmer Processor Buyer 57,Bajra,2000,FAQ,10.2,2310,Payment after quality acceptance,Ajmer,21,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0140,B0060,FPO,Udaipur FPO Buyer 69,Tomato,2000,A,87.9,3090,T+7 days,Udaipur,30,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0141,B0197,Exporter,Bhilwara Exporter Buyer 37,Onion,500,Medium,73.5,2380,T+7 days,Bhilwara,5,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0142,B0096,FPO,Nagaur FPO Buyer 71,Bajra,1500,FAQ,11.1,2710,30% advance + balance on delivery,Nagaur,30,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0143,B0132,Wholesale,Kota Wholesale Buyer 19,Gram,150,Grade A,7.3,5950,T+1 day,Kota,30,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0144,B0129,Processor,Hanumangarh Processor Buyer 48,Onion,25,Small,73.2,2210,Immediate UPI/RTGS,Hanumangarh,7,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0145,B0203,Exporter,Sikar Exporter Buyer 19,Wheat,2000,FAQ,9.1,2620,T+7 days,Sikar,21,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0146,B0066,Wholesale,Bikaner Wholesale Buyer 28,Tomato,50,A,88.6,890,Payment after quality acceptance,Bikaner,14,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0147,B0013,FPO,Barmer FPO Buyer 31,Mustard,150,Bold Seed,6.9,5510,30% advance + balance on delivery,Barmer,10,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0148,B0005,Exporter,Nagaur Exporter Buyer 66,Mustard,1000,FAQ,7.2,6570,T+3 days,Nagaur,10,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0149,B0172,Wholesale,Alwar Wholesale Buyer 11,Onion,75,Large,74.9,2900,Immediate UPI/RTGS,Alwar,14,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0150,B0096,Institutional,Nagaur Institutional Buyer 33,Garlic,1500,Export,67.0,8960,Immediate UPI/RTGS,Nagaur,7,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0151,B0012,Wholesale,Barmer Wholesale Buyer 46,Mustard,200,Bold Seed,7.4,5540,T+1 day,Barmer,30,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0152,B0184,Processor,Bhilwara Processor Buyer 59,Tomato,75,A,87.9,1120,Immediate UPI/RTGS,Bhilwara,30,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0153,B0209,Exporter,Sikar Exporter Buyer 70,Wheat,750,Grade A,9.8,2700,Payment after quality acceptance,Sikar,5,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0154,B0070,Retail Chain,Nagaur Retail Chain Buyer 16,Onion,1500,Medium,73.3,2040,T+7 days,Nagaur,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0155,B0128,Exporter,Sikar Exporter Buyer 48,Garlic,500,Export,67.8,12080,Immediate UPI/RTGS,Sikar,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0156,B0076,Wholesale,Sri Ganganagar Wholesale Buyer 42,Mustard,75,FAQ,5.2,6590,Payment after quality acceptance,Sri Ganganagar,7,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0157,B0090,Wholesale,Udaipur Wholesale Buyer 58,Tomato,75,A,89.2,3070,T+3 days,Udaipur,14,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0158,B0172,Exporter,Bhilwara Exporter Buyer 52,Gram,25,Grade A,8.5,4990,Payment after quality acceptance,Bhilwara,21,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0159,B0009,Retail Chain,Ajmer Retail Chain Buyer 17,Wheat,1500,FAQ,9.7,2760,Payment after quality acceptance,Ajmer,7,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0160,B0116,Processor,Udaipur Processor Buyer 48,Garlic,75,Large,68.3,11950,Immediate UPI/RTGS,Udaipur,14,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0161,B0030,FPO,Sri Ganganagar FPO Buyer 4,Onion,150,Large,72.6,1830,30% advance + balance on delivery,Sri Ganganagar,10,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0162,B0157,FPO,Barmer FPO Buyer 37,Gram,500,Grade A,7.6,5340,T+1 day,Barmer,30,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0163,B0208,Retail Chain,Ajmer Retail Chain Buyer 41,Tomato,500,B,89.1,1240,30% advance + balance on delivery,Ajmer,14,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0164,B0045,Processor,Nagaur Processor Buyer 47,Gram,2000,FAQ,7.4,6430,T+1 day,Nagaur,30,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0165,B0147,Institutional,Barmer Institutional Buyer 48,Maize,200,Grade A,13.4,2600,30% advance + balance on delivery,Barmer,5,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0166,B0135,FPO,Bharatpur FPO Buyer 53,Mustard,2000,Bold Seed,7.5,6420,Immediate UPI/RTGS,Bharatpur,5,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0167,B0033,Institutional,Bikaner Institutional Buyer 71,Mustard,750,FAQ,7.3,6080,T+1 day,Bikaner,10,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0168,B0083,Processor,Jodhpur Processor Buyer 29,Mustard,75,Bold Seed,7.8,5610,30% advance + balance on delivery,Jodhpur,7,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0169,B0033,Wholesale,Alwar Wholesale Buyer 39,Gram,750,FAQ,8.5,5500,T+1 day,Alwar,14,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0170,B0216,Wholesale,Bhilwara Wholesale Buyer 73,Bajra,1000,FAQ,11.5,2530,Immediate UPI/RTGS,Bhilwara,3,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0171,B0159,Processor,Bhilwara Processor Buyer 4,Gram,1000,Grade A,9.7,5860,30% advance + balance on delivery,Bhilwara,7,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0172,B0077,Retail Chain,Alwar Retail Chain Buyer 59,Tomato,1500,A,89.1,2870,T+1 day,Alwar,10,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0173,B0081,Processor,Bikaner Processor Buyer 41,Tomato,1000,B,89.9,1530,T+1 day,Bikaner,30,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0174,B0116,Processor,Sikar Processor Buyer 32,Mustard,50,FAQ,5.3,5880,T+3 days,Sikar,10,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0175,B0185,Exporter,Nagaur Exporter Buyer 41,Maize,200,FAQ,13.3,2630,T+7 days,Nagaur,14,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0176,B0101,FPO,Hanumangarh FPO Buyer 65,Tomato,25,B,89.9,1260,T+1 day,Hanumangarh,14,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0177,B0074,FPO,Jaipur FPO Buyer 69,Wheat,1000,FAQ,11.5,2800,T+7 days,Jaipur,5,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0178,B0014,Institutional,Barmer Institutional Buyer 73,Onion,25,Large,72.6,2220,30% advance + balance on delivery,Barmer,7,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0179,B0212,Institutional,Jodhpur Institutional Buyer 80,Garlic,750,Export,68.8,7860,T+1 day,Jodhpur,3,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0180,B0094,Exporter,Barmer Exporter Buyer 19,Onion,750,Small,73.8,3600,T+7 days,Barmer,14,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0181,B0133,Processor,Jaipur Processor Buyer 59,Wheat,200,FAQ,10.8,2800,30% advance + balance on delivery,Jaipur,5,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0182,B0216,FPO,Ajmer FPO Buyer 39,Onion,1000,Large,73.0,3090,30% advance + balance on delivery,Ajmer,14,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0183,B0173,Retail Chain,Bikaner Retail Chain Buyer 15,Gram,200,Grade A,8.8,5640,Payment after quality acceptance,Bikaner,30,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0184,B0059,Exporter,Bharatpur Exporter Buyer 7,Tomato,1000,B,87.5,3750,Payment after quality acceptance,Bharatpur,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0185,B0049,Wholesale,Nagaur Wholesale Buyer 3,Bajra,25,Clean,9.9,2240,T+1 day,Nagaur,10,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0186,B0218,Retail Chain,Jodhpur Retail Chain Buyer 8,Garlic,500,Export,67.4,13930,T+1 day,Jodhpur,14,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0187,B0137,FPO,Jodhpur FPO Buyer 44,Tomato,75,B,89.0,3150,Payment after quality acceptance,Jodhpur,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0188,B0077,Exporter,Alwar Exporter Buyer 29,Tomato,150,B,89.3,3650,Payment after quality acceptance,Alwar,5,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0189,B0074,FPO,Bikaner FPO Buyer 16,Onion,2000,Large,74.0,1900,T+7 days,Bikaner,10,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0190,B0089,Processor,Bharatpur Processor Buyer 57,Bajra,2000,Clean,11.2,2200,T+1 day,Bharatpur,5,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0191,B0062,Processor,Ajmer Processor Buyer 32,Gram,2000,FAQ,9.0,6300,30% advance + balance on delivery,Ajmer,5,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0192,B0026,Institutional,Kota Institutional Buyer 18,Wheat,2000,FAQ,11.9,2800,T+1 day,Kota,10,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0193,B0074,Processor,Bhilwara Processor Buyer 8,Tomato,150,A,89.0,2440,T+1 day,Bhilwara,14,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0194,B0215,Retail Chain,Sri Ganganagar Retail Chain Buyer 51,Bajra,75,Clean,9.6,2140,Payment after quality acceptance,Sri Ganganagar,30,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0195,B0086,FPO,Jaipur FPO Buyer 37,Wheat,1000,Grade A,12.0,2330,30% advance + balance on delivery,Jaipur,14,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0196,B0208,Institutional,Nagaur Institutional Buyer 15,Bajra,150,Clean,9.5,2340,T+7 days,Nagaur,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0197,B0045,Wholesale,Jaipur Wholesale Buyer 79,Bajra,150,Clean,11.5,2340,30% advance + balance on delivery,Jaipur,7,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0198,B0083,Processor,Bhilwara Processor Buyer 32,Garlic,75,Medium,67.8,9880,T+1 day,Bhilwara,10,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0199,B0067,Wholesale,Bharatpur Wholesale Buyer 47,Onion,1000,Large,72.7,1220,Payment after quality acceptance,Bharatpur,3,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0200,B0177,Institutional,Ajmer Institutional Buyer 16,Gram,750,Grade A,8.1,5590,T+1 day,Ajmer,5,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0201,B0107,Institutional,Ajmer Institutional Buyer 71,Tomato,1000,B,89.3,2710,Payment after quality acceptance,Ajmer,30,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0202,B0115,Wholesale,Bhilwara Wholesale Buyer 68,Maize,50,Grade A,11.2,2570,30% advance + balance on delivery,Bhilwara,3,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0203,B0219,Wholesale,Udaipur Wholesale Buyer 67,Maize,75,Grade A,11.3,2310,T+1 day,Udaipur,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0204,B0034,Institutional,Hanumangarh Institutional Buyer 66,Mustard,25,Bold Seed,6.4,6360,Immediate UPI/RTGS,Hanumangarh,14,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0205,B0191,Processor,Chittorgarh Processor Buyer 28,Gram,150,FAQ,7.1,4800,T+3 days,Chittorgarh,21,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0206,B0074,Retail Chain,Hanumangarh Retail Chain Buyer 53,Wheat,500,FAQ,11.3,2240,Payment after quality acceptance,Hanumangarh,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0207,B0021,FPO,Hanumangarh FPO Buyer 70,Onion,300,Small,74.0,2160,T+3 days,Hanumangarh,3,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0208,B0001,Processor,Jodhpur Processor Buyer 3,Garlic,100,Large,68.4,13540,Payment after quality acceptance,Jodhpur,14,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0209,B0040,Processor,Nagaur Processor Buyer 36,Garlic,500,Medium,69.8,8540,Payment after quality acceptance,Nagaur,30,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0210,B0062,Wholesale,Barmer Wholesale Buyer 27,Wheat,1000,FAQ,9.3,2220,Immediate UPI/RTGS,Barmer,10,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0211,B0139,Processor,Chittorgarh Processor Buyer 28,Maize,500,FAQ,11.4,2190,T+3 days,Chittorgarh,5,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0212,B0134,FPO,Alwar FPO Buyer 29,Onion,75,Medium,72.9,2890,Immediate UPI/RTGS,Alwar,14,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0213,B0172,Institutional,Jodhpur Institutional Buyer 49,Garlic,200,Export,68.0,11580,T+7 days,Jodhpur,10,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0214,B0062,Processor,Sri Ganganagar Processor Buyer 29,Gram,750,Grade A,9.6,6010,T+1 day,Sri Ganganagar,30,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0215,B0035,Institutional,Jodhpur Institutional Buyer 50,Wheat,300,FAQ,9.8,2870,T+3 days,Jodhpur,21,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0216,B0014,FPO,Nagaur FPO Buyer 35,Tomato,750,B,89.0,1770,30% advance + balance on delivery,Nagaur,3,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0217,B0056,Wholesale,Barmer Wholesale Buyer 62,Maize,2000,FAQ,13.6,2610,T+3 days,Barmer,7,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0218,B0192,Processor,Hanumangarh Processor Buyer 62,Maize,2000,FAQ,13.1,2050,Payment after quality acceptance,Hanumangarh,5,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0219,B0120,FPO,Jodhpur FPO Buyer 69,Maize,150,Grade A,11.9,2380,T+3 days,Jodhpur,14,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0220,B0195,Retail Chain,Kota Retail Chain Buyer 41,Tomato,2000,A,88.1,3200,T+7 days,Kota,3,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0221,B0076,FPO,Jaipur FPO Buyer 20,Bajra,1000,FAQ,10.0,2630,T+7 days,Jaipur,14,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0222,B0066,Wholesale,Jodhpur Wholesale Buyer 63,Tomato,1500,B,88.4,2520,Payment after quality acceptance,Jodhpur,30,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0223,B0139,Wholesale,Ajmer Wholesale Buyer 8,Bajra,500,FAQ,11.5,2330,Immediate UPI/RTGS,Ajmer,30,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0224,B0018,Processor,Sri Ganganagar Processor Buyer 20,Wheat,1500,FAQ,9.7,2490,T+7 days,Sri Ganganagar,7,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0225,B0142,Institutional,Bhilwara Institutional Buyer 53,Tomato,25,A,87.1,3520,Payment after quality acceptance,Bhilwara,7,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0226,B0207,Retail Chain,Jodhpur Retail Chain Buyer 23,Wheat,1500,FAQ,11.8,2750,30% advance + balance on delivery,Jodhpur,5,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0227,B0204,Wholesale,Udaipur Wholesale Buyer 51,Maize,200,FAQ,12.1,2240,T+7 days,Udaipur,10,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0228,B0024,Wholesale,Bharatpur Wholesale Buyer 52,Maize,50,Grade A,12.1,1940,T+7 days,Bharatpur,3,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0229,B0145,Institutional,Kota Institutional Buyer 13,Bajra,300,FAQ,9.7,2520,Payment after quality acceptance,Kota,14,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0230,B0140,Exporter,Jaipur Exporter Buyer 73,Gram,1500,FAQ,7.5,5510,T+3 days,Jaipur,3,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0231,B0077,Retail Chain,Barmer Retail Chain Buyer 21,Bajra,300,FAQ,10.7,2190,T+7 days,Barmer,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0232,B0021,Wholesale,Barmer Wholesale Buyer 65,Garlic,2000,Export,69.9,12410,Immediate UPI/RTGS,Barmer,3,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0233,B0153,Processor,Nagaur Processor Buyer 51,Maize,1000,Grade A,11.1,2680,T+3 days,Nagaur,30,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0234,B0048,FPO,Alwar FPO Buyer 75,Tomato,300,B,87.3,3010,30% advance + balance on delivery,Alwar,7,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0235,B0190,FPO,Kota FPO Buyer 50,Mustard,300,Bold Seed,6.1,5590,Immediate UPI/RTGS,Kota,3,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0236,B0023,Wholesale,Sikar Wholesale Buyer 24,Tomato,50,B,88.3,1470,30% advance + balance on delivery,Sikar,14,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0237,B0153,Processor,Jaipur Processor Buyer 77,Mustard,750,Bold Seed,7.6,5430,Immediate UPI/RTGS,Jaipur,7,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0238,B0063,Processor,Barmer Processor Buyer 74,Garlic,750,Export,67.5,14260,T+7 days,Barmer,5,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0239,B0043,FPO,Bharatpur FPO Buyer 56,Gram,75,Grade A,8.3,4960,T+7 days,Bharatpur,30,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0240,B0127,Exporter,Bharatpur Exporter Buyer 77,Onion,2000,Large,72.6,2800,Immediate UPI/RTGS,Bharatpur,5,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0241,B0206,FPO,Sri Ganganagar FPO Buyer 43,Wheat,1000,Grade A,10.0,2680,Payment after quality acceptance,Sri Ganganagar,14,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0242,B0123,Wholesale,Sikar Wholesale Buyer 41,Gram,2000,FAQ,9.9,5310,T+3 days,Sikar,7,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0243,B0030,FPO,Sikar FPO Buyer 73,Maize,300,FAQ,12.8,2360,30% advance + balance on delivery,Sikar,5,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0244,B0210,Processor,Chittorgarh Processor Buyer 53,Tomato,150,B,87.4,1150,T+3 days,Chittorgarh,5,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0245,B0115,Institutional,Chittorgarh Institutional Buyer 77,Bajra,300,Clean,10.7,2190,30% advance + balance on delivery,Chittorgarh,14,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0246,B0153,Exporter,Barmer Exporter Buyer 11,Wheat,2000,FAQ,11.3,2880,Payment after quality acceptance,Barmer,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0247,B0193,Wholesale,Bhilwara Wholesale Buyer 43,Bajra,1000,Clean,9.3,2610,Immediate UPI/RTGS,Bhilwara,7,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0248,B0177,FPO,Bikaner FPO Buyer 65,Maize,500,FAQ,12.0,2650,Immediate UPI/RTGS,Bikaner,10,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0249,B0213,Exporter,Sri Ganganagar Exporter Buyer 19,Gram,50,Grade A,7.9,5090,T+7 days,Sri Ganganagar,30,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0250,B0082,Institutional,Sikar Institutional Buyer 9,Tomato,500,B,87.1,3110,Payment after quality acceptance,Sikar,3,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0251,B0190,Processor,Bhilwara Processor Buyer 32,Onion,75,Large,72.5,3580,T+1 day,Bhilwara,7,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0252,B0048,Retail Chain,Alwar Retail Chain Buyer 56,Tomato,1500,B,87.1,1740,30% advance + balance on delivery,Alwar,5,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0253,B0072,Processor,Sri Ganganagar Processor Buyer 9,Garlic,100,Export,67.3,7100,30% advance + balance on delivery,Sri Ganganagar,5,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0254,B0126,Institutional,Alwar Institutional Buyer 68,Onion,150,Large,72.9,2910,T+7 days,Alwar,14,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0255,B0045,FPO,Sikar FPO Buyer 39,Mustard,500,FAQ,7.0,6780,T+3 days,Sikar,3,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0256,B0131,Processor,Kota Processor Buyer 50,Gram,2000,Grade A,8.8,5160,30% advance + balance on delivery,Kota,10,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0257,B0143,Wholesale,Bikaner Wholesale Buyer 22,Bajra,2000,Clean,9.9,2320,T+1 day,Bikaner,7,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0258,B0035,FPO,Nagaur FPO Buyer 25,Wheat,25,Grade A,11.9,2820,30% advance + balance on delivery,Nagaur,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0259,B0114,Institutional,Bhilwara Institutional Buyer 63,Garlic,2000,Medium,67.2,13600,Immediate UPI/RTGS,Bhilwara,30,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0260,B0044,FPO,Jaipur FPO Buyer 59,Gram,750,Grade A,8.6,5530,Immediate UPI/RTGS,Jaipur,14,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0261,B0211,Wholesale,Barmer Wholesale Buyer 6,Gram,200,Grade A,8.6,6180,T+7 days,Barmer,3,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0262,B0090,Exporter,Nagaur Exporter Buyer 12,Gram,500,Grade A,9.6,5470,Immediate UPI/RTGS,Nagaur,30,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0263,B0182,Wholesale,Barmer Wholesale Buyer 79,Maize,2000,Grade A,11.5,2340,T+1 day,Barmer,30,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0264,B0072,Processor,Barmer Processor Buyer 77,Maize,200,FAQ,12.0,2580,Payment after quality acceptance,Barmer,7,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0265,B0035,Institutional,Nagaur Institutional Buyer 53,Gram,1500,FAQ,10.0,5040,Payment after quality acceptance,Nagaur,5,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0266,B0126,Wholesale,Ajmer Wholesale Buyer 19,Maize,100,Grade A,12.9,2400,T+7 days,Ajmer,10,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0267,B0117,Institutional,Sri Ganganagar Institutional Buyer 63,Mustard,150,Bold Seed,6.7,6140,Payment after quality acceptance,Sri Ganganagar,3,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0268,B0056,Processor,Nagaur Processor Buyer 55,Onion,750,Small,73.5,2210,T+3 days,Nagaur,30,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0269,B0125,Wholesale,Jodhpur Wholesale Buyer 44,Onion,1000,Large,74.3,3380,Immediate UPI/RTGS,Jodhpur,3,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0270,B0117,Exporter,Kota Exporter Buyer 1,Wheat,75,Grade A,9.6,2760,Payment after quality acceptance,Kota,5,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0271,B0168,Exporter,Nagaur Exporter Buyer 47,Bajra,150,Clean,9.2,2210,Payment after quality acceptance,Nagaur,21,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0272,B0110,Wholesale,Sri Ganganagar Wholesale Buyer 12,Wheat,2000,FAQ,9.0,2490,T+7 days,Sri Ganganagar,3,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0273,B0179,Wholesale,Jodhpur Wholesale Buyer 44,Maize,25,FAQ,14.0,1910,T+7 days,Jodhpur,21,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0274,B0027,Processor,Kota Processor Buyer 41,Tomato,50,B,89.6,1320,T+1 day,Kota,10,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0275,B0113,Wholesale,Kota Wholesale Buyer 45,Bajra,25,FAQ,10.9,2310,T+1 day,Kota,10,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0276,B0151,Retail Chain,Kota Retail Chain Buyer 50,Maize,75,Grade A,13.9,2050,T+3 days,Kota,30,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0277,B0154,Wholesale,Bharatpur Wholesale Buyer 77,Maize,100,Grade A,13.3,2600,Payment after quality acceptance,Bharatpur,3,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0278,B0076,Wholesale,Jodhpur Wholesale Buyer 7,Maize,100,FAQ,12.5,2400,Immediate UPI/RTGS,Jodhpur,5,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0279,B0082,Retail Chain,Jodhpur Retail Chain Buyer 17,Mustard,25,Bold Seed,7.6,6120,30% advance + balance on delivery,Jodhpur,10,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0280,B0151,Institutional,Barmer Institutional Buyer 9,Bajra,50,FAQ,9.8,2120,Immediate UPI/RTGS,Barmer,3,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0281,B0180,Wholesale,Bhilwara Wholesale Buyer 52,Gram,300,FAQ,8.9,5880,30% advance + balance on delivery,Bhilwara,14,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0282,B0207,FPO,Kota FPO Buyer 20,Gram,750,Grade A,8.2,5320,Payment after quality acceptance,Kota,30,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0283,B0063,Institutional,Chittorgarh Institutional Buyer 12,Gram,100,Grade A,7.3,4940,30% advance + balance on delivery,Chittorgarh,14,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0284,B0031,Wholesale,Bhilwara Wholesale Buyer 2,Gram,2000,FAQ,9.1,5240,T+1 day,Bhilwara,10,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0285,B0188,FPO,Ajmer FPO Buyer 16,Gram,2000,FAQ,8.0,5480,T+7 days,Ajmer,7,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0286,B0128,Exporter,Chittorgarh Exporter Buyer 59,Gram,1500,Grade A,7.2,4990,30% advance + balance on delivery,Chittorgarh,5,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0287,B0059,Retail Chain,Bharatpur Retail Chain Buyer 66,Bajra,1000,FAQ,9.1,2240,Immediate UPI/RTGS,Bharatpur,5,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0288,B0220,FPO,Sikar FPO Buyer 5,Tomato,75,B,87.7,1710,T+1 day,Sikar,10,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0289,B0129,Processor,Nagaur Processor Buyer 7,Gram,200,FAQ,7.7,5100,30% advance + balance on delivery,Nagaur,3,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0290,B0084,Institutional,Hanumangarh Institutional Buyer 12,Mustard,150,Bold Seed,5.0,5990,T+1 day,Hanumangarh,7,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0291,B0188,FPO,Bikaner FPO Buyer 70,Maize,500,FAQ,11.5,2150,T+7 days,Bikaner,3,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0292,B0001,Retail Chain,Bhilwara Retail Chain Buyer 49,Onion,25,Large,74.2,2050,Immediate UPI/RTGS,Bhilwara,5,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0293,B0072,Exporter,Bikaner Exporter Buyer 12,Garlic,75,Medium,69.8,12280,30% advance + balance on delivery,Bikaner,10,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0294,B0035,Processor,Chittorgarh Processor Buyer 51,Tomato,50,A,88.8,3380,Immediate UPI/RTGS,Chittorgarh,10,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0295,B0180,FPO,Bharatpur FPO Buyer 42,Maize,200,Grade A,12.4,2400,T+1 day,Bharatpur,3,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0296,B0028,Retail Chain,Barmer Retail Chain Buyer 22,Bajra,50,Clean,10.4,2290,T+7 days,Barmer,3,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0297,B0024,FPO,Bikaner FPO Buyer 21,Maize,150,Grade A,13.5,2050,Payment after quality acceptance,Bikaner,14,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0298,B0183,Retail Chain,Nagaur Retail Chain Buyer 32,Maize,75,Grade A,12.2,2010,Immediate UPI/RTGS,Nagaur,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0299,B0219,Exporter,Nagaur Exporter Buyer 58,Gram,25,FAQ,7.3,5830,Immediate UPI/RTGS,Nagaur,30,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0300,B0051,Processor,Jaipur Processor Buyer 52,Mustard,100,Bold Seed,7.1,5530,Payment after quality acceptance,Jaipur,3,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0301,B0208,Exporter,Jaipur Exporter Buyer 17,Mustard,100,FAQ,7.7,6330,T+3 days,Jaipur,3,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0302,B0211,Processor,Jaipur Processor Buyer 51,Tomato,1000,B,87.1,3010,Payment after quality acceptance,Jaipur,10,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0303,B0115,Exporter,Alwar Exporter Buyer 20,Onion,150,Small,73.8,1910,30% advance + balance on delivery,Alwar,5,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0304,B0023,Retail Chain,Sri Ganganagar Retail Chain Buyer 36,Tomato,500,B,87.4,1110,T+1 day,Sri Ganganagar,21,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0305,B0140,Retail Chain,Sri Ganganagar Retail Chain Buyer 63,Wheat,200,Grade A,11.7,2810,30% advance + balance on delivery,Sri Ganganagar,7,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0306,B0008,Processor,Ajmer Processor Buyer 36,Gram,1000,FAQ,9.4,5360,T+7 days,Ajmer,14,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0307,B0069,Processor,Ajmer Processor Buyer 69,Maize,1500,FAQ,13.3,2200,T+1 day,Ajmer,14,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0308,B0061,Retail Chain,Hanumangarh Retail Chain Buyer 76,Onion,75,Medium,74.4,1650,Payment after quality acceptance,Hanumangarh,7,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0309,B0215,Wholesale,Udaipur Wholesale Buyer 64,Onion,1000,Large,72.9,1680,T+7 days,Udaipur,3,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0310,B0123,Wholesale,Alwar Wholesale Buyer 1,Wheat,25,Grade A,11.8,2870,T+1 day,Alwar,30,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0311,B0006,Processor,Chittorgarh Processor Buyer 19,Onion,200,Large,74.1,1350,T+1 day,Chittorgarh,30,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0312,B0151,FPO,Kota FPO Buyer 13,Onion,1500,Medium,72.9,2210,T+1 day,Kota,5,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0313,B0178,FPO,Bhilwara FPO Buyer 79,Tomato,2000,B,87.7,3670,30% advance + balance on delivery,Bhilwara,30,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0314,B0046,Wholesale,Bharatpur Wholesale Buyer 1,Garlic,150,Export,69.8,6300,T+7 days,Bharatpur,30,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0315,B0164,FPO,Udaipur FPO Buyer 73,Bajra,1000,FAQ,11.8,2380,T+1 day,Udaipur,7,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0316,B0211,Exporter,Sikar Exporter Buyer 43,Maize,75,Grade A,11.0,2010,T+1 day,Sikar,5,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0317,B0013,Retail Chain,Bharatpur Retail Chain Buyer 50,Onion,2000,Medium,74.2,1200,T+1 day,Bharatpur,10,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0318,B0123,Wholesale,Sikar Wholesale Buyer 74,Garlic,50,Export,69.3,13480,T+1 day,Sikar,5,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0319,B0082,Retail Chain,Barmer Retail Chain Buyer 34,Mustard,150,FAQ,5.2,5250,T+1 day,Barmer,10,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0320,B0153,Exporter,Jodhpur Exporter Buyer 79,Mustard,50,Bold Seed,7.1,6060,T+7 days,Jodhpur,21,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0321,B0049,Processor,Ajmer Processor Buyer 53,Garlic,200,Export,68.7,7100,Payment after quality acceptance,Ajmer,14,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0322,B0147,Processor,Bharatpur Processor Buyer 71,Gram,25,Grade A,7.5,5800,T+3 days,Bharatpur,3,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0323,B0123,Retail Chain,Bharatpur Retail Chain Buyer 26,Mustard,1500,FAQ,5.1,6730,T+1 day,Bharatpur,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0324,B0121,Retail Chain,Bikaner Retail Chain Buyer 63,Mustard,150,Bold Seed,5.3,6210,30% advance + balance on delivery,Bikaner,10,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0325,B0012,FPO,Hanumangarh FPO Buyer 34,Onion,75,Medium,73.4,2340,T+1 day,Hanumangarh,30,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0326,B0022,Wholesale,Ajmer Wholesale Buyer 45,Wheat,1500,Grade A,11.9,2320,30% advance + balance on delivery,Ajmer,5,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0327,B0122,Wholesale,Nagaur Wholesale Buyer 74,Garlic,750,Medium,68.4,12030,Immediate UPI/RTGS,Nagaur,10,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0328,B0043,Exporter,Kota Exporter Buyer 28,Bajra,500,FAQ,9.4,2320,T+7 days,Kota,3,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0329,B0082,Wholesale,Nagaur Wholesale Buyer 9,Maize,1000,FAQ,12.2,2230,T+7 days,Nagaur,14,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0330,B0151,Institutional,Jodhpur Institutional Buyer 67,Gram,25,Grade A,7.3,6390,T+1 day,Jodhpur,5,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0331,B0089,Retail Chain,Udaipur Retail Chain Buyer 53,Mustard,150,Bold Seed,6.1,6570,T+7 days,Udaipur,14,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0332,B0010,FPO,Ajmer FPO Buyer 51,Wheat,75,Grade A,11.1,2710,Immediate UPI/RTGS,Ajmer,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0333,B0080,FPO,Hanumangarh FPO Buyer 36,Gram,200,Grade A,9.6,5570,Payment after quality acceptance,Hanumangarh,3,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0334,B0069,Exporter,Bharatpur Exporter Buyer 54,Bajra,500,FAQ,9.6,2510,T+1 day,Bharatpur,30,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0335,B0132,Institutional,Barmer Institutional Buyer 21,Tomato,200,A,87.9,1080,30% advance + balance on delivery,Barmer,10,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0336,B0064,Processor,Ajmer Processor Buyer 5,Wheat,100,Grade A,9.2,2270,T+3 days,Ajmer,21,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0337,B0163,Retail Chain,Sikar Retail Chain Buyer 16,Gram,750,FAQ,7.7,5810,T+7 days,Sikar,14,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0338,B0089,Institutional,Nagaur Institutional Buyer 21,Bajra,750,Clean,11.2,2540,Payment after quality acceptance,Nagaur,3,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0339,B0220,Processor,Sri Ganganagar Processor Buyer 29,Wheat,1000,FAQ,11.0,2470,T+3 days,Sri Ganganagar,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0340,B0122,Retail Chain,Nagaur Retail Chain Buyer 17,Wheat,1500,FAQ,10.8,2210,Immediate UPI/RTGS,Nagaur,5,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0341,B0109,Exporter,Chittorgarh Exporter Buyer 49,Gram,1500,Grade A,8.4,5500,T+1 day,Chittorgarh,10,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0342,B0216,Processor,Udaipur Processor Buyer 48,Garlic,750,Export,68.9,11780,30% advance + balance on delivery,Udaipur,7,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0343,B0071,Processor,Bikaner Processor Buyer 34,Mustard,150,Bold Seed,5.6,6030,30% advance + balance on delivery,Bikaner,30,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0344,B0170,Retail Chain,Barmer Retail Chain Buyer 41,Wheat,1000,FAQ,11.2,2710,Payment after quality acceptance,Barmer,10,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0345,B0150,Institutional,Hanumangarh Institutional Buyer 74,Gram,300,FAQ,8.0,4890,Payment after quality acceptance,Hanumangarh,5,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0346,B0169,FPO,Jodhpur FPO Buyer 72,Onion,75,Small,72.9,3350,T+7 days,Jodhpur,5,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0347,B0057,Retail Chain,Bhilwara Retail Chain Buyer 46,Bajra,1500,FAQ,11.2,2210,T+3 days,Bhilwara,10,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0348,B0031,Wholesale,Bharatpur Wholesale Buyer 61,Onion,500,Small,74.6,3370,30% advance + balance on delivery,Bharatpur,14,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0349,B0136,Processor,Hanumangarh Processor Buyer 39,Tomato,50,B,87.2,2750,T+1 day,Hanumangarh,5,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0350,B0081,Exporter,Sri Ganganagar Exporter Buyer 24,Onion,500,Small,73.5,1560,Payment after quality acceptance,Sri Ganganagar,5,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0351,B0148,Institutional,Jaipur Institutional Buyer 21,Wheat,100,Grade A,11.4,2410,Immediate UPI/RTGS,Jaipur,5,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0352,B0002,Institutional,Sri Ganganagar Institutional Buyer 5,Garlic,500,Export,67.6,8920,T+3 days,Sri Ganganagar,3,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0353,B0058,Wholesale,Jaipur Wholesale Buyer 45,Maize,1500,Grade A,11.4,2210,T+7 days,Jaipur,14,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0354,B0117,Retail Chain,Kota Retail Chain Buyer 67,Bajra,150,Clean,10.3,2470,Payment after quality acceptance,Kota,5,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0355,B0005,Wholesale,Sikar Wholesale Buyer 30,Tomato,75,A,89.2,2860,T+1 day,Sikar,5,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0356,B0097,FPO,Kota FPO Buyer 33,Bajra,1500,FAQ,10.8,2140,Immediate UPI/RTGS,Kota,21,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0357,B0098,Wholesale,Jaipur Wholesale Buyer 16,Wheat,300,Grade A,10.4,2760,T+1 day,Jaipur,5,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0358,B0070,Wholesale,Sri Ganganagar Wholesale Buyer 80,Gram,1500,FAQ,8.3,6130,Immediate UPI/RTGS,Sri Ganganagar,14,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0359,B0156,Retail Chain,Kota Retail Chain Buyer 26,Gram,500,Grade A,9.5,5300,T+1 day,Kota,7,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0360,B0177,Processor,Ajmer Processor Buyer 62,Gram,500,Grade A,7.7,5330,Immediate UPI/RTGS,Ajmer,21,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0361,B0024,Wholesale,Nagaur Wholesale Buyer 66,Mustard,500,FAQ,7.2,5580,Immediate UPI/RTGS,Nagaur,7,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0362,B0209,FPO,Bharatpur FPO Buyer 23,Tomato,25,A,89.6,1310,T+3 days,Bharatpur,30,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0363,B0219,Processor,Chittorgarh Processor Buyer 18,Garlic,25,Export,68.9,5090,T+3 days,Chittorgarh,7,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0364,B0047,Wholesale,Hanumangarh Wholesale Buyer 15,Gram,200,Grade A,8.2,5670,T+7 days,Hanumangarh,7,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0365,B0034,Institutional,Barmer Institutional Buyer 8,Tomato,75,A,87.3,1370,30% advance + balance on delivery,Barmer,10,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0366,B0176,FPO,Udaipur FPO Buyer 17,Bajra,200,Clean,11.8,2130,Immediate UPI/RTGS,Udaipur,10,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0367,B0181,FPO,Kota FPO Buyer 68,Wheat,200,FAQ,11.9,2210,Payment after quality acceptance,Kota,30,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0368,B0089,Wholesale,Sri Ganganagar Wholesale Buyer 50,Mustard,100,FAQ,7.5,6430,30% advance + balance on delivery,Sri Ganganagar,14,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0369,B0219,Exporter,Bhilwara Exporter Buyer 64,Wheat,750,FAQ,9.2,2800,T+7 days,Bhilwara,7,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0370,B0165,Processor,Bharatpur Processor Buyer 49,Onion,100,Medium,74.5,2600,Immediate UPI/RTGS,Bharatpur,10,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0371,B0031,Retail Chain,Kota Retail Chain Buyer 64,Tomato,500,A,87.3,2410,T+7 days,Kota,3,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0372,B0131,Wholesale,Barmer Wholesale Buyer 72,Mustard,1000,FAQ,7.0,5970,T+7 days,Barmer,7,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0373,B0144,Processor,Nagaur Processor Buyer 80,Wheat,500,Grade A,11.1,2620,T+3 days,Nagaur,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0374,B0088,Wholesale,Kota Wholesale Buyer 46,Mustard,100,Bold Seed,6.6,5200,T+3 days,Kota,21,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0375,B0028,Processor,Hanumangarh Processor Buyer 33,Wheat,75,FAQ,9.6,2720,T+7 days,Hanumangarh,5,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0376,B0163,FPO,Chittorgarh FPO Buyer 76,Maize,300,FAQ,13.3,1950,T+7 days,Chittorgarh,10,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0377,B0111,Wholesale,Jaipur Wholesale Buyer 75,Tomato,25,B,89.8,3630,T+1 day,Jaipur,21,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0378,B0130,FPO,Kota FPO Buyer 50,Bajra,1000,Clean,11.9,2510,Payment after quality acceptance,Kota,30,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0379,B0207,Exporter,Sri Ganganagar Exporter Buyer 18,Gram,150,FAQ,8.2,5950,Payment after quality acceptance,Sri Ganganagar,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0380,B0056,Wholesale,Chittorgarh Wholesale Buyer 26,Onion,750,Small,73.9,2810,T+3 days,Chittorgarh,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0381,B0139,Wholesale,Chittorgarh Wholesale Buyer 42,Bajra,75,FAQ,11.3,2740,30% advance + balance on delivery,Chittorgarh,10,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0382,B0028,Retail Chain,Hanumangarh Retail Chain Buyer 4,Gram,25,Grade A,7.4,6130,Payment after quality acceptance,Hanumangarh,3,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0383,B0038,Retail Chain,Barmer Retail Chain Buyer 8,Gram,150,Grade A,7.6,5440,30% advance + balance on delivery,Barmer,3,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0384,B0058,Wholesale,Kota Wholesale Buyer 72,Tomato,1500,B,87.7,3670,Payment after quality acceptance,Kota,7,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0385,B0142,Institutional,Sri Ganganagar Institutional Buyer 7,Garlic,1500,Medium,69.2,8200,T+1 day,Sri Ganganagar,14,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0386,B0194,Wholesale,Hanumangarh Wholesale Buyer 76,Maize,2000,FAQ,13.3,2370,T+1 day,Hanumangarh,7,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0387,B0031,Processor,Bhilwara Processor Buyer 49,Bajra,75,FAQ,10.3,2750,30% advance + balance on delivery,Bhilwara,7,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0388,B0120,Retail Chain,Udaipur Retail Chain Buyer 20,Bajra,25,FAQ,9.5,2520,T+3 days,Udaipur,14,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0389,B0019,Retail Chain,Bikaner Retail Chain Buyer 41,Gram,750,FAQ,9.9,5710,30% advance + balance on delivery,Bikaner,3,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0390,B0057,Wholesale,Jodhpur Wholesale Buyer 28,Garlic,50,Export,68.0,8570,T+3 days,Jodhpur,7,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0391,B0030,Retail Chain,Jodhpur Retail Chain Buyer 45,Tomato,1500,B,87.7,840,Payment after quality acceptance,Jodhpur,14,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0392,B0099,Retail Chain,Bhilwara Retail Chain Buyer 33,Wheat,300,Grade A,9.1,2340,30% advance + balance on delivery,Bhilwara,30,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0393,B0083,Processor,Bikaner Processor Buyer 66,Tomato,1500,A,89.8,1780,T+1 day,Bikaner,30,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0394,B0214,Wholesale,Alwar Wholesale Buyer 14,Mustard,100,FAQ,6.6,6280,Payment after quality acceptance,Alwar,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0395,B0184,Wholesale,Chittorgarh Wholesale Buyer 43,Mustard,25,FAQ,5.3,6370,Immediate UPI/RTGS,Chittorgarh,5,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0396,B0100,Retail Chain,Udaipur Retail Chain Buyer 58,Mustard,150,Bold Seed,6.3,6240,Immediate UPI/RTGS,Udaipur,10,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0397,B0180,Wholesale,Bhilwara Wholesale Buyer 10,Wheat,50,Grade A,11.8,2250,Immediate UPI/RTGS,Bhilwara,7,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0398,B0102,Wholesale,Bharatpur Wholesale Buyer 4,Mustard,500,Bold Seed,5.5,6170,T+1 day,Bharatpur,5,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0399,B0096,Processor,Bhilwara Processor Buyer 2,Gram,1500,FAQ,7.4,6450,Immediate UPI/RTGS,Bhilwara,14,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0400,B0055,Processor,Bharatpur Processor Buyer 53,Mustard,2000,FAQ,5.5,6080,T+1 day,Bharatpur,14,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0401,B0218,Processor,Kota Processor Buyer 71,Maize,1000,Grade A,12.9,1960,Immediate UPI/RTGS,Kota,7,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0402,B0085,Processor,Kota Processor Buyer 46,Gram,1000,FAQ,9.0,6040,T+1 day,Kota,3,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0403,B0085,Processor,Hanumangarh Processor Buyer 79,Mustard,500,Bold Seed,7.1,6350,T+1 day,Hanumangarh,14,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0404,B0202,Processor,Sri Ganganagar Processor Buyer 29,Onion,200,Large,74.2,1830,T+7 days,Sri Ganganagar,7,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0405,B0115,Wholesale,Bhilwara Wholesale Buyer 46,Bajra,500,Clean,10.5,2690,Immediate UPI/RTGS,Bhilwara,5,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0406,B0068,Retail Chain,Nagaur Retail Chain Buyer 10,Gram,750,FAQ,9.7,5300,30% advance + balance on delivery,Nagaur,21,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0407,B0067,Wholesale,Barmer Wholesale Buyer 70,Garlic,25,Export,68.4,10640,T+1 day,Barmer,7,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0408,B0035,Retail Chain,Hanumangarh Retail Chain Buyer 60,Maize,2000,FAQ,12.2,2270,30% advance + balance on delivery,Hanumangarh,3,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0409,B0046,Institutional,Barmer Institutional Buyer 73,Bajra,500,FAQ,11.2,2300,T+7 days,Barmer,7,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0410,B0095,Institutional,Barmer Institutional Buyer 30,Maize,50,FAQ,13.0,2230,30% advance + balance on delivery,Barmer,30,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0411,B0167,Exporter,Bikaner Exporter Buyer 42,Garlic,25,Medium,69.1,5400,30% advance + balance on delivery,Bikaner,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0412,B0168,Wholesale,Udaipur Wholesale Buyer 49,Gram,75,Grade A,8.8,5760,Immediate UPI/RTGS,Udaipur,14,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0413,B0210,Processor,Hanumangarh Processor Buyer 45,Garlic,300,Large,69.4,8610,30% advance + balance on delivery,Hanumangarh,3,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0414,B0072,Processor,Ajmer Processor Buyer 28,Tomato,750,A,87.6,4090,T+3 days,Ajmer,14,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0415,B0124,Retail Chain,Sri Ganganagar Retail Chain Buyer 62,Maize,2000,Grade A,11.6,2040,T+1 day,Sri Ganganagar,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0416,B0035,Processor,Alwar Processor Buyer 66,Wheat,1000,FAQ,11.7,2400,T+1 day,Alwar,3,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0417,B0145,Processor,Hanumangarh Processor Buyer 3,Gram,300,Grade A,9.8,6330,T+1 day,Hanumangarh,10,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0418,B0037,Processor,Ajmer Processor Buyer 75,Tomato,300,A,88.9,3870,30% advance + balance on delivery,Ajmer,7,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0419,B0059,Institutional,Hanumangarh Institutional Buyer 49,Onion,1000,Medium,72.4,1370,Immediate UPI/RTGS,Hanumangarh,5,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0420,B0201,Processor,Udaipur Processor Buyer 69,Bajra,500,FAQ,9.3,2140,Payment after quality acceptance,Udaipur,5,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0421,B0136,Institutional,Jodhpur Institutional Buyer 55,Garlic,25,Medium,69.8,12140,T+7 days,Jodhpur,30,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0422,B0026,Retail Chain,Udaipur Retail Chain Buyer 55,Onion,2000,Small,72.8,2670,T+1 day,Udaipur,30,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0423,B0049,Retail Chain,Udaipur Retail Chain Buyer 1,Gram,300,FAQ,8.7,5450,Immediate UPI/RTGS,Udaipur,14,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0424,B0093,Processor,Bhilwara Processor Buyer 14,Garlic,200,Medium,68.3,9180,30% advance + balance on delivery,Bhilwara,7,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0425,B0102,FPO,Udaipur FPO Buyer 27,Garlic,150,Large,68.7,11960,30% advance + balance on delivery,Udaipur,10,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0426,B0148,Wholesale,Jodhpur Wholesale Buyer 45,Onion,150,Large,73.2,1980,T+1 day,Jodhpur,30,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0427,B0055,Retail Chain,Bikaner Retail Chain Buyer 66,Maize,75,Grade A,13.4,2020,30% advance + balance on delivery,Bikaner,14,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0428,B0211,Exporter,Sri Ganganagar Exporter Buyer 19,Bajra,25,Clean,11.8,2210,T+7 days,Sri Ganganagar,3,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0429,B0186,FPO,Alwar FPO Buyer 50,Gram,1000,Grade A,8.8,4890,30% advance + balance on delivery,Alwar,7,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0430,B0218,Institutional,Bhilwara Institutional Buyer 67,Bajra,25,Clean,9.6,2350,30% advance + balance on delivery,Bhilwara,14,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0431,B0041,Processor,Bhilwara Processor Buyer 12,Bajra,100,Clean,11.3,2100,T+3 days,Bhilwara,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0432,B0181,Processor,Udaipur Processor Buyer 9,Garlic,25,Medium,68.6,12540,Payment after quality acceptance,Udaipur,30,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0433,B0117,FPO,Nagaur FPO Buyer 52,Onion,1000,Large,72.0,1690,T+1 day,Nagaur,10,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0434,B0066,FPO,Jodhpur FPO Buyer 69,Mustard,50,Bold Seed,7.1,6510,T+7 days,Jodhpur,14,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0435,B0151,FPO,Barmer FPO Buyer 4,Maize,500,Grade A,11.3,2480,Immediate UPI/RTGS,Barmer,10,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0436,B0138,FPO,Barmer FPO Buyer 2,Maize,200,Grade A,11.7,2560,Immediate UPI/RTGS,Barmer,10,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0437,B0091,Exporter,Jodhpur Exporter Buyer 28,Mustard,500,Bold Seed,5.5,6000,Payment after quality acceptance,Jodhpur,21,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0438,B0068,Processor,Chittorgarh Processor Buyer 27,Tomato,2000,A,87.6,2030,T+1 day,Chittorgarh,30,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0439,B0158,Processor,Barmer Processor Buyer 1,Bajra,50,FAQ,11.5,2730,T+3 days,Barmer,14,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0440,B0126,Exporter,Hanumangarh Exporter Buyer 24,Tomato,1000,B,88.2,2200,30% advance + balance on delivery,Hanumangarh,5,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0441,B0089,Exporter,Bikaner Exporter Buyer 51,Garlic,25,Export,69.3,10140,T+7 days,Bikaner,3,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0442,B0098,Processor,Chittorgarh Processor Buyer 75,Onion,1500,Small,73.0,1730,30% advance + balance on delivery,Chittorgarh,30,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0443,B0157,FPO,Jodhpur FPO Buyer 44,Bajra,150,Clean,9.6,2700,T+7 days,Jodhpur,5,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0444,B0047,Retail Chain,Sikar Retail Chain Buyer 74,Onion,150,Small,74.9,2350,Payment after quality acceptance,Sikar,5,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0445,B0051,Processor,Barmer Processor Buyer 19,Gram,300,FAQ,8.4,5770,Immediate UPI/RTGS,Barmer,5,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0446,B0137,Exporter,Ajmer Exporter Buyer 41,Tomato,1500,B,87.9,3440,30% advance + balance on delivery,Ajmer,30,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0447,B0209,Wholesale,Kota Wholesale Buyer 33,Garlic,25,Large,69.5,7200,Immediate UPI/RTGS,Kota,10,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0448,B0089,FPO,Sikar FPO Buyer 3,Gram,750,Grade A,7.4,5450,Payment after quality acceptance,Sikar,14,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0449,B0125,FPO,Barmer FPO Buyer 58,Bajra,200,FAQ,10.1,2750,T+3 days,Barmer,10,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0450,B0162,Retail Chain,Bhilwara Retail Chain Buyer 79,Bajra,200,Clean,11.5,2630,Immediate UPI/RTGS,Bhilwara,3,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0451,B0182,FPO,Alwar FPO Buyer 35,Onion,1500,Large,73.9,1940,T+3 days,Alwar,10,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0452,B0187,Processor,Sri Ganganagar Processor Buyer 31,Tomato,25,B,89.8,1440,Payment after quality acceptance,Sri Ganganagar,21,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0453,B0122,FPO,Ajmer FPO Buyer 71,Maize,50,FAQ,11.1,1980,T+7 days,Ajmer,14,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0454,B0080,Wholesale,Bharatpur Wholesale Buyer 30,Mustard,50,FAQ,7.2,6190,T+7 days,Bharatpur,21,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0455,B0170,Retail Chain,Jodhpur Retail Chain Buyer 46,Bajra,25,Clean,11.6,2140,T+7 days,Jodhpur,30,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0456,B0046,Exporter,Ajmer Exporter Buyer 76,Tomato,2000,B,88.9,3560,Payment after quality acceptance,Ajmer,14,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0457,B0207,FPO,Hanumangarh FPO Buyer 12,Gram,750,Grade A,7.9,5380,T+7 days,Hanumangarh,7,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0458,B0074,Processor,Jaipur Processor Buyer 61,Gram,75,FAQ,9.1,5680,T+7 days,Jaipur,30,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0459,B0060,Wholesale,Jaipur Wholesale Buyer 1,Gram,150,Grade A,7.6,6320,30% advance + balance on delivery,Jaipur,10,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0460,B0213,Wholesale,Ajmer Wholesale Buyer 49,Maize,1500,FAQ,11.8,2390,T+7 days,Ajmer,21,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0461,B0106,Wholesale,Bharatpur Wholesale Buyer 25,Gram,750,FAQ,7.5,5480,T+3 days,Bharatpur,3,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0462,B0083,Wholesale,Bharatpur Wholesale Buyer 3,Tomato,500,A,87.1,1760,30% advance + balance on delivery,Bharatpur,3,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0463,B0187,FPO,Bharatpur FPO Buyer 2,Mustard,2000,FAQ,5.3,6320,Immediate UPI/RTGS,Bharatpur,10,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0464,B0119,FPO,Sri Ganganagar FPO Buyer 5,Onion,500,Medium,72.2,2150,T+1 day,Sri Ganganagar,3,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0465,B0216,Wholesale,Kota Wholesale Buyer 33,Garlic,75,Large,69.5,6960,Immediate UPI/RTGS,Kota,30,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0466,B0009,Exporter,Barmer Exporter Buyer 26,Garlic,100,Large,69.2,12550,Immediate UPI/RTGS,Barmer,14,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0467,B0041,Wholesale,Sri Ganganagar Wholesale Buyer 6,Tomato,150,A,87.8,2450,Payment after quality acceptance,Sri Ganganagar,7,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0468,B0029,Processor,Hanumangarh Processor Buyer 31,Onion,1500,Large,73.3,1750,Immediate UPI/RTGS,Hanumangarh,5,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0469,B0149,Retail Chain,Sri Ganganagar Retail Chain Buyer 61,Mustard,25,FAQ,6.1,5300,Immediate UPI/RTGS,Sri Ganganagar,5,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0470,B0016,Wholesale,Kota Wholesale Buyer 8,Tomato,200,B,88.9,4000,Payment after quality acceptance,Kota,14,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0471,B0207,Processor,Bikaner Processor Buyer 57,Bajra,750,FAQ,9.1,2540,T+7 days,Bikaner,7,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0472,B0144,Processor,Hanumangarh Processor Buyer 38,Gram,2000,Grade A,7.6,5920,T+1 day,Hanumangarh,14,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0473,B0142,Institutional,Chittorgarh Institutional Buyer 21,Onion,1000,Small,73.6,3540,T+7 days,Chittorgarh,7,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0474,B0098,Processor,Bikaner Processor Buyer 24,Onion,1500,Small,73.9,2490,T+3 days,Bikaner,30,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0475,B0100,Processor,Chittorgarh Processor Buyer 25,Onion,750,Large,74.0,3290,30% advance + balance on delivery,Chittorgarh,5,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0476,B0134,Wholesale,Sri Ganganagar Wholesale Buyer 9,Onion,50,Small,74.5,1440,T+1 day,Sri Ganganagar,5,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0477,B0147,Institutional,Kota Institutional Buyer 50,Maize,50,Grade A,12.6,1940,Payment after quality acceptance,Kota,14,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0478,B0004,Processor,Sikar Processor Buyer 27,Wheat,2000,Grade A,11.8,2290,Immediate UPI/RTGS,Sikar,10,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0479,B0095,Wholesale,Jodhpur Wholesale Buyer 8,Onion,300,Large,72.8,3300,Immediate UPI/RTGS,Jodhpur,21,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0480,B0026,Exporter,Kota Exporter Buyer 30,Gram,750,Grade A,7.6,5040,30% advance + balance on delivery,Kota,21,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0481,B0197,Wholesale,Jodhpur Wholesale Buyer 74,Bajra,300,Clean,11.0,2230,Payment after quality acceptance,Jodhpur,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0482,B0130,Retail Chain,Ajmer Retail Chain Buyer 44,Mustard,750,FAQ,6.6,6220,30% advance + balance on delivery,Ajmer,10,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0483,B0096,Exporter,Jodhpur Exporter Buyer 53,Onion,200,Large,73.3,3360,Payment after quality acceptance,Jodhpur,7,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0484,B0093,Wholesale,Sri Ganganagar Wholesale Buyer 58,Maize,2000,Grade A,13.9,2220,Immediate UPI/RTGS,Sri Ganganagar,21,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0485,B0002,Processor,Udaipur Processor Buyer 39,Gram,75,FAQ,7.6,5570,T+3 days,Udaipur,3,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0486,B0036,Processor,Kota Processor Buyer 34,Bajra,200,Clean,11.7,2290,T+1 day,Kota,5,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0487,B0188,Wholesale,Kota Wholesale Buyer 10,Gram,1000,Grade A,9.4,5350,T+1 day,Kota,10,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0488,B0021,Wholesale,Jaipur Wholesale Buyer 8,Gram,1000,Grade A,8.0,5770,T+7 days,Jaipur,10,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0489,B0163,Wholesale,Chittorgarh Wholesale Buyer 49,Maize,1000,FAQ,11.9,1910,Immediate UPI/RTGS,Chittorgarh,7,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0490,B0173,Wholesale,Jodhpur Wholesale Buyer 51,Onion,75,Medium,74.3,1320,30% advance + balance on delivery,Jodhpur,14,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0491,B0034,FPO,Sri Ganganagar FPO Buyer 44,Maize,300,FAQ,12.4,2080,Payment after quality acceptance,Sri Ganganagar,3,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0492,B0196,FPO,Kota FPO Buyer 18,Gram,300,Grade A,8.7,5130,T+7 days,Kota,10,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0493,B0176,Processor,Alwar Processor Buyer 74,Maize,300,FAQ,11.3,2310,T+7 days,Alwar,10,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0494,B0007,FPO,Alwar FPO Buyer 40,Onion,1000,Small,75.0,2870,30% advance + balance on delivery,Alwar,30,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0495,B0176,Processor,Bikaner Processor Buyer 48,Bajra,100,FAQ,11.3,2350,Immediate UPI/RTGS,Bikaner,3,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0496,B0088,Exporter,Udaipur Exporter Buyer 15,Maize,150,Grade A,12.4,1910,Immediate UPI/RTGS,Udaipur,7,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0497,B0124,Wholesale,Alwar Wholesale Buyer 80,Maize,150,FAQ,13.1,2600,Payment after quality acceptance,Alwar,3,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0498,B0203,Processor,Bharatpur Processor Buyer 80,Wheat,150,Grade A,9.2,2450,Payment after quality acceptance,Bharatpur,3,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0499,B0028,FPO,Bhilwara FPO Buyer 3,Garlic,1500,Large,69.6,8680,Payment after quality acceptance,Bhilwara,10,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0500,B0081,Exporter,Jodhpur Exporter Buyer 63,Garlic,50,Export,68.6,14250,T+1 day,Jodhpur,5,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0501,B0086,Processor,Jaipur Processor Buyer 63,Wheat,750,Grade A,11.2,2590,Immediate UPI/RTGS,Jaipur,7,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0502,B0208,FPO,Bhilwara FPO Buyer 8,Onion,750,Large,72.8,1900,T+7 days,Bhilwara,30,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0503,B0036,Processor,Alwar Processor Buyer 12,Gram,300,Grade A,8.6,6480,Payment after quality acceptance,Alwar,14,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0504,B0155,Wholesale,Alwar Wholesale Buyer 43,Garlic,300,Large,68.6,8190,T+1 day,Alwar,21,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0505,B0035,Processor,Nagaur Processor Buyer 56,Maize,2000,FAQ,13.0,2570,30% advance + balance on delivery,Nagaur,5,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0506,B0048,Wholesale,Jodhpur Wholesale Buyer 41,Mustard,2000,FAQ,7.2,5500,T+3 days,Jodhpur,10,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0507,B0039,Wholesale,Bikaner Wholesale Buyer 25,Gram,1500,FAQ,7.4,5500,Immediate UPI/RTGS,Bikaner,30,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0508,B0092,Processor,Udaipur Processor Buyer 11,Maize,1500,Grade A,11.4,1930,30% advance + balance on delivery,Udaipur,10,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0509,B0042,FPO,Nagaur FPO Buyer 25,Bajra,500,FAQ,9.1,2270,Immediate UPI/RTGS,Nagaur,7,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0510,B0017,Wholesale,Chittorgarh Wholesale Buyer 23,Maize,100,Grade A,13.6,2160,T+7 days,Chittorgarh,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0511,B0156,Processor,Hanumangarh Processor Buyer 49,Tomato,300,B,88.2,1010,Payment after quality acceptance,Hanumangarh,14,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0512,B0133,Institutional,Bikaner Institutional Buyer 69,Mustard,25,Bold Seed,8.0,5820,Immediate UPI/RTGS,Bikaner,14,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0513,B0199,FPO,Alwar FPO Buyer 37,Wheat,300,Grade A,9.5,2580,T+3 days,Alwar,14,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0514,B0185,Retail Chain,Bikaner Retail Chain Buyer 65,Bajra,500,FAQ,9.5,2210,30% advance + balance on delivery,Bikaner,21,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0515,B0117,FPO,Sri Ganganagar FPO Buyer 76,Garlic,25,Export,69.7,6830,T+7 days,Sri Ganganagar,3,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0516,B0042,Wholesale,Chittorgarh Wholesale Buyer 16,Onion,2000,Small,72.3,3230,T+7 days,Chittorgarh,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0517,B0157,Wholesale,Jodhpur Wholesale Buyer 21,Mustard,2000,Bold Seed,6.7,6500,Immediate UPI/RTGS,Jodhpur,30,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0518,B0038,Retail Chain,Udaipur Retail Chain Buyer 23,Onion,75,Large,72.2,1610,T+3 days,Udaipur,7,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0519,B0001,Processor,Bhilwara Processor Buyer 80,Gram,75,Grade A,7.0,5310,T+7 days,Bhilwara,30,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0520,B0151,Retail Chain,Udaipur Retail Chain Buyer 61,Wheat,100,Grade A,10.2,2470,Immediate UPI/RTGS,Udaipur,14,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0521,B0143,Wholesale,Hanumangarh Wholesale Buyer 27,Maize,1000,FAQ,11.6,2700,Immediate UPI/RTGS,Hanumangarh,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0522,B0085,Retail Chain,Ajmer Retail Chain Buyer 12,Wheat,1500,FAQ,9.3,2580,T+1 day,Ajmer,5,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0523,B0024,Wholesale,Bikaner Wholesale Buyer 39,Bajra,200,Clean,10.1,2140,T+7 days,Bikaner,30,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0524,B0035,Wholesale,Nagaur Wholesale Buyer 16,Garlic,150,Export,69.6,9820,T+3 days,Nagaur,14,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0525,B0147,Processor,Chittorgarh Processor Buyer 68,Maize,25,FAQ,12.5,2030,Payment after quality acceptance,Chittorgarh,14,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0526,B0148,Retail Chain,Udaipur Retail Chain Buyer 80,Garlic,150,Large,69.8,10380,30% advance + balance on delivery,Udaipur,14,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0527,B0182,Retail Chain,Bikaner Retail Chain Buyer 38,Tomato,1000,A,87.0,1990,Immediate UPI/RTGS,Bikaner,10,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0528,B0012,Wholesale,Barmer Wholesale Buyer 43,Maize,300,Grade A,12.7,2420,Payment after quality acceptance,Barmer,5,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0529,B0077,FPO,Chittorgarh FPO Buyer 65,Maize,50,Grade A,13.3,2290,Immediate UPI/RTGS,Chittorgarh,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0530,B0214,Wholesale,Sri Ganganagar Wholesale Buyer 23,Onion,1000,Small,73.0,1270,T+3 days,Sri Ganganagar,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0531,B0040,Processor,Barmer Processor Buyer 59,Tomato,75,B,88.4,3260,T+7 days,Barmer,21,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0532,B0138,Wholesale,Udaipur Wholesale Buyer 3,Gram,200,FAQ,8.7,6220,T+3 days,Udaipur,30,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0533,B0097,FPO,Ajmer FPO Buyer 69,Mustard,25,FAQ,6.7,6060,T+7 days,Ajmer,5,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0534,B0070,Retail Chain,Chittorgarh Retail Chain Buyer 53,Gram,2000,FAQ,8.5,4880,T+1 day,Chittorgarh,7,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0535,B0096,Wholesale,Alwar Wholesale Buyer 5,Gram,75,FAQ,9.7,5080,T+7 days,Alwar,14,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0536,B0124,Institutional,Hanumangarh Institutional Buyer 68,Tomato,100,B,89.3,2540,T+1 day,Hanumangarh,30,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0537,B0183,Wholesale,Alwar Wholesale Buyer 67,Bajra,500,FAQ,9.0,2590,Immediate UPI/RTGS,Alwar,21,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0538,B0197,Retail Chain,Bikaner Retail Chain Buyer 40,Onion,50,Small,73.7,2530,T+3 days,Bikaner,21,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0539,B0082,Processor,Alwar Processor Buyer 57,Onion,150,Large,72.4,2560,T+1 day,Alwar,5,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0540,B0027,Exporter,Jaipur Exporter Buyer 27,Mustard,750,Bold Seed,6.6,6510,T+3 days,Jaipur,5,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0541,B0139,Processor,Ajmer Processor Buyer 57,Maize,1000,FAQ,11.4,2330,T+7 days,Ajmer,21,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0542,B0046,Processor,Sri Ganganagar Processor Buyer 77,Mustard,300,Bold Seed,6.8,6200,T+3 days,Sri Ganganagar,7,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0543,B0034,Wholesale,Hanumangarh Wholesale Buyer 12,Mustard,500,Bold Seed,5.3,6650,T+3 days,Hanumangarh,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0544,B0067,Exporter,Alwar Exporter Buyer 47,Tomato,75,B,87.6,3950,Payment after quality acceptance,Alwar,7,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0545,B0090,Processor,Bikaner Processor Buyer 62,Tomato,500,B,89.5,1370,T+3 days,Bikaner,30,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0546,B0084,Processor,Jodhpur Processor Buyer 72,Bajra,2000,FAQ,11.4,2230,30% advance + balance on delivery,Jodhpur,10,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0547,B0124,Wholesale,Alwar Wholesale Buyer 50,Garlic,750,Medium,68.0,6620,Payment after quality acceptance,Alwar,14,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0548,B0061,Retail Chain,Udaipur Retail Chain Buyer 23,Garlic,750,Export,69.0,12100,Payment after quality acceptance,Udaipur,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0549,B0025,Wholesale,Udaipur Wholesale Buyer 57,Mustard,200,FAQ,5.9,6620,T+7 days,Udaipur,3,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0550,B0024,Institutional,Sikar Institutional Buyer 28,Garlic,1500,Medium,69.7,5620,Payment after quality acceptance,Sikar,30,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0551,B0100,Processor,Bhilwara Processor Buyer 79,Bajra,750,Clean,9.6,2470,Payment after quality acceptance,Bhilwara,7,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0552,B0023,Exporter,Hanumangarh Exporter Buyer 75,Gram,300,FAQ,8.8,5680,30% advance + balance on delivery,Hanumangarh,10,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0553,B0001,FPO,Jaipur FPO Buyer 72,Gram,750,Grade A,7.3,4930,T+3 days,Jaipur,30,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0554,B0082,Wholesale,Sri Ganganagar Wholesale Buyer 49,Maize,300,Grade A,12.1,2700,30% advance + balance on delivery,Sri Ganganagar,5,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0555,B0216,Processor,Ajmer Processor Buyer 54,Tomato,300,A,87.9,2640,Payment after quality acceptance,Ajmer,5,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0556,B0169,Wholesale,Kota Wholesale Buyer 56,Wheat,75,FAQ,9.3,2820,Payment after quality acceptance,Kota,30,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0557,B0160,Retail Chain,Hanumangarh Retail Chain Buyer 24,Tomato,1000,B,88.5,2970,30% advance + balance on delivery,Hanumangarh,30,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0558,B0002,Processor,Sikar Processor Buyer 74,Garlic,300,Large,69.5,11190,T+1 day,Sikar,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0559,B0010,Wholesale,Hanumangarh Wholesale Buyer 73,Garlic,200,Large,69.1,5340,Immediate UPI/RTGS,Hanumangarh,14,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0560,B0120,Wholesale,Ajmer Wholesale Buyer 67,Mustard,750,FAQ,6.6,5910,30% advance + balance on delivery,Ajmer,3,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0561,B0176,Wholesale,Bhilwara Wholesale Buyer 70,Tomato,1500,B,88.8,1190,T+3 days,Bhilwara,14,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0562,B0188,Institutional,Bikaner Institutional Buyer 43,Tomato,500,B,88.1,3730,T+3 days,Bikaner,7,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0563,B0187,Exporter,Chittorgarh Exporter Buyer 73,Wheat,2000,Grade A,9.2,2580,T+7 days,Chittorgarh,14,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0564,B0074,Exporter,Bhilwara Exporter Buyer 63,Wheat,2000,FAQ,9.4,2230,Immediate UPI/RTGS,Bhilwara,30,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0565,B0004,Wholesale,Ajmer Wholesale Buyer 15,Gram,150,FAQ,9.7,5450,Payment after quality acceptance,Ajmer,5,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0566,B0125,Processor,Barmer Processor Buyer 24,Onion,2000,Large,74.6,1800,T+3 days,Barmer,3,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0567,B0061,Institutional,Nagaur Institutional Buyer 57,Bajra,300,FAQ,9.6,2590,Payment after quality acceptance,Nagaur,30,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0568,B0043,FPO,Bhilwara FPO Buyer 60,Wheat,50,Grade A,10.4,2260,T+7 days,Bhilwara,21,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0569,B0038,Wholesale,Bhilwara Wholesale Buyer 68,Garlic,500,Large,67.0,7680,T+7 days,Bhilwara,10,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0570,B0217,Exporter,Kota Exporter Buyer 56,Wheat,1500,Grade A,10.0,2650,T+3 days,Kota,30,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0571,B0188,Wholesale,Bhilwara Wholesale Buyer 76,Gram,500,FAQ,8.6,5410,Payment after quality acceptance,Bhilwara,21,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0572,B0018,Processor,Jodhpur Processor Buyer 2,Onion,25,Medium,72.3,3320,Immediate UPI/RTGS,Jodhpur,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0573,B0009,Wholesale,Alwar Wholesale Buyer 4,Onion,150,Large,72.3,1690,30% advance + balance on delivery,Alwar,21,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0574,B0034,Exporter,Chittorgarh Exporter Buyer 49,Mustard,50,FAQ,7.7,6740,Payment after quality acceptance,Chittorgarh,5,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0575,B0117,Wholesale,Bikaner Wholesale Buyer 36,Gram,50,Grade A,9.1,6430,Payment after quality acceptance,Bikaner,30,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0576,B0098,Retail Chain,Ajmer Retail Chain Buyer 50,Gram,150,Grade A,10.0,4950,T+3 days,Ajmer,30,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0577,B0046,Processor,Bikaner Processor Buyer 63,Bajra,100,FAQ,9.4,2600,T+7 days,Bikaner,5,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0578,B0019,FPO,Chittorgarh FPO Buyer 74,Tomato,25,B,89.3,1170,Immediate UPI/RTGS,Chittorgarh,10,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0579,B0039,Processor,Hanumangarh Processor Buyer 43,Wheat,300,Grade A,10.7,2540,30% advance + balance on delivery,Hanumangarh,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0580,B0139,Institutional,Sri Ganganagar Institutional Buyer 29,Tomato,2000,A,88.2,1150,Payment after quality acceptance,Sri Ganganagar,30,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0581,B0175,Wholesale,Udaipur Wholesale Buyer 39,Mustard,200,Bold Seed,5.2,6050,Payment after quality acceptance,Udaipur,3,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0582,B0052,Retail Chain,Kota Retail Chain Buyer 23,Onion,150,Large,72.1,2850,T+7 days,Kota,21,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0583,B0177,FPO,Chittorgarh FPO Buyer 46,Gram,50,Grade A,7.3,6410,Payment after quality acceptance,Chittorgarh,10,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0584,B0126,Processor,Jaipur Processor Buyer 50,Bajra,2000,FAQ,11.4,2400,Payment after quality acceptance,Jaipur,7,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0585,B0202,Processor,Jaipur Processor Buyer 6,Tomato,25,B,87.4,2520,Payment after quality acceptance,Jaipur,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0586,B0189,Wholesale,Chittorgarh Wholesale Buyer 19,Bajra,50,Clean,11.0,2140,T+7 days,Chittorgarh,14,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0587,B0162,Wholesale,Chittorgarh Wholesale Buyer 7,Maize,25,Grade A,13.5,2120,Immediate UPI/RTGS,Chittorgarh,10,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0588,B0153,Retail Chain,Nagaur Retail Chain Buyer 79,Mustard,50,FAQ,5.2,6470,T+1 day,Nagaur,10,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0589,B0140,Processor,Sikar Processor Buyer 18,Garlic,1500,Large,69.5,10890,T+1 day,Sikar,30,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0590,B0194,Processor,Sikar Processor Buyer 54,Bajra,150,FAQ,11.1,2280,30% advance + balance on delivery,Sikar,5,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0591,B0203,Wholesale,Hanumangarh Wholesale Buyer 79,Maize,75,Grade A,13.3,2020,Immediate UPI/RTGS,Hanumangarh,10,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0592,B0107,Processor,Jaipur Processor Buyer 61,Wheat,50,FAQ,9.6,2560,Payment after quality acceptance,Jaipur,7,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0593,B0010,Exporter,Alwar Exporter Buyer 77,Garlic,1000,Medium,69.2,12080,30% advance + balance on delivery,Alwar,3,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0594,B0031,Processor,Sri Ganganagar Processor Buyer 68,Onion,100,Small,73.9,1690,30% advance + balance on delivery,Sri Ganganagar,14,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0595,B0014,Wholesale,Barmer Wholesale Buyer 25,Tomato,100,A,89.4,2210,Payment after quality acceptance,Barmer,30,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0596,B0166,Processor,Ajmer Processor Buyer 47,Tomato,25,B,87.6,1070,T+3 days,Ajmer,7,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0597,B0041,Wholesale,Kota Wholesale Buyer 4,Wheat,750,Grade A,10.5,2420,Immediate UPI/RTGS,Kota,5,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0598,B0084,Processor,Sri Ganganagar Processor Buyer 30,Onion,1500,Small,73.0,3490,Immediate UPI/RTGS,Sri Ganganagar,5,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0599,B0150,Retail Chain,Sri Ganganagar Retail Chain Buyer 63,Maize,50,FAQ,13.7,2500,T+1 day,Sri Ganganagar,5,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0600,B0162,FPO,Sri Ganganagar FPO Buyer 46,Bajra,500,Clean,9.6,2340,T+1 day,Sri Ganganagar,3,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0601,B0108,Processor,Ajmer Processor Buyer 22,Gram,500,Grade A,7.7,5970,T+3 days,Ajmer,14,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0602,B0106,Exporter,Udaipur Exporter Buyer 67,Bajra,100,Clean,11.6,2210,T+1 day,Udaipur,14,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0603,B0064,Processor,Bharatpur Processor Buyer 42,Tomato,300,B,88.7,2060,30% advance + balance on delivery,Bharatpur,5,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0604,B0197,Processor,Jaipur Processor Buyer 65,Garlic,500,Medium,68.3,12510,T+7 days,Jaipur,10,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0605,B0178,Processor,Bikaner Processor Buyer 53,Tomato,750,A,87.4,860,T+3 days,Bikaner,5,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0606,B0220,Wholesale,Bikaner Wholesale Buyer 74,Wheat,75,FAQ,11.9,2780,T+7 days,Bikaner,30,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0607,B0119,Retail Chain,Ajmer Retail Chain Buyer 1,Garlic,200,Export,67.2,11410,Payment after quality acceptance,Ajmer,7,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0608,B0139,Wholesale,Sri Ganganagar Wholesale Buyer 74,Gram,2000,FAQ,9.4,6360,Immediate UPI/RTGS,Sri Ganganagar,14,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0609,B0014,Exporter,Jodhpur Exporter Buyer 15,Wheat,1500,Grade A,10.1,2660,30% advance + balance on delivery,Jodhpur,3,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0610,B0144,Wholesale,Ajmer Wholesale Buyer 27,Onion,2000,Small,74.9,1370,T+1 day,Ajmer,14,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0611,B0193,Exporter,Chittorgarh Exporter Buyer 29,Tomato,1000,B,88.1,1870,T+3 days,Chittorgarh,14,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0612,B0125,Processor,Jaipur Processor Buyer 65,Gram,200,FAQ,8.4,5950,30% advance + balance on delivery,Jaipur,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0613,B0049,FPO,Udaipur FPO Buyer 59,Tomato,1500,A,87.2,1130,T+1 day,Udaipur,7,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0614,B0128,FPO,Ajmer FPO Buyer 20,Mustard,2000,FAQ,6.6,5570,Payment after quality acceptance,Ajmer,3,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0615,B0089,Wholesale,Bhilwara Wholesale Buyer 54,Garlic,75,Large,69.2,9850,Immediate UPI/RTGS,Bhilwara,7,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0616,B0166,Retail Chain,Jaipur Retail Chain Buyer 43,Mustard,100,Bold Seed,6.7,6530,Payment after quality acceptance,Jaipur,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0617,B0114,Wholesale,Udaipur Wholesale Buyer 59,Tomato,750,B,88.7,3600,T+3 days,Udaipur,5,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0618,B0038,FPO,Bikaner FPO Buyer 46,Maize,150,Grade A,12.4,1960,T+1 day,Bikaner,14,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0619,B0204,Exporter,Ajmer Exporter Buyer 20,Gram,2000,FAQ,7.7,6500,Immediate UPI/RTGS,Ajmer,7,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0620,B0182,FPO,Bharatpur FPO Buyer 5,Tomato,100,B,89.9,3670,T+1 day,Bharatpur,7,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0621,B0128,FPO,Jodhpur FPO Buyer 19,Bajra,25,Clean,11.8,2610,T+1 day,Jodhpur,3,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0622,B0038,Retail Chain,Bikaner Retail Chain Buyer 73,Gram,1000,Grade A,8.0,6500,Immediate UPI/RTGS,Bikaner,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0623,B0007,Wholesale,Ajmer Wholesale Buyer 52,Wheat,50,FAQ,10.3,2590,Immediate UPI/RTGS,Ajmer,7,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0624,B0006,Wholesale,Udaipur Wholesale Buyer 11,Maize,150,Grade A,13.0,2150,Immediate UPI/RTGS,Udaipur,14,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0625,B0015,FPO,Bikaner FPO Buyer 47,Maize,1000,Grade A,11.4,2550,T+7 days,Bikaner,7,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0626,B0115,FPO,Jaipur FPO Buyer 72,Onion,200,Small,72.6,1980,T+7 days,Jaipur,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0627,B0187,Processor,Bharatpur Processor Buyer 54,Tomato,2000,A,89.5,2970,30% advance + balance on delivery,Bharatpur,3,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0628,B0017,Institutional,Bharatpur Institutional Buyer 76,Maize,750,Grade A,11.3,2320,T+7 days,Bharatpur,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0629,B0194,Wholesale,Ajmer Wholesale Buyer 18,Garlic,2000,Medium,67.6,10810,T+7 days,Ajmer,7,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0630,B0127,Retail Chain,Nagaur Retail Chain Buyer 72,Wheat,1000,Grade A,9.7,2580,Immediate UPI/RTGS,Nagaur,5,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0631,B0168,Retail Chain,Bhilwara Retail Chain Buyer 37,Gram,500,Grade A,7.5,5110,Payment after quality acceptance,Bhilwara,21,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0632,B0154,Wholesale,Kota Wholesale Buyer 47,Wheat,500,Grade A,10.7,2280,T+3 days,Kota,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0633,B0217,Institutional,Sikar Institutional Buyer 34,Mustard,1000,FAQ,6.7,5240,T+1 day,Sikar,7,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0634,B0108,Processor,Sikar Processor Buyer 46,Bajra,150,FAQ,9.9,2560,30% advance + balance on delivery,Sikar,21,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0635,B0193,Wholesale,Barmer Wholesale Buyer 22,Maize,50,Grade A,13.6,2660,Payment after quality acceptance,Barmer,30,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0636,B0137,Wholesale,Bhilwara Wholesale Buyer 75,Gram,200,Grade A,9.5,5040,Immediate UPI/RTGS,Bhilwara,5,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0637,B0042,Institutional,Barmer Institutional Buyer 14,Onion,200,Small,72.5,3550,T+1 day,Barmer,30,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0638,B0210,Institutional,Sri Ganganagar Institutional Buyer 17,Mustard,50,FAQ,6.4,5490,T+3 days,Sri Ganganagar,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0639,B0196,Institutional,Nagaur Institutional Buyer 44,Bajra,1000,FAQ,11.1,2760,Immediate UPI/RTGS,Nagaur,21,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0640,B0079,Retail Chain,Ajmer Retail Chain Buyer 17,Maize,75,FAQ,11.4,2190,Immediate UPI/RTGS,Ajmer,10,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0641,B0051,Retail Chain,Jaipur Retail Chain Buyer 14,Mustard,300,FAQ,7.4,5300,30% advance + balance on delivery,Jaipur,14,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0642,B0078,Exporter,Kota Exporter Buyer 2,Tomato,25,A,89.3,1130,30% advance + balance on delivery,Kota,5,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0643,B0217,FPO,Bhilwara FPO Buyer 36,Bajra,50,Clean,10.1,2280,30% advance + balance on delivery,Bhilwara,30,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0644,B0056,Retail Chain,Kota Retail Chain Buyer 25,Mustard,25,Bold Seed,5.5,6550,30% advance + balance on delivery,Kota,3,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0645,B0094,Institutional,Hanumangarh Institutional Buyer 76,Maize,2000,FAQ,12.3,2500,Immediate UPI/RTGS,Hanumangarh,5,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0646,B0029,Processor,Sri Ganganagar Processor Buyer 41,Garlic,100,Medium,68.4,9170,30% advance + balance on delivery,Sri Ganganagar,5,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0647,B0022,FPO,Chittorgarh FPO Buyer 42,Onion,2000,Medium,72.3,1300,T+3 days,Chittorgarh,10,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0648,B0049,Wholesale,Alwar Wholesale Buyer 9,Tomato,150,B,89.8,2990,T+3 days,Alwar,5,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0649,B0169,Processor,Bhilwara Processor Buyer 11,Tomato,500,A,87.4,3470,T+7 days,Bhilwara,21,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0650,B0052,FPO,Kota FPO Buyer 77,Bajra,100,Clean,9.4,2530,T+7 days,Kota,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0651,B0070,Wholesale,Barmer Wholesale Buyer 52,Gram,1000,Grade A,8.4,6310,30% advance + balance on delivery,Barmer,10,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0652,B0065,Wholesale,Ajmer Wholesale Buyer 63,Gram,50,Grade A,7.7,5110,T+1 day,Ajmer,3,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0653,B0046,Processor,Nagaur Processor Buyer 49,Wheat,1500,Grade A,9.5,2230,30% advance + balance on delivery,Nagaur,14,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0654,B0052,Wholesale,Bhilwara Wholesale Buyer 38,Mustard,500,Bold Seed,6.5,6390,T+3 days,Bhilwara,14,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0655,B0099,Processor,Barmer Processor Buyer 58,Wheat,300,Grade A,11.6,2350,T+7 days,Barmer,10,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0656,B0126,Wholesale,Ajmer Wholesale Buyer 56,Wheat,150,FAQ,9.9,2410,T+7 days,Ajmer,10,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0657,B0121,Wholesale,Bhilwara Wholesale Buyer 61,Tomato,750,A,88.5,3720,T+7 days,Bhilwara,7,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0658,B0016,Wholesale,Udaipur Wholesale Buyer 4,Garlic,150,Export,67.1,8280,T+3 days,Udaipur,7,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0659,B0106,Processor,Sri Ganganagar Processor Buyer 45,Onion,200,Small,74.0,2110,T+1 day,Sri Ganganagar,5,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0660,B0087,Wholesale,Hanumangarh Wholesale Buyer 22,Mustard,150,FAQ,6.6,5490,Immediate UPI/RTGS,Hanumangarh,10,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0661,B0006,Processor,Bharatpur Processor Buyer 41,Garlic,500,Large,68.7,11020,T+3 days,Bharatpur,14,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0662,B0128,Wholesale,Kota Wholesale Buyer 65,Tomato,100,B,87.5,2520,T+3 days,Kota,7,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0663,B0055,Wholesale,Bikaner Wholesale Buyer 37,Maize,50,Grade A,11.1,2580,30% advance + balance on delivery,Bikaner,10,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0664,B0087,Retail Chain,Chittorgarh Retail Chain Buyer 35,Mustard,50,FAQ,6.7,6710,30% advance + balance on delivery,Chittorgarh,10,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0665,B0130,Retail Chain,Sikar Retail Chain Buyer 39,Maize,1500,Grade A,13.0,2280,T+3 days,Sikar,5,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0666,B0196,Wholesale,Bharatpur Wholesale Buyer 71,Garlic,500,Medium,69.6,11870,Payment after quality acceptance,Bharatpur,21,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0667,B0069,Wholesale,Alwar Wholesale Buyer 69,Tomato,2000,B,89.8,3190,Payment after quality acceptance,Alwar,21,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0668,B0192,Institutional,Sikar Institutional Buyer 39,Maize,100,Grade A,12.2,2090,Immediate UPI/RTGS,Sikar,21,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0669,B0066,Retail Chain,Bharatpur Retail Chain Buyer 77,Garlic,1500,Medium,68.2,6640,Immediate UPI/RTGS,Bharatpur,5,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0670,B0125,Retail Chain,Alwar Retail Chain Buyer 72,Wheat,150,Grade A,10.3,2790,Immediate UPI/RTGS,Alwar,5,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0671,B0141,Processor,Ajmer Processor Buyer 23,Gram,150,FAQ,9.9,6480,T+7 days,Ajmer,30,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0672,B0017,Retail Chain,Nagaur Retail Chain Buyer 53,Wheat,200,Grade A,11.0,2580,Immediate UPI/RTGS,Nagaur,10,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0673,B0134,Wholesale,Kota Wholesale Buyer 75,Maize,750,Grade A,12.5,2050,Immediate UPI/RTGS,Kota,5,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0674,B0207,Retail Chain,Sikar Retail Chain Buyer 31,Onion,2000,Medium,72.7,2190,Immediate UPI/RTGS,Sikar,5,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0675,B0126,Institutional,Bikaner Institutional Buyer 69,Gram,1000,Grade A,9.1,4940,Immediate UPI/RTGS,Bikaner,7,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0676,B0093,Processor,Bhilwara Processor Buyer 61,Tomato,150,B,89.5,1540,Immediate UPI/RTGS,Bhilwara,21,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0677,B0065,Exporter,Chittorgarh Exporter Buyer 71,Wheat,1500,Grade A,9.9,2500,Payment after quality acceptance,Chittorgarh,7,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0678,B0066,Institutional,Nagaur Institutional Buyer 39,Maize,25,FAQ,13.8,2400,T+1 day,Nagaur,7,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0679,B0203,Institutional,Hanumangarh Institutional Buyer 5,Bajra,200,Clean,11.6,2620,T+7 days,Hanumangarh,10,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0680,B0042,Institutional,Chittorgarh Institutional Buyer 34,Onion,50,Large,72.2,3310,T+7 days,Chittorgarh,14,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0681,B0165,Processor,Chittorgarh Processor Buyer 24,Tomato,25,B,89.4,4080,T+1 day,Chittorgarh,3,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0682,B0029,FPO,Bhilwara FPO Buyer 21,Maize,1000,FAQ,12.5,2000,Payment after quality acceptance,Bhilwara,30,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0683,B0189,Exporter,Barmer Exporter Buyer 18,Garlic,500,Large,67.5,9890,30% advance + balance on delivery,Barmer,30,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0684,B0101,Processor,Alwar Processor Buyer 49,Gram,200,FAQ,7.1,5260,Immediate UPI/RTGS,Alwar,14,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0685,B0013,Processor,Bikaner Processor Buyer 52,Mustard,2000,Bold Seed,6.8,5630,T+1 day,Bikaner,3,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0686,B0112,Processor,Udaipur Processor Buyer 59,Bajra,2000,Clean,9.4,2770,Payment after quality acceptance,Udaipur,5,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0687,B0111,Wholesale,Bharatpur Wholesale Buyer 27,Gram,300,FAQ,10.0,5130,T+3 days,Bharatpur,21,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0688,B0075,Institutional,Ajmer Institutional Buyer 34,Garlic,75,Medium,68.9,5290,T+1 day,Ajmer,7,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0689,B0176,Institutional,Jaipur Institutional Buyer 28,Mustard,200,Bold Seed,7.1,6210,Payment after quality acceptance,Jaipur,14,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0690,B0061,Wholesale,Kota Wholesale Buyer 61,Mustard,25,Bold Seed,8.0,6050,Payment after quality acceptance,Kota,30,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0691,B0102,Institutional,Bharatpur Institutional Buyer 48,Wheat,300,FAQ,11.9,2580,30% advance + balance on delivery,Bharatpur,3,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0692,B0034,Institutional,Ajmer Institutional Buyer 12,Gram,200,Grade A,9.1,5990,T+7 days,Ajmer,5,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0693,B0214,Processor,Sikar Processor Buyer 36,Mustard,75,Bold Seed,7.8,6470,T+3 days,Sikar,7,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0694,B0126,Retail Chain,Sri Ganganagar Retail Chain Buyer 20,Onion,200,Large,74.6,3080,Payment after quality acceptance,Sri Ganganagar,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0695,B0010,Processor,Alwar Processor Buyer 61,Wheat,100,Grade A,9.5,2430,T+7 days,Alwar,10,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0696,B0125,Institutional,Jaipur Institutional Buyer 59,Tomato,2000,B,87.3,3670,Payment after quality acceptance,Jaipur,30,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0697,B0214,Processor,Sikar Processor Buyer 22,Mustard,150,Bold Seed,6.7,5660,Payment after quality acceptance,Sikar,14,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0698,B0020,Wholesale,Jodhpur Wholesale Buyer 32,Wheat,75,Grade A,11.0,2730,T+3 days,Jodhpur,3,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0699,B0040,FPO,Sri Ganganagar FPO Buyer 4,Mustard,50,FAQ,6.4,6020,Payment after quality acceptance,Sri Ganganagar,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0700,B0002,Exporter,Bhilwara Exporter Buyer 43,Tomato,1000,A,89.0,4160,T+7 days,Bhilwara,7,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0701,B0083,Processor,Nagaur Processor Buyer 8,Maize,1500,FAQ,12.6,2260,30% advance + balance on delivery,Nagaur,10,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0702,B0006,Processor,Bharatpur Processor Buyer 27,Garlic,300,Medium,68.2,5910,T+7 days,Bharatpur,7,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0703,B0176,Institutional,Bharatpur Institutional Buyer 78,Mustard,300,FAQ,6.1,5990,Immediate UPI/RTGS,Bharatpur,30,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0704,B0069,Institutional,Bikaner Institutional Buyer 73,Maize,300,Grade A,11.3,2500,T+7 days,Bikaner,30,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0705,B0132,Wholesale,Sri Ganganagar Wholesale Buyer 44,Bajra,50,Clean,11.0,2150,Payment after quality acceptance,Sri Ganganagar,21,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0706,B0075,Wholesale,Jodhpur Wholesale Buyer 60,Tomato,750,B,87.2,1220,T+7 days,Jodhpur,7,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0707,B0110,Exporter,Bhilwara Exporter Buyer 38,Bajra,100,FAQ,10.7,2760,Immediate UPI/RTGS,Bhilwara,14,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0708,B0146,Processor,Sri Ganganagar Processor Buyer 33,Garlic,1500,Large,67.8,12370,Immediate UPI/RTGS,Sri Ganganagar,30,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0709,B0216,Wholesale,Chittorgarh Wholesale Buyer 51,Mustard,75,FAQ,5.2,5660,Payment after quality acceptance,Chittorgarh,7,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0710,B0088,Wholesale,Barmer Wholesale Buyer 24,Tomato,1000,A,87.6,2150,Payment after quality acceptance,Barmer,14,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0711,B0030,Wholesale,Sri Ganganagar Wholesale Buyer 2,Mustard,25,FAQ,7.0,6210,T+7 days,Sri Ganganagar,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0712,B0177,Wholesale,Bharatpur Wholesale Buyer 51,Tomato,1000,B,87.3,2640,T+1 day,Bharatpur,3,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0713,B0054,Processor,Nagaur Processor Buyer 62,Mustard,100,FAQ,6.9,5260,T+7 days,Nagaur,30,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0714,B0109,Wholesale,Bharatpur Wholesale Buyer 3,Mustard,75,FAQ,5.5,6410,T+1 day,Bharatpur,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0715,B0063,Processor,Bikaner Processor Buyer 26,Tomato,500,B,88.7,3790,T+7 days,Bikaner,3,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0716,B0107,Wholesale,Kota Wholesale Buyer 64,Wheat,2000,Grade A,9.1,2750,T+7 days,Kota,10,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0717,B0148,Processor,Chittorgarh Processor Buyer 41,Maize,25,FAQ,11.8,2440,Payment after quality acceptance,Chittorgarh,10,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0718,B0115,Wholesale,Bikaner Wholesale Buyer 56,Mustard,1500,FAQ,5.5,6080,Payment after quality acceptance,Bikaner,5,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0719,B0176,Processor,Bikaner Processor Buyer 44,Onion,100,Large,74.6,2700,Payment after quality acceptance,Bikaner,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0720,B0107,FPO,Hanumangarh FPO Buyer 47,Bajra,2000,Clean,11.4,2590,T+1 day,Hanumangarh,14,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0721,B0034,Wholesale,Chittorgarh Wholesale Buyer 23,Gram,1500,FAQ,7.5,6030,T+7 days,Chittorgarh,3,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0722,B0005,Processor,Bharatpur Processor Buyer 46,Tomato,750,B,88.1,1040,T+1 day,Bharatpur,5,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0723,B0031,Institutional,Sikar Institutional Buyer 72,Mustard,1000,FAQ,6.5,5780,T+3 days,Sikar,30,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0724,B0219,Retail Chain,Barmer Retail Chain Buyer 66,Wheat,150,FAQ,11.1,2390,T+7 days,Barmer,30,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0725,B0211,Retail Chain,Kota Retail Chain Buyer 72,Mustard,1000,FAQ,6.5,5460,T+1 day,Kota,21,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0726,B0182,FPO,Hanumangarh FPO Buyer 57,Maize,2000,Grade A,13.2,2270,Immediate UPI/RTGS,Hanumangarh,5,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0727,B0107,Processor,Nagaur Processor Buyer 1,Onion,100,Small,74.5,2320,T+7 days,Nagaur,7,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0728,B0093,FPO,Kota FPO Buyer 32,Bajra,2000,FAQ,11.3,2630,30% advance + balance on delivery,Kota,10,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0729,B0219,Institutional,Barmer Institutional Buyer 67,Bajra,300,Clean,11.8,2680,T+7 days,Barmer,5,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0730,B0112,FPO,Kota FPO Buyer 8,Mustard,300,Bold Seed,7.3,5620,Payment after quality acceptance,Kota,21,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0731,B0076,Exporter,Bhilwara Exporter Buyer 54,Wheat,1500,Grade A,11.7,2860,Payment after quality acceptance,Bhilwara,14,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0732,B0136,FPO,Hanumangarh FPO Buyer 79,Onion,150,Small,74.1,3500,T+7 days,Hanumangarh,21,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0733,B0199,FPO,Chittorgarh FPO Buyer 26,Tomato,1500,B,87.3,2870,30% advance + balance on delivery,Chittorgarh,7,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0734,B0024,Exporter,Jodhpur Exporter Buyer 66,Bajra,150,Clean,10.6,2370,Payment after quality acceptance,Jodhpur,5,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0735,B0062,Retail Chain,Hanumangarh Retail Chain Buyer 39,Wheat,1000,Grade A,12.0,2530,Immediate UPI/RTGS,Hanumangarh,21,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0736,B0013,Wholesale,Bharatpur Wholesale Buyer 16,Onion,200,Medium,72.9,1510,Payment after quality acceptance,Bharatpur,3,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0737,B0183,Retail Chain,Alwar Retail Chain Buyer 69,Onion,1000,Large,72.7,2640,T+3 days,Alwar,7,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0738,B0133,Wholesale,Jodhpur Wholesale Buyer 75,Garlic,50,Medium,69.5,8350,T+3 days,Jodhpur,10,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0739,B0024,Institutional,Chittorgarh Institutional Buyer 8,Bajra,300,Clean,11.7,2200,T+7 days,Chittorgarh,5,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0740,B0144,Wholesale,Sikar Wholesale Buyer 67,Mustard,300,Bold Seed,7.6,6700,30% advance + balance on delivery,Sikar,10,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0741,B0211,Exporter,Chittorgarh Exporter Buyer 21,Tomato,500,A,88.5,2930,T+7 days,Chittorgarh,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0742,B0178,Institutional,Chittorgarh Institutional Buyer 28,Bajra,750,Clean,10.4,2250,Payment after quality acceptance,Chittorgarh,5,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0743,B0095,Retail Chain,Udaipur Retail Chain Buyer 74,Mustard,50,Bold Seed,5.1,5500,T+1 day,Udaipur,3,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0744,B0203,FPO,Sikar FPO Buyer 19,Gram,500,FAQ,9.4,4870,T+7 days,Sikar,3,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0745,B0001,Processor,Alwar Processor Buyer 16,Gram,2000,Grade A,7.2,6050,Immediate UPI/RTGS,Alwar,10,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0746,B0122,Institutional,Udaipur Institutional Buyer 78,Gram,200,FAQ,9.3,5760,30% advance + balance on delivery,Udaipur,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0747,B0023,Institutional,Bhilwara Institutional Buyer 80,Tomato,2000,B,88.2,2460,T+7 days,Bhilwara,7,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0748,B0182,FPO,Chittorgarh FPO Buyer 4,Tomato,50,B,88.7,1640,Immediate UPI/RTGS,Chittorgarh,21,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0749,B0134,Wholesale,Udaipur Wholesale Buyer 25,Maize,25,Grade A,12.5,2620,Immediate UPI/RTGS,Udaipur,3,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0750,B0022,Retail Chain,Bharatpur Retail Chain Buyer 69,Wheat,100,Grade A,10.2,2760,Immediate UPI/RTGS,Bharatpur,10,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0751,B0136,Processor,Sri Ganganagar Processor Buyer 41,Onion,25,Medium,72.8,3400,Immediate UPI/RTGS,Sri Ganganagar,3,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0752,B0079,Processor,Ajmer Processor Buyer 53,Gram,50,FAQ,7.2,5190,T+3 days,Ajmer,5,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0753,B0106,FPO,Bharatpur FPO Buyer 42,Wheat,200,Grade A,10.1,2380,Immediate UPI/RTGS,Bharatpur,3,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0754,B0131,Wholesale,Barmer Wholesale Buyer 65,Maize,100,Grade A,13.8,2530,T+3 days,Barmer,3,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0755,B0105,Institutional,Jodhpur Institutional Buyer 30,Tomato,500,A,87.8,940,30% advance + balance on delivery,Jodhpur,21,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0756,B0146,Wholesale,Barmer Wholesale Buyer 53,Maize,75,Grade A,11.3,2280,Payment after quality acceptance,Barmer,14,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0757,B0138,Wholesale,Sikar Wholesale Buyer 55,Bajra,75,Clean,9.1,2410,T+7 days,Sikar,30,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0758,B0154,Processor,Jaipur Processor Buyer 33,Bajra,500,Clean,12.0,2440,Payment after quality acceptance,Jaipur,5,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0759,B0077,Wholesale,Ajmer Wholesale Buyer 12,Wheat,1000,Grade A,11.1,2280,T+1 day,Ajmer,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0760,B0175,Wholesale,Alwar Wholesale Buyer 44,Garlic,200,Export,67.8,14050,Payment after quality acceptance,Alwar,10,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0761,B0118,Exporter,Bhilwara Exporter Buyer 77,Maize,200,Grade A,11.0,2160,Payment after quality acceptance,Bhilwara,5,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0762,B0106,Exporter,Jaipur Exporter Buyer 72,Tomato,1500,B,89.3,1680,30% advance + balance on delivery,Jaipur,3,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0763,B0173,Retail Chain,Hanumangarh Retail Chain Buyer 16,Wheat,1500,Grade A,11.9,2760,T+7 days,Hanumangarh,30,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0764,B0032,Retail Chain,Ajmer Retail Chain Buyer 60,Garlic,2000,Large,69.8,5080,T+7 days,Ajmer,3,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0765,B0050,FPO,Barmer FPO Buyer 12,Wheat,2000,Grade A,11.4,2650,T+1 day,Barmer,5,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0766,B0156,FPO,Jaipur FPO Buyer 27,Onion,2000,Small,72.6,3000,Payment after quality acceptance,Jaipur,10,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0767,B0050,Institutional,Udaipur Institutional Buyer 73,Gram,75,FAQ,7.2,6210,T+1 day,Udaipur,21,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0768,B0187,Exporter,Bharatpur Exporter Buyer 36,Bajra,100,FAQ,11.5,2760,Immediate UPI/RTGS,Bharatpur,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0769,B0014,Exporter,Jaipur Exporter Buyer 42,Tomato,1500,B,89.5,4120,T+7 days,Jaipur,7,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0770,B0013,FPO,Bikaner FPO Buyer 36,Tomato,25,B,88.6,1940,T+3 days,Bikaner,3,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0771,B0189,Processor,Sikar Processor Buyer 29,Maize,1000,Grade A,13.9,1930,T+1 day,Sikar,5,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0772,B0008,Processor,Bharatpur Processor Buyer 62,Onion,1500,Medium,74.4,1440,30% advance + balance on delivery,Bharatpur,30,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0773,B0214,Processor,Alwar Processor Buyer 7,Gram,100,Grade A,8.6,5670,T+1 day,Alwar,3,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0774,B0016,Institutional,Bhilwara Institutional Buyer 5,Mustard,50,Bold Seed,5.9,5410,Payment after quality acceptance,Bhilwara,3,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0775,B0157,Retail Chain,Hanumangarh Retail Chain Buyer 56,Wheat,25,FAQ,9.3,2580,Immediate UPI/RTGS,Hanumangarh,14,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0776,B0193,FPO,Nagaur FPO Buyer 53,Gram,50,FAQ,9.6,6380,Payment after quality acceptance,Nagaur,14,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0777,B0159,Institutional,Sri Ganganagar Institutional Buyer 13,Tomato,300,B,89.0,3970,Payment after quality acceptance,Sri Ganganagar,30,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0778,B0027,FPO,Jodhpur FPO Buyer 2,Tomato,100,A,88.8,1350,T+1 day,Jodhpur,14,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0779,B0114,Institutional,Sikar Institutional Buyer 24,Gram,2000,FAQ,7.4,6380,Immediate UPI/RTGS,Sikar,3,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0780,B0080,Institutional,Udaipur Institutional Buyer 75,Gram,1500,FAQ,7.4,5710,T+3 days,Udaipur,14,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0781,B0169,Exporter,Sikar Exporter Buyer 19,Gram,750,FAQ,7.7,6300,30% advance + balance on delivery,Sikar,30,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0782,B0052,Processor,Sikar Processor Buyer 9,Garlic,100,Large,67.6,11550,T+7 days,Sikar,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0783,B0077,Wholesale,Nagaur Wholesale Buyer 54,Onion,200,Medium,72.5,2770,T+7 days,Nagaur,30,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0784,B0178,Exporter,Alwar Exporter Buyer 30,Tomato,1500,B,88.9,1940,T+1 day,Alwar,10,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0785,B0003,Institutional,Alwar Institutional Buyer 10,Garlic,25,Large,67.1,8710,Immediate UPI/RTGS,Alwar,5,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0786,B0008,Wholesale,Alwar Wholesale Buyer 26,Tomato,200,A,87.9,1020,T+1 day,Alwar,7,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0787,B0006,Wholesale,Nagaur Wholesale Buyer 23,Onion,75,Medium,74.7,1700,Immediate UPI/RTGS,Nagaur,30,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0788,B0054,Retail Chain,Bhilwara Retail Chain Buyer 40,Garlic,50,Large,67.7,8460,T+3 days,Bhilwara,21,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0789,B0034,Wholesale,Hanumangarh Wholesale Buyer 25,Garlic,50,Medium,68.6,6470,Payment after quality acceptance,Hanumangarh,7,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0790,B0158,Processor,Bhilwara Processor Buyer 76,Garlic,25,Medium,69.6,12810,T+3 days,Bhilwara,30,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0791,B0033,Processor,Alwar Processor Buyer 66,Onion,150,Large,74.7,3430,T+1 day,Alwar,21,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0792,B0131,Wholesale,Barmer Wholesale Buyer 50,Tomato,50,B,88.5,1650,T+7 days,Barmer,5,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0793,B0122,Wholesale,Jodhpur Wholesale Buyer 35,Onion,2000,Large,73.2,2460,30% advance + balance on delivery,Jodhpur,21,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0794,B0102,Retail Chain,Alwar Retail Chain Buyer 28,Maize,500,Grade A,12.3,2200,T+7 days,Alwar,14,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0795,B0022,Wholesale,Bharatpur Wholesale Buyer 38,Onion,75,Medium,73.6,3120,T+1 day,Bharatpur,14,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0796,B0120,Wholesale,Jodhpur Wholesale Buyer 56,Tomato,300,B,88.1,3100,T+7 days,Jodhpur,7,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0797,B0166,Processor,Jaipur Processor Buyer 10,Garlic,100,Large,69.7,7710,T+3 days,Jaipur,30,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0798,B0093,Processor,Hanumangarh Processor Buyer 5,Gram,50,FAQ,8.0,4980,Payment after quality acceptance,Hanumangarh,7,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0799,B0049,Retail Chain,Chittorgarh Retail Chain Buyer 78,Gram,1500,FAQ,10.0,5500,Payment after quality acceptance,Chittorgarh,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0800,B0104,FPO,Barmer FPO Buyer 75,Wheat,200,FAQ,10.4,2710,30% advance + balance on delivery,Barmer,30,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0801,B0122,Processor,Alwar Processor Buyer 30,Garlic,2000,Export,68.8,7140,30% advance + balance on delivery,Alwar,30,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0802,B0110,Retail Chain,Sikar Retail Chain Buyer 54,Tomato,200,A,88.3,1760,30% advance + balance on delivery,Sikar,3,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0803,B0128,Retail Chain,Udaipur Retail Chain Buyer 46,Bajra,150,Clean,9.7,2110,T+7 days,Udaipur,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0804,B0036,Wholesale,Sikar Wholesale Buyer 20,Gram,1000,Grade A,8.7,4880,30% advance + balance on delivery,Sikar,14,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0805,B0099,Exporter,Alwar Exporter Buyer 25,Garlic,50,Large,67.3,10470,30% advance + balance on delivery,Alwar,10,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0806,B0009,Processor,Ajmer Processor Buyer 78,Mustard,750,Bold Seed,5.1,5650,T+1 day,Ajmer,3,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0807,B0018,Processor,Alwar Processor Buyer 59,Gram,1500,FAQ,8.1,6140,Immediate UPI/RTGS,Alwar,5,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0808,B0138,Processor,Sri Ganganagar Processor Buyer 54,Garlic,50,Large,69.2,6320,T+7 days,Sri Ganganagar,30,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0809,B0041,Processor,Nagaur Processor Buyer 78,Bajra,300,Clean,10.8,2700,30% advance + balance on delivery,Nagaur,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0810,B0017,Processor,Alwar Processor Buyer 52,Gram,75,FAQ,8.6,5940,30% advance + balance on delivery,Alwar,10,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0811,B0166,Processor,Udaipur Processor Buyer 59,Tomato,50,B,89.1,2270,Payment after quality acceptance,Udaipur,30,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0812,B0064,Retail Chain,Udaipur Retail Chain Buyer 23,Garlic,75,Export,69.2,9250,T+7 days,Udaipur,10,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0813,B0041,Wholesale,Sri Ganganagar Wholesale Buyer 36,Mustard,25,Bold Seed,7.0,5810,Immediate UPI/RTGS,Sri Ganganagar,21,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0814,B0095,Exporter,Sri Ganganagar Exporter Buyer 10,Tomato,750,A,88.5,1420,T+3 days,Sri Ganganagar,10,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0815,B0007,Processor,Bharatpur Processor Buyer 10,Bajra,25,Clean,10.1,2690,Payment after quality acceptance,Bharatpur,10,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0816,B0035,Processor,Jaipur Processor Buyer 42,Garlic,50,Export,69.2,12260,T+7 days,Jaipur,10,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0817,B0036,Wholesale,Jodhpur Wholesale Buyer 61,Mustard,2000,Bold Seed,7.5,6320,T+1 day,Jodhpur,30,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0818,B0044,FPO,Ajmer FPO Buyer 10,Mustard,750,FAQ,7.0,6200,T+1 day,Ajmer,10,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0819,B0056,Wholesale,Alwar Wholesale Buyer 57,Bajra,1500,FAQ,11.5,2780,30% advance + balance on delivery,Alwar,21,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0820,B0002,FPO,Chittorgarh FPO Buyer 7,Garlic,25,Large,69.3,11120,T+1 day,Chittorgarh,7,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0821,B0087,Processor,Kota Processor Buyer 25,Maize,25,FAQ,11.7,1910,Immediate UPI/RTGS,Kota,30,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0822,B0083,Institutional,Jaipur Institutional Buyer 72,Bajra,50,FAQ,10.9,2510,30% advance + balance on delivery,Jaipur,10,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0823,B0045,Processor,Alwar Processor Buyer 2,Mustard,200,Bold Seed,7.0,6020,Immediate UPI/RTGS,Alwar,10,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0824,B0160,Processor,Alwar Processor Buyer 48,Tomato,150,A,87.2,4120,T+1 day,Alwar,10,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0825,B0065,Wholesale,Kota Wholesale Buyer 13,Tomato,1000,B,89.9,1670,Payment after quality acceptance,Kota,10,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0826,B0218,Wholesale,Ajmer Wholesale Buyer 62,Onion,2000,Small,73.0,2010,30% advance + balance on delivery,Ajmer,14,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0827,B0151,Wholesale,Jodhpur Wholesale Buyer 2,Garlic,100,Medium,67.1,10150,Immediate UPI/RTGS,Jodhpur,7,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0828,B0036,Processor,Barmer Processor Buyer 48,Garlic,50,Large,67.9,5610,T+1 day,Barmer,10,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0829,B0190,Exporter,Alwar Exporter Buyer 43,Wheat,1000,FAQ,9.8,2760,Payment after quality acceptance,Alwar,30,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0830,B0217,Retail Chain,Bhilwara Retail Chain Buyer 43,Garlic,25,Large,67.7,7340,30% advance + balance on delivery,Bhilwara,3,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0831,B0047,Retail Chain,Udaipur Retail Chain Buyer 57,Maize,750,FAQ,11.2,2310,T+7 days,Udaipur,3,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0832,B0024,Exporter,Bhilwara Exporter Buyer 23,Wheat,100,FAQ,9.7,2360,Immediate UPI/RTGS,Bhilwara,10,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0833,B0046,Wholesale,Ajmer Wholesale Buyer 78,Gram,100,FAQ,7.9,5880,30% advance + balance on delivery,Ajmer,10,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0834,B0102,Retail Chain,Nagaur Retail Chain Buyer 49,Gram,50,FAQ,8.4,5720,T+7 days,Nagaur,14,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0835,B0196,Exporter,Nagaur Exporter Buyer 49,Bajra,500,Clean,11.6,2120,T+3 days,Nagaur,14,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0836,B0073,FPO,Bharatpur FPO Buyer 49,Bajra,150,Clean,9.2,2680,T+1 day,Bharatpur,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0837,B0129,Exporter,Ajmer Exporter Buyer 48,Maize,25,Grade A,12.2,1910,T+7 days,Ajmer,10,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0838,B0105,FPO,Bikaner FPO Buyer 5,Garlic,1000,Medium,68.2,5720,30% advance + balance on delivery,Bikaner,5,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0839,B0131,Retail Chain,Bharatpur Retail Chain Buyer 63,Garlic,2000,Export,69.1,8560,Payment after quality acceptance,Bharatpur,3,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0840,B0209,Processor,Chittorgarh Processor Buyer 47,Garlic,500,Export,69.1,5350,Immediate UPI/RTGS,Chittorgarh,21,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0841,B0066,Institutional,Udaipur Institutional Buyer 32,Gram,1500,FAQ,7.0,5170,Immediate UPI/RTGS,Udaipur,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0842,B0049,Wholesale,Chittorgarh Wholesale Buyer 55,Garlic,50,Medium,69.5,10300,T+3 days,Chittorgarh,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0843,B0187,FPO,Udaipur FPO Buyer 12,Garlic,300,Medium,68.9,12700,T+3 days,Udaipur,30,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0844,B0179,Processor,Chittorgarh Processor Buyer 40,Gram,2000,FAQ,10.0,5810,T+7 days,Chittorgarh,3,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0845,B0168,Wholesale,Barmer Wholesale Buyer 37,Mustard,750,Bold Seed,5.5,6260,T+3 days,Barmer,5,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0846,B0146,Processor,Bikaner Processor Buyer 28,Maize,50,FAQ,11.6,2470,Payment after quality acceptance,Bikaner,5,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0847,B0160,Retail Chain,Hanumangarh Retail Chain Buyer 14,Gram,500,FAQ,7.2,6400,Immediate UPI/RTGS,Hanumangarh,10,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0848,B0123,FPO,Kota FPO Buyer 63,Gram,1000,FAQ,7.0,5400,T+3 days,Kota,30,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0849,B0155,Processor,Kota Processor Buyer 67,Wheat,25,Grade A,11.8,2680,T+7 days,Kota,30,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0850,B0210,FPO,Sikar FPO Buyer 31,Garlic,200,Large,69.0,8220,T+7 days,Sikar,14,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0851,B0117,FPO,Nagaur FPO Buyer 52,Onion,50,Large,74.5,1200,T+1 day,Nagaur,3,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0852,B0116,Wholesale,Chittorgarh Wholesale Buyer 80,Gram,100,Grade A,8.5,5740,Payment after quality acceptance,Chittorgarh,5,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0853,B0189,Wholesale,Jaipur Wholesale Buyer 42,Onion,25,Large,73.3,3260,30% advance + balance on delivery,Jaipur,10,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0854,B0188,Institutional,Sikar Institutional Buyer 50,Mustard,500,Bold Seed,6.8,5450,Payment after quality acceptance,Sikar,5,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0855,B0120,Retail Chain,Bikaner Retail Chain Buyer 22,Bajra,150,Clean,11.9,2800,T+7 days,Bikaner,21,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0856,B0028,Processor,Alwar Processor Buyer 56,Maize,1500,FAQ,11.5,2010,T+3 days,Alwar,10,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0857,B0171,FPO,Chittorgarh FPO Buyer 18,Maize,500,Grade A,11.3,2050,Payment after quality acceptance,Chittorgarh,7,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0858,B0168,FPO,Bhilwara FPO Buyer 72,Mustard,2000,Bold Seed,7.4,6170,T+1 day,Bhilwara,7,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0859,B0049,Processor,Kota Processor Buyer 15,Gram,200,Grade A,7.4,6310,T+3 days,Kota,10,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0860,B0109,Wholesale,Jaipur Wholesale Buyer 41,Gram,100,Grade A,9.4,5790,T+1 day,Jaipur,14,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0861,B0038,Processor,Sri Ganganagar Processor Buyer 38,Mustard,500,FAQ,6.5,6000,T+7 days,Sri Ganganagar,5,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0862,B0154,Wholesale,Chittorgarh Wholesale Buyer 41,Bajra,2000,Clean,10.5,2140,Payment after quality acceptance,Chittorgarh,3,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0863,B0181,Retail Chain,Bhilwara Retail Chain Buyer 49,Tomato,500,A,89.9,2290,T+3 days,Bhilwara,5,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0864,B0187,Wholesale,Chittorgarh Wholesale Buyer 51,Maize,75,Grade A,14.0,2520,Payment after quality acceptance,Chittorgarh,30,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0865,B0090,FPO,Jodhpur FPO Buyer 51,Wheat,300,Grade A,9.2,2800,Payment after quality acceptance,Jodhpur,7,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0866,B0034,Retail Chain,Chittorgarh Retail Chain Buyer 42,Maize,300,FAQ,13.5,2020,Payment after quality acceptance,Chittorgarh,7,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0867,B0075,Processor,Udaipur Processor Buyer 19,Bajra,2000,FAQ,9.7,2710,Payment after quality acceptance,Udaipur,5,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0868,B0202,Retail Chain,Chittorgarh Retail Chain Buyer 19,Onion,50,Medium,74.9,2930,T+7 days,Chittorgarh,21,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0869,B0014,FPO,Kota FPO Buyer 16,Wheat,500,Grade A,10.8,2420,T+1 day,Kota,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0870,B0078,Processor,Jaipur Processor Buyer 77,Maize,300,FAQ,13.0,2520,T+7 days,Jaipur,30,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0871,B0162,Retail Chain,Nagaur Retail Chain Buyer 57,Tomato,300,B,87.0,2200,Immediate UPI/RTGS,Nagaur,3,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0872,B0006,Wholesale,Bhilwara Wholesale Buyer 76,Tomato,750,B,87.8,1950,Payment after quality acceptance,Bhilwara,3,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0873,B0077,Exporter,Bikaner Exporter Buyer 74,Garlic,2000,Medium,67.3,9440,Immediate UPI/RTGS,Bikaner,21,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0874,B0210,Wholesale,Nagaur Wholesale Buyer 69,Garlic,300,Export,68.5,10690,30% advance + balance on delivery,Nagaur,30,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0875,B0178,Retail Chain,Bhilwara Retail Chain Buyer 24,Maize,75,FAQ,12.7,2660,T+3 days,Bhilwara,3,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0876,B0144,Processor,Udaipur Processor Buyer 33,Bajra,75,FAQ,9.3,2210,Immediate UPI/RTGS,Udaipur,14,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0877,B0064,Processor,Jodhpur Processor Buyer 39,Onion,1500,Small,74.8,1200,30% advance + balance on delivery,Jodhpur,30,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0878,B0134,Wholesale,Ajmer Wholesale Buyer 46,Tomato,2000,A,89.1,2400,Payment after quality acceptance,Ajmer,30,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0879,B0035,Processor,Jaipur Processor Buyer 78,Maize,150,FAQ,12.8,2170,T+3 days,Jaipur,5,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0880,B0103,FPO,Jodhpur FPO Buyer 59,Mustard,300,FAQ,7.8,5610,Payment after quality acceptance,Jodhpur,10,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0881,B0183,Wholesale,Kota Wholesale Buyer 48,Maize,150,FAQ,12.3,2140,T+1 day,Kota,7,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0882,B0070,Exporter,Jaipur Exporter Buyer 16,Garlic,100,Export,67.3,5790,30% advance + balance on delivery,Jaipur,10,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0883,B0070,Processor,Bhilwara Processor Buyer 19,Onion,200,Small,72.8,3190,Immediate UPI/RTGS,Bhilwara,10,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0884,B0135,Retail Chain,Kota Retail Chain Buyer 40,Garlic,50,Export,69.5,6790,T+7 days,Kota,3,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0885,B0044,FPO,Jodhpur FPO Buyer 41,Gram,50,Grade A,7.5,4920,Payment after quality acceptance,Jodhpur,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0886,B0183,Processor,Udaipur Processor Buyer 20,Tomato,25,A,87.4,3420,30% advance + balance on delivery,Udaipur,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0887,B0174,Wholesale,Hanumangarh Wholesale Buyer 78,Wheat,200,Grade A,11.1,2510,T+1 day,Hanumangarh,10,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0888,B0184,FPO,Jodhpur FPO Buyer 30,Tomato,300,B,88.9,3460,Immediate UPI/RTGS,Jodhpur,7,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0889,B0187,Processor,Nagaur Processor Buyer 31,Onion,50,Small,72.5,1390,Immediate UPI/RTGS,Nagaur,3,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0890,B0188,Retail Chain,Barmer Retail Chain Buyer 18,Tomato,300,B,88.5,3400,Payment after quality acceptance,Barmer,21,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0891,B0183,Wholesale,Jaipur Wholesale Buyer 55,Garlic,2000,Export,68.6,5070,T+3 days,Jaipur,5,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0892,B0045,Wholesale,Ajmer Wholesale Buyer 10,Tomato,750,B,89.5,1950,30% advance + balance on delivery,Ajmer,7,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0893,B0087,FPO,Bikaner FPO Buyer 32,Garlic,200,Export,69.6,6150,Immediate UPI/RTGS,Bikaner,7,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0894,B0146,FPO,Bharatpur FPO Buyer 51,Tomato,25,A,89.8,4030,Payment after quality acceptance,Bharatpur,14,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0895,B0092,Wholesale,Hanumangarh Wholesale Buyer 1,Tomato,500,B,88.0,1090,T+3 days,Hanumangarh,3,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0896,B0003,Wholesale,Hanumangarh Wholesale Buyer 13,Onion,300,Medium,73.5,2100,Immediate UPI/RTGS,Hanumangarh,14,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0897,B0197,Exporter,Kota Exporter Buyer 33,Garlic,25,Medium,68.4,6590,T+3 days,Kota,7,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0898,B0113,Processor,Hanumangarh Processor Buyer 57,Garlic,150,Medium,67.4,6110,Payment after quality acceptance,Hanumangarh,10,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0899,B0049,Retail Chain,Hanumangarh Retail Chain Buyer 37,Onion,100,Small,72.4,1480,T+7 days,Hanumangarh,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0900,B0031,Wholesale,Ajmer Wholesale Buyer 54,Wheat,500,Grade A,10.7,2540,Payment after quality acceptance,Ajmer,21,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0901,B0186,Wholesale,Barmer Wholesale Buyer 50,Onion,300,Small,72.3,2480,Immediate UPI/RTGS,Barmer,30,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0902,B0014,FPO,Ajmer FPO Buyer 44,Bajra,25,Clean,11.9,2400,Payment after quality acceptance,Ajmer,3,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0903,B0064,FPO,Bharatpur FPO Buyer 80,Tomato,50,A,89.2,2990,T+1 day,Bharatpur,5,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0904,B0171,FPO,Nagaur FPO Buyer 55,Mustard,2000,FAQ,6.4,5830,Immediate UPI/RTGS,Nagaur,21,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0905,B0059,Wholesale,Nagaur Wholesale Buyer 16,Maize,1500,FAQ,12.2,2090,T+3 days,Nagaur,5,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0906,B0014,Wholesale,Jaipur Wholesale Buyer 49,Garlic,50,Large,68.6,13850,Payment after quality acceptance,Jaipur,21,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0907,B0110,Institutional,Sikar Institutional Buyer 7,Maize,25,Grade A,11.3,2550,T+3 days,Sikar,7,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0908,B0011,FPO,Alwar FPO Buyer 1,Garlic,25,Medium,69.0,6860,T+3 days,Alwar,5,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0909,B0048,Exporter,Bharatpur Exporter Buyer 33,Tomato,50,B,88.1,3000,T+3 days,Bharatpur,3,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0910,B0093,Wholesale,Bhilwara Wholesale Buyer 47,Wheat,75,Grade A,9.7,2620,T+3 days,Bhilwara,5,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0911,B0031,Processor,Hanumangarh Processor Buyer 6,Mustard,1500,FAQ,5.6,6740,T+7 days,Hanumangarh,3,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0912,B0185,Wholesale,Bharatpur Wholesale Buyer 20,Onion,100,Small,72.4,2560,T+7 days,Bharatpur,14,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0913,B0031,FPO,Hanumangarh FPO Buyer 56,Onion,1500,Small,73.4,3030,30% advance + balance on delivery,Hanumangarh,14,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0914,B0012,FPO,Udaipur FPO Buyer 73,Bajra,75,FAQ,11.4,2470,Payment after quality acceptance,Udaipur,5,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0915,B0043,Wholesale,Bhilwara Wholesale Buyer 57,Tomato,750,B,88.7,1180,T+7 days,Bhilwara,10,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0916,B0152,Processor,Ajmer Processor Buyer 2,Maize,1000,Grade A,12.5,2170,Payment after quality acceptance,Ajmer,14,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0917,B0142,Processor,Nagaur Processor Buyer 16,Gram,2000,FAQ,7.7,5480,30% advance + balance on delivery,Nagaur,5,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0918,B0070,Processor,Bhilwara Processor Buyer 7,Wheat,150,FAQ,12.0,2370,T+1 day,Bhilwara,14,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0919,B0084,FPO,Bhilwara FPO Buyer 11,Wheat,1000,Grade A,11.2,2670,T+7 days,Bhilwara,14,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0920,B0092,Wholesale,Jaipur Wholesale Buyer 29,Onion,25,Large,74.9,3300,T+1 day,Jaipur,7,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0921,B0161,Wholesale,Chittorgarh Wholesale Buyer 78,Mustard,300,FAQ,7.5,5850,T+1 day,Chittorgarh,7,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0922,B0115,Wholesale,Udaipur Wholesale Buyer 30,Maize,300,Grade A,12.1,2090,T+7 days,Udaipur,3,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0923,B0146,Processor,Bikaner Processor Buyer 63,Bajra,75,FAQ,10.9,2340,Immediate UPI/RTGS,Bikaner,7,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0924,B0018,FPO,Nagaur FPO Buyer 19,Bajra,1000,FAQ,10.3,2340,T+7 days,Nagaur,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0925,B0155,Wholesale,Chittorgarh Wholesale Buyer 13,Mustard,2000,Bold Seed,6.2,5230,Immediate UPI/RTGS,Chittorgarh,30,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0926,B0037,Processor,Ajmer Processor Buyer 77,Wheat,50,FAQ,11.4,2540,Immediate UPI/RTGS,Ajmer,30,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0927,B0123,Wholesale,Nagaur Wholesale Buyer 73,Onion,100,Medium,74.4,1550,T+3 days,Nagaur,7,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0928,B0161,Processor,Alwar Processor Buyer 70,Bajra,2000,FAQ,9.1,2440,Immediate UPI/RTGS,Alwar,3,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0929,B0001,Retail Chain,Jodhpur Retail Chain Buyer 29,Mustard,300,FAQ,5.7,5560,T+7 days,Jodhpur,5,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0930,B0176,Exporter,Alwar Exporter Buyer 15,Gram,1500,Grade A,7.5,5780,Immediate UPI/RTGS,Alwar,5,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0931,B0093,Processor,Sikar Processor Buyer 11,Gram,200,FAQ,8.8,5100,T+1 day,Sikar,10,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0932,B0160,Institutional,Bhilwara Institutional Buyer 37,Bajra,1500,Clean,11.6,2480,T+3 days,Bhilwara,10,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0933,B0039,Exporter,Barmer Exporter Buyer 19,Gram,50,Grade A,7.4,4800,T+7 days,Barmer,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0934,B0038,Wholesale,Kota Wholesale Buyer 12,Mustard,2000,Bold Seed,8.0,5910,T+1 day,Kota,30,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0935,B0106,Institutional,Sikar Institutional Buyer 78,Onion,500,Large,73.0,2970,Payment after quality acceptance,Sikar,5,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0936,B0137,Institutional,Jodhpur Institutional Buyer 69,Garlic,750,Medium,68.2,10040,30% advance + balance on delivery,Jodhpur,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0937,B0053,Processor,Chittorgarh Processor Buyer 3,Maize,200,Grade A,12.7,1900,T+1 day,Chittorgarh,3,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0938,B0118,Retail Chain,Sikar Retail Chain Buyer 19,Onion,75,Large,74.9,1950,T+7 days,Sikar,5,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0939,B0097,Wholesale,Jaipur Wholesale Buyer 4,Maize,50,Grade A,12.1,2080,Payment after quality acceptance,Jaipur,3,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0940,B0038,Wholesale,Nagaur Wholesale Buyer 47,Tomato,75,A,87.2,950,Immediate UPI/RTGS,Nagaur,3,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0941,B0192,Processor,Barmer Processor Buyer 68,Bajra,2000,Clean,10.4,2270,Payment after quality acceptance,Barmer,7,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0942,B0155,Processor,Bharatpur Processor Buyer 23,Wheat,25,FAQ,9.0,2240,T+7 days,Bharatpur,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0943,B0109,Wholesale,Hanumangarh Wholesale Buyer 21,Gram,150,Grade A,9.9,5380,30% advance + balance on delivery,Hanumangarh,10,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0944,B0048,Wholesale,Sri Ganganagar Wholesale Buyer 72,Maize,100,FAQ,13.4,2400,T+7 days,Sri Ganganagar,10,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0945,B0096,FPO,Nagaur FPO Buyer 55,Garlic,25,Medium,67.8,13220,Immediate UPI/RTGS,Nagaur,3,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0946,B0028,Processor,Jaipur Processor Buyer 9,Onion,75,Small,73.8,2580,T+3 days,Jaipur,5,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0947,B0145,FPO,Alwar FPO Buyer 62,Wheat,1000,FAQ,9.1,2250,Immediate UPI/RTGS,Alwar,7,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0948,B0050,FPO,Barmer FPO Buyer 41,Onion,300,Medium,74.2,2480,T+1 day,Barmer,21,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0949,B0129,Retail Chain,Sri Ganganagar Retail Chain Buyer 20,Onion,750,Small,73.8,1450,T+7 days,Sri Ganganagar,10,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0950,B0161,Processor,Ajmer Processor Buyer 12,Gram,500,FAQ,9.7,5000,Payment after quality acceptance,Ajmer,21,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0951,B0197,Institutional,Jodhpur Institutional Buyer 44,Bajra,2000,Clean,11.4,2760,T+3 days,Jodhpur,7,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0952,B0062,Retail Chain,Jaipur Retail Chain Buyer 27,Garlic,1500,Export,68.8,8960,T+1 day,Jaipur,14,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0953,B0205,Processor,Barmer Processor Buyer 12,Mustard,150,Bold Seed,5.3,6600,T+3 days,Barmer,5,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0954,B0023,FPO,Kota FPO Buyer 10,Bajra,200,FAQ,11.1,2550,T+7 days,Kota,7,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0955,B0032,Retail Chain,Barmer Retail Chain Buyer 73,Gram,1500,Grade A,7.1,5150,T+3 days,Barmer,10,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0956,B0096,FPO,Bikaner FPO Buyer 11,Bajra,1000,Clean,10.5,2500,T+3 days,Bikaner,21,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0957,B0040,Retail Chain,Chittorgarh Retail Chain Buyer 14,Wheat,2000,Grade A,10.1,2210,30% advance + balance on delivery,Chittorgarh,10,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0958,B0090,Retail Chain,Sri Ganganagar Retail Chain Buyer 60,Maize,1500,Grade A,12.9,2010,T+7 days,Sri Ganganagar,3,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0959,B0052,Processor,Chittorgarh Processor Buyer 52,Bajra,300,Clean,9.2,2650,T+3 days,Chittorgarh,14,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0960,B0117,Wholesale,Chittorgarh Wholesale Buyer 5,Maize,50,FAQ,13.8,2250,T+1 day,Chittorgarh,21,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0961,B0098,Processor,Udaipur Processor Buyer 8,Onion,1000,Medium,74.4,3180,T+7 days,Udaipur,5,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0962,B0070,Processor,Nagaur Processor Buyer 33,Maize,1500,FAQ,11.3,2440,Immediate UPI/RTGS,Nagaur,7,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0963,B0135,Retail Chain,Bharatpur Retail Chain Buyer 28,Mustard,500,Bold Seed,5.6,6270,Immediate UPI/RTGS,Bharatpur,3,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0964,B0108,FPO,Barmer FPO Buyer 62,Onion,100,Medium,73.6,2090,T+1 day,Barmer,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0965,B0003,Wholesale,Hanumangarh Wholesale Buyer 72,Onion,300,Large,72.6,3300,Payment after quality acceptance,Hanumangarh,21,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0966,B0212,Exporter,Bhilwara Exporter Buyer 41,Onion,2000,Small,72.5,3100,T+7 days,Bhilwara,5,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0967,B0068,Retail Chain,Kota Retail Chain Buyer 67,Onion,1500,Large,72.0,2240,T+7 days,Kota,30,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0968,B0056,Exporter,Bhilwara Exporter Buyer 25,Tomato,50,B,89.1,980,T+1 day,Bhilwara,14,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0969,B0004,Processor,Sikar Processor Buyer 48,Maize,100,Grade A,11.0,2630,T+3 days,Sikar,14,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0970,B0091,Exporter,Bhilwara Exporter Buyer 46,Tomato,300,B,88.6,2900,T+3 days,Bhilwara,3,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0971,B0042,FPO,Sri Ganganagar FPO Buyer 70,Tomato,750,B,88.1,3840,Payment after quality acceptance,Sri Ganganagar,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0972,B0207,Wholesale,Chittorgarh Wholesale Buyer 14,Gram,50,FAQ,8.9,5020,30% advance + balance on delivery,Chittorgarh,10,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0973,B0163,Wholesale,Chittorgarh Wholesale Buyer 57,Tomato,750,A,89.0,1310,T+7 days,Chittorgarh,5,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0974,B0032,FPO,Jodhpur FPO Buyer 45,Tomato,100,B,88.2,3200,Payment after quality acceptance,Jodhpur,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0975,B0069,Retail Chain,Sikar Retail Chain Buyer 34,Wheat,750,Grade A,11.5,2560,T+7 days,Sikar,21,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0976,B0007,Exporter,Hanumangarh Exporter Buyer 20,Wheat,25,Grade A,11.5,2210,30% advance + balance on delivery,Hanumangarh,30,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0977,B0143,Exporter,Ajmer Exporter Buyer 51,Onion,300,Small,73.8,1810,T+7 days,Ajmer,30,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0978,B0045,Exporter,Ajmer Exporter Buyer 52,Garlic,300,Large,68.6,12450,T+7 days,Ajmer,5,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0979,B0216,Processor,Jodhpur Processor Buyer 34,Bajra,1000,FAQ,11.8,2600,T+1 day,Jodhpur,3,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0980,B0008,Processor,Sri Ganganagar Processor Buyer 80,Wheat,1000,FAQ,10.7,2390,Immediate UPI/RTGS,Sri Ganganagar,21,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0981,B0062,Wholesale,Bhilwara Wholesale Buyer 29,Tomato,200,B,87.6,1750,T+1 day,Bhilwara,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0982,B0161,Processor,Bhilwara Processor Buyer 3,Gram,50,FAQ,7.3,5160,30% advance + balance on delivery,Bhilwara,3,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0983,B0020,FPO,Bharatpur FPO Buyer 64,Bajra,75,Clean,11.7,2210,T+1 day,Bharatpur,10,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0984,B0161,Processor,Barmer Processor Buyer 10,Tomato,50,A,89.1,3290,T+7 days,Barmer,7,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0985,B0031,FPO,Ajmer FPO Buyer 44,Bajra,75,Clean,10.5,2140,30% advance + balance on delivery,Ajmer,14,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0986,B0156,Wholesale,Jodhpur Wholesale Buyer 4,Bajra,50,FAQ,10.6,2340,T+1 day,Jodhpur,5,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0987,B0057,Processor,Hanumangarh Processor Buyer 11,Mustard,200,FAQ,5.8,5550,T+7 days,Hanumangarh,5,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0988,B0191,Wholesale,Chittorgarh Wholesale Buyer 64,Onion,150,Medium,73.5,2390,T+7 days,Chittorgarh,5,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0989,B0101,Wholesale,Alwar Wholesale Buyer 14,Bajra,2000,Clean,9.5,2450,T+1 day,Alwar,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0990,B0070,Institutional,Hanumangarh Institutional Buyer 41,Garlic,1000,Export,67.3,12650,T+7 days,Hanumangarh,10,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0991,B0043,Retail Chain,Sikar Retail Chain Buyer 5,Onion,50,Large,72.8,2350,T+7 days,Sikar,7,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0992,B0203,Processor,Jaipur Processor Buyer 24,Garlic,200,Large,67.7,9390,T+1 day,Jaipur,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0993,B0082,Retail Chain,Ajmer Retail Chain Buyer 2,Onion,50,Large,73.0,1220,T+7 days,Ajmer,14,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0994,B0055,Processor,Jodhpur Processor Buyer 68,Maize,150,FAQ,11.3,2670,T+3 days,Jodhpur,21,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0995,B0082,Wholesale,Bhilwara Wholesale Buyer 26,Garlic,200,Medium,67.1,13320,T+7 days,Bhilwara,10,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0996,B0154,Processor,Sri Ganganagar Processor Buyer 42,Gram,500,Grade A,7.7,5230,Immediate UPI/RTGS,Sri Ganganagar,7,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0997,B0010,Institutional,Hanumangarh Institutional Buyer 69,Wheat,75,FAQ,10.0,2710,Immediate UPI/RTGS,Hanumangarh,3,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0998,B0071,Retail Chain,Nagaur Retail Chain Buyer 41,Mustard,2000,Bold Seed,6.2,5970,30% advance + balance on delivery,Nagaur,30,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D0999,B0127,Processor,Udaipur Processor Buyer 16,Tomato,150,B,89.8,3120,Immediate UPI/RTGS,Udaipur,3,Prototype verified,SYNTHETIC PROTOTYPE - NOT REAL BUYER
+D1000,B0177,Processor,Nagaur Processor Buyer 56,Wheat,50,FAQ,9.5,2610,T+1 day,Nagaur,21,Pending verification,SYNTHETIC PROTOTYPE - NOT REAL BUYER

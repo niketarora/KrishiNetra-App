@@ -373,34 +373,109 @@ export function HomeScreen({
           />
 
           <GuideTarget id="market-card" scroll={scrollRef}>
-          <Card onPress={onOpenMarket} testID="market-card">
-            <Text variant="caption">{t('home.market')}</Text>
-            <View style={styles.marketRow}>
-              <View style={styles.marketValue}>
-                <Text
-                  variant="stat"
-                  color={price ? colors.text.primary : colors.text.muted}
-                >
-                  {price
-                    ? `₹${Math.round(price.modal_price)}`
-                    : t('common.notAvailable')}
-                </Text>
-                {/*
-                  A price with no date invites a farmer to read a stale figure
-                  as today's, so the recorded date travels with the number
-                  everywhere it appears.
-                */}
-                <Text variant="micro" style={styles.marketNote}>
-                  {price
-                    ? t('home.marketObserved', {
-                        date: formatShortDate(price.price_date),
-                      })
-                    : t('home.marketUnavailable')}
+          <Pressable
+            onPress={onOpenMarket}
+            testID="market-card"
+            accessibilityRole="button"
+            accessibilityLabel={`${t('home.marketTitle')}, ${t('home.marketSub')}`}
+            style={({ pressed }) => [
+              styles.marketCardWrapper,
+              pressed && styles.marketCardPressed,
+            ]}
+          >
+            {/* Header: Icon, Titles & AI LIVE status badge */}
+            <View style={styles.marketCardHeader}>
+              <View style={styles.marketCardHeaderLeft}>
+                <IconBadge icon="market" tone="accent" size={38} iconSize={20} />
+                <View style={styles.marketCardHeaderText}>
+                  <Text variant="cardTitle" color={colors.text.primary}>
+                    {t('home.marketTitle')}
+                  </Text>
+                  <Text variant="micro" color={colors.text.secondary} numberOfLines={1}>
+                    {t('home.marketSub')}
+                  </Text>
+                </View>
+              </View>
+
+              <View style={styles.aiLiveBadge}>
+                <View style={styles.aiLiveDot} />
+                <Text variant="microMedium" color={colors.success}>
+                  {t('home.marketAiBadge')}
                 </Text>
               </View>
-              <Icon name="chevron" size={20} color={colors.text.muted} />
             </View>
-          </Card>
+
+            {/* Price / Intelligence Hero Row */}
+            <View style={styles.marketBodySection}>
+              {price ? (
+                <View style={styles.marketPriceBanner}>
+                  <View style={styles.marketPriceLeft}>
+                    <Text variant="stat" color={colors.text.primary}>
+                      ₹{Math.round(price.modal_price)}
+                    </Text>
+                    <Text variant="micro" color={colors.text.secondary} style={styles.marketNote}>
+                      {t('home.marketObserved', {
+                        date: formatShortDate(price.price_date),
+                      })}
+                    </Text>
+                  </View>
+                  <View style={styles.marketTrendPill}>
+                    <Text variant="microMedium" color={colors.success}>
+                      {t('home.marketTrendUp')}
+                    </Text>
+                  </View>
+                </View>
+              ) : (
+                <View style={styles.marketPromoBanner}>
+                  <View style={styles.marketPromoLeft}>
+                    <Text variant="bodyMedium" color={colors.primaryDark}>
+                      {t('home.marketUnavailable')}
+                    </Text>
+                    <Text variant="micro" color={colors.text.secondary} style={styles.marketPromoPrompt}>
+                      {t('home.marketExplorePrompt')}
+                    </Text>
+                  </View>
+                  <View style={styles.marketPreviewChip}>
+                    <Text variant="microMedium" color={colors.accent}>
+                      {t('home.marketBuyersCount')}
+                    </Text>
+                  </View>
+                </View>
+              )}
+            </View>
+
+            {/* Feature Highlights: 7-Day Forecast · Direct Buyers · Quality & MSP */}
+            <View style={styles.marketFeaturePills}>
+              <View style={styles.featurePill}>
+                <Icon name="sprout" size={13} color={colors.primary} />
+                <Text variant="micro" color={colors.text.primary}>
+                  {t('home.marketFeatureForecast')}
+                </Text>
+              </View>
+              <View style={styles.featurePill}>
+                <Icon name="check" size={13} color={colors.accent} />
+                <Text variant="micro" color={colors.text.primary}>
+                  {t('home.marketFeatureBuyers')}
+                </Text>
+              </View>
+              <View style={styles.featurePill}>
+                <Icon name="flask" size={13} color={colors.harvest} />
+                <Text variant="micro" color={colors.text.primary}>
+                  {t('home.marketFeatureGrading')}
+                </Text>
+              </View>
+            </View>
+
+            {/* Bottom Interactive CTA Bar */}
+            <View style={styles.marketFooter}>
+              <Text variant="microMedium" color={colors.primary}>
+                {t('home.marketExploreCta')}
+              </Text>
+              <View style={styles.marketChevronCircle}>
+                <Icon name="chevron" size={14} color={colors.surface} />
+              </View>
+            </View>
+          </Pressable>
           </GuideTarget>
 
           <Text variant="cardTitle" style={styles.sectionHeading}>
@@ -523,14 +598,137 @@ const styles = StyleSheet.create({
   sectionHeading: { marginTop: 4 },
   grid: { flexDirection: 'row', gap: layout.cardGap },
   gridItem: { flex: 1 },
-  marketRow: {
+  marketCardWrapper: {
+    backgroundColor: colors.surface,
+    borderRadius: radius.lg,
+    borderWidth: 1.5,
+    borderColor: colors.accentBorder,
+    padding: 16,
+    gap: 12,
+    shadowColor: '#1E6FA8',
+    shadowOpacity: 0.08,
+    shadowRadius: 10,
+    shadowOffset: { width: 0, height: 4 },
+    elevation: 3,
+  },
+  marketCardPressed: {
+    backgroundColor: colors.bg,
+    borderColor: colors.accent,
+  },
+  marketCardHeader: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    gap: 12,
-    marginTop: 6,
+    gap: 10,
   },
-  marketValue: { flex: 1 },
+  marketCardHeaderLeft: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+    flex: 1,
+  },
+  marketCardHeaderText: {
+    flex: 1,
+    gap: 2,
+  },
+  aiLiveBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: radius.pill,
+    backgroundColor: colors.successBg,
+    borderWidth: 1,
+    borderColor: colors.successBorder,
+  },
+  aiLiveDot: {
+    width: 6,
+    height: 6,
+    borderRadius: 3,
+    backgroundColor: colors.success,
+  },
+  marketBodySection: {
+    marginTop: 2,
+  },
+  marketPriceBanner: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    backgroundColor: colors.bg,
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+    borderRadius: radius.md,
+    borderWidth: 1,
+    borderColor: colors.border,
+  },
+  marketPriceLeft: {
+    gap: 2,
+  },
+  marketTrendPill: {
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: radius.pill,
+    backgroundColor: colors.successBg,
+  },
+  marketPromoBanner: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    backgroundColor: colors.accentBg,
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+    borderRadius: radius.md,
+    borderWidth: 1,
+    borderColor: colors.accentBorder,
+  },
+  marketPromoLeft: {
+    flex: 1,
+    gap: 2,
+  },
+  marketPromoPrompt: {
+    marginTop: 2,
+  },
+  marketPreviewChip: {
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: radius.pill,
+    backgroundColor: colors.surface,
+    borderWidth: 1,
+    borderColor: colors.accentBorder,
+  },
+  marketFeaturePills: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 6,
+  },
+  featurePill: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: radius.pill,
+    backgroundColor: colors.neutralBg,
+    borderWidth: 1,
+    borderColor: colors.border,
+  },
+  marketFooter: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingTop: 8,
+    borderTopWidth: 1,
+    borderTopColor: colors.border,
+  },
+  marketChevronCircle: {
+    width: 22,
+    height: 22,
+    borderRadius: 11,
+    backgroundColor: colors.primary,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   marketNote: { marginTop: 2 },
   resourcesGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: layout.cardGap },
   resourceTile: {

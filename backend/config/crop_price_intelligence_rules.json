@@ -1,0 +1,44 @@
+{
+  "mode": "prototype",
+  "quality_adjustments_rs_per_quintal": {
+    "grade": {
+      "A": 70,
+      "B": 25,
+      "FAQ": 0,
+      "C": -60
+    },
+    "quality_score": [
+      { "min": 85, "adjustment": 30, "reason": "High visual quality score" },
+      { "min": 70, "adjustment": 10, "reason": "Acceptable visual quality score" },
+      { "min": 0, "adjustment": -40, "reason": "Low visual quality score" }
+    ],
+    "visible_damage": [
+      { "max": 3, "adjustment": 0, "reason": "Low visible damage" },
+      { "max": 8, "adjustment": -25, "reason": "Moderate visible damage" },
+      { "max": 100, "adjustment": -60, "reason": "High visible damage" }
+    ],
+    "moisture": [
+      { "max": 10, "adjustment": 0, "reason": "Moisture is within preferred range" },
+      { "max": 13, "adjustment": -20, "reason": "Moisture is slightly high" },
+      { "max": 100, "adjustment": -40, "reason": "High moisture" }
+    ]
+  },
+  "prediction": {
+    "base_range_width_rs_per_quintal": 35,
+    "trend_multiplier_3d": 0.45,
+    "trend_multiplier_7d": 0.95,
+    "buyer_demand_premium_rs": 45,
+    "arrival_pressure_threshold": 1400
+  },
+  "sale_recommendation": {
+    "market_risk_rate": 0.015,
+    "quality_deterioration_rate_per_day": 0.003,
+    "minimum_wait_profit_rs": 500
+  },
+  "costs": {
+    "mandi_charge_rate": 0.025,
+    "loading_unloading_rs_per_quintal": 8,
+    "fallback_transport_rs_per_km_per_quintal": 0.9,
+    "storage_rs_per_quintal_per_day": 1.5
+  }
+}

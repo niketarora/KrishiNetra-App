@@ -677,8 +677,41 @@ describe('POST /api/v1/ai/assist', () => {
   });
 });
 
+describe('market intelligence and crop price forecasting', () => {
+  it('returns full market intelligence analysis with authenticated token', async () => {
+    const res = await request(app)
+      .post('/api/v1/market-intelligence/analyse')
+      .set(AUTH)
+      .send({
+        crop: 'Mustard',
+        quantity: 100,
+        location: 'Kota',
+        moisture: 9.8,
+        locale: 'en',
+      });
+
+    expect(res.status).toBe(200);
+    expect(res.body.success).toBe(true);
+    expect(res.body.data.crop_analysis.crop).toBe('Mustard');
+    expect(res.body.data.market_intelligence.current_mandi_price).toBeGreaterThan(0);
+    expect(res.body.data.price_prediction.current_fair_price_min).toBeGreaterThan(0);
+    expect(res.body.data.sale_recommendation.recommendation).toBeDefined();
+    expect(res.body.data.buyer_matches.length).toBeGreaterThan(0);
+  });
+
+  it('rejects invalid inputs with 400', async () => {
+    const res = await request(app)
+      .post('/api/v1/market-intelligence/analyse')
+      .set(AUTH)
+      .send({ crop: '', quantity: -10 });
+
+    expect(res.status).toBe(400);
+    expect(res.body.error.code).toBe('INVALID_REQUEST');
+  });
+});
+
 describe('routes reserved for later phases', () => {
-  it.each(['/api/v1/buyers', '/api/v1/lots', '/api/v1/offers'])(
+  it.each(['/api/v1/lots', '/api/v1/offers'])(
     '%s is not stubbed, it is absent',
     async (path) => {
       const res = await request(app).get(path).set(AUTH);
@@ -688,3 +721,4 @@ describe('routes reserved for later phases', () => {
     },
   );
 });
+
