@@ -22,7 +22,7 @@ type CapturedPhoto = { uri: string; base64: string };
  * Provides real-time multimodal live interaction with Google Gemini Live API:
  * - Live camera preview with 1-2 FPS continuous frame streaming
  * - Real-time spoken dialogue with Indian farmer agricultural system instruction
- * - Native audio streaming & barge-in / interruption handling
+ * - Native continuous 16kHz PCM audio streaming & barge-in / interruption handling
  * - Gemini function calling to KrishiNetra backend services
  * - Optional still-photo snapshot analysis mode
  */
@@ -48,6 +48,7 @@ export function VisualAssistantScreen({ onBack }: Props) {
   const liveClientRef = useRef<GeminiLiveClient | null>(null);
   const audioControllerRef = useRef<LiveAudioController | null>(null);
   const frameTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const isSamplingFrameRef = useRef<boolean>(false);
 
   // Ask for camera permission immediately on mount
   useEffect(() => {
@@ -67,12 +68,18 @@ export function VisualAssistantScreen({ onBack }: Props) {
     setCameraFacing((current) => (current === 'back' ? 'front' : 'back'));
   }, []);
 
-  // Frame sampler: captures 1 frame per second from CameraView and sends to Gemini Live
+  // Frame sampler: captures ~1 frame per second from CameraView and sends to Gemini Live
   const sampleAndSendFrame = useCallback(async () => {
-    if (!cameraRef.current || !liveClientRef.current || liveClientRef.current.getState() === 'disconnected') {
+    if (
+      !cameraRef.current ||
+      !liveClientRef.current ||
+      liveClientRef.current.getState() === 'disconnected' ||
+      isSamplingFrameRef.current
+    ) {
       return;
     }
 
+    isSamplingFrameRef.current = true;
     try {
       const result = await cameraRef.current.takePictureAsync({
         base64: true,
@@ -84,15 +91,42 @@ export function VisualAssistantScreen({ onBack }: Props) {
         liveClientRef.current.sendRealtimeImage(result.base64);
       }
     } catch {
-      // Ignored during live stream
+      // Ignored during live stream frame capture
+    } finally {
+      isSamplingFrameRef.current = false;
     }
+  }, []);
+
+  const stopLiveSession = useCallback(() => {
+    if (frameTimerRef.current) {
+      clearInterval(frameTimerRef.current);
+      frameTimerRef.current = null;
+    }
+    isSamplingFrameRef.current = false;
+
+    if (liveClientRef.current) {
+      liveClientRef.current.disconnect();
+      liveClientRef.current = null;
+    }
+    if (audioControllerRef.current) {
+      audioControllerRef.current.destroy();
+      audioControllerRef.current = null;
+    }
+
+    setIsLiveActive(false);
+    setLiveState('disconnected');
+    setLiveSubtitle('');
   }, []);
 
   const startLiveSession = useCallback(async () => {
     if (isLiveActive) return;
 
-    audioControllerRef.current = new LiveAudioController();
-    await audioControllerRef.current.requestPermissions();
+    const audioController = new LiveAudioController();
+    audioControllerRef.current = audioController;
+    const micGranted = await audioController.requestPermissions();
+    if (!micGranted) {
+      setErrorMessage(t('visualAssistant.permissionDenied') || 'Microphone permission required for Live Assistant');
+    }
 
     setErrorMessage(null);
     setLiveSubtitle(t('visualAssistant.defaultGreeting'));
@@ -114,37 +148,93 @@ export function VisualAssistantScreen({ onBack }: Props) {
       onToolCall: async () => ({}),
       onError: (msg) => {
         setErrorMessage(msg);
-        setIsLiveActive(false);
+        stopLiveSession();
       },
     });
 
     liveClientRef.current = client;
-    await client.connect();
 
-    // Start 1 FPS frame sampling
-    frameTimerRef.current = setInterval(() => {
-      void sampleAndSendFrame();
-    }, 1200);
-  }, [isLiveActive, sampleAndSendFrame, t]);
+    try {
+      await client.connect();
 
-  const stopLiveSession = useCallback(() => {
-    if (frameTimerRef.current) {
-      clearInterval(frameTimerRef.current);
-      frameTimerRef.current = null;
+      // Start continuous microphone PCM audio capture and streaming
+      await audioController.startRecording((base64PcmChunk) => {
+        if (liveClientRef.current) {
+          liveClientRef.current.sendRealtimeAudio(base64PcmChunk);
+        }
+      });
+
+      // Start ~1 FPS frame sampling
+      frameTimerRef.current = setInterval(() => {
+        void sampleAndSendFrame();
+      }, 1200);
+    } catch (err) {
+      setErrorMessage(err instanceof Error ? err.message : 'Connection failed');
+      stopLiveSession();
     }
-    if (liveClientRef.current) {
-      liveClientRef.current.disconnect();
-      liveClientRef.current = null;
-    }
-    if (audioControllerRef.current) {
-      audioControllerRef.current.destroy();
-      audioControllerRef.current = null;
+  }, [isLiveActive, sampleAndSendFrame, stopLiveSession, t]);
+
+  const handleSendMessage = useCallback(async () => {
+    const textToSend = question.trim();
+    if (!textToSend) return;
+
+    if (isLiveActive && liveClientRef.current) {
+      setLiveSubtitle(`Farmer: "${textToSend}"\n\nAI is analyzing...`);
+      setQuestion('');
+
+      // Send the current camera frame to accompany the text prompt
+      if (cameraRef.current) {
+        try {
+          const snap = await cameraRef.current.takePictureAsync({
+            base64: true,
+            quality: 0.5,
+            skipProcessing: true,
+          });
+          if (snap?.base64 && liveClientRef.current) {
+            liveClientRef.current.sendRealtimeImage(snap.base64);
+          }
+        } catch {
+          // Ignored
+        }
+      }
+      liveClientRef.current.sendTextPrompt(textToSend);
+      return;
     }
 
-    setIsLiveActive(false);
-    setLiveState('disconnected');
-    setLiveSubtitle('');
-  }, []);
+    // Still photo mode / standard camera mode
+    let currentPhoto = photo;
+    if (!currentPhoto && cameraRef.current) {
+      try {
+        const snap = await cameraRef.current.takePictureAsync({ base64: true, quality: 0.5 });
+        if (snap?.base64) {
+          currentPhoto = { uri: snap.uri, base64: snap.base64 };
+          setPhoto(currentPhoto);
+          setState('captured');
+        }
+      } catch (err) {
+        console.warn('Snap error:', err);
+      }
+    }
+
+    if (!currentPhoto) return;
+
+    setState('asking');
+    setErrorMessage(null);
+
+    try {
+      const result = await resolveVisualAssistantAnswer(t, {
+        imageBase64: currentPhoto.base64,
+        mimeType: 'image/jpeg',
+        questionText: textToSend,
+      });
+      setAnswer(result.answer);
+      setState('answered');
+      setQuestion('');
+    } catch (err) {
+      setErrorMessage(err instanceof Error ? err.message : t('visualAssistant.errors.generic'));
+      setState('error');
+    }
+  }, [isLiveActive, photo, question, t]);
 
   const captureStill = useCallback(async () => {
     if (!cameraRef.current) return;
@@ -183,24 +273,8 @@ export function VisualAssistantScreen({ onBack }: Props) {
   }, []);
 
   const askStill = useCallback(async () => {
-    if (!photo || !question.trim()) return;
-
-    setState('asking');
-    setErrorMessage(null);
-
-    try {
-      const result = await resolveVisualAssistantAnswer(t, {
-        imageBase64: photo.base64,
-        mimeType: 'image/jpeg',
-        questionText: question,
-      });
-      setAnswer(result.answer);
-      setState('answered');
-    } catch (err) {
-      setErrorMessage(err instanceof Error ? err.message : t('visualAssistant.errors.generic'));
-      setState('error');
-    }
-  }, [photo, question, t]);
+    await handleSendMessage();
+  }, [handleSendMessage]);
 
   // --- Permission still resolving -----------------------------------------
   if (!permission) {
@@ -362,6 +436,7 @@ export function VisualAssistantScreen({ onBack }: Props) {
         </View>
 
         <View style={styles.bottomArea}>
+          {/* AI Response Card / Subtitles */}
           {isLiveActive ? (
             <View style={styles.liveActiveCard}>
               <View style={styles.liveSpeechRow}>
@@ -370,101 +445,106 @@ export function VisualAssistantScreen({ onBack }: Props) {
                   {liveSubtitle || t('visualAssistant.defaultGreeting')}
                 </Text>
               </View>
-              <Button
-                label={t('visualAssistant.endLive')}
-                onPress={stopLiveSession}
-                variant="secondary"
-                icon="close"
-              />
             </View>
-          ) : state === 'idle' ? (
-            <View style={styles.controlsRow}>
-              <View style={styles.liveStartBlock}>
-                <Button
-                  label={t('visualAssistant.startLive')}
-                  onPress={() => void startLiveSession()}
-                  variant="primary"
-                  icon="play"
-                  style={styles.startLiveButton}
-                />
+          ) : answer ? (
+            <View style={styles.answerCard} testID="visual-assistant-answer">
+              <View style={styles.answerBadge}>
+                <Text variant="microMedium" color={avatarColors.state.speaking}>
+                  {t('visualAssistant.answerLabel')}
+                </Text>
               </View>
-
-              <Text variant="microMedium" color="#EDEEE9" center style={styles.hint}>
-                {t('visualAssistant.captureSub')}
+              <Text variant="body" color="#FFFFFF">
+                {answer}
               </Text>
-
-              <View style={styles.captureRow}>
-                <Pressable
-                  onPress={loadSamplePhoto}
-                  style={({ pressed }) => [styles.sampleButton, pressed && styles.capturePressed]}
-                  accessibilityRole="button"
-                  accessibilityLabel="Test with sample plant image"
-                  testID="visual-assistant-load-sample"
-                >
-                  <Icon name="book" size={24} color="#FFFFFF" strokeWidth={2} />
-                </Pressable>
-
-                <Pressable
-                  onPress={captureStill}
-                  style={({ pressed }) => [styles.captureButton, pressed && styles.capturePressed]}
-                  accessibilityRole="button"
-                  accessibilityLabel={t('visualAssistant.captureLabel')}
-                  testID="visual-assistant-capture"
-                >
-                  <Icon name="camera" size={32} color="#151714" strokeWidth={2} />
-                </Pressable>
-              </View>
             </View>
-          ) : (
-            <>
-              {answer ? (
-                <View style={styles.answerCard} testID="visual-assistant-answer">
-                  <View style={styles.answerBadge}>
-                    <Text variant="microMedium" color={avatarColors.state.speaking}>
-                      {t('visualAssistant.answerLabel')}
-                    </Text>
-                  </View>
-                  <Text variant="body" color="#FFFFFF">
-                    {answer}
-                  </Text>
-                </View>
-              ) : null}
+          ) : null}
 
-              {errorMessage ? (
-                <Banner title={errorMessage} tone="danger" icon="alert" />
-              ) : null}
+          {errorMessage ? (
+            <Banner title={errorMessage} tone="danger" icon="alert" />
+          ) : null}
 
+          {/* Interactive Message Box with Text Input & Send */}
+          <View style={styles.messageBoxRow}>
+            <View style={styles.inputContainer}>
               <Input
-                label={t('visualAssistant.questionLabel')}
-                placeholder={t('visualAssistant.questionPlaceholder')}
+                placeholder="Ask about this plant or crop..."
                 value={question}
                 onChangeText={setQuestion}
                 editable={!asking}
                 returnKeyType="send"
-                onSubmitEditing={() => void askStill()}
+                onSubmitEditing={() => void handleSendMessage()}
                 testID="visual-assistant-question"
               />
+            </View>
 
+            <Pressable
+              onPress={() => void handleSendMessage()}
+              disabled={!question.trim() || asking}
+              style={({ pressed }) => [
+                styles.sendButton,
+                !question.trim() && styles.sendButtonDisabled,
+                pressed && styles.capturePressed,
+              ]}
+              accessibilityRole="button"
+              accessibilityLabel="Send Question"
+              testID="visual-assistant-ask"
+            >
+              {asking ? (
+                <ActivityIndicator size="small" color="#FFFFFF" />
+              ) : (
+                <Icon name="rocket" size={20} color="#FFFFFF" strokeWidth={2.2} />
+              )}
+            </Pressable>
+          </View>
+
+          {/* Live / Camera Mode Controls */}
+          {isLiveActive ? (
+            <Button
+              label={t('visualAssistant.endLive')}
+              onPress={stopLiveSession}
+              variant="secondary"
+              icon="close"
+            />
+          ) : (
+            <View style={styles.actionRow}>
               <Button
-                label={
-                  asking
-                    ? t('visualAssistant.asking')
-                    : answer
-                      ? t('visualAssistant.askAgain')
-                      : t('visualAssistant.askButton')
-                }
-                onPress={() => void askStill()}
-                loading={asking}
-                disabled={!question.trim()}
-                testID="visual-assistant-ask"
+                label={t('visualAssistant.startLive')}
+                onPress={() => void startLiveSession()}
+                variant="primary"
+                icon="play"
+                style={styles.flexButton}
               />
-            </>
+
+              <Pressable
+                onPress={captureStill}
+                style={({ pressed }) => [styles.snapButton, pressed && styles.capturePressed]}
+                accessibilityRole="button"
+                accessibilityLabel={t('visualAssistant.captureLabel')}
+                testID="visual-assistant-capture"
+              >
+                <Icon name="camera" size={24} color="#151714" strokeWidth={2} />
+              </Pressable>
+
+              <Pressable
+                onPress={loadSamplePhoto}
+                style={({ pressed }) => [styles.sampleButtonSmall, pressed && styles.capturePressed]}
+                accessibilityRole="button"
+                accessibilityLabel="Test sample plant"
+                testID="visual-assistant-load-sample"
+              >
+                <Icon name="book" size={20} color="#FFFFFF" strokeWidth={2} />
+              </Pressable>
+            </View>
           )}
 
           <Text variant="micro" color={avatarColors.footerHint} center>
             {t('visualAssistant.answerDisclaimer')}
           </Text>
         </View>
+      </SafeAreaView>
+    </View>
+  );
+}
       </SafeAreaView>
     </View>
   );

@@ -108,6 +108,25 @@ jest.mock('expo-audio', () => ({
   // preset, so the enums those options reference have to exist here too.
   IOSOutputFormat: { MPEG4AAC: 'aac ' },
   AudioQuality: { MIN: 0, LOW: 32, MEDIUM: 64, HIGH: 96, MAX: 127 },
+  AudioModule: {
+    AudioStream: class {
+      addListener() {
+        return { remove: jest.fn() };
+      }
+      start() {
+        return Promise.resolve();
+      }
+      stop() {}
+    },
+  },
+  useAudioStream: () => ({
+    stream: {
+      start: jest.fn(async () => undefined),
+      stop: jest.fn(),
+      addListener: jest.fn(() => ({ remove: jest.fn() })),
+    },
+    isStreaming: false,
+  }),
   // Playback for the avatar's spoken answers. The fake finishes as soon as it
   // is played, so a test never waits on real audio.
   createAudioPlayer: () => ({

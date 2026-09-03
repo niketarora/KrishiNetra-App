@@ -14,12 +14,13 @@ export type LiveSessionConfig = {
  */
 export async function createLiveSessionToken(): Promise<LiveSessionConfig> {
   const env = getEnv();
+  const apiKey = env.GEMINI_LIVE_API_KEY || env.GEMINI_API_KEY;
 
-  if (!env.GEMINI_API_KEY) {
-    throw ApiError.notConnected('Gemini API key is not configured on the server.');
+  if (!apiKey) {
+    throw ApiError.notConnected('Gemini Live API key is not configured on the server.');
   }
 
-  const model = 'models/gemini-3.1-flash-live-preview';
+  const model = env.GEMINI_LIVE_MODEL || 'models/gemini-2.5-flash-native-audio-latest';
 
   // Try to create an ephemeral token using Google GenAI / Gemini v1alpha auth_tokens API
   try {
@@ -28,7 +29,7 @@ export async function createLiveSessionToken(): Promise<LiveSessionConfig> {
       {
         method: 'POST',
         headers: {
-          'x-goog-api-key': env.GEMINI_API_KEY,
+          'x-goog-api-key': apiKey,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
@@ -57,9 +58,9 @@ export async function createLiveSessionToken(): Promise<LiveSessionConfig> {
 
   // Fallback: Return authenticated live session config using server key
   return {
-    token: env.GEMINI_API_KEY,
+    token: apiKey,
     model,
-    wsUrl: `wss://generativelanguage.googleapis.com/ws/google.ai.generativelanguage.v1alpha.GenerativeService.BidiGenerateContent?key=${encodeURIComponent(env.GEMINI_API_KEY)}`,
+    wsUrl: `wss://generativelanguage.googleapis.com/ws/google.ai.generativelanguage.v1alpha.GenerativeService.BidiGenerateContent?key=${encodeURIComponent(apiKey)}`,
     expiresInSeconds: 1800,
   };
 }

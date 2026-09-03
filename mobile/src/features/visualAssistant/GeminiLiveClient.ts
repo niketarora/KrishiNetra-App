@@ -60,7 +60,7 @@ export class GeminiLiveClient {
     try {
       // 1. Fetch live session token and WebSocket URL from backend
       let wsUrl = this.config.wsUrl;
-      let model = this.config.model || 'models/gemini-3.1-flash-live-preview';
+      let model = this.config.model || 'models/gemini-2.5-flash-native-audio-latest';
 
       if (!wsUrl) {
         try {
@@ -91,9 +91,22 @@ export class GeminiLiveClient {
 
       this.ws.onmessage = async (event) => {
         try {
-          const data = typeof event.data === 'string' ? JSON.parse(event.data) : null;
-          if (data) {
-            await this.handleServerMessage(data);
+          let text: string | null = null;
+          if (typeof event.data === 'string') {
+            text = event.data;
+          } else if (event.data instanceof Blob) {
+            text = await event.data.text();
+          } else if (event.data instanceof ArrayBuffer) {
+            text = new TextDecoder().decode(event.data);
+          } else if (event.data && typeof (event.data as any).text === 'function') {
+            text = await (event.data as any).text();
+          }
+
+          if (text) {
+            const data = JSON.parse(text);
+            if (data) {
+              await this.handleServerMessage(data);
+            }
           }
         } catch (parseErr) {
           console.warn('[GeminiLiveClient] Failed to parse server message:', parseErr);
@@ -127,7 +140,7 @@ export class GeminiLiveClient {
       setup: {
         model,
         generationConfig: {
-          responseModalities: ['AUDIO'],
+          responseModalities: ['AUDIO', 'TEXT'],
           speechConfig: {
             voiceConfig: {
               prebuiltVoiceConfig: {
@@ -144,6 +157,27 @@ export class GeminiLiveClient {
     };
 
     this.ws.send(JSON.stringify(setupPayload));
+  }
+
+  /**
+   * Sends a text prompt as client content turn into the Gemini Live session.
+   */
+  public sendTextPrompt(text: string) {
+    if (!this.ws || this.ws.readyState !== WebSocket.OPEN || !text.trim()) return;
+
+    const payload = {
+      clientContent: {
+        turns: [
+          {
+            role: 'user',
+            parts: [{ text: text.trim() }],
+          },
+        ],
+        turnComplete: true,
+      },
+    };
+
+    this.ws.send(JSON.stringify(payload));
   }
 
   /**

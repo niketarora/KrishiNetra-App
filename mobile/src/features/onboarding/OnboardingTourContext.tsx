@@ -93,6 +93,9 @@ export function OnboardingTourProvider({ children }: { children: ReactNode }) {
     }
   }, [farm, lands]);
 
+  const landsCount = lands?.length ?? 0;
+  const hasFarm = Boolean(farm);
+
   // Check if onboarding is completed for this user
   useEffect(() => {
     let active = true;
@@ -106,7 +109,7 @@ export function OnboardingTourProvider({ children }: { children: ReactNode }) {
       try {
         const local = await SecureStore.getItemAsync(`${STORAGE_PREFIX}${userId}`);
         const remote = user?.user_metadata?.onboarding_completed;
-        const hasExistingLands = Boolean(farm) || (lands !== undefined && lands.length > 0);
+        const hasExistingLands = hasFarm || landsCount > 0;
 
         if (local === 'true' || remote === true) {
           if (active) {
@@ -127,7 +130,7 @@ export function OnboardingTourProvider({ children }: { children: ReactNode }) {
         // A new farmer logging in for the first time without registered lands
         if (active) {
           setIsActive(true);
-          setStep(1);
+          setStep((current) => (current >= 1 ? current : 1));
         }
       } catch (e) {
         // Non-fatal
@@ -139,7 +142,7 @@ export function OnboardingTourProvider({ children }: { children: ReactNode }) {
     return () => {
       active = false;
     };
-  }, [userId, user?.user_metadata?.onboarding_completed, farm, lands]);
+  }, [userId, user?.user_metadata?.onboarding_completed, hasFarm, landsCount]);
 
   const measureCurrentTarget = useCallback((targetId: string) => {
     const reg = targetsRef.current.get(targetId);
@@ -218,16 +221,17 @@ export function OnboardingTourProvider({ children }: { children: ReactNode }) {
 
   const nextStep = useCallback(() => {
     setStep((currentStep) => {
+      const next = currentStep + 1;
       if (currentStep === 1) {
-        navigateToStackRoute('Profile');
+        setTimeout(() => navigateToStackRoute('Profile'), 0);
         return 2;
       }
       if (currentStep === 2) {
-        navigateToStackRoute('MyLands');
+        setTimeout(() => navigateToStackRoute('MyLands'), 0);
         return 3;
       }
       if (currentStep === 3) {
-        navigateToStackRoute('RegisterLandMethod');
+        setTimeout(() => navigateToStackRoute('RegisterLandMethod'), 0);
         return 4;
       }
       if (currentStep === 4) {
@@ -235,11 +239,11 @@ export function OnboardingTourProvider({ children }: { children: ReactNode }) {
         if (!isLandRegisteredRef.current) {
           return 4;
         }
-        navigateToTab('Field');
+        setTimeout(() => navigateToTab('Field'), 0);
         return 5;
       }
       if (currentStep === 5) {
-        navigateToTab('Market');
+        setTimeout(() => navigateToTab('Market'), 0);
         return 6;
       }
       return currentStep;
@@ -260,7 +264,7 @@ export function OnboardingTourProvider({ children }: { children: ReactNode }) {
     setIsActive(false);
     await saveCompletion();
     // Return smoothly to Home
-    navigateToTab('Home');
+    setTimeout(() => navigateToTab('Home'), 0);
   }, [saveCompletion]);
 
   const resetTour = useCallback(async () => {

@@ -28,8 +28,9 @@ describe('OtpVerifyScreen', () => {
   });
 
   it('will not verify an incomplete code', async () => {
-    await renderWithProviders(<OtpVerifyScreen {...props} />);
+    await renderWithProviders(<OtpVerifyScreen {...props} initialDevCode="" />);
 
+    await fireEvent.changeText(screen.getByTestId('otp-input'), '');
     await fireEvent.press(screen.getByTestId('otp-submit'));
 
     expect(await screen.findByText("Please enter the OTP")).toBeTruthy();

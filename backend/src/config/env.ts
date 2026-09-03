@@ -68,6 +68,8 @@ const envSchema = z.object({
   // unavailable when a key is missing, rather than the server refusing to start.
   GEMINI_API_KEY: z.string().optional(),
   GEMINI_MODEL: z.string().default('gemini-3.6-flash'),
+  GEMINI_LIVE_API_KEY: z.string().optional(),
+  GEMINI_LIVE_MODEL: z.string().default('models/gemini-3.1-flash-live-preview'),
   SARVAM_API_KEY: z.string().optional(),
   SARVAM_API_URL: z.string().url().default('https://api.sarvam.ai/speech-to-text'),
   SARVAM_MODEL: z.string().default('saarika:v2.5'),

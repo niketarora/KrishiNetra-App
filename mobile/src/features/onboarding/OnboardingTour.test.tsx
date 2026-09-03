@@ -1,7 +1,7 @@
 import { render, screen, fireEvent, waitFor, cleanup } from '@testing-library/react-native';
 import * as SecureStore from 'expo-secure-store';
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 
 import { OnboardingTourProvider, useOnboardingTour } from './OnboardingTourContext';
 import { OnboardingTourOverlay } from '@/components/onboarding/OnboardingTourOverlay';
@@ -79,18 +79,18 @@ function TourTestConsumer() {
       <Text testID="tour-active">{isActive ? 'ACTIVE' : 'INACTIVE'}</Text>
       <Text testID="tour-step">{step}</Text>
       <Text testID="tour-registered">{isLandRegistered ? 'REGISTERED' : 'UNREGISTERED'}</Text>
-      <Text testID="btn-next" onPress={nextStep}>
-        Next
-      </Text>
-      <Text testID="btn-register-land" onPress={markLandRegistered}>
-        Register Land
-      </Text>
-      <Text testID="btn-skip" onPress={() => void skipTour()}>
-        Skip
-      </Text>
-      <Text testID="btn-finish" onPress={() => void finishTour()}>
-        Finish
-      </Text>
+      <TouchableOpacity testID="btn-next" onPress={nextStep}>
+        <Text>Next</Text>
+      </TouchableOpacity>
+      <TouchableOpacity testID="btn-register-land" onPress={markLandRegistered}>
+        <Text>Register Land</Text>
+      </TouchableOpacity>
+      <TouchableOpacity testID="btn-skip" onPress={() => void skipTour()}>
+        <Text>Skip</Text>
+      </TouchableOpacity>
+      <TouchableOpacity testID="btn-finish" onPress={() => void finishTour()}>
+        <Text>Finish</Text>
+      </TouchableOpacity>
     </View>
   );
 }

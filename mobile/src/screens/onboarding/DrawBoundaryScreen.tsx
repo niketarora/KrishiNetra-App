@@ -196,7 +196,7 @@ export function DrawBoundaryScreen({
 
       <View style={styles.controls}>
         <Button
-          label={t('onboarding.undo')}
+          label={t('onboarding.undoPoint', 'Undo point')}
           onPress={undoPoint}
           variant="secondary"
           icon="undo"
