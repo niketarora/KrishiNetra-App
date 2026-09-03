@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import {
   Card,
   EmptyState,
+  Icon,
   IconBadge,
   SampleBadge,
   SampleBanner,
@@ -17,7 +18,7 @@ import {
 import { isDemoMode, sampleDate, SAMPLE, SAMPLE_HISTORY } from '@/features/demo/demoMode';
 import { useFarm } from '@/features/farm/FarmContext';
 import { getCropHistory, type CropHistory, type CurrentCrop } from '@/services/agronomy';
-import { colors, layout } from '@/theme';
+import { colors, fonts, layout, radius } from '@/theme';
 
 type Props = {
   onRegisterLand: () => void;
@@ -94,7 +95,14 @@ export function HistoryScreen({ onRegisterLand }: Props) {
 
   return (
     <Screen>
-      <ScreenHeader title={t('history.title')} />
+      <ScreenHeader
+        title={t('history.title')}
+        right={
+          <View style={styles.headerIconBtn}>
+            <Icon name="bell" size={20} color={colors.text.primary} />
+          </View>
+        }
+      />
 
       <ScrollView
         contentContainerStyle={[styles.content, farm && styles.contentWithFarm]}
@@ -113,6 +121,19 @@ export function HistoryScreen({ onRegisterLand }: Props) {
           />
         ) : (
           <>
+            {/* Namaste greeting card with farm landscape */}
+            <Card tone="success" style={styles.summaryBanner}>
+              <View style={styles.summaryBannerContent}>
+                <Text variant="cardTitle" color={colors.primaryDark} style={styles.summaryBannerTitle}>
+                  Namaste, Kisan! 👋
+                </Text>
+                <Text variant="caption" color={colors.text.secondary}>
+                  Here's your complete farm summary & field memory.
+                </Text>
+              </View>
+              <Icon name="wheat" size={36} color={colors.primary} />
+            </Card>
+
             <View style={styles.overview} testID="farm-overview">
               <Text variant="cardTitle">{t('history.overviewTitle')}</Text>
 
@@ -156,17 +177,24 @@ export function HistoryScreen({ onRegisterLand }: Props) {
                 />
               </View>
 
-              <View style={styles.grid}>
-                <StatusCard
-                  icon="plant"
-                  label={t('history.currentCropStage')}
-                  value={demo ? t(SAMPLE.growthStage.valueKey) : t('common.notAvailable')}
-                  note={demo ? t('demo.badge') : t('common.comingSoon')}
-                  muted={!demo}
-                  sample={demo}
-                  testID="overview-stage"
-                />
-              </View>
+              {/* Current Crop Stage Card */}
+              <Card tone="surface" style={styles.stageCard} testID="overview-stage">
+                <View style={styles.stageLeft}>
+                  <View style={styles.stageTagRow}>
+                    <Text variant="microMedium" color={colors.text.muted}>
+                      {t('history.currentCropStage').toUpperCase()}
+                    </Text>
+                    {demo ? <SampleBadge /> : null}
+                  </View>
+                  <Text variant="stat" color={colors.primaryDark} style={styles.stageValue}>
+                    {demo ? t(SAMPLE.growthStage.valueKey) : t('common.notAvailable')}
+                  </Text>
+                  <Text variant="caption" color={colors.text.secondary}>
+                    {demo ? 'Optimal vegetative development observed' : t('common.comingSoon')}
+                  </Text>
+                </View>
+                <Icon name="wheat" size={42} color={colors.harvest} strokeWidth={1.5} />
+              </Card>
 
               <Text variant="caption" color={colors.text.muted}>
                 {t('history.farmRegistered', { date: formatMonthYear(farm.created_at) })}
@@ -217,10 +245,59 @@ export function HistoryScreen({ onRegisterLand }: Props) {
 }
 
 const styles = StyleSheet.create({
-  content: { paddingHorizontal: layout.screenPadding, paddingBottom: 96, paddingTop: 40 },
+  content: { paddingHorizontal: layout.screenPadding, paddingBottom: 110, paddingTop: 40 },
   contentWithFarm: { paddingTop: 16, gap: layout.cardGap },
+  headerIconBtn: {
+    width: 36,
+    height: 36,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  summaryBanner: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: 16,
+    borderRadius: 16,
+    backgroundColor: colors.successBg,
+    borderColor: colors.successBorder,
+    borderWidth: 1,
+  },
+  summaryBannerContent: {
+    flex: 1,
+    gap: 4,
+  },
+  summaryBannerTitle: {
+    fontSize: 18,
+    lineHeight: 22,
+    fontFamily: fonts.semibold,
+  },
   overview: { gap: layout.cardGap },
   grid: { flexDirection: 'row', gap: layout.cardGap },
+  stageCard: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: 16,
+    borderRadius: 16,
+    backgroundColor: colors.surface,
+    borderWidth: 1,
+    borderColor: colors.border,
+  },
+  stageLeft: {
+    flex: 1,
+    gap: 4,
+  },
+  stageTagRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  stageValue: {
+    fontSize: 22,
+    lineHeight: 28,
+    fontFamily: fonts.semibold,
+  },
   timelineRow: { flexDirection: 'row', gap: 10 },
   timelineRail: { alignItems: 'center', width: 32 },
   timelineLine: { flex: 1, minHeight: 8, width: 2, marginTop: 4, backgroundColor: colors.demo.border },

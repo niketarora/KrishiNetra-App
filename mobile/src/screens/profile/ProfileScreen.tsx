@@ -18,8 +18,10 @@ import { useFarm } from '@/features/farm/FarmContext';
 import { useLanguage } from '@/features/language/LanguageContext';
 import { updateProfile } from '@/services/profiles';
 import { SUPPORTED_LANGUAGES } from '@/i18n';
-import { colors, layout, radius } from '@/theme';
+import { colors, fonts, layout, radius } from '@/theme';
 import { initials, maskPhone } from '@/utils/format';
+import { useTourTarget } from '@/features/onboarding/useTourTarget';
+import { useOptionalOnboardingTour } from '@/features/onboarding/OnboardingTourContext';
 
 type Props = {
   onBack: () => void;
@@ -38,6 +40,7 @@ type Row = {
   onPress?: () => void;
   danger?: boolean;
   disabled?: boolean;
+  ref?: React.RefObject<View>;
 };
 
 /** design.md §4.12 — reached from the header avatar, never a bottom-nav slot. */
@@ -46,6 +49,8 @@ export function ProfileScreen({ onBack, onOpenMyFarm, onOpenSchemes, onOpenAlert
   const { profile, signOut, refreshProfile } = useAuth();
   const { farm } = useFarm();
   const { language, setLanguage } = useLanguage();
+  const tour = useOptionalOnboardingTour();
+  const myFarmTourRef = useTourTarget('tour-my-farm', 12);
   const [pickerVisible, setPickerVisible] = useState(false);
   const [statePickerVisible, setStatePickerVisible] = useState(false);
 
@@ -100,7 +105,19 @@ export function ProfileScreen({ onBack, onOpenMyFarm, onOpenSchemes, onOpenAlert
   ];
 
   const serviceRows: Row[] = [
-    { key: 'myFarm', icon: 'field', tone: 'primary', label: t(farm ? 'profile.myFarm' : 'profile.registerLand'), onPress: onOpenMyFarm },
+    {
+      key: 'myFarm',
+      icon: 'field',
+      tone: 'primary',
+      label: t(tour?.isActive || farm ? 'profile.myFarm' : 'profile.registerLand'),
+      onPress: () => {
+        if (tour?.isActive && tour.step === 2) {
+          tour.nextStep();
+        } else {
+          onOpenMyFarm();
+        }
+      },
+    },
     { key: 'schemes', icon: 'check', tone: 'harvest', label: t('profile.schemes'), onPress: onOpenSchemes },
     { key: 'alerts', icon: 'bell', tone: 'warning', label: t('profile.alerts'), onPress: onOpenAlerts },
   ];
@@ -143,39 +160,57 @@ export function ProfileScreen({ onBack, onOpenMyFarm, onOpenSchemes, onOpenAlert
               {t(section.titleKey)}
             </Text>
             <View style={styles.rows}>
-              {section.rows.map((row, index) => (
-                <Pressable
-                  key={row.key}
-                  onPress={row.onPress}
-                  disabled={row.disabled || !row.onPress}
-                  accessibilityRole="button"
-                  accessibilityState={{ disabled: row.disabled }}
-                  testID={`profile-${row.key}`}
-                  style={({ pressed }) => [
-                    styles.row,
-                    index === section.rows.length - 1 && styles.rowLast,
-                    pressed && !row.disabled && styles.rowPressed,
-                    row.disabled && styles.rowDisabled,
-                  ]}
-                >
-                  <IconBadge icon={row.icon} tone={row.tone} size={32} iconSize={16} />
-                  <Text
-                    variant="body"
-                    color={row.danger ? colors.danger : colors.text.primary}
-                    style={styles.rowLabel}
+              {section.rows.map((row, index) => {
+                const rowContent = (
+                  <Pressable
+                    key={row.key}
+                    onPress={row.onPress}
+                    disabled={row.disabled || !row.onPress}
+                    accessibilityRole="button"
+                    accessibilityState={{ disabled: row.disabled }}
+                    testID={`profile-${row.key}`}
+                    style={({ pressed }) => [
+                      styles.row,
+                      index === section.rows.length - 1 && styles.rowLast,
+                      pressed && !row.disabled && styles.rowPressed,
+                      row.disabled && styles.rowDisabled,
+                    ]}
                   >
-                    {row.label}
-                  </Text>
-                  {row.value ? (
-                    <Text variant="caption" color={colors.text.secondary}>
-                      {row.value}
+                    <IconBadge icon={row.icon} tone={row.tone} size={32} iconSize={16} />
+                    <Text
+                      variant="body"
+                      color={row.danger ? colors.danger : colors.text.primary}
+                      style={styles.rowLabel}
+                    >
+                      {row.label}
                     </Text>
-                  ) : null}
-                  {row.onPress && !row.danger ? (
-                    <Icon name="chevron" size={18} color={colors.text.muted} />
-                  ) : null}
-                </Pressable>
-              ))}
+                    {row.value ? (
+                      <Text
+                        variant="caption"
+                        color={colors.text.secondary}
+                        style={styles.rowValue}
+                        numberOfLines={1}
+                        ellipsizeMode="tail"
+                      >
+                        {row.value}
+                      </Text>
+                    ) : null}
+                    {row.onPress && !row.danger ? (
+                      <Icon name="chevron" size={18} color={colors.text.muted} />
+                    ) : null}
+                  </Pressable>
+                );
+
+                if (row.key === 'myFarm') {
+                  return (
+                    <View key={row.key} ref={myFarmTourRef} collapsable={false}>
+                      {rowContent}
+                    </View>
+                  );
+                }
+
+                return rowContent;
+              })}
             </View>
           </View>
         ))}
@@ -234,5 +269,13 @@ const styles = StyleSheet.create({
   rowLast: { borderBottomWidth: 0 },
   rowPressed: { backgroundColor: colors.neutralBg },
   rowDisabled: { opacity: 0.5 },
-  rowLabel: { flex: 1 },
+  rowLabel: {
+    flexShrink: 0,
+    fontFamily: fonts.medium,
+  },
+  rowValue: {
+    flex: 1,
+    textAlign: 'right',
+    marginLeft: 'auto',
+  },
 });

@@ -40,7 +40,14 @@ export type IconName =
   | 'camera'
   | 'phone'
   | 'mail'
-  | 'search';
+  | 'search'
+  | 'menu'
+  | 'translate'
+  | 'bookmark'
+  | 'rocket'
+  | 'tractor'
+  | 'wheat'
+  | 'coins';
 
 type Props = {
   name: IconName;
@@ -248,6 +255,44 @@ export function Icon({ name, size = 20, color = colors.text.secondary, strokeWid
         <>
           <Circle cx="11" cy="11" r="8" {...common} />
           <Path d="m21 21-4.35-4.35" {...common} />
+        </>
+      )}
+      {name === 'menu' && (
+        <Path d="M4 6h16M4 12h16M4 18h16" {...common} />
+      )}
+      {name === 'translate' && (
+        <>
+          <Path d="M4 5h7M7.5 5v2M4.5 15c2-1.5 3.5-4.5 4.5-8M5 12c1.5 1 3 2.5 4.5 3" {...common} />
+          <Path d="M14 19l3.5-9 3.5 9M15 16h5" {...common} />
+        </>
+      )}
+      {name === 'bookmark' && (
+        <Path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" {...common} />
+      )}
+      {name === 'rocket' && (
+        <>
+          <Path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z" {...common} />
+          <Path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z" {...common} />
+          <Path d="M9 12H4s.55-3.03 2-4.5c1.62-1.63 5-2.5 5-2.5" {...common} />
+          <Path d="M12 15v5s3.03-.55 4.5-2c1.63-1.62 2.5-5 2.5-5" {...common} />
+        </>
+      )}
+      {name === 'tractor' && (
+        <>
+          <Circle cx="7" cy="16" r="3.5" {...common} />
+          <Circle cx="18" cy="17" r="2" {...common} />
+          <Path d="M7 16h9v1.5M10 11V6h5l2 5h3v3" {...common} />
+        </>
+      )}
+      {name === 'wheat' && (
+        <>
+          <Path d="M12 2v20M8 8c2-2 4-2 4 0M16 8c-2-2-4-2-4 0M8 13c2-2 4-2 4 0M16 13c-2-2-4-2-4 0" {...common} />
+        </>
+      )}
+      {name === 'coins' && (
+        <>
+          <Circle cx="9" cy="9" r="6" {...common} />
+          <Path d="M18.09 10.37A6 6 0 1 1 10.34 18M8 7h2v4H8" {...common} />
         </>
       )}
     </Svg>

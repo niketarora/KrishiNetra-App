@@ -9,7 +9,7 @@ import { recommendTutorials } from '@/features/learning/recommendations';
 import { localize, TUTORIALS, TUTORIAL_CATEGORIES, type Tutorial } from '@/features/learning/tutorials';
 import { useLearningProgress } from '@/features/learning/useLearningProgress';
 import { getCurrentCrop, type CurrentCrop } from '@/services/agronomy';
-import { colors, layout, radius } from '@/theme';
+import { colors, fonts, layout, radius } from '@/theme';
 
 type Props = {
   onBack: () => void;
@@ -111,22 +111,42 @@ export function LearningHomeScreen({ onBack, onOpenTutorial }: Props) {
 
   return (
     <Screen>
-      <ScreenHeader title={t('learning.title')} onBack={onBack} />
+      <ScreenHeader
+        title={t('learning.title')}
+        subtitle="Learn better farming, one step at a time."
+        onBack={onBack}
+        right={
+          <View style={styles.headerIconBtn}>
+            <Icon name="bookmark" size={20} color={colors.text.primary} />
+          </View>
+        }
+      />
 
       <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
-        <Text variant="caption">{t('learning.tagline')}</Text>
+        <Text variant="caption" color={colors.text.muted}>{t('learning.tagline')}</Text>
 
         {loading ? (
           <Skeleton height={80} />
         ) : total > 0 ? (
-          <View style={styles.progressBlock} testID="learning-progress">
-            <Text variant="bodyMedium">
-              {t('learning.progress', { completed: completedCount, total })}
-            </Text>
-            <View style={styles.progressTrack}>
-              <View style={[styles.progressFill, { width: `${Math.round(progressRatio * 100)}%` }]} />
+          <Card style={styles.progressCard} testID="learning-progress">
+            <IconBadge icon="book" tone="primary" size={40} iconSize={20} />
+            <View style={styles.progressTextCol}>
+              <Text variant="caption" color={colors.text.muted}>
+                {t('learning.yourProgress', { defaultValue: 'Your progress' })}
+              </Text>
+              <Text variant="bodyMedium" style={styles.progressTitle}>
+                {t('learning.progress', { completed: completedCount, total })}
+              </Text>
+              <View style={styles.progressTrack}>
+                <View style={[styles.progressFill, { width: `${Math.round(progressRatio * 100)}%` }]} />
+              </View>
             </View>
-          </View>
+            <View style={styles.percentPill}>
+              <Text variant="microMedium" color={colors.primaryDark}>
+                {`${Math.round(progressRatio * 100)}%`}
+              </Text>
+            </View>
+          </Card>
         ) : null}
 
         {loading ? null : total === 0 ? (
@@ -141,18 +161,20 @@ export function LearningHomeScreen({ onBack, onOpenTutorial }: Props) {
             {featured ? (
               <View style={styles.section}>
                 <Text variant="cardTitle">{t('learning.featured')}</Text>
-                <Card tone="harvest" onPress={() => onOpenTutorial(featured.id)} style={styles.featuredCard} testID={`tutorial-card-${featured.id}`}>
+                <Card tone="success" onPress={() => onOpenTutorial(featured.id)} style={styles.featuredCard} testID={`tutorial-card-${featured.id}`}>
                   <View style={styles.featuredHeader}>
-                    <IconBadge icon={categoryIcon(featured)} tone="harvest" size={40} iconSize={20} />
+                    <Badge label={categoryLabel(featured)} tone="orange" />
                     {isComplete(featured.id) ? <Badge label={t('learning.completed')} tone="success" /> : null}
                   </View>
-                  <Text variant="caption" color={colors.harvest}>
-                    {categoryLabel(featured)}
-                  </Text>
-                  <Text variant="cardTitle">{localize(featured.title, i18n.language)}</Text>
-                  <Text variant="caption" color={colors.text.secondary}>
-                    {metaLine(featured)}
-                  </Text>
+                  <Text variant="cardTitle" style={styles.featuredTitle}>{localize(featured.title, i18n.language)}</Text>
+                  <View style={styles.featuredFooter}>
+                    <Text variant="caption" color={colors.text.secondary}>
+                      {metaLine(featured)}
+                    </Text>
+                    <View style={styles.playBtnCircle}>
+                      <Icon name="play" size={16} color="#FFFFFF" strokeWidth={2.2} />
+                    </View>
+                  </View>
                 </Card>
               </View>
             ) : null}
@@ -181,8 +203,34 @@ const styles = StyleSheet.create({
   content: {
     paddingHorizontal: layout.screenPadding,
     paddingTop: 8,
-    paddingBottom: 32,
+    paddingBottom: 110,
     gap: layout.cardGap,
+  },
+  headerIconBtn: {
+    width: 36,
+    height: 36,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  progressCard: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+    padding: 14,
+    borderRadius: 16,
+  },
+  progressTextCol: {
+    flex: 1,
+    gap: 4,
+  },
+  progressTitle: {
+    fontFamily: fonts.semibold,
+  },
+  percentPill: {
+    backgroundColor: colors.successBg,
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: radius.pill,
   },
   progressBlock: { gap: 6 },
   progressTrack: {
@@ -197,9 +245,47 @@ const styles = StyleSheet.create({
     backgroundColor: colors.primary,
   },
   section: { gap: layout.cardGap },
-  featuredCard: { gap: 4 },
-  featuredHeader: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
-  tutorialCard: { flexDirection: 'row', alignItems: 'center', gap: 12 },
+  featuredCard: {
+    gap: 8,
+    padding: 16,
+    borderRadius: 16,
+  },
+  featuredHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  featuredTitle: {
+    fontFamily: fonts.semibold,
+    fontSize: 18,
+    lineHeight: 24,
+  },
+  featuredFooter: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginTop: 4,
+  },
+  playBtnCircle: {
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    backgroundColor: colors.primary,
+    alignItems: 'center',
+    justifyContent: 'center',
+    elevation: 3,
+    shadowColor: '#1E4D2B',
+    shadowOpacity: 0.3,
+    shadowRadius: 5,
+    shadowOffset: { width: 0, height: 2 },
+  },
+  tutorialCard: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+    padding: 14,
+    borderRadius: 16,
+  },
   tutorialBody: { flex: 1, minWidth: 0, gap: 2 },
   metaRow: { flexDirection: 'row', alignItems: 'center', gap: 6, marginTop: 2 },
 });

@@ -143,8 +143,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           token_type: 'bearer',
           user: directSession.user as Session['user'],
         };
+        try {
+          await loadProfile(newSession.user.id);
+        } catch {
+          // Non-fatal if profile is not yet created
+        }
         setSession(newSession);
-        void loadProfile(newSession.user.id);
 
         // Background session storage without throwing if Supabase cloud DNS is unreachable
         void supabase.auth.setSession({

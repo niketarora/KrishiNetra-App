@@ -205,15 +205,22 @@ const styles = StyleSheet.create({
   content: {
     paddingHorizontal: layout.screenPadding,
     paddingTop: 8,
-    paddingBottom: 32,
+    paddingBottom: 110,
     gap: layout.cardGap,
   },
   monthHeader: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    paddingVertical: 4,
   },
   section: { gap: layout.cardGap, marginTop: 4 },
-  eventCard: { flexDirection: 'row', alignItems: 'center', gap: 12 },
+  eventCard: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+    padding: 14,
+    borderRadius: 16,
+  },
   eventBody: { flex: 1, minWidth: 0, gap: 2 },
 });

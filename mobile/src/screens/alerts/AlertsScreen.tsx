@@ -19,7 +19,7 @@ import { demoCommunicationProvider } from '@/features/alerts/communicationProvid
 import type { AlertCategory, AlertChannel, AlertEvent, AlertPriority, ChannelStatus } from '@/features/alerts/types';
 import { sampleDate } from '@/features/demo/demoMode';
 import { localize } from '@/utils/localizedText';
-import { colors, layout, radius } from '@/theme';
+import { colors, fonts, layout, radius } from '@/theme';
 
 type Props = {
   onBack: () => void;
@@ -119,19 +119,31 @@ export function AlertsScreen({ onBack, onOpenAlert }: Props) {
           ))}
         </View>
 
-        <Text variant="micro" color={colors.text.muted} style={styles.timestamp}>
-          {relativeDate(alert.occurredDaysAgo, t)} · {formatDateTime(alert)}
-        </Text>
+        <View style={styles.timestampRow}>
+          <Icon name="clock" size={13} color={colors.text.muted} />
+          <Text variant="micro" color={colors.text.muted} style={styles.timestamp}>
+            {relativeDate(alert.occurredDaysAgo, t)} · {formatDateTime(alert)}
+          </Text>
+        </View>
       </Card>
     );
   };
 
   return (
     <Screen>
-      <ScreenHeader title={t('alerts.title')} onBack={onBack} />
+      <ScreenHeader
+        title={t('alerts.title')}
+        subtitle="मौसम, आपदा, योजना और सलाह की सूचनाएं"
+        onBack={onBack}
+        right={
+          <View style={styles.headerIconBtn}>
+            <Icon name="bell" size={20} color={colors.text.primary} />
+          </View>
+        }
+      />
 
       <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
-        <Text variant="caption">{t('alerts.intro')}</Text>
+        <Text variant="caption" color={colors.text.muted}>{t('alerts.intro')}</Text>
 
         <View style={styles.sampleBanner} testID="alerts-sample-banner">
           <Icon name="help" size={18} color={colors.accent} strokeWidth={1.8} />
@@ -159,8 +171,14 @@ const styles = StyleSheet.create({
   content: {
     paddingHorizontal: layout.screenPadding,
     paddingTop: 8,
-    paddingBottom: 32,
+    paddingBottom: 110,
     gap: layout.cardGap,
+  },
+  headerIconBtn: {
+    width: 36,
+    height: 36,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   sampleBanner: {
     flexDirection: 'row',
@@ -173,11 +191,21 @@ const styles = StyleSheet.create({
     borderRadius: radius.md,
   },
   sampleBannerBody: { flex: 1, gap: 2 },
-  alertCard: { gap: 6 },
+  alertCard: {
+    gap: 8,
+    padding: 14,
+    borderRadius: 16,
+  },
   headerRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
-  titleRow: { flexDirection: 'row', alignItems: 'center', gap: 8 },
-  title: { flex: 1 },
-  summary: { marginTop: 2 },
+  titleRow: { flexDirection: 'row', alignItems: 'center', gap: 10 },
+  title: { flex: 1, fontFamily: fonts.semibold, fontSize: 16 },
+  summary: { marginTop: 2, lineHeight: 18 },
   channelRow: { flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginTop: 4 },
-  timestamp: { marginTop: 2 },
+  timestampRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    marginTop: 4,
+  },
+  timestamp: { fontSize: 12 },
 });

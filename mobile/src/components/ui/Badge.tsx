@@ -4,7 +4,16 @@ import { colors, radius } from '@/theme';
 
 import { Text } from './Text';
 
-export type BadgeTone = 'success' | 'warning' | 'danger' | 'accent' | 'neutral';
+export type BadgeTone =
+  | 'success'
+  | 'warning'
+  | 'danger'
+  | 'accent'
+  | 'neutral'
+  | 'sample'
+  | 'tech'
+  | 'scheme'
+  | 'orange';
 
 type Props = {
   label: string;
@@ -12,16 +21,20 @@ type Props = {
 };
 
 const TONES: Record<BadgeTone, { bg: string; fg: string }> = {
-  success: { bg: colors.successBg, fg: colors.primaryDark },
-  warning: { bg: colors.warningBg, fg: colors.warning },
-  danger: { bg: colors.dangerBg, fg: colors.danger },
-  accent: { bg: colors.accentBg, fg: colors.accent },
+  success: { bg: colors.badges.schemeBg, fg: colors.badges.schemeFg },
+  warning: { bg: colors.badges.mediumPriorityBg, fg: colors.badges.mediumPriorityFg },
+  danger: { bg: colors.badges.highPriorityBg, fg: colors.badges.highPriorityFg },
+  accent: { bg: colors.badges.radarBg, fg: colors.badges.radarFg },
   neutral: { bg: colors.neutralBg, fg: colors.text.secondary },
+  sample: { bg: colors.badges.sampleBg, fg: colors.badges.sampleFg },
+  tech: { bg: colors.badges.radarBg, fg: colors.badges.radarFg },
+  scheme: { bg: colors.badges.schemeBg, fg: colors.badges.schemeFg },
+  orange: { bg: '#FFEDD5', fg: '#C2410C' },
 };
 
-/** design.md §3.6 — a small tinted pill carrying a status word. */
+/** Refined badge pill matching KrishiNetra 2.0 specifications */
 export function Badge({ label, tone = 'neutral' }: Props) {
-  const { bg, fg } = TONES[tone];
+  const { bg, fg } = TONES[tone] || TONES.neutral;
 
   return (
     <View style={[styles.badge, { backgroundColor: bg }]}>
@@ -34,9 +47,9 @@ export function Badge({ label, tone = 'neutral' }: Props) {
 
 const styles = StyleSheet.create({
   badge: {
-    paddingVertical: 5,
+    paddingVertical: 4,
     paddingHorizontal: 10,
     alignSelf: 'flex-start',
-    borderRadius: radius.sm,
+    borderRadius: radius.pill,
   },
 });

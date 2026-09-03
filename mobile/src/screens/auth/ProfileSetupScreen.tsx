@@ -2,11 +2,14 @@ import { useEffect, useState } from 'react';
 import { ActivityIndicator, KeyboardAvoidingView, Platform, Pressable, ScrollView, StyleSheet, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
+import * as SecureStore from 'expo-secure-store';
+
 import { Banner, Button, Icon, Input, Screen, Text } from '@/components/ui';
 import { useAuth } from '@/features/auth/AuthContext';
 import { SUPPORTED_LANGUAGES } from '@/i18n';
 import { detectCurrentLocation, type GpsLocationResult } from '@/services/locationService';
 import { updateProfile } from '@/services/profiles';
+import { supabase } from '@/services/supabase';
 import { colors, layout, radius } from '@/theme';
 
 import { validateEmail, validateName } from './validation';
@@ -68,6 +71,16 @@ export function ProfileSetupScreen() {
 
     try {
       if (user) {
+        // Flag this farmer as a genuinely first-time farmer completing initial onboarding
+        try {
+          await SecureStore.setItemAsync(`krishinetra.first_time_farmer.${user.id}`, 'true');
+          await supabase.auth.updateUser({
+            data: { is_new_farmer: true },
+          });
+        } catch {
+          // non-fatal
+        }
+
         await updateProfile(user.id, {
           full_name: fullName.trim(),
           email: email.trim() || null,

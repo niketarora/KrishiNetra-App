@@ -26,6 +26,7 @@ import {
   Text,
 } from '@/components/ui';
 import { useFarm } from '@/features/farm/FarmContext';
+import { useTourTarget } from '@/features/onboarding/useTourTarget';
 import {
   analyseMarketIntelligence,
   type MarketIntelligenceData,
@@ -55,6 +56,7 @@ export function MarketScreen() {
   const { t, i18n } = useTranslation();
   const { farm } = useFarm();
   const { crop: farmCrop, msp, refresh: refreshFarmData } = useMarketData(farm?.id ?? null);
+  const marketTourRef = useTourTarget('tour-market', 16);
 
   const [activeTab, setActiveTab] = useState<'myCrop' | 'explore'>('myCrop');
   const [selectedCrop, setSelectedCrop] = useState<string>('Mustard');
@@ -149,7 +151,29 @@ export function MarketScreen() {
 
   return (
     <Screen>
-      <ScreenHeader title={t('market.title')} />
+      <ScreenHeader
+        title={t('market.title')}
+        right={
+          <View style={styles.headerRightActions}>
+            <Pressable
+              hitSlop={8}
+              style={styles.headerIconBtn}
+              accessibilityRole="button"
+              accessibilityLabel="Language"
+            >
+              <Icon name="translate" size={20} color={colors.text.primary} />
+            </Pressable>
+            <Pressable
+              hitSlop={8}
+              style={styles.headerIconBtn}
+              accessibilityRole="button"
+              accessibilityLabel="Notifications"
+            >
+              <Icon name="bell" size={20} color={colors.text.primary} />
+            </Pressable>
+          </View>
+        }
+      />
 
       <KeyboardAvoidingView
         style={styles.container}
@@ -181,6 +205,11 @@ export function MarketScreen() {
                 }
               }}
             >
+              <Icon
+                name="sprout"
+                size={16}
+                color={activeTab === 'myCrop' ? colors.primary : colors.text.secondary}
+              />
               <Text
                 variant="caption"
                 style={[styles.segmentText, activeTab === 'myCrop' && styles.segmentTextActive]}
@@ -192,6 +221,11 @@ export function MarketScreen() {
               style={[styles.segmentBtn, activeTab === 'explore' && styles.segmentBtnActive]}
               onPress={() => setActiveTab('explore')}
             >
+              <Icon
+                name="market"
+                size={16}
+                color={activeTab === 'explore' ? colors.primary : colors.text.secondary}
+              />
               <Text
                 variant="caption"
                 style={[styles.segmentText, activeTab === 'explore' && styles.segmentTextActive]}
@@ -202,7 +236,8 @@ export function MarketScreen() {
           </View>
 
           {/* Commodity & Harvest Parameters Form */}
-          <Card>
+          <View ref={marketTourRef} collapsable={false}>
+            <Card>
             <Text variant="cardTitle" color={colors.text.primary}>
               {t('market.cropLabel')}
             </Text>
@@ -306,6 +341,7 @@ export function MarketScreen() {
               style={[styles.analyseBtn, loading && styles.analyseBtnDisabled]}
               onPress={() => runAnalysis()}
               disabled={loading}
+              testID="analyse-btn"
             >
               {loading ? (
                 <View style={styles.loadingRow}>
@@ -315,15 +351,21 @@ export function MarketScreen() {
                   </Text>
                 </View>
               ) : (
-                <View style={styles.loadingRow}>
-                  <Icon name="plant" size={18} color="#fff" />
-                  <Text variant="bodyMedium" color="#fff" style={styles.btnText}>
-                    {t('market.analyseButton')}
-                  </Text>
+                <View style={styles.ctaContentRow}>
+                  <Icon name="rocket" size={20} color="#fff" strokeWidth={2} />
+                  <View style={styles.ctaTextCol}>
+                    <Text variant="bodyMedium" color="#fff" style={styles.btnText}>
+                      {t('market.analyseButton')}
+                    </Text>
+                    <Text variant="micro" color="rgba(255,255,255,0.85)" style={styles.btnSubtext}>
+                      CatBoost ML Model • 78% Experimental
+                    </Text>
+                  </View>
                 </View>
               )}
             </Pressable>
           </Card>
+        </View>
 
           {/* AI Sale Recommendation Hero Card */}
           {rec ? (
@@ -799,13 +841,29 @@ const styles = StyleSheet.create({
     paddingVertical: 4,
     borderRadius: radius.pill,
   },
+  headerRightActions: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+  },
+  headerIconBtn: {
+    width: 36,
+    height: 36,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   analyseBtn: {
     marginTop: 14,
     backgroundColor: colors.primary,
     borderRadius: radius.md,
-    paddingVertical: 14,
+    paddingVertical: 12,
     alignItems: 'center',
     justifyContent: 'center',
+    elevation: 3,
+    shadowColor: '#1E4D2B',
+    shadowOpacity: 0.25,
+    shadowRadius: 6,
+    shadowOffset: { width: 0, height: 2 },
   },
   analyseBtnDisabled: {
     opacity: 0.7,
@@ -815,8 +873,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 8,
   },
+  ctaContentRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+  },
+  ctaTextCol: {
+    alignItems: 'center',
+  },
   btnText: {
     fontFamily: fonts.semibold,
+  },
+  btnSubtext: {
+    fontSize: 10,
+    marginTop: 1,
   },
   recommendationCard: {
     borderWidth: 1.5,

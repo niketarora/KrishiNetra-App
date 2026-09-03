@@ -4,73 +4,81 @@
  * are not in this file.
  */
 export const colors = {
-  primary: '#2E7D4F',
-  primaryDark: '#1B5236',
+  primary: '#1E4D2B',
+  primaryDark: '#133E21',
 
-  bg: '#F7F8F4',
+  bg: '#FBFBFA',
   surface: '#FFFFFF',
-  border: '#E2E4DC',
+  border: '#E5E8E2',
   /** Outline-button / secondary-control border — heavier than `border`. */
-  borderStrong: '#C6CABF',
+  borderStrong: '#C8CEC4',
   /** Neutral banner + pressed-surface tint. */
-  neutralBg: '#EDEEE9',
+  neutralBg: '#F1F3EE',
 
-  success: '#3E8F5C',
-  successBg: '#E8F5EC',
-  successBorder: '#CBE4D5',
+  success: '#2E7D4F',
+  successBg: '#EAF4EC',
+  successBorder: '#CDE3D2',
 
   warning: '#B8720A',
-  warningBg: '#FBEEDC',
+  warningBg: '#FEF3C7',
 
-  danger: '#B23A2E',
-  dangerBg: '#FBE7E4',
+  danger: '#DC2626',
+  dangerBg: '#FEE2E2',
 
-  accent: '#1E6FA8',
-  accentBg: '#E6F1FA',
-  accentBorder: '#C9DDEE',
-  accentBadgeBg: '#D3E4F2',
-  accentBadgeFg: '#15537D',
+  accent: '#0284C7',
+  accentBg: '#E0F2FE',
+  accentBorder: '#BAE6FD',
+  accentBadgeBg: '#E0F2FE',
+  accentBadgeFg: '#0369A1',
 
   /**
    * Earth/harvest accent — used sparingly for a featured highlight or a farm
-   * context card border, never as a primary action colour. Deliberately a
-   * warmer, browner tone than `warning` so the two don't read as the same
-   * signal when they appear near each other.
+   * context card border, never as a primary action colour.
    */
   harvest: '#A9682E',
-  harvestBg: '#F5E9D8',
-  harvestBorder: '#E6CFA8',
+  harvestBg: '#FBF3E8',
+  harvestBorder: '#EED9BF',
 
   text: {
-    primary: '#1C1F1A',
-    secondary: '#5B6058',
-    // Darkened from the original #8B8F86 — that was borderline low-contrast
-    // on `bg`/`surface` for a field-under-sunlight prototype. Still visibly
-    // lighter than `secondary`, just no longer faint.
-    muted: '#70766C',
+    primary: '#1C251D',
+    secondary: '#5C685F',
+    muted: '#7A867D',
     onPrimary: '#FFFFFF',
+  },
+
+  /** Badges & Tag pills matching reference design */
+  badges: {
+    sampleBg: '#F3E8FF',
+    sampleFg: '#7C3AED',
+    sampleBorder: '#DDD6FE',
+    radarBg: '#E0F2FE',
+    radarFg: '#0284C7',
+    radarBorder: '#BAE6FD',
+    highPriorityBg: '#FEE2E2',
+    highPriorityFg: '#DC2626',
+    mediumPriorityBg: '#FEF3C7',
+    mediumPriorityFg: '#D97706',
+    schemeBg: '#E6F4EA',
+    schemeFg: '#137333',
+    statusTagBg: '#EAF4EC',
+    statusTagFg: '#1E4D2B',
   },
 
   /**
    * Sample-data violet. Deliberately OUTSIDE the design language.
-   *
-   * Everything else in this file is the product's palette, so a value wearing
-   * these colours reads as foreign at a glance — which is the entire point.
-   * They appear only under DEMO_MODE, always behind a "SAMPLE DATA" badge, and
-   * never in a shipped build. See `features/demo/demoMode.ts`.
    */
   demo: {
-    fg: '#6B21A8',
-    bg: '#F5EBFF',
-    border: '#D8B4FE',
+    fg: '#7C3AED',
+    bg: '#F3E8FF',
+    border: '#DDD6FE',
   },
 
   /** Satellite-map placeholder base, used behind tiles while they load. */
   mapBase: '#6F6F68',
   /** Polygon fill on the drawing map — green at 34% opacity. */
-  polygonFill: 'rgba(62,143,92,0.34)',
+  polygonFill: 'rgba(30,77,43,0.34)',
   /** Polygon fill on small static thumbnails — slightly denser. */
-  polygonFillThumb: 'rgba(62,143,92,0.42)',
+  polygonFillThumb: 'rgba(30,77,43,0.42)',
 } as const;
 
 /**

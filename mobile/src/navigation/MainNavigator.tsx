@@ -21,6 +21,7 @@ import { RegisterCropScreen } from '@/screens/farm/RegisterCropScreen';
 import { WalkBoundaryScreen } from '@/screens/farm/WalkBoundaryScreen';
 import { HistoryScreen } from '@/screens/history/HistoryScreen';
 import { HomeScreen } from '@/screens/home/HomeScreen';
+import { MoreScreen } from '@/screens/more/MoreScreen';
 import { LearningHomeScreen } from '@/screens/learning/LearningHomeScreen';
 import { TutorialDetailScreen } from '@/screens/learning/TutorialDetailScreen';
 import { TutorialFlashcardScreen } from '@/screens/learning/TutorialFlashcardScreen';
@@ -49,7 +50,8 @@ const TAB_ICONS: Record<keyof MainTabParamList, IconName> = {
   Home: 'home',
   Field: 'field',
   Market: 'market',
-  History: 'history',
+  Calendar: 'clock',
+  More: 'menu',
 };
 
 function MainTabs() {
@@ -89,18 +91,13 @@ function MainTabs() {
           backgroundColor: colors.surface,
           borderTopWidth: 1,
           borderTopColor: colors.border,
-          // A light lift so the bar reads as sitting above the content
-          // rather than a hairline dividing two flat surfaces.
           elevation: 8,
-          shadowColor: '#1C1F1A',
+          shadowColor: '#1C251D',
           shadowOpacity: 0.06,
           shadowRadius: 6,
           shadowOffset: { width: 0, height: -2 },
         },
         tabBarLabelStyle: { fontFamily: fonts.medium, fontSize: 12 },
-        // The active destination gets a soft pill behind its icon, on top of
-        // the colour change — "unmistakable" per the visual-refinement brief,
-        // not just a slightly different shade of green.
         tabBarIcon: ({ color, focused }) => (
           <View style={[styles.tabIcon, focused && styles.tabIconActive]}>
             <Icon name={TAB_ICONS[route.name]} size={20} color={color} />
@@ -108,12 +105,10 @@ function MainTabs() {
         ),
       })}
     >
-      <Tab.Screen name="Home" options={{ title: t('nav.home') }}>
+      <Tab.Screen name="Home" options={{ title: t('nav.home', { defaultValue: 'Home' }) }}>
         {({ navigation: tabNavigation }) => (
           <HomeScreen
             onOpenProfile={() => navigation.navigate('Profile')}
-            // Tab switches go through the tab navigator so they replace the
-            // active tab rather than pushing onto the stack.
             onOpenAnalysis={() => tabNavigation.navigate('Field')}
             onOpenMarket={() => tabNavigation.navigate('Market')}
             onEditBoundary={openEditBoundary}
@@ -129,14 +124,37 @@ function MainTabs() {
         )}
       </Tab.Screen>
 
-      <Tab.Screen name="Field" options={{ title: t('nav.field') }}>
+      <Tab.Screen name="Field" options={{ title: t('nav.field', { defaultValue: 'Field' }) }}>
         {() => <FieldAnalysisScreen />}
       </Tab.Screen>
 
-      <Tab.Screen name="Market" component={MarketScreen} options={{ title: t('nav.market') }} />
+      <Tab.Screen name="Market" component={MarketScreen} options={{ title: t('nav.market', { defaultValue: 'Market' }) }} />
 
-      <Tab.Screen name="History" options={{ title: t('nav.history') }}>
-        {() => <HistoryScreen onRegisterLand={() => navigation.navigate('MyLands')} />}
+      <Tab.Screen name="Calendar" options={{ title: t('nav.calendar', { defaultValue: 'Calendar' }) }}>
+        {() => (
+          <CalendarScreen
+            onBack={() => navigation.navigate('Tabs')}
+            onRegisterLand={() => navigation.navigate('MyFarm')}
+            onOpenEvent={(eventId) => navigation.navigate('CalendarEventDetail', { eventId })}
+          />
+        )}
+      </Tab.Screen>
+
+      <Tab.Screen name="More" options={{ title: t('nav.more', { defaultValue: 'More' }) }}>
+        {() => (
+          <MoreScreen
+            onOpenHistory={() => navigation.navigate('History')}
+            onOpenCalendar={() => navigation.navigate('Calendar')}
+            onOpenLearning={() => navigation.navigate('Learning')}
+            onOpenSchemes={() => navigation.navigate('Schemes')}
+            onOpenUpdates={() => navigation.navigate('Updates')}
+            onOpenAlerts={() => navigation.navigate('Alerts')}
+            onOpenMyLands={() => navigation.navigate('MyLands')}
+            onOpenProfile={() => navigation.navigate('Profile')}
+            onOpenVisualAssistant={() => navigation.navigate('VisualAssistant')}
+            onOpenArMoisture={() => navigation.navigate('ARMoistureGuidance')}
+          />
+        )}
       </Tab.Screen>
     </Tab.Navigator>
   );
@@ -160,11 +178,19 @@ export function MainNavigator() {
     <Stack.Navigator screenOptions={{ headerShown: false, animation: 'slide_from_right' }}>
       <Stack.Screen name="Tabs" component={MainTabs} />
 
+      <Stack.Screen name="History">
+        {({ navigation }) => (
+          <HistoryScreen onRegisterLand={() => navigation.navigate('MyLands')} />
+        )}
+      </Stack.Screen>
+
       <Stack.Screen name="Profile">
         {({ navigation }) => (
           <ProfileScreen
             onBack={() => navigation.goBack()}
-            onOpenMyFarm={() => navigation.navigate('MyLands')}
+            onOpenMyFarm={() => {
+              navigation.navigate('MyLands');
+            }}
             onOpenSchemes={() => navigation.navigate('Schemes')}
             onOpenAlerts={() => navigation.navigate('Alerts')}
           />

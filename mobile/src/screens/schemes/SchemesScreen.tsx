@@ -27,7 +27,7 @@ import { useFarm } from '@/features/farm/FarmContext';
 import { getCurrentCrop, type CurrentCrop } from '@/services/agronomy';
 import { updateProfile } from '@/services/profiles';
 import { listSchemes, type SchemeCard } from '@/services/schemes';
-import { colors, layout, radius, spacing } from '@/theme';
+import { colors, fonts, layout, radius, spacing } from '@/theme';
 
 type Props = {
   onBack: () => void;
@@ -147,24 +147,23 @@ export function SchemesScreen({ onBack, onOpenScheme }: Props) {
       </Text>
 
       {selectedState ? (
-        <View style={styles.filterChipRow}>
-          <View style={styles.filterChip}>
-            <Icon name="pin" size={14} color={colors.primary} />
-            <Text variant="microMedium" color={colors.text.primary}>
+        <Pressable
+          style={styles.stateSelectorPill}
+          onPress={() => setStatePickerVisible(true)}
+          hitSlop={8}
+          accessibilityRole="button"
+          testID="change-state-btn"
+        >
+          <View style={styles.statePillLeft}>
+            <Icon name="pin" size={15} color={colors.primary} />
+            <Text variant="bodyMedium" color={colors.primary} style={styles.statePillText}>
               {selectedState}
             </Text>
           </View>
-          <Pressable
-            onPress={() => setStatePickerVisible(true)}
-            hitSlop={8}
-            accessibilityRole="button"
-            testID="change-state-btn"
-          >
-            <Text variant="microMedium" color={colors.primaryDark}>
-              {t('schemes.changeState')}
-            </Text>
-          </Pressable>
-        </View>
+          <Text variant="microMedium" color={colors.primary}>
+            {t('schemes.changeState')} ▾
+          </Text>
+        </Pressable>
       ) : (
         <View style={styles.noStateBanner}>
           <Text variant="bodyMedium" color={colors.text.primary}>
@@ -192,6 +191,8 @@ export function SchemesScreen({ onBack, onOpenScheme }: Props) {
         <IconBadge
           icon={isStateScheme ? 'field' : 'market'}
           tone={isStateScheme ? 'harvest' : 'primary'}
+          size={38}
+          iconSize={18}
         />
         <View style={styles.schemeBody}>
           <View style={styles.cardTopRow}>
@@ -200,20 +201,22 @@ export function SchemesScreen({ onBack, onOpenScheme }: Props) {
             </Text>
             <Badge
               label={isStateScheme ? t('schemes.stateScope') : t('schemes.centralScope')}
-              tone={isStateScheme ? 'neutral' : 'neutral'}
+              tone={isStateScheme ? 'scheme' : 'neutral'}
             />
           </View>
 
           {item.summary ? (
-            <Text variant="caption" color={colors.text.muted} numberOfLines={2}>
+            <Text variant="caption" color={colors.text.muted} numberOfLines={2} style={styles.summaryText}>
               {item.summary}
             </Text>
           ) : null}
 
           {item.reasonKey ? (
-            <Text variant="micro" color={colors.accent} style={styles.reasonText}>
-              {t(item.reasonKey)}
-            </Text>
+            <View style={styles.reasonBadge}>
+              <Text variant="micro" color={colors.accent} style={styles.reasonText}>
+                {t(item.reasonKey)}
+              </Text>
+            </View>
           ) : null}
         </View>
         <Icon name="chevron" size={18} color={colors.text.muted} />
@@ -223,7 +226,16 @@ export function SchemesScreen({ onBack, onOpenScheme }: Props) {
 
   return (
     <Screen>
-      <ScreenHeader title={t('schemes.title')} onBack={onBack} />
+      <ScreenHeader
+        title={t('schemes.title')}
+        subtitle="आपके लिए उपयुक्त सरकारी योजनाएं"
+        onBack={onBack}
+        right={
+          <View style={styles.headerIconBtn}>
+            <Icon name="bell" size={20} color={colors.text.primary} />
+          </View>
+        }
+      />
 
       {loading && !refreshing ? (
         <View style={styles.loadingContainer}>
@@ -290,6 +302,32 @@ const styles = StyleSheet.create({
     gap: spacing.sm,
     marginBottom: spacing.xs,
   },
+  headerIconBtn: {
+    width: 36,
+    height: 36,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  stateSelectorPill: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 14,
+    paddingVertical: 10,
+    backgroundColor: colors.successBg,
+    borderRadius: radius.pill,
+    borderWidth: 1,
+    borderColor: colors.successBorder,
+    marginTop: 4,
+  },
+  statePillLeft: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  statePillText: {
+    fontFamily: fonts.semibold,
+  },
   filterChipRow: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -324,8 +362,9 @@ const styles = StyleSheet.create({
   schemeCard: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: spacing.md,
-    padding: spacing.md,
+    gap: 12,
+    padding: 14,
+    borderRadius: 16,
   },
   schemeBody: {
     flex: 1,
@@ -339,9 +378,22 @@ const styles = StyleSheet.create({
   },
   schemeName: {
     flex: 1,
+    fontFamily: fonts.semibold,
+    fontSize: 15,
+  },
+  summaryText: {
+    lineHeight: 18,
+  },
+  reasonBadge: {
+    marginTop: 4,
+    alignSelf: 'flex-start',
+    backgroundColor: colors.accentBg,
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    borderRadius: radius.sm,
   },
   reasonText: {
-    marginTop: 2,
+    fontSize: 11,
   },
   footerLoading: {
     paddingVertical: spacing.md,

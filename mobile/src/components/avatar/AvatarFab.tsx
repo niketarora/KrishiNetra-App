@@ -5,22 +5,12 @@ import { useTranslation } from 'react-i18next';
 import { useAvatar } from '@/features/avatar/AvatarContext';
 import { isAvatarVisible } from '@/features/avatar/avatarMachine';
 import { colors, layout } from '@/theme';
-
 import { Icon } from '../ui/Icon';
 
 /**
- * design.md §2: a 56dp circular mic button, bottom-right, sitting above the
- * bottom nav. The guide's entry point — deliberately not a navigation slot
- * (IMPLEMENTATION.md §7), because it is an interaction layer over the app, not
- * a destination in it.
- *
- * Mounted once, beside the peek and outside the navigator, rather than per
- * screen as it used to be. The guide can now take the farmer anywhere in the
- * app, so it has to be reachable from anywhere in the app — four screens
- * carrying their own copy left the other twenty without one.
- *
- * It stands down while the avatar is on screen: the peek carries its own mic
- * control, and two microphone buttons a thumb apart is one too many.
+ * KrishiNetra 2.0 Floating Assistant FAB:
+ * Deep green circular mic button floating gracefully above the bottom navigation bar.
+ * Clean, icon-only voice assistant entry point.
  */
 export function AvatarFab() {
   const { t } = useTranslation();
@@ -34,14 +24,14 @@ export function AvatarFab() {
       onPress={open}
       style={({ pressed }) => [
         styles.fab,
-        { bottom: layout.navHeight + insets.bottom + 16 },
+        { bottom: layout.navHeight + insets.bottom + 12 },
         pressed && styles.pressed,
       ]}
       accessibilityRole="button"
       accessibilityLabel={t('avatar.openLabel')}
       testID="avatar-fab"
     >
-      <Icon name="mic" size={26} color={colors.text.onPrimary} strokeWidth={2} />
+      <Icon name="mic" size={26} color={colors.text.onPrimary} strokeWidth={2.3} />
     </Pressable>
   );
 }
@@ -50,19 +40,19 @@ const styles = StyleSheet.create({
   fab: {
     position: 'absolute',
     right: layout.screenPadding,
-    width: layout.fabSize,
-    height: layout.fabSize,
-    borderRadius: layout.fabSize / 2,
+    width: 56,
+    height: 56,
+    borderRadius: 28,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: colors.primary,
-    // The one place the flat design allows a shadow — the FAB must read as
-    // floating above the scrolling content beneath it.
-    elevation: 6,
-    shadowColor: '#1C1F1A',
-    shadowOpacity: 0.28,
-    shadowRadius: 8,
-    shadowOffset: { width: 0, height: 6 },
+    elevation: 8,
+    shadowColor: '#1E4D2B',
+    shadowOpacity: 0.35,
+    shadowRadius: 10,
+    shadowOffset: { width: 0, height: 4 },
+    borderWidth: 1.5,
+    borderColor: 'rgba(255,255,255,0.25)',
   },
-  pressed: { backgroundColor: colors.primaryDark },
+  pressed: { backgroundColor: colors.primaryDark, transform: [{ scale: 0.96 }] },
 });

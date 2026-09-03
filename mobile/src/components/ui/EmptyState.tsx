@@ -13,6 +13,7 @@ type Props = {
   body?: string;
   actionLabel?: string;
   onAction?: () => void;
+  actionRef?: React.Ref<View>;
   testID?: string;
 };
 
@@ -24,7 +25,7 @@ type Props = {
  * plausible-looking sample numbers. IMPLEMENTATION.md rule 13 — mock data must
  * never be presented as real.
  */
-export function EmptyState({ icon, title, body, actionLabel, onAction, testID }: Props) {
+export function EmptyState({ icon, title, body, actionLabel, onAction, actionRef, testID }: Props) {
   return (
     <View style={styles.wrapper} testID={testID}>
       <IconBadge icon={icon} tone="neutral" size={56} iconSize={26} />
@@ -37,12 +38,14 @@ export function EmptyState({ icon, title, body, actionLabel, onAction, testID }:
         </Text>
       ) : null}
       {actionLabel && onAction ? (
-        <Button
-          label={actionLabel}
-          onPress={onAction}
-          variant="secondary"
-          style={styles.action}
-        />
+        <View ref={actionRef} collapsable={false}>
+          <Button
+            label={actionLabel}
+            onPress={onAction}
+            variant="secondary"
+            style={styles.action}
+          />
+        </View>
       ) : null}
     </View>
   );

@@ -773,5 +773,40 @@
       "unavailable": "UNAVAILABLE"
     },
     "nextTarget": "Next target"
+  },
+  "tour": {
+    "stepBadge": "Step {{step}} of {{total}}",
+    "step1": {
+      "title": "Start by setting up your farm",
+      "description": "Tap on your Profile icon to manage your farm, settings and more."
+    },
+    "step2": {
+      "title": "Go to \"My Farm\"",
+      "description": "Tap on \"My Farm\" to register your land and access all your farm information."
+    },
+    "step3": {
+      "title": "Register your land",
+      "description": "Tap \"Register Land\" to start adding your field and access personalized insights."
+    },
+    "step4": {
+      "title": "Register your field",
+      "description": "Choose how you want to register your land — mark the boundary on the map or walk around your field using GPS.",
+      "registeredDesc": "Choose to register your land by Marking on Map or Walking around your field. Your land is now registered!",
+      "successTitle": "Land Registered Successfully!",
+      "successDescription": "Your field boundary has been saved. You can now view and analyse your field.",
+      "viewMyFarm": "View My Farm"
+    },
+    "step5": {
+      "title": "Field Analysis",
+      "description": "Get complete insights about your field — soil moisture, texture, weather and advanced radar data."
+    },
+    "step6": {
+      "title": "Marketplace",
+      "description": "Find the best market prices, compare trends and get the most value for your crops."
+    },
+    "next": "Next →",
+    "skip": "Skip",
+    "finish": "Finish 🎉"
   }
 }
+

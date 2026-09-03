@@ -31,14 +31,18 @@ type Props = {
 export function StatusCard({ icon, label, value, note, muted = false, sample = false, onPress, testID }: Props) {
   return (
     <Card style={[styles.card, sample && styles.sampleCard]} onPress={onPress} testID={testID}>
-      <IconBadge icon={icon} tone={sample ? 'demo' : muted ? 'neutral' : 'primary'} size={32} iconSize={16} />
-      <Text variant="caption" style={styles.label}>
+      <View style={styles.topRow}>
+        <IconBadge icon={icon} tone={sample ? 'demo' : muted ? 'neutral' : 'primary'} size={36} iconSize={18} />
+      </View>
+      <Text variant="caption" color={colors.text.secondary} style={styles.label}>
         {label}
       </Text>
       <View style={styles.valueRow}>
         <Text
           variant="stat"
           color={sample ? colors.demo.fg : muted ? colors.text.muted : colors.text.primary}
+          style={styles.valueText}
+          numberOfLines={1}
         >
           {value}
         </Text>
@@ -46,8 +50,9 @@ export function StatusCard({ icon, label, value, note, muted = false, sample = f
       {note ? (
         <Text
           variant="micro"
-          color={sample ? colors.demo.fg : undefined}
+          color={sample ? colors.demo.fg : colors.text.muted}
           style={styles.note}
+          numberOfLines={1}
         >
           {note}
         </Text>
@@ -57,9 +62,20 @@ export function StatusCard({ icon, label, value, note, muted = false, sample = f
 }
 
 const styles = StyleSheet.create({
-  card: { flex: 1 },
+  card: {
+    flex: 1,
+    padding: 14,
+    gap: 4,
+  },
+  topRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: 4,
+  },
   sampleCard: { borderColor: colors.demo.border },
-  label: { marginTop: 10 },
+  label: { fontSize: 13 },
   valueRow: { marginTop: 2 },
+  valueText: { fontSize: 20, lineHeight: 26 },
   note: { marginTop: 2 },
 });

@@ -25,16 +25,16 @@ const CANDIDATE_BASE_URLS: string[] = Array.from(
   new Set(
     [
       process.env.EXPO_PUBLIC_API_URL,
-      'https://krishinetra-app-1.onrender.com',
       'http://10.0.2.2:4000',
       'http://192.168.1.18:4000',
       'http://127.0.0.1:4000',
       'http://localhost:4000',
+      'https://krishinetra-app-1.onrender.com',
     ].filter(Boolean) as string[],
   ),
 );
 
-let workingBaseUrl: string = CANDIDATE_BASE_URLS[0] || 'https://krishinetra-app-1.onrender.com';
+let workingBaseUrl: string = CANDIDATE_BASE_URLS[0] || 'http://10.0.2.2:4000';
 
 export function getApiBaseUrl(): string {
   return workingBaseUrl;

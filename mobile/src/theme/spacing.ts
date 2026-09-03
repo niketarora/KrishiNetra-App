@@ -35,7 +35,7 @@ export const layout = {
 export const radius = {
   none: 0,
   sm: 8,
-  md: 12,
-  lg: 16,
+  md: 16,
+  lg: 20,
   pill: 999,
 } as const;

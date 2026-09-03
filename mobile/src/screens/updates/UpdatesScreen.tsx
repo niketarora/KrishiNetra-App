@@ -235,37 +235,69 @@ export function UpdatesScreen({ onBack, onOpenUpdate }: Props) {
 
   return (
     <Screen>
-      <ScreenHeader title={t('updates.title')} onBack={onBack} />
+      <ScreenHeader
+        title={t('updates.title')}
+        subtitle="आपके खेत से जुड़ी महत्वपूर्ण जानकारी"
+        onBack={onBack}
+        right={
+          <Pressable hitSlop={8} style={styles.headerIconBtn} accessibilityRole="button" accessibilityLabel="Alerts">
+            <Icon name="bell" size={20} color={colors.text.primary} />
+          </Pressable>
+        }
+      />
 
       <ScrollView
         contentContainerStyle={styles.content}
         showsVerticalScrollIndicator={false}
-        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={handleRefresh} tintColor={colors.primary} />}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={handleRefresh}
+            tintColor={colors.primary}
+          />
+        }
       >
-        <Text variant="caption">{t('updates.intro')}</Text>
+        {demoFallback ? (
+          <SampleBanner />
+        ) : null}
+
+        {errorKey && !demoFallback ? (
+          <Banner title={t(errorKey)} tone="danger" icon="offline" />
+        ) : null}
 
         {renderFarmSelector()}
         {renderFarmContext()}
 
-        {errorKey ? <Banner title={t(errorKey)} tone="danger" icon="offline" /> : null}
-        {demoFallback ? <SampleBanner /> : null}
-
         {loading ? (
-          <View style={styles.loading} testID="updates-loading">
-            <Skeleton height={92} />
-            <Skeleton height={92} />
-            <Skeleton height={92} />
+          <View style={styles.skeletonList} testID="updates-loading">
+            <Skeleton height={110} />
+            <Skeleton height={110} />
+            <Skeleton height={110} />
           </View>
         ) : demoFallback ? (
-          UPDATES.length === 0 ? (
-            <EmptyState icon="clock" title={t('updates.emptyTitle')} testID="updates-empty" />
+          (UPDATES as AgriUpdate[]).length === 0 ? (
+            <EmptyState
+              icon="plant"
+              title={t('updates.emptyTitle')}
+              body={t('updates.emptyBody')}
+              testID="updates-empty"
+            />
           ) : (
-            UPDATES.map(renderDemoUpdate)
+            <View style={styles.updatesList}>
+              {(UPDATES as AgriUpdate[]).map(renderDemoUpdate)}
+            </View>
           )
         ) : updates.length === 0 && !errorKey ? (
-          <EmptyState icon="clock" title={t('updates.emptyTitle')} testID="updates-empty" />
+          <EmptyState
+            icon="plant"
+            title={t('updates.emptyTitle')}
+            body={t('updates.emptyBody')}
+            testID="updates-empty"
+          />
         ) : (
-          updates.map(renderUpdate)
+          <View style={styles.updatesList}>
+            {(updates as KrishiUpdate[]).map(renderUpdate)}
+          </View>
         )}
       </ScrollView>
     </Screen>
@@ -276,26 +308,48 @@ const styles = StyleSheet.create({
   content: {
     paddingHorizontal: layout.screenPadding,
     paddingTop: 8,
-    paddingBottom: 32,
+    paddingBottom: 110,
     gap: layout.cardGap,
+  },
+  headerIconBtn: {
+    width: 36,
+    height: 36,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   farmSelector: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
   farmChip: {
-    paddingVertical: 8,
-    paddingHorizontal: 12,
+    paddingVertical: 7,
+    paddingHorizontal: 14,
     borderWidth: 1,
     borderColor: colors.border,
     backgroundColor: colors.surface,
     borderRadius: 999,
   },
-  farmChipSelected: { backgroundColor: colors.successBg, borderColor: colors.successBorder },
-  contextCard: { gap: 2 },
+  farmChipSelected: {
+    backgroundColor: colors.primary,
+    borderColor: colors.primary,
+  },
+  contextCard: {
+    gap: 4,
+    backgroundColor: colors.successBg,
+    borderColor: colors.successBorder,
+    borderWidth: 1,
+    padding: 14,
+    borderRadius: 16,
+  },
   loading: { gap: layout.cardGap },
-  updateCard: { gap: 6 },
-  updateHeader: { flexDirection: 'row', alignItems: 'flex-start', gap: 10 },
+  skeletonList: { gap: layout.cardGap },
+  updatesList: { gap: layout.cardGap },
+  updateCard: {
+    gap: 8,
+    padding: 14,
+    borderRadius: 16,
+  },
+  updateHeader: { flexDirection: 'row', alignItems: 'flex-start', gap: 12 },
   updateHeaderBody: { flex: 1, minWidth: 0, gap: 4 },
-  metaRow: { flexDirection: 'row', alignItems: 'center', gap: 8, flexWrap: 'wrap' },
-  summary: { marginTop: 2 },
-  whyRow: { flexDirection: 'row', alignItems: 'flex-start', gap: 6, marginTop: 2 },
+  metaRow: { flexDirection: 'row', alignItems: 'center', gap: 8, flexWrap: 'wrap', marginTop: 2 },
+  summary: { marginTop: 2, lineHeight: 18 },
+  whyRow: { flexDirection: 'row', alignItems: 'flex-start', gap: 6, marginTop: 4 },
   whyText: { flex: 1 },
 });

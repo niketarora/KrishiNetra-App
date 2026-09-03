@@ -3,6 +3,7 @@ import { RefreshControl, ScrollView, StyleSheet, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
 import { BoundaryThumbnail } from '@/components/farm/BoundaryThumbnail';
+import { SoilMoistureGauge } from '@/components/field/SoilMoistureGauge';
 import { GuideTarget } from '@/components/guide/GuideTarget';
 import {
   Badge,
@@ -15,8 +16,9 @@ import {
 } from '@/components/ui';
 import { useFarm } from '@/features/farm/FarmContext';
 import { useHomeInsights } from '@/screens/home/useHomeInsights';
-import { colors, layout, radius } from '@/theme';
+import { colors, fonts, layout, radius } from '@/theme';
 import { fromGeoJSON } from '@/utils/geo';
+import { useTourTarget } from '@/features/onboarding/useTourTarget';
 
 type Props = { onBack?: () => void };
 
@@ -36,6 +38,7 @@ export function FieldAnalysisScreen({ onBack }: Props) {
   const { crop, weather, soilMoisture, refresh } = useHomeInsights(farm?.id ?? null);
   const [refreshing, setRefreshing] = useState(false);
   const scrollRef = useRef<ScrollView>(null);
+  const fieldTourRef = useTourTarget('tour-field-analysis', 16);
 
   const handleRefresh = async () => {
     setRefreshing(true);
@@ -120,62 +123,75 @@ export function FieldAnalysisScreen({ onBack }: Props) {
         ) : null}
 
         {/* --- Primary OASSM-10 Soil Moisture Output --- */}
-        <GuideTarget id="soil-moisture-card" scroll={scrollRef}>
-          <Card tone="success" style={styles.mlHighlightCard} testID="soil-moisture-card">
-            <View style={styles.cardHeaderRow}>
-              <View style={styles.titleWithIcon}>
-                <IconBadge icon="droplet" tone="primary" />
-                <View style={styles.headerTextGroup}>
-                  <Text variant="bodyMedium" color={colors.primaryDark}>
-                    {t('field.soilMoistureTitle')}
-                  </Text>
-                  <Text variant="micro" color={colors.text.secondary}>
-                    Sentinel-1 SAR + Sentinel-2 10m Resolution
-                  </Text>
+        <View ref={fieldTourRef} collapsable={false}>
+          <GuideTarget id="soil-moisture-card" scroll={scrollRef}>
+            <Card tone="success" style={styles.mlHighlightCard} testID="soil-moisture-card">
+              <View style={styles.cardHeaderRow}>
+                <View style={styles.titleWithIcon}>
+                  <IconBadge icon="droplet" tone="primary" size={36} iconSize={18} />
+                  <View style={styles.headerTextGroup}>
+                    <Text variant="bodyMedium" color={colors.primaryDark} style={styles.cardMainTitle}>
+                      {t('field.soilMoistureTitle')}
+                    </Text>
+                    <Text variant="micro" color={colors.text.secondary}>
+                      Sentinel-1 SAR + Sentinel-2 10m Resolution
+                    </Text>
+                  </View>
                 </View>
               </View>
-            </View>
 
-            <View style={styles.statContainer}>
-              <View style={styles.statMain}>
-                <Text variant="stat" color={colors.primaryDark} style={styles.statNumber}>
-                  {prediction ? `${prediction.soil_moisture_percent}%` : '--'}
-                </Text>
-                <Badge
-                  label={
-                    prediction
-                      ? t(`field.categories.${prediction.category}`, { defaultValue: prediction.category })
-                      : t('common.notAvailable')
-                  }
-                  tone={categoryTone(prediction?.category)}
-                />
+              <View style={styles.statContainer}>
+                <View style={styles.statSplitRow}>
+                  <View style={styles.statLeft}>
+                    <View style={styles.statMain}>
+                      <Text variant="stat" color={colors.primaryDark} style={styles.statNumber}>
+                        {prediction ? `${prediction.soil_moisture_percent}%` : '--'}
+                      </Text>
+                      <Badge
+                        label={
+                          prediction
+                            ? t(`field.categories.${prediction.category}`, { defaultValue: prediction.category })
+                            : t('common.notAvailable')
+                        }
+                        tone={categoryTone(prediction?.category)}
+                      />
+                    </View>
+
+                    {volumetricDisplay ? (
+                      <View style={styles.volumetricRow}>
+                        <Text variant="caption" color={colors.text.secondary}>
+                          Volumetric Water Content: <Text variant="bodyMedium" color={colors.text.primary}>{volumetricDisplay}</Text>
+                        </Text>
+                      </View>
+                    ) : null}
+
+                    <View style={styles.modelTagRow}>
+                      <Text variant="microMedium" color={colors.text.muted}>
+                        {prediction ? `Model: ${prediction.model_version}` : 'Model: offline'}
+                      </Text>
+                    </View>
+                  </View>
+
+                  <View style={styles.gaugeContainer}>
+                    <SoilMoistureGauge
+                      percent={prediction ? Number(prediction.soil_moisture_percent) : 38.8}
+                      size={110}
+                    />
+                  </View>
+                </View>
               </View>
 
-              {volumetricDisplay ? (
-                <View style={styles.volumetricRow}>
-                  <Text variant="caption" color={colors.primaryDark}>
-                    Volumetric Water Content: <Text variant="bodyMedium">{volumetricDisplay}</Text>
+              {prediction?.warning ? (
+                <View style={styles.warningContainer}>
+                  <Icon name="alert" size={16} color={colors.warning} />
+                  <Text variant="micro" color={colors.text.secondary} style={styles.warningText}>
+                    {prediction.warning}
                   </Text>
                 </View>
               ) : null}
-
-              <View style={styles.modelTagRow}>
-                <Text variant="microMedium" color={colors.text.muted}>
-                  {prediction ? `Model: ${prediction.model_version}` : 'Model: offline'}
-                </Text>
-              </View>
-            </View>
-
-            {prediction?.warning ? (
-              <View style={styles.warningContainer}>
-                <Icon name="alert" size={16} color={colors.warning} />
-                <Text variant="micro" color={colors.text.secondary} style={styles.warningText}>
-                  {prediction.warning}
-                </Text>
-              </View>
-            ) : null}
-          </Card>
-        </GuideTarget>
+            </Card>
+          </GuideTarget>
+        </View>
 
         {/* --- Sentinel-1 SAR Microwave Radar Telemetry --- */}
         {prediction?.sar_backscatter_db || features?.vv != null ? (
@@ -352,31 +368,50 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 10,
   },
+  cardMainTitle: {
+    fontFamily: fonts.semibold,
+    fontSize: 16,
+  },
   headerTextGroup: {
     gap: 2,
   },
   statContainer: {
+    marginTop: 6,
     gap: 8,
+  },
+  statSplitRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: 8,
+  },
+  statLeft: {
+    flex: 1,
+    gap: 6,
+  },
+  gaugeContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingLeft: 4,
   },
   statMain: {
     flexDirection: 'row',
     alignItems: 'baseline',
-    justifyContent: 'space-between',
+    gap: 10,
   },
   statNumber: {
-    fontSize: 38,
-    lineHeight: 44,
+    fontSize: 36,
+    lineHeight: 42,
+    fontFamily: fonts.semibold,
   },
   volumetricRow: {
-    backgroundColor: 'rgba(34, 197, 94, 0.1)',
-    paddingVertical: 4,
-    paddingHorizontal: 8,
-    borderRadius: radius.sm,
+    paddingVertical: 2,
     alignSelf: 'flex-start',
   },
   modelTagRow: {
     flexDirection: 'row',
     alignItems: 'center',
+    marginTop: 2,
   },
   warningContainer: {
     flexDirection: 'row',
@@ -412,11 +447,13 @@ const styles = StyleSheet.create({
     marginTop: 4,
   },
   featureItem: {
-    width: '47%',
-    backgroundColor: colors.neutralBg,
+    width: '48%',
+    backgroundColor: colors.surface,
+    borderWidth: 1,
+    borderColor: colors.border,
     padding: 10,
     borderRadius: radius.md,
-    gap: 4,
+    gap: 3,
   },
   rowHeader: {
     flexDirection: 'row',

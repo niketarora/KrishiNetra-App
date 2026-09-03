@@ -16,6 +16,8 @@ import {
   Text,
 } from '@/components/ui';
 import { useFarm } from '@/features/farm/FarmContext';
+import { useOptionalOnboardingTour } from '@/features/onboarding/OnboardingTourContext';
+import { useTourTarget } from '@/features/onboarding/useTourTarget';
 import { getCurrentCrop, type CurrentCrop } from '@/services/agronomy';
 import type { Farm } from '@/services/farms';
 import { colors, layout, radius, spacing } from '@/theme';
@@ -38,6 +40,17 @@ export function MyLandsScreen({ onBack, onOpenMyFarm, onAddLand, onEditLand }: P
   const { t, i18n } = useTranslation();
   const { lands, selectedLandId, selectLand, removeLand, loading } = useFarm();
   const [cropsByLandId, setCropsByLandId] = useState<Record<string, CurrentCrop | null>>({});
+
+  const tour = useOptionalOnboardingTour();
+  const registerLandTourRef = useTourTarget('tour-mylands-register', 24);
+
+  const handleAddLand = () => {
+    if (tour?.isActive && tour.step === 3) {
+      tour.nextStep();
+    } else {
+      onAddLand();
+    }
+  };
 
   useEffect(() => {
     let cancelled = false;
@@ -114,7 +127,8 @@ export function MyLandsScreen({ onBack, onOpenMyFarm, onAddLand, onEditLand }: P
             title={t('myLands.emptyTitle')}
             body={t('myLands.emptyBody')}
             actionLabel={t('myLands.addLand')}
-            onAction={onAddLand}
+            onAction={handleAddLand}
+            actionRef={registerLandTourRef}
             testID="empty-lands-state"
           />
         ) : (

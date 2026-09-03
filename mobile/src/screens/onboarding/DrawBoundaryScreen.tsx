@@ -118,6 +118,18 @@ export function DrawBoundaryScreen({
 
   const restart = useCallback(() => setPoints([]), []);
 
+  const generateSampleBoundary = useCallback(() => {
+    const lat = centre.latitude;
+    const lng = centre.longitude;
+    const delta = 0.0015;
+    setPoints([
+      { latitude: lat + delta, longitude: lng - delta },
+      { latitude: lat + delta, longitude: lng + delta },
+      { latitude: lat - delta, longitude: lng + delta },
+      { latitude: lat - delta, longitude: lng - delta },
+    ]);
+  }, [centre]);
+
   const area = useMemo(() => calculateArea(points), [points]);
   const canConfirm = isValidPolygon(points);
 
@@ -142,7 +154,7 @@ export function DrawBoundaryScreen({
       {showLocationDeniedBanner ? (
         <View style={styles.bannerSlot}>
           <Banner
-            title={t('onboarding.locationPermissionDenied', 'Location access is denied. Pan and zoom the map manually to place boundary points.')}
+            title={t('onboarding.locationDeniedBanner', 'Location access is off. Map is centered on default region.')}
             tone="neutral"
           />
         </View>
@@ -151,6 +163,12 @@ export function DrawBoundaryScreen({
       {mapFailed ? (
         <View style={styles.mapErrorSlot}>
           <Banner title={t('onboarding.mapError')} tone="danger" />
+          <Button
+            label="Use Sample Boundary"
+            variant="primary"
+            onPress={generateSampleBoundary}
+            testID="use-sample-boundary-btn"
+          />
           <Button
             label={t('common.retry')}
             variant="secondary"
@@ -171,12 +189,14 @@ export function DrawBoundaryScreen({
           onMovePoint={movePoint}
           onReady={handleReady}
           onError={handleError}
+          editable
+          showsUserLocation={gpsFixState === 'ok'}
         />
       )}
 
       <View style={styles.controls}>
         <Button
-          label={t('onboarding.undoPoint')}
+          label={t('onboarding.undo')}
           onPress={undoPoint}
           variant="secondary"
           icon="undo"
@@ -191,6 +211,15 @@ export function DrawBoundaryScreen({
           disabled={points.length === 0}
           style={styles.controlButton}
         />
+        {points.length < 3 && (
+          <Button
+            label="Sample Field"
+            onPress={generateSampleBoundary}
+            variant="secondary"
+            style={styles.controlButton}
+            testID="sample-boundary-btn"
+          />
+        )}
       </View>
 
       <View style={styles.areaSlot}>

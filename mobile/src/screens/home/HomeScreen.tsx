@@ -26,6 +26,8 @@ import { getCurrentFieldFix } from '@/services/location';
 import { colors, layout, radius } from '@/theme';
 import { firstName, greetingKey, initials } from '@/utils/format';
 import { fromGeoJSON } from '@/utils/geo';
+import { useTourTarget } from '@/features/onboarding/useTourTarget';
+import { useOptionalOnboardingTour } from '@/features/onboarding/OnboardingTourContext';
 
 import { useHomeInsights } from './useHomeInsights';
 
@@ -151,6 +153,8 @@ export function HomeScreen({
   // card into view before the guide spotlights it. Home is long enough that
   // most of what the farmer asks about starts below the fold.
   const scrollRef = useRef<ScrollView>(null);
+  const tour = useOptionalOnboardingTour();
+  const profileTourRef = useTourTarget('tour-profile-avatar', 20);
 
   const handleRefresh = async () => {
     setRefreshing(true);
@@ -185,23 +189,59 @@ export function HomeScreen({
         }
       >
         <View style={styles.header}>
-          <View style={styles.greeting}>
-            <Text variant="caption">{t(`home.greeting.${greetingKey()}`)}</Text>
-            <Text variant="cardTitle">{name}</Text>
+          <View style={styles.headerLeft}>
+            <Pressable
+              onPress={onOpenProfile}
+              hitSlop={10}
+              style={styles.menuBtn}
+              accessibilityRole="button"
+              accessibilityLabel="Menu"
+            >
+              <Icon name="menu" size={22} color={colors.text.primary} strokeWidth={2} />
+            </Pressable>
+            <View style={styles.greeting}>
+              <Text variant="micro" color={colors.text.muted}>
+                {t(`home.greeting.${greetingKey()}`)}
+              </Text>
+              <Text variant="cardTitle" color={colors.primary} style={styles.farmerName}>
+                {name}
+              </Text>
+            </View>
           </View>
 
-          <Pressable
-            onPress={onOpenProfile}
-            style={styles.avatarChip}
-            hitSlop={8}
-            accessibilityRole="button"
-            accessibilityLabel={t('profile.title')}
-            testID="open-profile"
-          >
-            <Text variant="microMedium" color={colors.text.onPrimary}>
-              {initials(profile?.full_name, profile?.email, profile?.phone)}
-            </Text>
-          </Pressable>
+          <View style={styles.headerRight}>
+            <Pressable
+              onPress={onOpenAlerts}
+              hitSlop={8}
+              style={styles.headerIconBtn}
+              accessibilityRole="button"
+              accessibilityLabel={t('home.alerts')}
+              testID="home-alerts-btn"
+            >
+              <Icon name="bell" size={20} color={colors.text.primary} />
+            </Pressable>
+
+            <View ref={profileTourRef} collapsable={false}>
+              <Pressable
+                onPress={() => {
+                  if (tour?.isActive && tour.step === 1) {
+                    tour.nextStep();
+                  } else {
+                    onOpenProfile();
+                  }
+                }}
+                style={styles.avatarChip}
+                hitSlop={8}
+                accessibilityRole="button"
+                accessibilityLabel={t('profile.title')}
+                testID="open-profile"
+              >
+                <Text variant="microMedium" color={colors.text.onPrimary}>
+                  {initials(profile?.full_name, profile?.email, profile?.phone)}
+                </Text>
+              </Pressable>
+            </View>
+          </View>
         </View>
 
         <View style={styles.body}>
@@ -258,18 +298,28 @@ export function HomeScreen({
               <GuideTarget id="field-card" scroll={scrollRef}>
               <Card onPress={onEditBoundary} tone="success" style={styles.fieldCard} testID="field-card">
                 <View style={styles.fieldThumbnail}>
-                  <BoundaryThumbnail points={boundaryPoints} size={64} />
+                  <BoundaryThumbnail points={boundaryPoints} size={68} />
                 </View>
 
                 <View style={styles.fieldBody}>
                   <Text variant="cardTitle" numberOfLines={1}>
                     {farm.name?.trim() || t('home.unnamedField')}
                   </Text>
-                  <Text variant="stat" color={colors.primaryDark} style={styles.fieldArea}>
-                    {`${Number(farm.area_acres).toFixed(2)} ${t('onboarding.acres')}`}
-                  </Text>
+                  <View style={styles.fieldAreaRow}>
+                    <Text variant="stat" color={colors.primaryDark}>
+                      {`${Number(farm.area_acres).toFixed(2)} ${t('onboarding.acres')}`}
+                    </Text>
+                    {farm.area_hectares ? (
+                      <Text variant="caption" color={colors.text.secondary}>
+                        {` · ${Number(farm.area_hectares).toFixed(2)} ${t('onboarding.hectares')}`}
+                      </Text>
+                    ) : null}
+                  </View>
                   <View style={styles.fieldFooter}>
-                    <Badge label={t('home.notYetAnalyzed')} tone="neutral" />
+                    <Badge
+                      label={soilMoisture?.prediction ? '10m Multi-Sensor Radar' : t('home.notYetAnalyzed')}
+                      tone={soilMoisture?.prediction ? 'accent' : 'neutral'}
+                    />
                     <View style={styles.editLinkRow}>
                       <Text variant="microMedium" color={colors.primaryDark}>
                         {t('home.editBoundary')}
@@ -574,10 +624,34 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: layout.screenPadding,
-    paddingTop: 14,
-    paddingBottom: 4,
+    paddingTop: 12,
+    paddingBottom: 8,
   },
-  greeting: { gap: 2 },
+  headerLeft: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+  },
+  headerRight: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+  },
+  menuBtn: {
+    width: 36,
+    height: 36,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginLeft: -4,
+  },
+  headerIconBtn: {
+    width: 36,
+    height: 36,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  greeting: { gap: 1 },
+  farmerName: { fontSize: 18, lineHeight: 22 },
   avatarChip: {
     width: 36,
     height: 36,
@@ -613,6 +687,7 @@ const styles = StyleSheet.create({
   fieldCard: { flexDirection: 'row', alignItems: 'flex-start', gap: 12 },
   fieldThumbnail: { borderRadius: radius.sm, overflow: 'hidden' },
   fieldBody: { flex: 1, minWidth: 0, gap: 2 },
+  fieldAreaRow: { flexDirection: 'row', alignItems: 'baseline', gap: 4, marginTop: 2 },
   fieldArea: { marginTop: 2 },
   fieldFooter: {
     flexDirection: 'row',

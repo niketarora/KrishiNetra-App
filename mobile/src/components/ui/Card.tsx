@@ -54,14 +54,11 @@ const styles = StyleSheet.create({
   base: {
     padding: layout.cardPadding,
     borderRadius: radius.md,
-    // A very light lift instead of the original zero-elevation flatness —
-    // subtle on purpose, so it still reads well in bright outdoor light and
-    // costs nothing noticeable on a low-end device.
-    elevation: 1,
-    shadowColor: '#1C1F1A',
-    shadowOpacity: 0.05,
-    shadowRadius: 3,
-    shadowOffset: { width: 0, height: 1 },
+    elevation: 2,
+    shadowColor: '#1C251D',
+    shadowOpacity: 0.04,
+    shadowRadius: 8,
+    shadowOffset: { width: 0, height: 2 },
   },
   surface: {
     backgroundColor: colors.surface,

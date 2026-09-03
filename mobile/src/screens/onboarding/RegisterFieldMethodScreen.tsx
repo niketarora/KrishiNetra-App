@@ -6,6 +6,7 @@ import { Banner, Button, Card, Icon, Screen, ScreenHeader, Text } from '@/compon
 import { ACCURACY_WARN_METERS, getCurrentFieldFix, type FieldFix } from '@/services/location';
 import { colors, layout, radius } from '@/theme';
 import type { LatLng } from '@/utils/geo';
+import { useTourTarget } from '@/features/onboarding/useTourTarget';
 
 type Props = {
   onSelectWalk: (centre: LatLng | null, accuracy: number | null) => void;
@@ -15,6 +16,7 @@ type Props = {
 
 export function RegisterFieldMethodScreen({ onSelectWalk, onSelectDraw, onBack }: Props) {
   const { t } = useTranslation();
+  const drawTargetRef = useTourTarget('tour-register-map', 20);
 
   const [locating, setLocating] = useState(true);
   const [gpsFix, setGpsFix] = useState<FieldFix | null>(null);
@@ -121,6 +123,8 @@ export function RegisterFieldMethodScreen({ onSelectWalk, onSelectDraw, onBack }
 
         {/* Method 2: Mark / Draw on Map */}
         <Pressable
+          ref={drawTargetRef}
+          collapsable={false}
           onPress={handleDraw}
           style={({ pressed }) => [styles.methodCard, pressed && styles.methodCardPressed]}
           testID="method-draw"

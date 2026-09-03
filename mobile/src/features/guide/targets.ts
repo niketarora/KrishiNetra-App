@@ -12,7 +12,7 @@ import type { MainStackParamList, MainTabParamList } from '@/navigation/types';
  * an unrecognised target is dropped rather than guessed at.
  */
 
-const TABS: readonly (keyof MainTabParamList)[] = ['Home', 'Field', 'Market', 'History'];
+const TABS: readonly (keyof MainTabParamList)[] = ['Home', 'Field', 'Market', 'Calendar', 'More'];
 
 /**
  * Stack routes the guide may open.
@@ -23,6 +23,7 @@ const TABS: readonly (keyof MainTabParamList)[] = ['Home', 'Field', 'Market', 'H
  * the farmer meant is a decision it should not be making.
  */
 const STACK_ROUTES: readonly (keyof MainStackParamList)[] = [
+  'History',
   'Profile',
   'MyLands',
   'MyFarm',
@@ -40,11 +41,11 @@ export type NavigationTarget =
   | { kind: 'stack'; route: keyof MainStackParamList };
 
 export function resolveNavigationTarget(target: string): NavigationTarget | null {
-  const tab = TABS.find((name) => name === target);
-  if (tab) return { kind: 'tab', route: tab };
-
   const route = STACK_ROUTES.find((name) => name === target);
   if (route) return { kind: 'stack', route };
+
+  const tab = TABS.find((name) => name === target);
+  if (tab) return { kind: 'tab', route: tab };
 
   return null;
 }

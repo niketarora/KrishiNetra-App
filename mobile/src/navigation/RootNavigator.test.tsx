@@ -22,6 +22,7 @@ jest.mock('@/screens/auth/ProfileSetupScreen', () => {
 // signed-out/signed-in split, not the providers' own behaviour.
 jest.mock('@/features/farm/FarmContext', () => ({
   FarmProvider: ({ children }: { children: React.ReactNode }) => children,
+  useFarm: () => ({ lands: [], farm: null, loading: false, refresh: jest.fn() }),
 }));
 
 jest.mock('@/features/avatar/AvatarContext', () => ({
@@ -45,6 +46,10 @@ jest.mock('@/components/avatar/AvatarFab', () => ({
 
 jest.mock('@/components/guide/Spotlight', () => ({
   Spotlight: () => null,
+}));
+
+jest.mock('@/components/onboarding/OnboardingTourOverlay', () => ({
+  OnboardingTourOverlay: () => null,
 }));
 
 jest.mock('./AuthNavigator', () => {

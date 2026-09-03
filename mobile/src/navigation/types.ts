@@ -17,11 +17,15 @@ export type MainTabParamList = {
   Home: undefined;
   Field: undefined;
   Market: undefined;
-  History: undefined;
+  Calendar: undefined;
+  More: undefined;
 };
 
 export type MainStackParamList = {
   Tabs: undefined;
+  /** History / Krishi Memory stack route kept for backward compatibility */
+  History: undefined;
+  More: undefined;
   Profile: undefined;
   /** Re-drawing an existing boundary reuses the onboarding screens. */
   EditBoundary: { centre: LatLng | null; points: LatLng[]; name: string | null; accuracy?: number | null };

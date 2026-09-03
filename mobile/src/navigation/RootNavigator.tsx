@@ -3,10 +3,12 @@ import { NavigationContainer, DefaultTheme, type Theme } from '@react-navigation
 import { AvatarFab } from '@/components/avatar/AvatarFab';
 import { AvatarPeek } from '@/components/avatar/AvatarPeek';
 import { Spotlight } from '@/components/guide/Spotlight';
+import { OnboardingTourOverlay } from '@/components/onboarding/OnboardingTourOverlay';
 import { AvatarProvider } from '@/features/avatar/AvatarContext';
 import { useAuth } from '@/features/auth/AuthContext';
 import { FarmProvider } from '@/features/farm/FarmContext';
 import { GuideProvider } from '@/features/guide/GuideContext';
+import { OnboardingTourProvider } from '@/features/onboarding/OnboardingTourContext';
 import { ProfileSetupScreen } from '@/screens/auth/ProfileSetupScreen';
 import { SplashScreen } from '@/screens/SplashScreen';
 import { colors } from '@/theme';
@@ -77,27 +79,30 @@ export function RootNavigator() {
       */}
       <GuideProvider>
         <AvatarProvider>
-          {/*
-            The ref is how the guide reaches navigation. Screens still take
-            their navigation as callback props; this exists only for the three
-            siblings below, which are outside the container by design.
-          */}
-          <NavigationContainer theme={navigationTheme} ref={navigationRef}>
-            <MainNavigator />
-          </NavigationContainer>
+          <OnboardingTourProvider>
+            {/*
+              The ref is how the guide reaches navigation. Screens still take
+              their navigation as callback props; this exists only for the three
+              siblings below, which are outside the container by design.
+            */}
+            <NavigationContainer theme={navigationTheme} ref={navigationRef}>
+              <MainNavigator />
+            </NavigationContainer>
 
-          {/*
-            All three are rendered outside the NavigationContainer so they
-            survive every navigation the guide performs and are reachable from
-            any screen — they are an interaction layer over the app, not
-            destinations in it.
+            {/*
+              All three are rendered outside the NavigationContainer so they
+              survive every navigation the guide performs and are reachable from
+              any screen — they are an interaction layer over the app, not
+              destinations in it.
 
-            Order matters: the spotlight frames a card on the screen below, and
-            the peek must sit above the spotlight rather than be ringed by it.
-          */}
-          <Spotlight />
-          <AvatarPeek />
-          <AvatarFab />
+              Order matters: the spotlight frames a card on the screen below, and
+              the peek must sit above the spotlight rather than be ringed by it.
+            */}
+            <Spotlight />
+            <AvatarPeek />
+            <AvatarFab />
+            <OnboardingTourOverlay />
+          </OnboardingTourProvider>
         </AvatarProvider>
       </GuideProvider>
     </FarmProvider>
