@@ -1,7 +1,7 @@
 # 🌱 KrishiNetra 2.0 — AI Smart Farming & Agricultural Market Intelligence Platform
 
 <p align="center">
-  <b>Empowering farmers with Earth observation satellite intelligence, real-time mandi price discovery, multilingual voice AI, and transparent market linkages.</b>
+  <b>Empowering farmers with Earth observation satellite intelligence, real-time mandi price discovery, multilingual voice AI, and transparent market linkages</b>
 </p>
 
 <p align="center">
