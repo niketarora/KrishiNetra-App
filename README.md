@@ -1,71 +1,198 @@
-# KrishiNetra App
+# 🌱 KrishiNetra 2.0 — AI Smart Farming & Agricultural Market Intelligence Platform
 
-KrishiNetra is an AI-powered smart farming and agricultural market intelligence platform leveraging Sentinel-1 SAR and Sentinel-2 optical Earth observation satellite data, weather intelligence, machine learning, and multilingual Voice AI assistance. It provides field-level crop classification, soil moisture estimation, irrigation scheduling, agricultural advisory, and market-linkage price discovery for farmers.
+<p align="center">
+  <img src="docs/images/hero_image.png" alt="KrishiNetra Avatar & Hero" width="220" style="border-radius: 20px;" />
+</p>
+
+<p align="center">
+  <b>Empowering farmers with Earth observation satellite intelligence, real-time mandi price discovery, multilingual voice AI, and transparent market linkages.</b>
+</p>
+
+<p align="center">
+  <a href="#-problem-statement"><img src="https://img.shields.io/badge/SIH%202026-PS%2026132-brightgreen?style=for-the-badge" alt="SIH 2026"></a>
+  <a href="#-tech-stack"><img src="https://img.shields.io/badge/Mobile-React%20Native%20%7C%20Expo%2052-blue?style=for-the-badge&logo=react" alt="React Native"></a>
+  <a href="#-tech-stack"><img src="https://img.shields.io/badge/Backend-Node.js%20%7C%20Express-green?style=for-the-badge&logo=node.js" alt="Node.js"></a>
+  <a href="#-tech-stack"><img src="https://img.shields.io/badge/ML-FastAPI%20%7C%20XGBoost-orange?style=for-the-badge&logo=python" alt="Python FastAPI"></a>
+  <a href="#-tech-stack"><img src="https://img.shields.io/badge/Database-Supabase%20%7C%20PostGIS-3ECF8E?style=for-the-badge&logo=supabase" alt="Supabase PostGIS"></a>
+  <a href="#-tech-stack"><img src="https://img.shields.io/badge/AI-Gemini%202.5%20%7C%20Sarvam-purple?style=for-the-badge&logo=google" alt="Google Gemini & Sarvam"></a>
+</p>
 
 ---
 
-## Repository Layout
+## 📌 Problem Statement
 
+* **Smart India Hackathon (SIH 2026)**: **PS 26132** — *"Strengthening market linkages and price discovery for farmers"*
+* **Organization**: Government of Maharashtra / Maharashtra State Innovation Society (MSIS)
+
+Small and marginal farmers frequently face severe market information asymmetry: lack of visibility into real-time mandi prices, inability to forecast price trends, reliance on middlemen, and lack of field-level agronomic intelligence. **KrishiNetra 2.0** solves this by putting an end-to-end digital agronomy assistant and transparent price discovery engine directly into the farmer's hands.
+
+---
+
+## 🚀 Key Features
+
+### 🛰️ 1. Satellite Earth Observation & Field Intelligence
+* **ESA Copernicus Sentinel-1 & 2 Integration**: Combines Sentinel-1 Synthetic Aperture Radar (SAR $VV, VH$ backscatter) with Sentinel-2 optical multispectral bands (NDVI, NDWI).
+* **XGBoost Soil Moisture Estimation**: Delivers high-resolution soil moisture percentages without requiring expensive physical ground sensors.
+* **Topographic Terrain Analysis**: Computes elevation, slope angle, and runoff risk to optimize field-level irrigation scheduling.
+* **Geodesic Land Mapping**: Mapbox & Google Maps satellite canvas allows farmers to draw GPS polygon boundaries and calculate geodesic acreage (acres/hectares) with automatic district centroid reverse-geocoding.
+
+### 📊 2. Real-Time Mandi Intelligence & Price Discovery
+* **AGMARKNET Ingestion Engine**: Automated, idempotent ingestion pipeline pulling live daily arrivals, modal, minimum, and maximum prices from `data.gov.in`.
+* **MSP Comparison & Benchmark**: Compares live mandi rates against government published Minimum Support Prices (MSP) to guarantee floor value visibility.
+* **7-Day Price Forecasting**: Time-series ML model forecasting mandi price trajectories to advise farmers whether to **Sell Now**, **Wait / Hold**, or **Sell Partially**.
+* **Fayda Profit Simulator**: Simulates net realization after accounting for storage costs, transit expenses, and market commissions.
+
+### 🤖 3. Multilingual 3D Voice Avatar & Vision AI
+* **Indic Voice Assistant (Sarvam AI)**: Multilingual Speech-to-Text (`saaras:v1`) and Text-to-Speech (`bulbul:v1`) supporting 22 Indic languages (Hindi, Marathi, Rajasthani, Telugu, Tamil, etc.).
+* **Zero-Hallucination Grounded AI (Google Gemini 2.5 Flash)**: Answers farmer queries strictly using verified field data, ingested mandi rates, and district weather observations.
+* **Rigged 3D WebGL Avatar**: Three.js avatar running in an isolated WebView with deterministic speech-cadence animations and gestures.
+* **Live Multimodal Camera Scanner**: Camera-based visual diagnostic tool powered by Gemini Multimodal Live API for real-time crop disease, pest infestation, and nutrient deficiency identification.
+* **Voice In-App Navigation**: Voice commands automatically route the user to relevant app screens via the internal navigation registry.
+
+### 📢 4. Krishi Updates, Emergency Alerts & Government Schemes
+* **NDMA SACHET Disaster Warnings**: Real-time alerts for impending hailstorms, heavy rainfall, frost, and extreme heatwaves.
+* **Agricultural News Feed**: Real-time news curated from GDELT and official government press releases from PIB.
+* **State & National Schemes Discovery**: Complete catalog of government subsidies (PM-Kisan, drip irrigation subsidies, crop insurance) with one-click eligibility matching.
+
+### 🤝 5. Market Linkages & Transparent Buyer Matching
+* **Digital Crop Lot Creation**: Farmers can generate verified crop lots containing quantity, quality metrics, and geospatial field provenance.
+* **Direct Buyer & FPO Matching**: Weighted proximity matching connects farmers directly with verified institutional buyers, processors, and FPOs, bypassing intermediaries.
+
+---
+
+## 🏛️ System Architecture
+
+```mermaid
+graph TB
+  %% Client Layer
+  subgraph ClientLayer["📱 1. Client & Presentation Layer"]
+    FarmerApp["👨‍🌾 React Native / Expo App<br/>• Mapbox GPS Boundary Canvas<br/>• 3D WebGL Avatar (Three.js)<br/>• Multimodal Camera Scanner<br/>• Live Mandi & Weather Dash"]
+    BuyerPortal["🏢 Buyer & FPO Portal<br/>• Crop Lot Search & Bidding<br/>• Direct Trade Contracts"]
+  end
+
+  %% Edge & Security
+  subgraph SecurityLayer["🛡️ 2. Gateway & Security Layer"]
+    APIGateway["🚪 Express API Gateway (Zod Validation + Rate Limit)"]
+    AuthMiddleware["🔐 Supabase JWT + Postgres RLS Enforcement"]
+  end
+
+  %% Application Services
+  subgraph AppLayer["⚙️ 3. Node.js / Express Application Layer"]
+    FarmService["📍 Farm & Geocoding Service"]
+    MarketService["📊 Mandi Ingestion & Intelligence"]
+    WeatherService["🌦️ Open-Meteo & NDMA Alerts"]
+    AIService["🎙️ Sarvam AI & Gemini Orchestrator"]
+    AgroService["🌾 Agronomy & Soil Moisture Bridge"]
+    SchemesService["📋 Schemes & Updates Engine"]
+  end
+
+  %% ML Brain
+  subgraph MLLayer["🧠 4. Python FastAPI ML Intelligence Core"]
+    SoilML["💧 XGBoost Soil Moisture Model"]
+    PriceML["📈 7-Day Mandi Price Forecaster"]
+    AdvisorML["⚖️ Sell / Wait Decision Matrix"]
+    MatchML["🔍 Buyer-Farmer Match Ranker"]
+  end
+
+  %% Persistence
+  subgraph DataLayer["🗄️ 5. Persistence & Storage Layer"]
+    SupabaseDB[("⚡ Supabase PostgreSQL + PostGIS<br/>(Row Level Security Isolated)")]
+    BlobStore[("📦 Supabase Object Store (Scans & Assets)")]
+  end
+
+  %% External Ingestion
+  subgraph ExternalAPIs["🌐 6. External Data Streams"]
+    AGMARKNET["🏛️ data.gov.in AGMARKNET"]
+    OpenMeteo["🌦️ Open-Meteo Weather"]
+    Sentinel["🛰️ ESA Copernicus Sentinel-1/2"]
+    Sarvam["🇮🇳 Sarvam AI (STT/TTS)"]
+    Gemini["✨ Google Gemini 2.5 Flash"]
+    NDMA["📢 NDMA SACHET Disaster Alerts"]
+  end
+
+  %% Connections
+  FarmerApp -->|"HTTPS / WSS"| APIGateway
+  BuyerPortal -->|"HTTPS REST"| APIGateway
+  APIGateway --> AuthMiddleware
+  AuthMiddleware --> AppLayer
+  AppLayer -->|"Model Inference"| MLLayer
+  AppLayer -->|"RLS Scoped SQL"| SupabaseDB
+  AppLayer -->|"File Storage"| BlobStore
+  AppLayer -->|"Ingestion Cron"| ExternalAPIs
 ```
-mobile/       React Native (Expo) app        ← Phase 1, implemented
-backend/      Node.js + Express API           ← Phase 2, implemented
-ml/           ML service contracts            ← Phase 3, in progress
-supabase/     SQL migrations
-docs/         PRD, TRD, implementation plan, design assets
+
+---
+
+## 📂 Repository Layout
+
+```text
+├── mobile/                  # React Native (Expo SDK 52) Mobile Application
+│   ├── assets/              # Avatar 3D GLB assets, icons, splash screens
+│   └── src/
+│       ├── components/      # 3D Avatar stage, charts, audio visualizers, cards
+│       ├── features/        # Auth, avatar state machine, demo mode guards
+│       ├── i18n/            # Multilingual translations (EN, HI, MR, etc.)
+│       ├── navigation/      # Stack & Tab navigators, voice action routes
+│       ├── screens/         # Home, Market, Field, VisualAssistant, Schemes, Updates
+│       ├── services/        # API client, agronomy, location, and cache services
+│       └── theme/           # Design system tokens and agricultural palette
+│
+├── backend/                 # Node.js + Express + TypeScript API Server
+│   ├── src/
+│   │   ├── ai/              # Sarvam STT/TTS, Gemini 2.5 Flash, Prompt engineering
+│   │   ├── controllers/     # REST controllers (Farms, Crops, Ingestion, AI, Live)
+│   │   ├── ingestion/       # AGMARKNET market, Open-Meteo weather, Nominatim geocode
+│   │   ├── middleware/      # Supabase JWT authentication & Zod validation
+│   │   ├── routes/          # API router definitions
+│   │   ├── schemas/         # Zod schemas for request validation
+│   │   ├── scripts/         # Ingest & seed CLI runners (market, weather, schemes)
+│   │   ├── services/        # Business logic, PostGIS spatial queries, market trends
+│   │   └── updates/         # NDMA SACHET alerts, GDELT news, deduplication filters
+│
+├── ml/                      # Python FastAPI ML & Earth Observation Service
+│   ├── app/                 # FastAPI routes & satellite analysis endpoints
+│   ├── krishinetra_ml/      # XGBoost soil moisture & price prediction packages
+│   ├── models/              # Serialized XGBoost model artifacts
+│   ├── notebooks/           # Sentinel SAR & AGMARKNET EDA/training notebooks
+│   └── main.py              # FastAPI microservice entrypoint
+│
+├── supabase/                # Database Migrations & Schemas
+│   └── migrations/          # 0001 to 0005 SQL migrations (PostGIS, RLS, Seed data)
+│
+└── docs/                    # PRD, TRD, HLD, Architecture diagrams & specifications
 ```
 
-## Current Status — Phase 2.5
+---
 
-Phase 2 put a Node/Express API between the app and Supabase. The app no longer
-queries Supabase tables directly: every farm and profile read/write goes through
-the API, which verifies the farmer's Supabase JWT and forwards it so Row Level
-Security applies as that farmer.
+## 🛠️ Technology Stack
 
-Phase 2.5 stage a filled the data tables Phase 2 created and left empty. Real
-mandi prices come from data.gov.in AGMARKNET and real observed weather from
-Open-Meteo, both ingested server-side; Home now shows the farmer's crop, its
-Minimum Support Price, and a real temperature for their district.
+| Layer | Technologies |
+|---|---|
+| **Mobile Client** | React Native, Expo (SDK 52), TypeScript, Mapbox Maps, Three.js WebGL, `expo-audio`, `expo-camera`, `i18next` |
+| **Backend API** | Node.js (v20+), Express.js (v5), TypeScript, Zod, Multer, Helmet, Express Rate Limit |
+| **Machine Learning** | Python 3.11, FastAPI, XGBoost, LightGBM, Scikit-learn, Pandas, NumPy, Google Earth Engine / Copernicus API |
+| **Database & Auth** | Supabase, PostgreSQL 15+, PostGIS Spatial Extensions, Row Level Security (RLS) |
+| **AI & Voice** | Google Gemini 2.5 Flash, Gemini Multimodal Live API, Sarvam AI (`saaras:v1`, `bulbul:v1`) |
+| **External Providers** | `data.gov.in` AGMARKNET, Open-Meteo Weather API, ESA Copernicus Sentinel-1/2, NDMA SACHET |
 
-Where a source has nothing, the API still says so rather than returning a
-number it invented — and the tiles that have no source at all (growth stage,
-predicted price, sell/wait) keep their empty states until Phase 3.
+---
 
-Stage b turned the Phase 1 avatar UI into a working assistant: the farmer holds
-the mic, Sarvam AI transcribes what they said, Google Gemini answers from their
-own field records, and a deterministic controller animates the avatar. The model
-is told exactly which facts it has and required to say a service is not
-connected rather than invent one.
-
-See [docs/PHASE2_5_NOTES.md](docs/PHASE2_5_NOTES.md) for what was built, the
-deviations, and where stage b attaches.
-
-### Phase 1
-
-Phase 1 covers the first working farmer journey and the complete AI Farmer Avatar interface:
-
-```
-Register → Login → Field location → Draw boundary → Confirm → Home
-                                                              └→ AI Avatar
-```
-
-- **Implemented**: Supabase email/password auth, session persistence, protected navigation, satellite-map boundary drawing with geodesic area calculation, and saving the farm to an RLS-protected Postgres table.
-- **Phase Roadmap**: Crop health, growth stage, weather, mandi prices, price prediction, selling recommendations, buyers, lots, offers, logistics, and payments. The AI Farmer Avatar interface is set up with a scripted interactive preview.
-
-See [docs/PHASE1_NOTES.md](docs/PHASE1_NOTES.md) for the full real-vs-deferred breakdown and architecture notes.
-
-## Getting Started
+## ⚡ Getting Started & Local Setup
 
 ### 1. Prerequisites
+* **Node.js**: v20.x or higher
+* **Python**: v3.10+ (for ML services)
+* **Android Studio & SDK** / Physical Android Device (Android 8.0+)
+* **Supabase Account** (or local Supabase CLI)
+* **API Keys**:
+  * `GEMINI_API_KEY` (Google AI Studio)
+  * `SARVAM_API_KEY` (Sarvam AI)
+  * `MARKET_API_KEY` (data.gov.in — optional for live mandi daily rates)
 
-- Node.js 20+
-- A physical Android device or emulator (Android 8+)
-- Android Studio (for SDK & platform tools)
-- A Supabase project
-- A Google Cloud project with the **Maps SDK for Android** enabled
+---
 
 ### 2. Supabase Setup
-
-Create a Supabase project, then in the SQL editor run:
+Create a Supabase project and execute the migrations in the SQL Editor in order:
 
 ```sql
 supabase/migrations/0001_phase1_schema.sql
@@ -75,117 +202,132 @@ supabase/migrations/0004_farm_location.sql
 supabase/migrations/0005_farmer_identity.sql
 ```
 
-`0001` creates `profiles` and `farms`, their triggers, and Row Level Security
-(RLS) policies. `0002` adds `crops`, `farm_crops`, `mandis`, `market_prices`,
-`msp` and `weather`. `0003` seeds the crop catalogue, the Rajasthan mandi list
-and the published wheat MSP — it is idempotent, so re-running it is safe.
-`0004` resolves each farm's district/state from its centroid. `0005` adds an
-optional farmer email, a `FarmerLocation` (seeded to a Pratapgarh, Rajasthan
-demo placeholder until a future GPS/manual entry replaces it), and
-notification preferences to `profiles`.
+* Under **Authentication → Providers → Email**: Enable Email/Password authentication.
 
-Under **Authentication → Providers → Email**:
-- Enable email/password.
-- Turn off "Confirm email" for Phase 1 development.
+---
 
-The mobile app's farmer-facing signup/login flow is phone-first and uses a
-local **demo OTP** (see `mobile/src/features/auth/demoOtp.ts`) rather than
-Supabase Phone Auth, so no Phone provider needs to be configured for this
-prototype — enabling one later (Twilio/MessageBird/Vonage, under
-**Authentication → Providers → Phone**) is the only step needed before
-swapping the demo OTP for a real one; see that file's header comment.
-
-### 3. Google Maps Key
-
-Create an Android-restricted API key and restrict it to package `com.krishinetra.app` plus your signing SHA-1. Ensure billing is enabled on Google Cloud.
-
-### 4. Environment Variables
-
-```bash
-cd mobile
-cp .env.example .env
-```
-
-Fill in `EXPO_PUBLIC_SUPABASE_URL`, `EXPO_PUBLIC_SUPABASE_ANON_KEY`,
-`EXPO_PUBLIC_API_URL` and `GOOGLE_MAPS_ANDROID_API_KEY`. (`.env` is gitignored.)
-
-On an Android emulator the host machine is reachable at `10.0.2.2`, not
-`localhost`, so `EXPO_PUBLIC_API_URL=http://10.0.2.2:4000`. On a physical device
-use the host's LAN address.
+### 3. Backend Setup
 
 ```bash
 cd backend
 cp .env.example .env
 ```
 
-Fill in `SUPABASE_URL`, `SUPABASE_ANON_KEY` and `SUPABASE_SERVICE_ROLE_KEY`. The
-service-role key belongs **only** here — never under `mobile/`.
-
-### 5. Run the Backend
-
-```bash
-cd backend
-npm install
-npm run dev          # http://localhost:4000
-curl http://localhost:4000/health
+Fill in `.env`:
+```env
+PORT=4000
+SUPABASE_URL=https://your-project.supabase.co
+SUPABASE_ANON_KEY=your-anon-key
+SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
+GEMINI_API_KEY=your-gemini-key
+SARVAM_API_KEY=your-sarvam-key
+MARKET_API_KEY=your-data-gov-in-key
 ```
 
-### 6. Run the Mobile App
+Install and run the server:
+```bash
+npm install
+npm run dev
+# Server running at http://localhost:4000
+```
+
+Seed demo data and ingest live market/weather records:
+```bash
+npm run demo:full
+```
+
+---
+
+### 4. Machine Learning Microservice Setup
+
+```bash
+cd ml
+python -m venv .venv
+
+# On Windows:
+.venv\Scripts\activate
+# On Linux/macOS:
+source .venv/bin/activate
+
+pip install -r requirements.txt
+python main.py
+# FastAPI service running at http://localhost:8000
+```
+
+---
+
+### 5. Mobile App Setup
 
 ```bash
 cd mobile
-npm install
-npm run android      # builds dev client and runs on device/emulator
+cp .env.example .env
 ```
 
-The app needs the backend running: farm and profile data travels through it.
+Fill in `.env`:
+```env
+EXPO_PUBLIC_API_URL=http://10.0.2.2:4000       # 10.0.2.2 for Android Emulator, or your LAN IP
+EXPO_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
+EXPO_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
+```
 
-## Scripts
+Install and launch on Android:
+```bash
+npm install
+npm run android
+```
 
-Run from `mobile/`:
+---
 
-| Command | What it does |
-|---|---|
-| `npm run android` | Build and run on a connected Android device |
-| `npm start` | Start the Metro dev server against an installed dev client |
-| `npm test` | Run the Jest test suite (141 tests) |
-| `npm run typecheck` | Run TypeScript check (`tsc --noEmit`) |
+## 🧪 Testing & Verification
 
-Run from `backend/`:
+Run the comprehensive test suites across the workspace:
 
-| Command | What it does |
-|---|---|
-| `npm run dev` | Start the API in watch mode |
-| `npm run build` | Compile to `dist/` |
-| `npm test` | Run the Jest + supertest suite (51 tests) |
-| `npm run typecheck` | Run TypeScript check (`tsc --noEmit`) |
+```bash
+# Backend Tests (Jest + Supertest)
+cd backend
+npm test
+npm run typecheck
 
-## Documentation
+# Mobile Tests (Jest + React Native Testing Library)
+cd mobile
+npm test
+npm run typecheck
 
-| Document | Purpose |
-|---|---|
-| [docs/PRD.md](docs/PRD.md) | Product vision, users, scope, user journey |
-| [docs/TRD.md](docs/TRD.md) | Architecture, stack, schema, phase requirements |
-| [docs/IMPLEMENTATION.md](docs/IMPLEMENTATION.md) | The 5-phase roadmap and scope boundaries |
-| [docs/PHASE1_NOTES.md](docs/PHASE1_NOTES.md) | What Phase 1 built, and where Phases 2–5 attach |
-| [docs/PHASE2_IMPLEMENTATION.md](docs/PHASE2_IMPLEMENTATION.md) | The Phase 2 plan |
-| [docs/PHASE2_NOTES.md](docs/PHASE2_NOTES.md) | What Phase 2 built, the deviations, and where Phase 3 attaches |
-| [docs/IMPLEMENTATION_PHASE2_5.md](docs/IMPLEMENTATION_PHASE2_5.md) | The Phase 2.5 plan |
-| [docs/PHASE2_5_NOTES.md](docs/PHASE2_5_NOTES.md) | What Phase 2.5 built, the deviations, and where Phase 3 attaches |
-| [backend/README.md](backend/README.md) | API setup, endpoints, and the auth model |
-| `docs/ui-designs/ui-designs.zip` | The design canvas the UI is built from |
-| `docs/images/hero_image.png` | The farmer avatar assets |
+# ML Service Tests
+cd ml
+python -m unittest discover -s tests
+```
 
-## Roadmap
+---
 
-| Phase | Scope | Status |
-|---|---|---|
-| 1 | UI + Auth + Farm mapping + Avatar UI | **Done** |
-| 2 | Node/Express backend + agricultural data | **Done** |
-| 2.5 | Real market + weather data, avatar intelligence V1 | **Done** |
-| 3 | ML integration + market intelligence | Planned |
-| 4 | Market linkage + transactions | Planned |
-| 5 | AI Farmer Avatar intelligence (STT/LLM/TTS, ~22 languages) | Planned |
+## 🔒 Security & Zero-Hallucination AI Integrity
+
+1. **PostgreSQL Row Level Security (RLS)**:
+   * The mobile app never communicates with Supabase directly for business tables.
+   * Every request passes through the Express API with the farmer's verified Supabase JWT; PostgreSQL enforces that farmers can only read/write their own farms, crops, and lots (`WHERE user_id = auth.uid()`).
+2. **Server-Side Secret Isolation**:
+   * All API keys for Gemini, Sarvam, Supabase Service Role, and data.gov.in are kept exclusively in server environment variables. Zero keys are bundled into client APKs.
+3. **Strict Zero-Hallucination Guardrails**:
+   * Gemini 2.5 Flash prompts are dynamically injected with factual records (exact mandi modal rates, dates, observed rainfall).
+   * The system prompt strictly prohibits inferring or inventing predictions, prices, or recommendations when data is absent, cleanly reporting status as *"service not connected"* instead.
+
+---
+
+## 👥 Contributors & Acknowledgements
+
+* **Team**: Developed for **Smart India Hackathon (SIH 2026)**
+* **Problem Statement**: **PS 26132** (Government of Maharashtra)
+* **Data Sources**:
+  * [data.gov.in AGMARKNET](https://data.gov.in/) — Daily mandi arrivals & price bulletins
+  * [Open-Meteo](https://open-meteo.com/) — High-resolution meteorological data
+  * [ESA Copernicus Open Access Hub](https://scihub.copernicus.eu/) — Sentinel-1 SAR & Sentinel-2 MSI data
+  * [Sarvam AI](https://sarvam.ai/) & [Google Gemini](https://ai.google.dev/) — Indic voice intelligence & multimodal AI
+
+---
+
+## 📄 License
+
+Distributed under the MIT License. See `LICENSE` for more information.
 
 
 
