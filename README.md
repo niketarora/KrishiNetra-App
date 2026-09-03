@@ -1,30 +1,23 @@
 # 🌱 KrishiNetra 2.0 — AI Smart Farming & Agricultural Market Intelligence Platform
 
 <p align="center">
-  <img src="docs/images/hero_image.png" alt="KrishiNetra Avatar & Hero" width="220" style="border-radius: 20px;" />
-</p>
-
-<p align="center">
   <b>Empowering farmers with Earth observation satellite intelligence, real-time mandi price discovery, multilingual voice AI, and transparent market linkages.</b>
 </p>
 
 <p align="center">
-  <a href="#-problem-statement"><img src="https://img.shields.io/badge/SIH%202026-PS%2026132-brightgreen?style=for-the-badge" alt="SIH 2026"></a>
   <a href="#-tech-stack"><img src="https://img.shields.io/badge/Mobile-React%20Native%20%7C%20Expo%2052-blue?style=for-the-badge&logo=react" alt="React Native"></a>
   <a href="#-tech-stack"><img src="https://img.shields.io/badge/Backend-Node.js%20%7C%20Express-green?style=for-the-badge&logo=node.js" alt="Node.js"></a>
   <a href="#-tech-stack"><img src="https://img.shields.io/badge/ML-FastAPI%20%7C%20XGBoost-orange?style=for-the-badge&logo=python" alt="Python FastAPI"></a>
   <a href="#-tech-stack"><img src="https://img.shields.io/badge/Database-Supabase%20%7C%20PostGIS-3ECF8E?style=for-the-badge&logo=supabase" alt="Supabase PostGIS"></a>
   <a href="#-tech-stack"><img src="https://img.shields.io/badge/AI-Gemini%202.5%20%7C%20Sarvam-purple?style=for-the-badge&logo=google" alt="Google Gemini & Sarvam"></a>
+  <a href="#-license"><img src="https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge" alt="MIT License"></a>
 </p>
 
 ---
 
-## 📌 Problem Statement
+## 📌 Overview & Problem Statement
 
-* **Smart India Hackathon (SIH 2026)**: **PS 26132** — *"Strengthening market linkages and price discovery for farmers"*
-* **Organization**: Government of Maharashtra / Maharashtra State Innovation Society (MSIS)
-
-Small and marginal farmers frequently face severe market information asymmetry: lack of visibility into real-time mandi prices, inability to forecast price trends, reliance on middlemen, and lack of field-level agronomic intelligence. **KrishiNetra 2.0** solves this by putting an end-to-end digital agronomy assistant and transparent price discovery engine directly into the farmer's hands.
+Small and marginal farmers frequently face severe market information asymmetry: lack of visibility into real-time mandi prices, inability to forecast price trends, reliance on middlemen, and lack of field-level agronomic intelligence. **KrishiNetra 2.0** solves this by putting an end-to-end digital agronomy assistant, satellite Earth observation pipeline, and transparent price discovery engine directly into the farmer's hands.
 
 ---
 
@@ -313,15 +306,12 @@ python -m unittest discover -s tests
 
 ---
 
-## 👥 Contributors & Acknowledgements
+## 👥 Data Sources & Acknowledgements
 
-* **Team**: Developed for **Smart India Hackathon (SIH 2026)**
-* **Problem Statement**: **PS 26132** (Government of Maharashtra)
-* **Data Sources**:
-  * [data.gov.in AGMARKNET](https://data.gov.in/) — Daily mandi arrivals & price bulletins
-  * [Open-Meteo](https://open-meteo.com/) — High-resolution meteorological data
-  * [ESA Copernicus Open Access Hub](https://scihub.copernicus.eu/) — Sentinel-1 SAR & Sentinel-2 MSI data
-  * [Sarvam AI](https://sarvam.ai/) & [Google Gemini](https://ai.google.dev/) — Indic voice intelligence & multimodal AI
+* [data.gov.in AGMARKNET](https://data.gov.in/) — Daily mandi arrivals & price bulletins
+* [Open-Meteo](https://open-meteo.com/) — High-resolution meteorological data
+* [ESA Copernicus Open Access Hub](https://scihub.copernicus.eu/) — Sentinel-1 SAR & Sentinel-2 MSI data
+* [Sarvam AI](https://sarvam.ai/) & [Google Gemini](https://ai.google.dev/) — Indic voice intelligence & multimodal AI
 
 ---
 
