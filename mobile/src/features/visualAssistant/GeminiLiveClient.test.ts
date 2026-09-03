@@ -219,9 +219,10 @@ describe('GeminiLiveClient & ToolHandler', () => {
       const client = new GeminiLiveClient(callbacks);
       expect(client.getState()).toBe('disconnected');
 
-      // sendRealtimeAudio & sendRealtimeImage do not throw when disconnected
+      // sendRealtimeAudio, sendRealtimeImage & sendTextPrompt do not throw when disconnected
       expect(() => client.sendRealtimeAudio('AQID')).not.toThrow();
       expect(() => client.sendRealtimeImage('AQID')).not.toThrow();
+      expect(() => client.sendTextPrompt('What is this leaf?')).not.toThrow();
 
       client.disconnect();
       expect(client.getState()).toBe('disconnected');

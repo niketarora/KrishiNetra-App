@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { ActivityIndicator, Image, Pressable, StyleSheet, View } from 'react-native';
+import { ActivityIndicator, Image, Pressable, StyleSheet, TextInput, View } from 'react-native';
 import { CameraView, useCameraPermissions } from 'expo-camera';
 import type { CameraView as CameraViewInstance } from 'expo-camera';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -466,8 +466,10 @@ export function VisualAssistantScreen({ onBack }: Props) {
           {/* Interactive Message Box with Text Input & Send */}
           <View style={styles.messageBoxRow}>
             <View style={styles.inputContainer}>
-              <Input
-                placeholder="Ask about this plant or crop..."
+              <TextInput
+                style={styles.messageInput}
+                placeholder="Type question about this crop/plant..."
+                placeholderTextColor="rgba(255, 255, 255, 0.6)"
                 value={question}
                 onChangeText={setQuestion}
                 editable={!asking}
@@ -545,10 +547,6 @@ export function VisualAssistantScreen({ onBack }: Props) {
     </View>
   );
 }
-      </SafeAreaView>
-    </View>
-  );
-}
 
 const styles = StyleSheet.create({
   root: { flex: 1, backgroundColor: '#000000' },
@@ -592,47 +590,6 @@ const styles = StyleSheet.create({
     paddingTop: 14,
     gap: 12,
   },
-  controlsRow: {
-    gap: 12,
-  },
-  liveStartBlock: {
-    marginBottom: 4,
-  },
-  startLiveButton: {
-    backgroundColor: colors.primary,
-  },
-  hint: { minHeight: 18 },
-  captureRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 20,
-    paddingVertical: 4,
-  },
-  sampleButton: {
-    width: 52,
-    height: 52,
-    borderRadius: 26,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'rgba(255, 255, 255, 0.22)',
-    borderWidth: 1.5,
-    borderColor: 'rgba(255, 255, 255, 0.45)',
-  },
-  captureButton: {
-    width: 76,
-    height: 76,
-    borderRadius: 38,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#FFFFFF',
-    elevation: 6,
-    shadowColor: '#000000',
-    shadowOpacity: 0.3,
-    shadowRadius: 6,
-    shadowOffset: { width: 0, height: 3 },
-  },
-  capturePressed: { opacity: 0.85 },
   liveActiveCard: {
     backgroundColor: 'rgba(21, 23, 20, 0.92)',
     borderRadius: radius.lg,
@@ -651,10 +608,78 @@ const styles = StyleSheet.create({
     lineHeight: 22,
   },
   answerCard: {
-    backgroundColor: avatarColors.pillBg,
+    backgroundColor: 'rgba(21, 23, 20, 0.92)',
     padding: layout.cardPadding,
     gap: 6,
     borderRadius: radius.lg,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.15)',
   },
   answerBadge: { alignSelf: 'flex-start' },
+  messageBoxRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+  },
+  inputContainer: {
+    flex: 1,
+  },
+  messageInput: {
+    backgroundColor: 'rgba(21, 23, 20, 0.92)',
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.25)',
+    borderRadius: radius.pill,
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    color: '#FFFFFF',
+    fontSize: 15,
+  },
+  sendButton: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    backgroundColor: colors.primary,
+    alignItems: 'center',
+    justifyContent: 'center',
+    elevation: 4,
+    shadowColor: '#000000',
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
+    shadowOffset: { width: 0, height: 2 },
+  },
+  sendButtonDisabled: {
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+  },
+  actionRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+  },
+  flexButton: {
+    flex: 1,
+  },
+  snapButton: {
+    width: 52,
+    height: 52,
+    borderRadius: 26,
+    backgroundColor: '#FFFFFF',
+    alignItems: 'center',
+    justifyContent: 'center',
+    elevation: 5,
+    shadowColor: '#000000',
+    shadowOpacity: 0.3,
+    shadowRadius: 5,
+    shadowOffset: { width: 0, height: 2 },
+  },
+  sampleButtonSmall: {
+    width: 52,
+    height: 52,
+    borderRadius: 26,
+    backgroundColor: 'rgba(255, 255, 255, 0.22)',
+    borderWidth: 1.5,
+    borderColor: 'rgba(255, 255, 255, 0.45)',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  capturePressed: { opacity: 0.85 },
 });

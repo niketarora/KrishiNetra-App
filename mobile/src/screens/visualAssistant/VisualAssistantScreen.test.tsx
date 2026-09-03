@@ -97,7 +97,7 @@ describe('VisualAssistantScreen', () => {
       await fireEvent.press(screen.getByTestId('visual-assistant-retake'));
 
       expect(screen.getByTestId('visual-assistant-capture')).toBeTruthy();
-      expect(screen.queryByTestId('visual-assistant-question')).toBeNull();
+      expect(screen.queryByTestId('visual-assistant-retake')).toBeNull();
     });
   });
 

@@ -302,6 +302,57 @@ export function OnboardingTourOverlay() {
             )}
           </View>
 
+          {/* Step 4 Methods inside Flashcard: Walk Field or Mark Boundary */}
+          {step === 4 && !isLandRegistered && (
+            <View style={styles.methodsContainer}>
+              <Pressable
+                style={({ pressed }) => [styles.methodOptionBtn, pressed && styles.methodOptionBtnPressed]}
+                onPress={() => navigateToStackRoute('RegisterLand')}
+                accessibilityRole="button"
+                testID="tour-option-walk"
+              >
+                <View style={styles.methodIconCircle}>
+                  <Icon name="field" size={20} color={colors.primary} />
+                </View>
+                <View style={styles.methodTextCol}>
+                  <View style={styles.methodTitleRow}>
+                    <Text style={styles.methodTitleText}>{t('onboarding.walkMethodTitle')}</Text>
+                    <View style={styles.methodBadge}>
+                      <Text style={styles.methodBadgeText}>GPS Walk</Text>
+                    </View>
+                  </View>
+                  <Text style={styles.methodDescText} numberOfLines={1}>
+                    {t('onboarding.walkMethodDesc')}
+                  </Text>
+                </View>
+                <Icon name="chevron" size={16} color={colors.text.muted} />
+              </Pressable>
+
+              <Pressable
+                style={({ pressed }) => [styles.methodOptionBtn, pressed && styles.methodOptionBtnPressed]}
+                onPress={() => navigateToStackRoute('RegisterBoundary')}
+                accessibilityRole="button"
+                testID="tour-option-draw"
+              >
+                <View style={[styles.methodIconCircle, { backgroundColor: '#FEF3C7' }]}>
+                  <Icon name="map" size={20} color={colors.accent} />
+                </View>
+                <View style={styles.methodTextCol}>
+                  <View style={styles.methodTitleRow}>
+                    <Text style={styles.methodTitleText}>{t('onboarding.drawMethodTitle')}</Text>
+                    <View style={[styles.methodBadge, { backgroundColor: '#FEF3C7' }]}>
+                      <Text style={[styles.methodBadgeText, { color: '#B45309' }]}>Map Draw</Text>
+                    </View>
+                  </View>
+                  <Text style={styles.methodDescText} numberOfLines={1}>
+                    {t('onboarding.drawMethodDesc')}
+                  </Text>
+                </View>
+                <Icon name="chevron" size={16} color={colors.text.muted} />
+              </Pressable>
+            </View>
+          )}
+
           {/* Controls: Skip | Dots | Next */}
           <View style={styles.controlsRow}>
             <Pressable
@@ -553,5 +604,64 @@ const styles = StyleSheet.create({
     fontFamily: fonts.semibold,
     fontSize: 15,
     color: '#FFFFFF',
+  },
+  methodsContainer: {
+    gap: 8,
+    marginBottom: 16,
+  },
+  methodOptionBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#F9FAFB',
+    borderColor: '#E5E7EB',
+    borderWidth: 1.2,
+    borderRadius: 14,
+    paddingVertical: 10,
+    paddingHorizontal: 12,
+    gap: 10,
+  },
+  methodOptionBtnPressed: {
+    backgroundColor: '#F3F4F6',
+    borderColor: colors.primary,
+  },
+  methodIconCircle: {
+    width: 34,
+    height: 34,
+    borderRadius: 17,
+    backgroundColor: '#E8F5E9',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  methodTextCol: {
+    flex: 1,
+    gap: 2,
+  },
+  methodTitleRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+  },
+  methodTitleText: {
+    fontFamily: fonts.semibold,
+    fontSize: 13.5,
+    color: colors.text.primary,
+    fontWeight: '600',
+  },
+  methodBadge: {
+    backgroundColor: '#E8F5E9',
+    borderRadius: 6,
+    paddingHorizontal: 5,
+    paddingVertical: 1,
+  },
+  methodBadgeText: {
+    fontFamily: fonts.medium,
+    fontSize: 10.5,
+    color: '#1B5E20',
+    fontWeight: '600',
+  },
+  methodDescText: {
+    fontFamily: fonts.regular,
+    fontSize: 11.5,
+    color: colors.text.secondary,
   },
 });
