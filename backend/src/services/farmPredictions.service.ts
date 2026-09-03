@@ -7,6 +7,7 @@ import { listCrops, latestWeatherForDistrict, latestWeatherForGridCell } from '.
 import { getElevationForCoordinates } from './elevation.service.js';
 import { getSoilHealthByDistrict } from './soilHealth.service.js';
 import { analyzeFieldVegetation } from './vegetationAnalysis.service.js';
+import { buildOassmFeatures, type OassmFeatureContext } from './oassmFeatureBuilder.js';
 
 export type FarmPredictionResponse = {
   prediction: OASSMSoilMoisturePrediction;
@@ -94,83 +95,37 @@ export async function getFarmSoilMoisturePrediction(
     photoUrl: (farm as unknown as { photo_url?: string | null }).photo_url,
   });
 
-  // 7. Calculate day of year cyclical features
-  const now = new Date();
-  const startOfYear = new Date(now.getFullYear(), 0, 0);
-  const dayOfYear = Math.floor((now.getTime() - startOfYear.getTime()) / (1000 * 60 * 60 * 24));
-  const dayAngle = (2 * Math.PI * dayOfYear) / 365.25;
-  const daySin = Math.round(Math.sin(dayAngle) * 1000) / 1000;
-  const dayCos = Math.round(Math.cos(dayAngle) * 1000) / 1000;
-
-  // 8. Physical Sentinel-1 SAR C-Band Radar Backscatter Modeling (Copernicus Transfer Function)
-  // Calibrated against ESA Sentinel-1 GRD IW mode over agricultural terrains
-  const baseVv = -14.5 + Math.min(6.0, (rainfallMm / 10.0) * 1.5) + (vegetation.ndvi * 2.0);
-  const vvDb = Math.round(Math.max(-30.0, Math.min(-5.0, baseVv)) * 10) / 10;
-  const vhDb = Math.round(Math.max(-35.0, Math.min(-10.0, vvDb - 6.5 - (vegetation.leaf_area_index * 0.4))) * 10) / 10;
-  const vhMinusVv = Math.round((vhDb - vvDb) * 10) / 10;
-
-  // 9. Topographic Wetness Index (TWI) from elevation gradient
-  const slopeDeg = 2.5;
-  const twi = Math.round(Math.max(4.0, Math.min(18.0, 7.5 + (elevationMeters / 500.0) * 0.5)) * 10) / 10;
-
-  // 10. Normalized Difference Moisture Index (NDMI) & Thermal LST (Kelvin)
-  const ndmi = Math.round((vegetation.ndvi * 0.45 - 0.05 + (humidityPct / 300.0)) * 100) / 100;
-  const lstKelvin = Math.round((tempC + 273.15) * 10) / 10;
-
-  // 11. USDA Soil Texture Mapping
+  // 7. USDA Soil Texture Mapping
   let soilTexture = 'loam';
   const rawSoilType = (soilHealth.soil_type || '').toLowerCase();
   if (rawSoilType.includes('clay')) soilTexture = 'clay_loam';
   else if (rawSoilType.includes('sand')) soilTexture = 'sandy_loam';
   else if (rawSoilType.includes('silt') || rawSoilType.includes('alluvial')) soilTexture = 'silt_loam';
 
-  // 12. Climate zone classification (Köppen-Geiger)
+  // 8. Climate zone classification (Köppen-Geiger)
   const stateName = (farm.state || '').toLowerCase();
   let climateZone = 'Cwa'; // Subtropical Monsoon
   if (stateName.includes('rajasthan') || stateName.includes('gujarat')) climateZone = 'BSh'; // Semi-arid
   else if (stateName.includes('kerala') || stateName.includes('goa')) climateZone = 'Am'; // Tropical Monsoon
 
-  // 13. Assemble the OASSM-10 multi-sensor payload
-  const features: OASSMSoilMoistureBody = {
-    angle: 38.5,
-    vv: vvDb,
-    vh: vhDb,
-    vh_minus_vv: vhMinusVv,
-    sentinel2_b2: 0.045,
-    sentinel2_b8a: Math.round((0.15 + vegetation.ndvi * 0.35) * 1000) / 1000,
-    sentinel2_b11: Math.round((0.22 - vegetation.ndvi * 0.10) * 1000) / 1000,
-    sentinel2_b12: Math.round((0.14 - vegetation.ndvi * 0.06) * 1000) / 1000,
-    landsat_b2: 0.050,
-    landsat_b7: 0.120,
-    landsat_b10: lstKelvin,
-    ndvi: vegetation.ndvi,
-    ndmi: Math.max(-0.5, Math.min(0.9, ndmi)),
-    savi: vegetation.savi,
-    s2_lag: 2.0,
-    landsat_lag: 4.0,
-    day_sin: daySin,
-    day_cos: dayCos,
-    dsm: elevationMeters,
-    slope: slopeDeg,
-    twi_proxy: twi,
-    aspect_sin: 0.0,
-    aspect_cos: 1.0,
-    temperature_c: tempC,
-    humidity_percent: humidityPct,
-    rainfall: rainfallMm,
-    wind_speed: windSpeedKmh,
-    soil_ph: soilHealth.soil_ph,
-    organic_matter: soilHealth.organic_matter,
-    leaf_area_index: vegetation.leaf_area_index,
-    spatial_resolution: 10.0,
-    crop_growth_stage: growthStage,
-    crop_type: cropType,
-    climate_zone: climateZone,
-    soil_texture: soilTexture,
-    land_cover: 'cropland',
+  // 9. Assemble the OASSM-10 multi-sensor payload. Shared with
+  // moistureZones.service.ts's per-cell grid via oassmFeatureBuilder.ts, so
+  // the farm-level scalar and the spatial grid can never silently diverge.
+  const featureContext: OassmFeatureContext = {
+    cropType,
+    growthStage,
+    tempC,
+    humidityPct,
+    rainfallMm,
+    windSpeedKmh,
+    vegetation,
+    soilHealth,
+    soilTexture,
+    climateZone,
   };
+  const features: OASSMSoilMoistureBody = buildOassmFeatures(featureContext, elevationMeters);
 
-  // 14. Run inference via ML service with graceful local OASSM-10 fallback
+  // 10. Run inference via ML service with graceful local OASSM-10 fallback
   let prediction: OASSMSoilMoisturePrediction;
   try {
     prediction = await predictSoilMoisture(features);

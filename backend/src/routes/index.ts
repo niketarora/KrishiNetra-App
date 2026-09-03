@@ -135,6 +135,14 @@ apiRouter.get(
   validate('params', farmNestedParamSchema),
   predictionsController.getFarmSoilMoisturePrediction,
 );
+// Prototype spatial extension of the same experimental engine (see
+// services/moistureZones.service.ts) — feeds the AR moisture-guidance
+// screen's targets, never a claim of measured/pretrained OASSM-10 output.
+apiRouter.get(
+  '/farms/:farmId/moisture-zones',
+  validate('params', farmNestedParamSchema),
+  predictionsController.getFarmMoistureZones,
+);
 
 // --- Krishi Updates -----------------------------------------------------------
 // Farm-location-and-crop-aware information feed (GDELT regional/agriculture

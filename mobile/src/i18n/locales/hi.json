@@ -758,6 +758,11 @@
     "navigateHere": "यहाँ जाएँ",
     "headingUnavailable": "दिशा सूचक अनुपलब्ध — केवल दूरी दिख रही है",
     "demoDataLabel": "डेमो डेटा — वास्तविक नमूना जाँच नहीं",
+    "aiEstimateLabel": "एआई अनुमान — खेत में सत्यापित करें",
+    "lowerMoistureLabel": "कम नमी वाला क्षेत्र",
+    "estimatedMoisture": "अनुमानित नमी: {{percent}}%",
+    "zonesUnavailableTitle": "स्थानिक नमी अनुमान अनुपलब्ध",
+    "zonesUnavailableBody": "कृषिनेत्र फ़िलहाल इस खेत के लिए स्थानिक नमी लक्ष्य तैयार नहीं कर सका। कृपया थोड़ी देर बाद पुनः प्रयास करें।",
     "gpsQuality": "GPS: {{quality}}",
     "headingQuality": "दिशा: {{quality}}",
     "quality": {

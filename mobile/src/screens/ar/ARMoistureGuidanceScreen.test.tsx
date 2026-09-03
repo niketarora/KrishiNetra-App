@@ -32,6 +32,39 @@ jest.mock('@/features/farm/FarmContext', () => ({
   useFarm: () => ({ farm: mockFarm }),
 }));
 
+// The hook's own fetch/fallback behaviour (real API call, demo-mode gating,
+// "unavailable" on failure) is covered by useMoistureTargets.test.ts. Here we
+// only care that the screen renders correctly for whatever the hook returns.
+type MockTarget = {
+  id: string;
+  label: string;
+  latitude: number;
+  longitude: number;
+  provenance: { source: 'demo' | 'api'; type: 'sampling_target' };
+  note?: string;
+  estimatedMoisturePercent?: number;
+  relativeStatus?: 'LOWER_THAN_FARM_AVERAGE' | 'NEAR_FARM_AVERAGE';
+};
+let mockTargetsResult: { targets: MockTarget[]; loading: boolean; unavailable: boolean } = {
+  targets: [
+    {
+      id: 'zone-1',
+      label: 'Lower moisture area',
+      latitude: 26.9126,
+      longitude: 75.7876,
+      provenance: { source: 'api', type: 'sampling_target' },
+      note: 'Navigate to this area',
+      estimatedMoisturePercent: 14.2,
+      relativeStatus: 'LOWER_THAN_FARM_AVERAGE',
+    },
+  ],
+  loading: false,
+  unavailable: false,
+};
+jest.mock('@/features/arMoisture/useMoistureTargets', () => ({
+  useMoistureTargets: () => mockTargetsResult,
+}));
+
 const mockLocationPermission = { status: 'granted' };
 jest.mock('expo-location', () => ({
   requestForegroundPermissionsAsync: jest.fn(async () => mockLocationPermission),
@@ -48,6 +81,22 @@ describe('ARMoistureGuidanceScreen', () => {
     mockCameraPermission = { granted: true, canAskAgain: true };
     mockFarm = makeFarm();
     mockLocationPermission.status = 'granted';
+    mockTargetsResult = {
+      targets: [
+        {
+          id: 'zone-1',
+          label: 'Lower moisture area',
+          latitude: 26.9126,
+          longitude: 75.7876,
+          provenance: { source: 'api', type: 'sampling_target' },
+          note: 'Navigate to this area',
+          estimatedMoisturePercent: 14.2,
+          relativeStatus: 'LOWER_THAN_FARM_AVERAGE',
+        },
+      ],
+      loading: false,
+      unavailable: false,
+    };
   });
 
   it('shows the live camera once camera+location permissions are granted and a farm is selected', async () => {
@@ -80,5 +129,14 @@ describe('ARMoistureGuidanceScreen', () => {
     // watchPositionAsync's mock never calls back, so the screen should stay
     // in "finding your location" rather than showing 0m/undefined as a real reading.
     expect(screen.getByTestId('ar-moisture-acquiring')).toBeTruthy();
+  });
+
+  it('shows a "spatial estimate unavailable" state, never a fabricated target, when the API produced nothing', async () => {
+    mockTargetsResult = { targets: [], loading: false, unavailable: true };
+
+    await renderWithProviders(<ARMoistureGuidanceScreen onBack={onBack} />);
+
+    expect(screen.getByTestId('ar-moisture-zones-unavailable')).toBeTruthy();
+    expect(screen.queryByTestId('ar-moisture-camera')).toBeNull();
   });
 });
