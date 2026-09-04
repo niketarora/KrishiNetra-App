@@ -28,12 +28,19 @@ export function OtpVerifyScreen({ normalizedPhone, initialDevCode, onBack }: Pro
   const { requestPhoneOtp, verifyPhoneOtp } = useAuth();
 
   const [devCode, setDevCode] = useState(initialDevCode);
-  const [code, setCode] = useState('');
+  const [code, setCode] = useState(initialDevCode || '');
   const [error, setError] = useState<string | null>(null);
   const [formErrorKey, setFormErrorKey] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [resending, setResending] = useState(false);
   const [cooldown, setCooldown] = useState(RESEND_COOLDOWN_SECONDS);
+
+  useEffect(() => {
+    setDevCode(initialDevCode);
+    if (initialDevCode) {
+      setCode(initialDevCode);
+    }
+  }, [initialDevCode, normalizedPhone]);
 
   useEffect(() => {
     if (cooldown <= 0) return;
@@ -62,7 +69,6 @@ export function OtpVerifyScreen({ normalizedPhone, initialDevCode, onBack }: Pro
 
   const handleResend = async () => {
     setResending(true);
-    setCode('');
     setError(null);
     setFormErrorKey(null);
 
@@ -71,6 +77,7 @@ export function OtpVerifyScreen({ normalizedPhone, initialDevCode, onBack }: Pro
 
     if (result.ok) {
       setDevCode(result.devCode);
+      setCode(result.devCode);
       setCooldown(RESEND_COOLDOWN_SECONDS);
     } else {
       setFormErrorKey(result.errorKey);
@@ -92,14 +99,20 @@ export function OtpVerifyScreen({ normalizedPhone, initialDevCode, onBack }: Pro
             </Text>
           </View>
 
-          <View style={styles.demoBanner} testID="demo-otp-banner">
+          <Pressable
+            style={styles.demoBanner}
+            testID="demo-otp-banner"
+            onPress={() => {
+              if (devCode) setCode(devCode);
+            }}
+          >
             <Text variant="microMedium" color={colors.demo.fg} style={styles.demoBannerTitle}>
               {t('auth.demoOtpBannerTitle')}
             </Text>
             <Text variant="body" color={colors.demo.fg} testID="demo-otp-code">
               {t('auth.demoOtpBannerBody', { code: devCode })}
             </Text>
-          </View>
+          </Pressable>
 
           {formErrorKey ? (
             <Banner
