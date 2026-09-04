@@ -302,9 +302,18 @@ export function HomeScreen({
                 </View>
 
                 <View style={styles.fieldBody}>
-                  <Text variant="cardTitle" numberOfLines={1}>
-                    {farm.name?.trim() || t('home.unnamedField')}
-                  </Text>
+                  <View style={styles.fieldHeaderRow}>
+                    <Text variant="cardTitle" numberOfLines={1} style={styles.fieldName}>
+                      {farm.name?.trim() || t('home.unnamedField')}
+                    </Text>
+                    <View style={styles.editLinkRow}>
+                      <Text variant="microMedium" color={colors.primaryDark}>
+                        {t('home.editBoundary')}
+                      </Text>
+                      <Icon name="chevron" size={14} color={colors.primaryDark} />
+                    </View>
+                  </View>
+
                   <View style={styles.fieldAreaRow}>
                     <Text variant="stat" color={colors.primaryDark}>
                       {`${Number(farm.area_acres).toFixed(2)} ${t('onboarding.acres')}`}
@@ -315,17 +324,12 @@ export function HomeScreen({
                       </Text>
                     ) : null}
                   </View>
+
                   <View style={styles.fieldFooter}>
                     <Badge
                       label={soilMoisture?.prediction ? '10m Multi-Sensor Radar' : t('home.notYetAnalyzed')}
                       tone={soilMoisture?.prediction ? 'accent' : 'neutral'}
                     />
-                    <View style={styles.editLinkRow}>
-                      <Text variant="microMedium" color={colors.primaryDark}>
-                        {t('home.editBoundary')}
-                      </Text>
-                      <Icon name="chevron" size={14} color={colors.primaryDark} />
-                    </View>
                   </View>
                 </View>
               </Card>
@@ -684,18 +688,29 @@ const styles = StyleSheet.create({
     backgroundColor: colors.primary,
     borderColor: colors.primary,
   },
-  fieldCard: { flexDirection: 'row', alignItems: 'flex-start', gap: 12 },
+  fieldCard: { flexDirection: 'row', alignItems: 'center', gap: 12 },
   fieldThumbnail: { borderRadius: radius.sm, overflow: 'hidden' },
   fieldBody: { flex: 1, minWidth: 0, gap: 2 },
-  fieldAreaRow: { flexDirection: 'row', alignItems: 'baseline', gap: 4, marginTop: 2 },
+  fieldHeaderRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: 8,
+  },
+  fieldName: { flex: 1 },
+  fieldAreaRow: { flexDirection: 'row', alignItems: 'baseline', gap: 4, marginTop: 1 },
   fieldArea: { marginTop: 2 },
   fieldFooter: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
-    marginTop: 8,
+    marginTop: 4,
   },
-  editLinkRow: { flexDirection: 'row', alignItems: 'center', gap: 2 },
+  editLinkRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 2,
+    flexShrink: 0,
+  },
   sectionHeading: { marginTop: 4 },
   grid: { flexDirection: 'row', gap: layout.cardGap },
   gridItem: { flex: 1 },

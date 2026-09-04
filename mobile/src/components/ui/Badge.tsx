@@ -1,4 +1,4 @@
-import { StyleSheet, View } from 'react-native';
+import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 
 import { colors, radius } from '@/theme';
 
@@ -18,6 +18,7 @@ export type BadgeTone =
 type Props = {
   label: string;
   tone?: BadgeTone;
+  style?: StyleProp<ViewStyle>;
 };
 
 const TONES: Record<BadgeTone, { bg: string; fg: string }> = {
@@ -33,11 +34,11 @@ const TONES: Record<BadgeTone, { bg: string; fg: string }> = {
 };
 
 /** Refined badge pill matching KrishiNetra 2.0 specifications */
-export function Badge({ label, tone = 'neutral' }: Props) {
+export function Badge({ label, tone = 'neutral', style }: Props) {
   const { bg, fg } = TONES[tone] || TONES.neutral;
 
   return (
-    <View style={[styles.badge, { backgroundColor: bg }]}>
+    <View style={[styles.badge, { backgroundColor: bg }, style]}>
       <Text variant="microMedium" color={fg} numberOfLines={1}>
         {label}
       </Text>
@@ -51,5 +52,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     alignSelf: 'flex-start',
     borderRadius: radius.pill,
+    maxWidth: '100%',
   },
 });
