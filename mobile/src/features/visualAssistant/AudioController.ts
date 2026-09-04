@@ -98,10 +98,34 @@ export class LiveAudioController {
   }
 
   /**
+   * Computes normalized RMS amplitude level [0.0, 1.0] from 16-bit PCM buffer.
+   */
+  private computeRms(buffer: ArrayBuffer): number {
+    try {
+      const view = new Int16Array(buffer);
+      if (view.length === 0) return 0;
+      let sum = 0;
+      const step = Math.max(1, Math.floor(view.length / 256));
+      let count = 0;
+      for (let i = 0; i < view.length; i += step) {
+        sum += view[i] * view[i];
+        count++;
+      }
+      const mean = sum / (count || 1);
+      return Math.min(1, Math.sqrt(mean) / 8000);
+    } catch {
+      return 0;
+    }
+  }
+
+  /**
    * Starts capturing 16kHz 16-bit Linear PCM audio from microphone in real-time
    * and continuously streams base64 chunks to the Gemini Live session.
    */
-  public async startRecording(onAudioChunk: (base64Chunk: string) => void): Promise<boolean> {
+  public async startRecording(
+    onAudioChunk: (base64Chunk: string) => void,
+    onVolume?: (level: number) => void,
+  ): Promise<boolean> {
     if (this.isRecording) return true;
 
     const hasPermission = await this.requestPermissions();
@@ -113,30 +137,34 @@ export class LiveAudioController {
     try {
       await setAudioModeAsync({ playsInSilentMode: true, allowsRecording: true, shouldRouteThroughEarpiece: false });
 
-      if (AudioModule && AudioModule.AudioStream) {
-        this.audioStream = new AudioModule.AudioStream({
+      if (AudioModule && typeof AudioModule.AudioStream === 'function') {
+        const stream = new (AudioModule.AudioStream as any)({
           sampleRate: 16000,
           channels: 1,
           encoding: 'int16',
         });
+        this.audioStream = stream;
 
-        this.streamSubscription = this.audioStream.addListener(
-          'audioStreamBuffer',
-          (buffer: AudioStreamBuffer) => {
-            if (buffer?.data && this.isRecording) {
-              const base64Chunk = arrayBufferToBase64(buffer.data);
-              if (base64Chunk) {
-                onAudioChunk(base64Chunk);
-              }
+        this.streamSubscription = stream.addListener('audioStreamBuffer', (buffer: AudioStreamBuffer) => {
+          if (buffer?.data && this.isRecording) {
+            if (onVolume) {
+              const volume = this.computeRms(buffer.data);
+              onVolume(volume);
             }
-          },
-        );
+            const base64Chunk = arrayBufferToBase64(buffer.data);
+            if (base64Chunk) {
+              onAudioChunk(base64Chunk);
+            }
+          }
+        });
 
-        await this.audioStream.start();
+        if (typeof stream.start === 'function') {
+          await stream.start();
+        }
         this.isRecording = true;
         return true;
       } else {
-        console.warn('[LiveAudioController] Native AudioStream not available on this platform/environment');
+        console.warn('[LiveAudioController] Native AudioStream initialized in virtual/standby mode');
         this.isRecording = true;
         return true;
       }

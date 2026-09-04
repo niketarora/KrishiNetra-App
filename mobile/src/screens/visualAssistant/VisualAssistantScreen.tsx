@@ -66,6 +66,8 @@ export function VisualAssistantScreen({ onBack }: Props) {
   const [liveState, setLiveState] = useState<LiveConnectionState>('disconnected');
   const [liveSubtitle, setLiveSubtitle] = useState<string>('');
   const [liveUserQuestion, setLiveUserQuestion] = useState<string | null>(null);
+  const [micVolume, setMicVolume] = useState<number>(0);
+  const [isUserSpeaking, setIsUserSpeaking] = useState<boolean>(false);
 
   const liveClientRef = useRef<GeminiLiveClient | null>(null);
   const audioControllerRef = useRef<LiveAudioController | null>(null);
@@ -189,6 +191,8 @@ export function VisualAssistantScreen({ onBack }: Props) {
     setLiveState('disconnected');
     setLiveSubtitle('');
     setLiveUserQuestion(null);
+    setMicVolume(0);
+    setIsUserSpeaking(false);
   }, []);
 
   const startLiveSession = useCallback(async () => {
@@ -232,11 +236,17 @@ export function VisualAssistantScreen({ onBack }: Props) {
     try {
       await client.connect();
 
-      await audioController.startRecording((base64PcmChunk) => {
-        if (liveClientRef.current) {
-          liveClientRef.current.sendRealtimeAudio(base64PcmChunk);
-        }
-      });
+      await audioController.startRecording(
+        (base64PcmChunk) => {
+          if (liveClientRef.current) {
+            liveClientRef.current.sendRealtimeAudio(base64PcmChunk);
+          }
+        },
+        (volume) => {
+          setMicVolume(volume);
+          setIsUserSpeaking(volume > 0.06);
+        },
+      );
 
       frameTimerRef.current = setInterval(() => {
         void sampleAndSendFrame();
@@ -324,7 +334,11 @@ export function VisualAssistantScreen({ onBack }: Props) {
     stopStillAudio();
 
     try {
-      const result = await cameraRef.current.takePictureAsync({ base64: true, quality: 0.5 });
+      const result = await cameraRef.current.takePictureAsync({
+        base64: true,
+        quality: 0.4,
+        skipProcessing: true,
+      });
       if (!result?.base64) {
         setCameraError(true);
         return;
@@ -533,6 +547,52 @@ export function VisualAssistantScreen({ onBack }: Props) {
             {/* AI Response Card / Subtitles */}
             {isLiveActive ? (
               <View style={styles.liveActiveCard} testID="visual-assistant-live-card">
+                {/* Voice Activity & Audio Level Visualizer */}
+                <View style={styles.voiceVisualizerRow}>
+                  <View
+                    style={[
+                      styles.voiceIndicatorDot,
+                      {
+                        backgroundColor: isUserSpeaking
+                          ? '#10B981'
+                          : liveState === 'speaking'
+                          ? avatarColors.state.speaking
+                          : liveState === 'thinking'
+                          ? '#F59E0B'
+                          : 'rgba(255, 255, 255, 0.4)',
+                      },
+                    ]}
+                  />
+                  <Text
+                    variant="microMedium"
+                    color={
+                      isUserSpeaking
+                        ? '#10B981'
+                        : liveState === 'speaking'
+                        ? avatarColors.state.speaking
+                        : '#FFFFFF'
+                    }
+                  >
+                    {isUserSpeaking
+                      ? '🎙️ आपकी आवाज़ सुनी जा रही है (Hearing you...)'
+                      : liveState === 'speaking'
+                      ? '🔊 AI उत्तर दे रहा है (Speaking...)'
+                      : liveState === 'thinking'
+                      ? '⏳ AI विश्लेषण कर रहा है...'
+                      : '🎙️ बोलें या नीचे प्रश्न टाइप करें'}
+                  </Text>
+                  {isUserSpeaking ? (
+                    <View style={styles.volumeBarContainer}>
+                      <View
+                        style={[
+                          styles.volumeBarFill,
+                          { width: `${Math.min(100, Math.max(20, Math.round(micVolume * 100)))}%` },
+                        ]}
+                      />
+                    </View>
+                  ) : null}
+                </View>
+
                 {liveUserQuestion ? (
                   <View style={styles.liveUserQuestionRow}>
                     <View style={styles.liveUserBadge}>
@@ -790,6 +850,32 @@ const styles = StyleSheet.create({
     gap: 10,
     borderWidth: 1,
     borderColor: 'rgba(255, 255, 255, 0.18)',
+  },
+  voiceVisualizerRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    backgroundColor: 'rgba(255, 255, 255, 0.08)',
+    borderRadius: radius.pill,
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+  },
+  voiceIndicatorDot: {
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+  },
+  volumeBarContainer: {
+    flex: 1,
+    height: 4,
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    borderRadius: 2,
+    overflow: 'hidden',
+  },
+  volumeBarFill: {
+    height: '100%',
+    backgroundColor: '#10B981',
+    borderRadius: 2,
   },
   liveUserQuestionRow: {
     backgroundColor: 'rgba(255, 255, 255, 0.08)',
