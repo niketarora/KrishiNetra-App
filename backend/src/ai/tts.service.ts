@@ -69,6 +69,16 @@ const REGIONAL_TTS_MAP: Record<string, string> = {
   gu: 'gu-IN',
   as: 'as-IN',
   ur: 'ur-IN',
+  mai: 'hi-IN',
+  ne: 'hi-IN',
+  kok: 'hi-IN',
+  doi: 'hi-IN',
+  brx: 'hi-IN',
+  sa: 'hi-IN',
+  ks: 'ur-IN',
+  sd: 'ur-IN',
+  sat: 'od-IN',
+  mni: 'bn-IN',
   en: 'en-IN',
 };
 

@@ -16,8 +16,7 @@ const mockTakePictureAsync = jest.fn(async () => ({
 
 // expo-camera needs a native module; these tests only care that this screen
 // reads permission state and drives capture/render correctly, not that the
-// camera itself initialises — matching how react-native-maps is mocked
-// globally in jest.setup.js for the same reason.
+// camera itself initialises.
 jest.mock('expo-camera', () => {
   const React = require('react');
   const { View } = require('react-native');
@@ -32,39 +31,6 @@ jest.mock('expo-camera', () => {
     useCameraPermissions: () => [mockPermission, mockRequestPermission],
   };
 });
-
-const mockSendTextPrompt = jest.fn();
-const mockFinishUserTurn = jest.fn((text?: string) => {
-  if (text) mockSendTextPrompt(text);
-});
-const mockSendRealtimeImage = jest.fn();
-const mockSendRealtimeAudio = jest.fn();
-const mockLiveConnect = jest.fn().mockResolvedValue(undefined);
-const mockLiveDisconnect = jest.fn();
-
-jest.mock('@/features/visualAssistant/GeminiLiveClient', () => ({
-  GeminiLiveClient: jest.fn().mockImplementation((callbacks) => ({
-    connect: mockLiveConnect,
-    disconnect: mockLiveDisconnect,
-    getState: jest.fn(() => 'connected'),
-    sendTextPrompt: mockSendTextPrompt,
-    sendRealtimeImage: mockSendRealtimeImage,
-    sendRealtimeAudio: mockSendRealtimeAudio,
-    finishUserTurn: mockFinishUserTurn,
-    callbacks,
-  })),
-}));
-
-jest.mock('@/features/visualAssistant/AudioController', () => ({
-  LiveAudioController: jest.fn().mockImplementation(() => ({
-    requestPermissions: jest.fn().mockResolvedValue(true),
-    startRecording: jest.fn().mockResolvedValue(undefined),
-    stopRecording: jest.fn(),
-    enqueueAudioChunk: jest.fn(),
-    stopPlayback: jest.fn(),
-    destroy: jest.fn(),
-  })),
-}));
 
 const mockInvoke = jest.fn();
 jest.mock('@/services/supabase', () => ({
@@ -132,10 +98,26 @@ describe('VisualAssistantScreen', () => {
       expect(screen.getByTestId('visual-assistant-capture')).toBeTruthy();
       expect(screen.queryByTestId('visual-assistant-retake')).toBeNull();
     });
+
+    it('shows suggestion chips after capturing photo and allows selecting one', async () => {
+      mockInvoke.mockResolvedValueOnce({
+        data: { answer: 'यह एक स्वस्थ मिर्च का पौधा है।' },
+        error: null,
+      });
+
+      await renderWithProviders(<VisualAssistantScreen onBack={onBack} />);
+      await capture();
+
+      const chip = screen.getByText('🌿 बीमारी क्या है?');
+      expect(chip).toBeTruthy();
+      await fireEvent.press(chip);
+
+      expect(await screen.findByText('यह एक स्वस्थ मिर्च का पौधा है।')).toBeTruthy();
+    });
   });
 
-  describe('asking a real question', () => {
-    it('sends the photo and question, then shows the real answer with a disclaimer', async () => {
+  describe('asking a question in any language', () => {
+    it('sends photo and question, displays the asked question and answer on screen', async () => {
       mockInvoke.mockResolvedValueOnce({
         data: { answer: 'Your tomatoes look ready to pick.' },
         error: null,
@@ -161,7 +143,9 @@ describe('VisualAssistantScreen', () => {
         }),
       );
 
-      expect(await screen.findByText('Your tomatoes look ready to pick.')).toBeTruthy();
+      // Verifies both the asked question text and the answer text appear on screen
+      expect(await screen.findByText('"Are these tomatoes ripe?"')).toBeTruthy();
+      expect(screen.getByText('Your tomatoes look ready to pick.')).toBeTruthy();
       expect(screen.getByText('AI answer')).toBeTruthy();
       expect(
         screen.getByText(
@@ -185,7 +169,6 @@ describe('VisualAssistantScreen', () => {
       expect(
         await screen.findByText("We couldn't get an answer. Check your connection and try again."),
       ).toBeTruthy();
-      // Never a raw/internal error string reaching the farmer.
       expect(screen.queryByText('boom')).toBeNull();
       expect(screen.getByTestId('visual-assistant-ask')).toBeTruthy();
     });
@@ -226,7 +209,7 @@ describe('VisualAssistantScreen', () => {
       expect(screen.getByTestId('visual-assistant-mic')).toBeTruthy();
     });
 
-    it('submits voice query and receives diagnosis answer', async () => {
+    it('submits voice query and displays transcribed diagnosis answer', async () => {
       mockInvoke.mockResolvedValueOnce({
         data: {
           answer: 'यह मरोड़िया रोग के लक्षण हैं।',
@@ -241,59 +224,6 @@ describe('VisualAssistantScreen', () => {
       await fireEvent.press(screen.getByTestId('visual-assistant-voice-stop'));
 
       expect(await screen.findByText('यह मरोड़िया रोग के लक्षण हैं।')).toBeTruthy();
-    });
-  });
-
-  describe('live assistant mode', () => {
-    it('allows typing and sending a question in live mode', async () => {
-      await renderWithProviders(<VisualAssistantScreen onBack={onBack} />);
-
-      // Start live mode
-      await fireEvent.press(screen.getByText('Start Live Assistant'));
-
-      expect(mockLiveConnect).toHaveBeenCalled();
-      expect(screen.getByTestId('visual-assistant-live-card')).toBeTruthy();
-
-      // Type question into live mode input
-      await fireEvent.changeText(
-        screen.getByTestId('visual-assistant-question'),
-        'पत्तियों में पीलापन क्यों है?',
-      );
-      await fireEvent.press(screen.getByTestId('visual-assistant-ask'));
-
-      expect(mockSendTextPrompt).toHaveBeenCalledWith('पत्तियों में पीलापन क्यों है?');
-      expect(screen.getByText('पत्तियों में पीलापन क्यों है?')).toBeTruthy();
-    });
-
-    it('allows tapping suggestion chips during live mode', async () => {
-      await renderWithProviders(<VisualAssistantScreen onBack={onBack} />);
-
-      // Start live mode
-      await fireEvent.press(screen.getByText('Start Live Assistant'));
-
-      // Suggestion chip should be visible and clickable in live mode
-      const chip = screen.getByText('🌿 बीमारी क्या है?');
-      expect(chip).toBeTruthy();
-      await fireEvent.press(chip);
-
-      expect(mockSendTextPrompt).toHaveBeenCalledWith(
-        'पौधे में क्या बीमारी या समस्या है और इसका उपचार क्या है?',
-      );
-    });
-
-    it('triggers question completion when End Question & Ask AI button is pressed in live mode', async () => {
-      await renderWithProviders(<VisualAssistantScreen onBack={onBack} />);
-
-      // Start live mode
-      await fireEvent.press(screen.getByText('Start Live Assistant'));
-
-      // The live ask button should be present
-      const askButton = screen.getByTestId('visual-assistant-live-ask');
-      expect(askButton).toBeTruthy();
-
-      await fireEvent.press(askButton);
-
-      expect(mockFinishUserTurn).toHaveBeenCalled();
     });
   });
 

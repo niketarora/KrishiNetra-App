@@ -19,11 +19,8 @@ import { File, Paths } from 'expo-file-system';
 
 import { Banner, Button, Icon, Screen, ScreenHeader, Text } from '@/components/ui';
 import { resolveVisualAssistantAnswer, type VisualAssistantState } from '@/features/visualAssistant/demo';
-import { GeminiLiveClient } from '@/features/visualAssistant/GeminiLiveClient';
-import { LiveAudioController } from '@/features/visualAssistant/AudioController';
 import { useVisualVoiceRecorder } from '@/features/visualAssistant/useVisualVoiceRecorder';
 import { SAMPLE_PLANT_BASE64, SAMPLE_PLANT_URI } from '@/features/visualAssistant/sampleImage';
-import type { LiveConnectionState } from '@/features/visualAssistant/types';
 import { avatarColors, colors, layout, radius } from '@/theme';
 
 type Props = { onBack: () => void };
@@ -37,14 +34,13 @@ const SUGGESTED_QUESTIONS = [
 ];
 
 /**
- * KrishiNetra Live AI Camera & Voice Assistant.
+ * KrishiNetra Multilingual AI Camera & Voice Assistant.
  *
- * Provides multimodal interaction with Google Gemini Vision & Live API:
+ * Provides camera vision diagnosis in all 22 official Indian languages + English:
  * - High-speed camera photo capture & analysis with Gemini 3.6 Flash
- * - Spoken response audio playback in natural Indian voice via Sarvam TTS
- * - Interactive suggestion chips & question input box (both Camera & Live modes)
- * - Replay voice audio on demand
- * - Real-time continuous Gemini Live assistant mode
+ * - Vernacular voice transcription & speech playback via Sarvam STT & TTS
+ * - Shows transcribed/typed question text and AI answer on screen
+ * - Replay voice audio on demand in the farmer's native language
  */
 export function VisualAssistantScreen({ onBack }: Props) {
   const { t, i18n } = useTranslation();
@@ -57,6 +53,7 @@ export function VisualAssistantScreen({ onBack }: Props) {
   const [state, setState] = useState<VisualAssistantState>('idle');
   const [photo, setPhoto] = useState<CapturedPhoto | null>(null);
   const [question, setQuestion] = useState('');
+  const [askedQuestion, setAskedQuestion] = useState<string | null>(null);
   const [answer, setAnswer] = useState<string | null>(null);
   const [latestAudio, setLatestAudio] = useState<string | null>(null);
   const [isPlayingAudio, setIsPlayingAudio] = useState(false);
@@ -66,19 +63,7 @@ export function VisualAssistantScreen({ onBack }: Props) {
   const voiceRecorder = useVisualVoiceRecorder();
   const [isTranscribingVoice, setIsTranscribingVoice] = useState(false);
 
-  // Live session state
-  const [isLiveActive, setIsLiveActive] = useState(false);
-  const [liveState, setLiveState] = useState<LiveConnectionState>('disconnected');
-  const [liveSubtitle, setLiveSubtitle] = useState<string>('');
-  const [liveUserQuestion, setLiveUserQuestion] = useState<string | null>(null);
-  const [micVolume, setMicVolume] = useState<number>(0);
-  const [isUserSpeaking, setIsUserSpeaking] = useState<boolean>(false);
-
-  const liveClientRef = useRef<GeminiLiveClient | null>(null);
-  const audioControllerRef = useRef<LiveAudioController | null>(null);
   const stillPlayerRef = useRef<AudioPlayer | null>(null);
-  const frameTimerRef = useRef<NodeJS.Timeout | null>(null);
-  const isSamplingFrameRef = useRef<boolean>(false);
 
   // Stop still audio player helper
   const stopStillAudio = useCallback(() => {
@@ -135,10 +120,9 @@ export function VisualAssistantScreen({ onBack }: Props) {
     }
   }, [permission, requestPermission]);
 
-  // Clean up sessions and audio on unmount
+  // Clean up audio on unmount
   useEffect(() => {
     return () => {
-      stopLiveSession();
       stopStillAudio();
     };
   }, [stopStillAudio]);
@@ -147,161 +131,11 @@ export function VisualAssistantScreen({ onBack }: Props) {
     setCameraFacing((current) => (current === 'back' ? 'front' : 'back'));
   }, []);
 
-  // Frame sampler for live session
-  const sampleAndSendFrame = useCallback(async () => {
-    if (
-      !cameraRef.current ||
-      !liveClientRef.current ||
-      liveClientRef.current.getState() === 'disconnected' ||
-      isSamplingFrameRef.current
-    ) {
-      return;
-    }
-
-    isSamplingFrameRef.current = true;
-    try {
-      const result = await cameraRef.current.takePictureAsync({
-        base64: true,
-        quality: 0.4,
-        skipProcessing: true,
-      });
-
-      if (result?.base64 && liveClientRef.current) {
-        liveClientRef.current.sendRealtimeImage(result.base64);
-      }
-    } catch {
-      // Ignored
-    } finally {
-      isSamplingFrameRef.current = false;
-    }
-  }, []);
-
-  const stopLiveSession = useCallback(() => {
-    if (frameTimerRef.current) {
-      clearInterval(frameTimerRef.current);
-      frameTimerRef.current = null;
-    }
-    isSamplingFrameRef.current = false;
-
-    if (liveClientRef.current) {
-      liveClientRef.current.disconnect();
-      liveClientRef.current = null;
-    }
-    if (audioControllerRef.current) {
-      audioControllerRef.current.destroy();
-      audioControllerRef.current = null;
-    }
-
-    setIsLiveActive(false);
-    setLiveState('disconnected');
-    setLiveSubtitle('');
-    setLiveUserQuestion(null);
-    setMicVolume(0);
-    setIsUserSpeaking(false);
-  }, []);
-
-  const startLiveSession = useCallback(async () => {
-    if (isLiveActive) return;
-    stopStillAudio();
-
-    const audioController = new LiveAudioController();
-    audioControllerRef.current = audioController;
-    const micGranted = await audioController.requestPermissions();
-    if (!micGranted) {
-      setErrorMessage(t('visualAssistant.permissionDenied') || 'Microphone permission required for Live Assistant');
-    }
-
-    setErrorMessage(null);
-    setLiveSubtitle(t('visualAssistant.defaultGreeting'));
-    setLiveUserQuestion(null);
-    setIsLiveActive(true);
-
-    const client = new GeminiLiveClient({
-      onStatusChange: (newState) => {
-        setLiveState(newState);
-      },
-      onAudioData: (base64AudioChunk) => {
-        audioControllerRef.current?.enqueueAudioChunk(base64AudioChunk);
-      },
-      onInterrupted: () => {
-        audioControllerRef.current?.stopPlayback();
-      },
-      onTranscript: (text) => {
-        setLiveSubtitle((prev) => (prev ? `${prev} ${text}` : text));
-      },
-      onToolCall: async () => ({}),
-      onError: (msg) => {
-        setErrorMessage(msg);
-        stopLiveSession();
-      },
-    });
-
-    liveClientRef.current = client;
-
-    try {
-      await client.connect();
-
-      await audioController.startRecording(
-        (base64PcmChunk) => {
-          if (liveClientRef.current) {
-            liveClientRef.current.sendRealtimeAudio(base64PcmChunk);
-          }
-        },
-        (volume) => {
-          setMicVolume(volume);
-          setIsUserSpeaking(volume > 0.06);
-        },
-      );
-
-      frameTimerRef.current = setInterval(() => {
-        void sampleAndSendFrame();
-      }, 1200);
-    } catch (err) {
-      setErrorMessage(err instanceof Error ? err.message : 'Connection failed');
-      stopLiveSession();
-    }
-  }, [isLiveActive, sampleAndSendFrame, stopLiveSession, stopStillAudio, t]);
-
-  const handleEndQuestionAndAsk = useCallback(async (customText?: string) => {
-    if (!isLiveActive || !liveClientRef.current) return;
-
-    const textToSend = (customText ?? question).trim();
-    if (textToSend) {
-      setLiveUserQuestion(textToSend);
-      setQuestion('');
-    } else {
-      setLiveUserQuestion(t('visualAssistant.spokenQuestion') || 'मौखिक प्रश्न (Voice Query)');
-    }
-    setLiveSubtitle('विश्लेषण किया जा रहा है... (Thinking...)');
-
-    if (cameraRef.current) {
-      try {
-        const snap = await cameraRef.current.takePictureAsync({
-          base64: true,
-          quality: 0.5,
-          skipProcessing: true,
-        });
-        if (snap?.base64 && liveClientRef.current) {
-          liveClientRef.current.sendRealtimeImage(snap.base64);
-        }
-      } catch {
-        // Ignored
-      }
-    }
-
-    liveClientRef.current.finishUserTurn(textToSend || undefined);
-  }, [isLiveActive, question, t]);
-
   const handleSendMessage = useCallback(async (customText?: string) => {
     const textToSend = (customText ?? question).trim();
     if (!textToSend) return;
 
-    if (isLiveActive && liveClientRef.current) {
-      await handleEndQuestionAndAsk(textToSend);
-      return;
-    }
-
-    // Still photo mode
+    // Capture camera frame if not already captured
     let currentPhoto = photo;
     if (!currentPhoto && cameraRef.current) {
       try {
@@ -318,6 +152,7 @@ export function VisualAssistantScreen({ onBack }: Props) {
 
     if (!currentPhoto) return;
 
+    setAskedQuestion(textToSend);
     setState('asking');
     setErrorMessage(null);
     stopStillAudio();
@@ -335,7 +170,7 @@ export function VisualAssistantScreen({ onBack }: Props) {
       setState('answered');
       setQuestion('');
 
-      // Automatically speak the response aloud
+      // Automatically speak the response aloud in the farmer's language
       if (result.audio) {
         void playSpokenAudio(result.audio);
       }
@@ -343,9 +178,9 @@ export function VisualAssistantScreen({ onBack }: Props) {
       setErrorMessage(err instanceof Error ? err.message : t('visualAssistant.errors.generic'));
       setState('error');
     }
-  }, [i18n.language, isLiveActive, photo, playSpokenAudio, question, stopStillAudio, t]);
+  }, [i18n.language, photo, playSpokenAudio, question, stopStillAudio, t]);
 
-  // --- Sarvam Voice Query Handlers (STT -> Vision -> TTS) --------------------
+  // --- Sarvam Voice Query Handlers (STT -> Vision in 22 languages -> TTS) ------
   const handleStartVoiceQuery = useCallback(async () => {
     stopStillAudio();
     const started = await voiceRecorder.startRecording();
@@ -365,11 +200,7 @@ export function VisualAssistantScreen({ onBack }: Props) {
       return;
     }
 
-    if (isLiveActive) {
-      stopLiveSession();
-    }
-
-    // Point & Speak: Auto snap camera frame if no photo captured yet
+    // Auto snap camera frame if no photo captured yet
     let currentPhoto = photo;
     if (!currentPhoto && cameraRef.current) {
       try {
@@ -380,7 +211,7 @@ export function VisualAssistantScreen({ onBack }: Props) {
           setState('captured');
         }
       } catch (err) {
-        console.warn('Point-and-speak snap error:', err);
+        console.warn('Voice query snap error:', err);
       }
     }
 
@@ -403,9 +234,9 @@ export function VisualAssistantScreen({ onBack }: Props) {
         language: i18n.language || 'hi',
       });
 
-      if (result.question) {
-        setQuestion(result.question);
-      }
+      const resolvedQuestion = result.question || question.trim() || t('visualAssistant.spokenQuestion') || 'मौखिक प्रश्न (Voice Query)';
+      setAskedQuestion(resolvedQuestion);
+      setQuestion(resolvedQuestion);
       setAnswer(result.answer);
       setLatestAudio(result.audio ?? null);
       setState('answered');
@@ -421,13 +252,10 @@ export function VisualAssistantScreen({ onBack }: Props) {
       setIsTranscribingVoice(false);
     }
   }, [
-    cameraRef,
     i18n.language,
-    isLiveActive,
     photo,
     playSpokenAudio,
     question,
-    stopLiveSession,
     stopStillAudio,
     t,
     voiceRecorder,
@@ -440,7 +268,6 @@ export function VisualAssistantScreen({ onBack }: Props) {
 
   const captureStill = useCallback(async () => {
     if (!cameraRef.current) return;
-    if (isLiveActive) stopLiveSession();
     stopStillAudio();
 
     try {
@@ -456,28 +283,30 @@ export function VisualAssistantScreen({ onBack }: Props) {
       setPhoto({ uri: result.uri, base64: result.base64 });
       setState('captured');
       setAnswer(null);
+      setAskedQuestion(null);
       setLatestAudio(null);
       setErrorMessage(null);
     } catch {
       setCameraError(true);
     }
-  }, [isLiveActive, stopLiveSession, stopStillAudio]);
+  }, [stopStillAudio]);
 
   const loadSamplePhoto = useCallback(() => {
-    if (isLiveActive) stopLiveSession();
     stopStillAudio();
     setPhoto({ uri: SAMPLE_PLANT_URI, base64: SAMPLE_PLANT_BASE64 });
     setState('captured');
     setQuestion('इस पौधे में क्या समस्या या बीमारी है?');
     setAnswer(null);
+    setAskedQuestion(null);
     setLatestAudio(null);
     setErrorMessage(null);
-  }, [isLiveActive, stopLiveSession, stopStillAudio]);
+  }, [stopStillAudio]);
 
   const retakeStill = useCallback(() => {
     stopStillAudio();
     setPhoto(null);
     setQuestion('');
+    setAskedQuestion(null);
     setAnswer(null);
     setLatestAudio(null);
     setErrorMessage(null);
@@ -545,40 +374,6 @@ export function VisualAssistantScreen({ onBack }: Props) {
   const showingPhoto = state !== 'idle' && photo;
   const asking = state === 'asking';
 
-  const getStatusPillColor = () => {
-    switch (liveState) {
-      case 'speaking':
-        return avatarColors.state.speaking;
-      case 'listening':
-        return avatarColors.state.listening;
-      case 'thinking':
-      case 'connecting':
-        return avatarColors.state.thinking;
-      case 'error':
-        return colors.danger;
-      default:
-        return colors.primary;
-    }
-  };
-
-  const getStatusLabel = () => {
-    switch (liveState) {
-      case 'connecting':
-        return t('visualAssistant.connecting');
-      case 'speaking':
-        return t('visualAssistant.speaking');
-      case 'thinking':
-        return t('visualAssistant.thinking');
-      case 'listening':
-      case 'connected':
-        return t('visualAssistant.listening');
-      case 'error':
-        return 'Connection Error';
-      default:
-        return 'Live Camera';
-    }
-  };
-
   return (
     <View style={styles.root} testID="visual-assistant-camera">
       {showingPhoto ? (
@@ -597,7 +392,6 @@ export function VisualAssistantScreen({ onBack }: Props) {
         <View style={styles.header}>
           <Pressable
             onPress={() => {
-              stopLiveSession();
               stopStillAudio();
               onBack();
             }}
@@ -611,16 +405,8 @@ export function VisualAssistantScreen({ onBack }: Props) {
 
           <View style={styles.headerTitleContainer}>
             <Text variant="cardTitle" color="#FFFFFF" center>
-              {isLiveActive ? t('visualAssistant.liveTitle') : t('visualAssistant.headerTitle')}
+              {t('visualAssistant.headerTitle')}
             </Text>
-            {isLiveActive ? (
-              <View style={[styles.liveStatusBadge, { backgroundColor: getStatusPillColor() }]}>
-                <View style={styles.pulsingDot} />
-                <Text variant="microMedium" color="#FFFFFF">
-                  {getStatusLabel()}
-                </Text>
-              </View>
-            ) : null}
           </View>
 
           <View style={styles.headerRightActions}>
@@ -654,94 +440,22 @@ export function VisualAssistantScreen({ onBack }: Props) {
           keyboardVerticalOffset={Platform.OS === 'ios' ? 12 : 0}
         >
           <View style={styles.bottomArea}>
-            {/* AI Response Card / Subtitles */}
-            {isLiveActive ? (
-              <View style={styles.liveActiveCard} testID="visual-assistant-live-card">
-                {/* Voice Activity & Audio Level Visualizer */}
-                <View style={styles.voiceVisualizerRow}>
-                  <View
-                    style={[
-                      styles.voiceIndicatorDot,
-                      {
-                        backgroundColor: isUserSpeaking
-                          ? '#10B981'
-                          : liveState === 'speaking'
-                          ? avatarColors.state.speaking
-                          : liveState === 'thinking'
-                          ? '#F59E0B'
-                          : 'rgba(255, 255, 255, 0.4)',
-                      },
-                    ]}
-                  />
-                  <Text
-                    variant="microMedium"
-                    color={
-                      isUserSpeaking
-                        ? '#10B981'
-                        : liveState === 'speaking'
-                        ? avatarColors.state.speaking
-                        : '#FFFFFF'
-                    }
-                  >
-                    {isUserSpeaking
-                      ? '🎙️ आपकी आवाज़ सुनी जा रही है (Hearing you...)'
-                      : liveState === 'speaking'
-                      ? '🔊 AI उत्तर दे रहा है (Speaking...)'
-                      : liveState === 'thinking'
-                      ? '⏳ AI विश्लेषण कर रहा है...'
-                      : '🎙️ बोलें या नीचे प्रश्न टाइप करें'}
-                  </Text>
-                  {isUserSpeaking ? (
-                    <View style={styles.volumeBarContainer}>
-                      <View
-                        style={[
-                          styles.volumeBarFill,
-                          { width: `${Math.min(100, Math.max(20, Math.round(micVolume * 100)))}%` },
-                        ]}
-                      />
-                    </View>
-                  ) : null}
-                </View>
-
-                {liveUserQuestion ? (
-                  <View style={styles.liveUserQuestionRow}>
-                    <View style={styles.liveUserBadge}>
+            {/* AI Response & Question Display Card */}
+            {answer ? (
+              <View style={styles.answerCard} testID="visual-assistant-answer">
+                {askedQuestion ? (
+                  <View style={styles.askedQuestionBox}>
+                    <View style={styles.askedBadge}>
                       <Text variant="microMedium" color="#FFFFFF">
-                        👨‍🌾 {t('visualAssistant.yourQuestion') || 'सवाल (You)'}
+                        👨‍🌾 {t('visualAssistant.yourQuestion') || 'आपका सवाल'}
                       </Text>
                     </View>
-                    <Text variant="bodyMedium" color="#FFFFFF" style={styles.liveUserQuestionText}>
-                      {liveUserQuestion}
+                    <Text variant="bodyMedium" color="#FFFFFF" style={styles.askedQuestionText}>
+                      "{askedQuestion}"
                     </Text>
                   </View>
                 ) : null}
 
-                <View style={styles.liveSpeechRow}>
-                  <View style={styles.liveAiBadge}>
-                    <Icon
-                      name={liveState === 'speaking' ? 'mic' : liveState === 'thinking' ? 'help' : 'mic'}
-                      size={15}
-                      color={avatarColors.state.speaking}
-                    />
-                    <Text variant="microMedium" color={avatarColors.state.speaking}>
-                      {liveState === 'thinking'
-                        ? 'AI विश्लेषण...'
-                        : liveState === 'speaking'
-                        ? 'AI बोल रहा है...'
-                        : 'कृषिनेत्र AI'}
-                    </Text>
-                  </View>
-
-                  <Text variant="bodyMedium" color="#FFFFFF" style={styles.liveSubtitleText}>
-                    {liveSubtitle ||
-                      (liveState === 'thinking'
-                        ? 'विश्लेषण किया जा रहा है... कृपया प्रतीक्षा करें।'
-                        : t('visualAssistant.defaultGreeting'))}
-                  </Text>
-                </View>
-              </View>
-            ) : answer ? (
-              <View style={styles.answerCard} testID="visual-assistant-answer">
                 <View style={styles.answerHeaderRow}>
                   <View style={styles.answerBadge}>
                     <Text variant="microMedium" color={avatarColors.state.speaking}>
@@ -763,7 +477,7 @@ export function VisualAssistantScreen({ onBack }: Props) {
                   {answer}
                 </Text>
 
-                {/* Spoken Voice Controls */}
+                {/* Spoken Voice Replay Controls */}
                 {latestAudio ? (
                   <View style={styles.audioControlsRow}>
                     {isPlayingAudio ? (
@@ -800,8 +514,8 @@ export function VisualAssistantScreen({ onBack }: Props) {
               <Banner title={errorMessage} tone="danger" icon="alert" />
             ) : null}
 
-            {/* Quick Suggestion Chips (both Live mode and photo captured mode) */}
-            {isLiveActive || (showingPhoto && !answer && !asking) ? (
+            {/* Quick Suggestion Chips */}
+            {showingPhoto && !answer && !asking ? (
               <ScrollView
                 horizontal
                 showsHorizontalScrollIndicator={false}
@@ -866,11 +580,7 @@ export function VisualAssistantScreen({ onBack }: Props) {
                 <View style={styles.inputContainer}>
                   <TextInput
                     style={styles.messageInput}
-                    placeholder={
-                      isLiveActive
-                        ? 'Ask live assistant about this crop/plant...'
-                        : 'Type or speak question about this crop...'
-                    }
+                    placeholder="Type or speak question about this crop..."
                     placeholderTextColor="rgba(255, 255, 255, 0.6)"
                     value={question}
                     onChangeText={setQuestion}
@@ -881,7 +591,7 @@ export function VisualAssistantScreen({ onBack }: Props) {
                   />
                 </View>
 
-                {/* Voice Query Mic Button (Sarvam STT) */}
+                {/* Voice Query Mic Button (Sarvam STT in 22 languages) */}
                 <Pressable
                   onPress={() => void handleStartVoiceQuery()}
                   disabled={asking}
@@ -918,62 +628,38 @@ export function VisualAssistantScreen({ onBack }: Props) {
               </View>
             )}
 
-            {/* Live / Camera Mode Controls */}
-            {isLiveActive ? (
-              <View style={styles.actionRow}>
+            {/* Camera Actions Bar */}
+            <View style={styles.actionRow}>
+              {showingPhoto ? (
                 <Button
-                  label={
-                    liveState === 'thinking'
-                      ? 'AI सोच रहा है...'
-                      : 'सवाल समाप्त - उत्तर पूछें'
-                  }
-                  onPress={() => void handleEndQuestionAndAsk()}
-                  variant="primary"
-                  icon={liveState === 'thinking' ? undefined : 'rocket'}
-                  disabled={liveState === 'thinking' || liveState === 'speaking'}
-                  style={styles.flexButton}
-                  testID="visual-assistant-live-ask"
-                />
-
-                <Button
-                  label={t('visualAssistant.endLive')}
-                  onPress={stopLiveSession}
+                  label={t('visualAssistant.retake') || 'दोबारा फोटो लें'}
+                  onPress={retakeStill}
                   variant="secondary"
-                  icon="close"
-                  testID="visual-assistant-live-end"
-                />
-              </View>
-            ) : (
-              <View style={styles.actionRow}>
-                <Button
-                  label={t('visualAssistant.startLive')}
-                  onPress={() => void startLiveSession()}
-                  variant="primary"
-                  icon="play"
+                  icon="restart"
                   style={styles.flexButton}
                 />
+              ) : null}
 
-                <Pressable
-                  onPress={captureStill}
-                  style={({ pressed }) => [styles.snapButton, pressed && styles.capturePressed]}
-                  accessibilityRole="button"
-                  accessibilityLabel={t('visualAssistant.captureLabel')}
-                  testID="visual-assistant-capture"
-                >
-                  <Icon name="camera" size={24} color="#151714" strokeWidth={2} />
-                </Pressable>
+              <Pressable
+                onPress={captureStill}
+                style={({ pressed }) => [styles.snapButton, pressed && styles.capturePressed]}
+                accessibilityRole="button"
+                accessibilityLabel={t('visualAssistant.captureLabel')}
+                testID="visual-assistant-capture"
+              >
+                <Icon name="camera" size={26} color="#151714" strokeWidth={2} />
+              </Pressable>
 
-                <Pressable
-                  onPress={loadSamplePhoto}
-                  style={({ pressed }) => [styles.sampleButtonSmall, pressed && styles.capturePressed]}
-                  accessibilityRole="button"
-                  accessibilityLabel="Test sample plant"
-                  testID="visual-assistant-load-sample"
-                >
-                  <Icon name="book" size={20} color="#FFFFFF" strokeWidth={2} />
-                </Pressable>
-              </View>
-            )}
+              <Pressable
+                onPress={loadSamplePhoto}
+                style={({ pressed }) => [styles.sampleButtonSmall, pressed && styles.capturePressed]}
+                accessibilityRole="button"
+                accessibilityLabel="Test sample plant"
+                testID="visual-assistant-load-sample"
+              >
+                <Icon name="book" size={20} color="#FFFFFF" strokeWidth={2} />
+              </Pressable>
+            </View>
 
             <Text variant="micro" color={avatarColors.footerHint} center>
               {t('visualAssistant.answerDisclaimer')}
@@ -1007,88 +693,29 @@ const styles = StyleSheet.create({
     gap: 4,
   },
   headerButton: { width: 36, height: 36, alignItems: 'center', justifyContent: 'center' },
-  liveStatusBadge: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 6,
-    paddingHorizontal: 10,
-    paddingVertical: 3,
-    borderRadius: radius.pill,
-  },
-  pulsingDot: {
-    width: 8,
-    height: 8,
-    borderRadius: 4,
-    backgroundColor: '#FFFFFF',
-  },
   bottomArea: {
     paddingHorizontal: layout.screenPadding,
     paddingBottom: 18,
     paddingTop: 14,
     gap: 12,
   },
-  liveActiveCard: {
-    backgroundColor: 'rgba(21, 23, 20, 0.94)',
-    borderRadius: radius.lg,
-    padding: layout.cardPadding,
-    gap: 10,
-    borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.18)',
-  },
-  voiceVisualizerRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-    backgroundColor: 'rgba(255, 255, 255, 0.08)',
-    borderRadius: radius.pill,
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-  },
-  voiceIndicatorDot: {
-    width: 8,
-    height: 8,
-    borderRadius: 4,
-  },
-  volumeBarContainer: {
-    flex: 1,
-    height: 4,
-    backgroundColor: 'rgba(255, 255, 255, 0.2)',
-    borderRadius: 2,
-    overflow: 'hidden',
-  },
-  volumeBarFill: {
-    height: '100%',
-    backgroundColor: '#10B981',
-    borderRadius: 2,
-  },
-  liveUserQuestionRow: {
+  askedQuestionBox: {
     backgroundColor: 'rgba(255, 255, 255, 0.08)',
     borderRadius: radius.md,
     padding: 10,
     gap: 4,
+    marginBottom: 4,
   },
-  liveUserBadge: {
+  askedBadge: {
     alignSelf: 'flex-start',
     backgroundColor: 'rgba(255, 255, 255, 0.14)',
     paddingHorizontal: 8,
     paddingVertical: 2,
     borderRadius: radius.pill,
   },
-  liveUserQuestionText: {
+  askedQuestionText: {
     lineHeight: 20,
-  },
-  liveSpeechRow: {
-    flexDirection: 'column',
-    alignItems: 'flex-start',
-    gap: 6,
-  },
-  liveAiBadge: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 6,
-  },
-  liveSubtitleText: {
-    lineHeight: 22,
+    fontStyle: 'italic',
   },
   answerCard: {
     backgroundColor: 'rgba(21, 23, 20, 0.95)',
@@ -1245,28 +872,29 @@ const styles = StyleSheet.create({
   actionRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 12,
+    justifyContent: 'center',
+    gap: 16,
   },
   flexButton: {
     flex: 1,
   },
   snapButton: {
-    width: 52,
-    height: 52,
-    borderRadius: 26,
+    width: 64,
+    height: 64,
+    borderRadius: 32,
     backgroundColor: '#FFFFFF',
     alignItems: 'center',
     justifyContent: 'center',
-    elevation: 5,
+    elevation: 6,
     shadowColor: '#000000',
-    shadowOpacity: 0.3,
-    shadowRadius: 5,
-    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.35,
+    shadowRadius: 6,
+    shadowOffset: { width: 0, height: 3 },
   },
   sampleButtonSmall: {
-    width: 52,
-    height: 52,
-    borderRadius: 26,
+    width: 48,
+    height: 48,
+    borderRadius: 24,
     backgroundColor: 'rgba(255, 255, 255, 0.22)',
     borderWidth: 1.5,
     borderColor: 'rgba(255, 255, 255, 0.45)',
@@ -1275,4 +903,3 @@ const styles = StyleSheet.create({
   },
   capturePressed: { opacity: 0.85 },
 });
-

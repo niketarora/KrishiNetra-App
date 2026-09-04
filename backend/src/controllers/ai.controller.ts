@@ -77,19 +77,50 @@ export async function speak(req: Request, res: Response): Promise<void> {
   sendOk(res, speech, 'Spoken');
 }
 
+const LANGUAGE_NAMES: Record<string, string> = {
+  hi: 'Hindi (हिन्दी)',
+  bn: 'Bengali (বাংলা)',
+  mr: 'Marathi (मराठी)',
+  te: 'Telugu (తెలుగు)',
+  ta: 'Tamil (தமிழ்)',
+  gu: 'Gujarati (ગુજરાતી)',
+  ur: 'Urdu (اردو)',
+  kn: 'Kannada (ಕನ್ನಡ)',
+  or: 'Odia (ଓଡ଼ିଆ)',
+  od: 'Odia (ଓଡ଼ିଆ)',
+  ml: 'Malayalam (മലയാളം)',
+  pa: 'Punjabi (ਪੰਜਾਬੀ)',
+  as: 'Assamese (অসমীয়া)',
+  mai: 'Maithili (मैथिली)',
+  sat: 'Santali (ᱥᱟᱱᱛᱟᱲᱤ)',
+  ks: 'Kashmiri (کٲشُر)',
+  ne: 'Nepali (नेपाली)',
+  kok: 'Konkani (कोंकणी)',
+  sd: 'Sindhi (سنڌي)',
+  doi: 'Dogri (डोगरी)',
+  mni: 'Manipuri (মৈতৈলোন্)',
+  brx: 'Bodo (बड़ो)',
+  sa: 'Sanskrit (संस्कृतम्)',
+  en: 'English',
+};
+
 async function generateVisualAnswerWithCascade(
   ai: GoogleGenAI,
   primaryModel: string,
   question: string,
   mimeType: string,
   imageBase64: string,
+  language?: string,
 ): Promise<string> {
+  const langKey = language ? (language.split('-')[0] ?? '').toLowerCase() : 'hi';
+  const targetLang = LANGUAGE_NAMES[langKey] || 'Hindi (हिन्दी)';
+
   const promptText =
-    `You are KrishiNetra visual assistant for Indian farmers. ` +
-    `A farmer is asking a question about a photo of their crop, plant, soil, or farm. ` +
-    `Answer concisely in simple, clear Hindi or Hinglish (or the same language the question is asked in). ` +
-    `Describe clearly what you observe, any visible health issues or symptoms, and practical actionable advice. ` +
-    `Keep the answer within 2 to 4 clear sentences so it is easily understood and spoken aloud.\n\n` +
+    `You are KrishiNetra visual assistant for Indian farmers.\n` +
+    `A farmer is asking a question about a photo of their crop, plant, soil, or farm.\n` +
+    `CRITICAL INSTRUCTION: Respond strictly in ${targetLang} using its standard native script. Do not respond in English or any other language unless the question was asked in English.\n` +
+    `Describe clearly what you observe in the picture, any visible health issues, deficiencies or symptoms, and practical actionable advice for the farmer.\n` +
+    `Keep the answer within 2 to 3 concise, clear sentences so it is easily understood and spoken aloud via speech synthesis.\n\n` +
     `Farmer's question: ${question.trim()}`;
 
   const contents = [
@@ -207,6 +238,7 @@ export async function visualAsk(req: Request, res: Response): Promise<void> {
     finalQuestion,
     mimeType || 'image/jpeg',
     imageBase64,
+    activeLanguage,
   );
 
   let audio: string | null = null;

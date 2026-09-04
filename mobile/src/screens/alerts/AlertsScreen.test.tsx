@@ -4,7 +4,19 @@ import { renderWithProviders } from '@/test-utils';
 
 import { AlertsScreen } from './AlertsScreen';
 
+import { ALERTS } from '@/features/alerts/demoAlerts.backup';
+
 const props = { onBack: jest.fn(), onOpenAlert: jest.fn() };
+
+jest.mock('@/features/alerts/communicationProvider', () => {
+  const { ALERTS } = require('@/features/alerts/demoAlerts.backup');
+  return {
+    demoCommunicationProvider: {
+      getHistory: () => [...ALERTS].sort((a: any, b: any) => a.occurredDaysAgo - b.occurredDaysAgo),
+      getEvent: (id: string) => ALERTS.find((alert: any) => alert.id === id) ?? null,
+    },
+  };
+});
 
 describe('AlertsScreen', () => {
   beforeEach(() => jest.clearAllMocks());
