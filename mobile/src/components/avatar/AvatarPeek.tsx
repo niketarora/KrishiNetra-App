@@ -41,13 +41,14 @@ import { Text } from '../ui/Text';
  * the bubble and the motion. Dropping in `guide-peek-thinking.png` and friends
  * later is a change to this map and nothing else.
  */
-const GUIDE = require('../../../assets/avatar/guide-peek.png');
+const GUIDE_PEEK = require('../../../assets/avatar/guide-peek.png');
+const GUIDE_ACTION = require('../../../assets/avatar/guide-action.png');
 
 const EXPRESSIONS: Record<AvatarExpression, number> = {
-  helpful: GUIDE,
-  thinking: GUIDE,
-  pointing: GUIDE,
-  concerned: GUIDE,
+  helpful: GUIDE_PEEK,
+  thinking: GUIDE_PEEK,
+  pointing: GUIDE_PEEK,
+  concerned: GUIDE_PEEK,
 };
 
 /** Source aspect is 3:2, and the character occupies its right-hand half. */
@@ -108,6 +109,11 @@ export function AvatarPeek() {
             ? t(response.message, { lng: currentLang })
             : response.message
           : (transcript ?? t('avatar.status.thinking', { lng: currentLang }));
+
+  const isSpeaking = state === 'speaking' || state === 'guiding';
+  const avatarSource = isSpeaking
+    ? GUIDE_ACTION
+    : (EXPRESSIONS[directive?.expression ?? 'helpful'] ?? GUIDE_PEEK);
 
   return (
     <Animated.View
@@ -213,7 +219,8 @@ export function AvatarPeek() {
         style={[styles.characterRow, onLeft ? styles.characterLeft : styles.characterRight]}
       >
         <Image
-          source={EXPRESSIONS[directive?.expression ?? 'helpful']}
+          testID="avatar-peek-character"
+          source={avatarSource}
           style={[styles.character, onLeft && styles.characterMirrored]}
           resizeMode="contain"
           // Purely decorative — everything the character conveys is in the

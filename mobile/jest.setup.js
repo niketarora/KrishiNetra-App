@@ -145,13 +145,16 @@ jest.mock('expo-audio', () => ({
 jest.mock('expo-file-system', () => ({
   Paths: { cache: '/tmp' },
   File: class {
-    constructor() {
-      this.uri = 'file:///tmp/avatar-reply.wav';
-      this.exists = false;
+    constructor(uri) {
+      this.uri = uri || 'file:///tmp/avatar-reply.wav';
+      this.exists = true;
     }
     create() {}
     write() {}
     delete() {}
+    base64() {
+      return Promise.resolve('ZmFrZS1hdWRpby1ieXRlcw==');
+    }
   },
 }));
 

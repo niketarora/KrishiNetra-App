@@ -3,12 +3,17 @@ import { ScrollView, StyleSheet, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
 import { Badge, Card, EmptyState, Icon, SampleBadge, Screen, ScreenHeader, Text } from '@/components/ui';
+import { getCropScheduleEvent } from '@/features/calendar/cropSchedule';
 import { getDemoCalendarEvent } from '@/features/calendar/demoEvents';
 import { EVENT_TYPE_ICONS } from '@/features/calendar/eventTypeIcon';
+import type { FarmCalendarEvent } from '@/features/calendar/types';
 import { useFarm } from '@/features/farm/FarmContext';
 import { getCurrentCrop, type CurrentCrop } from '@/services/agronomy';
+import {
+  customTaskToCalendarEvent,
+  getCustomTasks,
+} from '@/services/calendarTasks';
 import { colors, layout } from '@/theme';
-import { toIsoDate } from '@/utils/calendar';
 
 type Props = {
   eventId: string;
@@ -26,17 +31,11 @@ function formatShortDate(iso: string): string {
   return date.toLocaleDateString(undefined, { day: 'numeric', month: 'short', timeZone: 'UTC' });
 }
 
-/**
- * One calendar event, read top to bottom. The event is re-derived from the
- * same pure demo generator the list screen uses (`buildDemoCalendarEvents`,
- * via `getDemoCalendarEvent`), keyed only by `eventId` — the same trick
- * `TutorialDetailScreen` uses for `tutorialId` — so nothing but a string needs
- * to travel through navigation params.
- */
 export function CalendarEventDetailScreen({ eventId, onBack }: Props) {
   const { t, i18n } = useTranslation();
   const { farm } = useFarm();
   const [crop, setCrop] = useState<CurrentCrop | null>(null);
+  const [customTaskEvent, setCustomTaskEvent] = useState<FarmCalendarEvent | null>(null);
 
   useEffect(() => {
     if (!farm) {
@@ -53,12 +52,29 @@ export function CalendarEventDetailScreen({ eventId, onBack }: Props) {
         if (!cancelled) setCrop(null);
       });
 
+    getCustomTasks(farm.id)
+      .then((tasks) => {
+        if (!cancelled) {
+          const found = tasks.find((t) => t.id === eventId);
+          if (found) {
+            setCustomTaskEvent(customTaskToCalendarEvent(found));
+          }
+        }
+      })
+      .catch(() => {
+        if (!cancelled) setCustomTaskEvent(null);
+      });
+
     return () => {
       cancelled = true;
     };
-  }, [farm]);
+  }, [farm, eventId]);
 
-  const event = farm ? getDemoCalendarEvent(eventId, farm.id, crop?.crop.id ?? null) : null;
+  const event: FarmCalendarEvent | null = farm
+    ? getCropScheduleEvent(eventId, farm.id, crop) ||
+      getDemoCalendarEvent(eventId, farm.id, crop?.crop.id ?? null) ||
+      customTaskEvent
+    : null;
 
   if (!farm || !event) {
     return (
@@ -75,15 +91,20 @@ export function CalendarEventDetailScreen({ eventId, onBack }: Props) {
   }
 
   const isUpcoming = event.status === 'upcoming';
+  const eventTitle = event.isCustom ? (event.customTitle || t('calendar.customTask')) : t(event.titleKey);
+  const eventBadgeLabel = event.isCustom
+    ? t('calendar.customTask')
+    : t(`calendar.eventTypes.${event.eventType}`);
+  const isDemo = event.id.startsWith('demo-');
 
   return (
     <Screen>
-      <ScreenHeader title={t(event.titleKey)} onBack={onBack} />
+      <ScreenHeader title={eventTitle} onBack={onBack} />
 
       <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
         <View style={styles.typeRow}>
           <Icon name={EVENT_TYPE_ICONS[event.eventType]} size={22} color={colors.demo.fg} />
-          <Badge label={t(`calendar.eventTypes.${event.eventType}`)} tone="accent" />
+          <Badge label={eventBadgeLabel} tone="accent" />
         </View>
 
         <Card style={styles.detailCard}>
@@ -117,12 +138,14 @@ export function CalendarEventDetailScreen({ eventId, onBack }: Props) {
           <Text variant="body">{t(event.reasonKey)}</Text>
         </Card>
 
-        <View style={styles.demoNotice} testID="calendar-demo-notice">
-          <SampleBadge />
-          <Text variant="micro" color={colors.text.muted} style={styles.demoNoticeText}>
-            {t('calendar.detail.demoNotice')}
-          </Text>
-        </View>
+        {isDemo ? (
+          <View style={styles.demoNotice} testID="calendar-demo-notice">
+            <SampleBadge />
+            <Text variant="micro" color={colors.text.muted} style={styles.demoNoticeText}>
+              {t('calendar.detail.demoNotice')}
+            </Text>
+          </View>
+        ) : null}
       </ScrollView>
     </Screen>
   );

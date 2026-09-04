@@ -24,4 +24,8 @@ export type FarmCalendarEvent = {
   titleKey: string;
   /** i18n key for the "why it is shown" explanation. */
   reasonKey: string;
+  /** Custom task extensions for farmer-created tasks */
+  isCustom?: boolean;
+  customTitle?: string;
+  customTaskId?: string;
 };

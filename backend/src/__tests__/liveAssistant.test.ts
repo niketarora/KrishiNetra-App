@@ -104,5 +104,16 @@ describe('Live Assistant Backend Services', () => {
       expect(res.status).toBe(400);
       expect(res.body.success).toBe(false);
     });
+
+    it('POST /api/v1/ai/visual-ask rejects requests missing both question and audioBase64', async () => {
+      const res = await request(app)
+        .post('/api/v1/ai/visual-ask')
+        .set('Authorization', 'Bearer valid-token')
+        .send({ imageBase64: 'dGVzdC1pbWFnZS1ieXRlcw==' });
+
+      expect(res.status).toBe(400);
+      expect(res.body.success).toBe(false);
+      expect(res.body.error).toHaveProperty('message');
+    });
   });
 });

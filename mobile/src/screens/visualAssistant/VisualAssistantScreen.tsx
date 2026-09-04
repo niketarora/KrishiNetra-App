@@ -21,6 +21,7 @@ import { Banner, Button, Icon, Screen, ScreenHeader, Text } from '@/components/u
 import { resolveVisualAssistantAnswer, type VisualAssistantState } from '@/features/visualAssistant/demo';
 import { GeminiLiveClient } from '@/features/visualAssistant/GeminiLiveClient';
 import { LiveAudioController } from '@/features/visualAssistant/AudioController';
+import { useVisualVoiceRecorder } from '@/features/visualAssistant/useVisualVoiceRecorder';
 import { SAMPLE_PLANT_BASE64, SAMPLE_PLANT_URI } from '@/features/visualAssistant/sampleImage';
 import type { LiveConnectionState } from '@/features/visualAssistant/types';
 import { avatarColors, colors, layout, radius } from '@/theme';
@@ -60,6 +61,10 @@ export function VisualAssistantScreen({ onBack }: Props) {
   const [latestAudio, setLatestAudio] = useState<string | null>(null);
   const [isPlayingAudio, setIsPlayingAudio] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  // Voice recording state for Sarvam STT
+  const voiceRecorder = useVisualVoiceRecorder();
+  const [isTranscribingVoice, setIsTranscribingVoice] = useState(false);
 
   // Live session state
   const [isLiveActive, setIsLiveActive] = useState(false);
@@ -339,6 +344,99 @@ export function VisualAssistantScreen({ onBack }: Props) {
       setState('error');
     }
   }, [i18n.language, isLiveActive, photo, playSpokenAudio, question, stopStillAudio, t]);
+
+  // --- Sarvam Voice Query Handlers (STT -> Vision -> TTS) --------------------
+  const handleStartVoiceQuery = useCallback(async () => {
+    stopStillAudio();
+    const started = await voiceRecorder.startRecording();
+    if (!started) {
+      setErrorMessage(t('visualAssistant.permissionMic') || 'Microphone permission required for voice query.');
+    }
+  }, [stopStillAudio, voiceRecorder, t]);
+
+  const handleStopVoiceQuery = useCallback(async () => {
+    setIsTranscribingVoice(true);
+    setErrorMessage(null);
+
+    const audioBase64 = await voiceRecorder.stopAndGetBase64();
+    if (!audioBase64) {
+      setIsTranscribingVoice(false);
+      setErrorMessage(t('visualAssistant.voiceError') || 'Could not record audio. Please try again.');
+      return;
+    }
+
+    if (isLiveActive) {
+      stopLiveSession();
+    }
+
+    // Point & Speak: Auto snap camera frame if no photo captured yet
+    let currentPhoto = photo;
+    if (!currentPhoto && cameraRef.current) {
+      try {
+        const snap = await cameraRef.current.takePictureAsync({ base64: true, quality: 0.5 });
+        if (snap?.base64) {
+          currentPhoto = { uri: snap.uri, base64: snap.base64 };
+          setPhoto(currentPhoto);
+          setState('captured');
+        }
+      } catch (err) {
+        console.warn('Point-and-speak snap error:', err);
+      }
+    }
+
+    if (!currentPhoto) {
+      setIsTranscribingVoice(false);
+      setErrorMessage(t('visualAssistant.errors.generic'));
+      return;
+    }
+
+    setState('asking');
+    stopStillAudio();
+
+    try {
+      const result = await resolveVisualAssistantAnswer(t, {
+        imageBase64: currentPhoto.base64,
+        mimeType: 'image/jpeg',
+        questionText: question.trim() || undefined,
+        audioBase64,
+        audioMimeType: 'audio/mp4',
+        language: i18n.language || 'hi',
+      });
+
+      if (result.question) {
+        setQuestion(result.question);
+      }
+      setAnswer(result.answer);
+      setLatestAudio(result.audio ?? null);
+      setState('answered');
+
+      // Automatically play Sarvam TTS spoken answer
+      if (result.audio) {
+        void playSpokenAudio(result.audio);
+      }
+    } catch (err) {
+      setErrorMessage(err instanceof Error ? err.message : t('visualAssistant.errors.generic'));
+      setState('error');
+    } finally {
+      setIsTranscribingVoice(false);
+    }
+  }, [
+    cameraRef,
+    i18n.language,
+    isLiveActive,
+    photo,
+    playSpokenAudio,
+    question,
+    stopLiveSession,
+    stopStillAudio,
+    t,
+    voiceRecorder,
+  ]);
+
+  const handleCancelVoiceQuery = useCallback(async () => {
+    await voiceRecorder.cancelRecording();
+    setIsTranscribingVoice(false);
+  }, [voiceRecorder]);
 
   const captureStill = useCallback(async () => {
     if (!cameraRef.current) return;
@@ -723,45 +821,102 @@ export function VisualAssistantScreen({ onBack }: Props) {
               </ScrollView>
             ) : null}
 
-            {/* Interactive Message Box with Text Input & Send */}
-            <View style={styles.messageBoxRow}>
-              <View style={styles.inputContainer}>
-                <TextInput
-                  style={styles.messageInput}
-                  placeholder={
-                    isLiveActive
-                      ? 'Ask live assistant about this crop/plant...'
-                      : 'Type question about this crop/plant...'
-                  }
-                  placeholderTextColor="rgba(255, 255, 255, 0.6)"
-                  value={question}
-                  onChangeText={setQuestion}
-                  editable={!asking}
-                  returnKeyType="send"
-                  onSubmitEditing={() => void handleSendMessage()}
-                  testID="visual-assistant-question"
-                />
+            {/* Interactive Message Box with Text Input, Voice Mic & Send */}
+            {voiceRecorder.isRecording ? (
+              <View style={styles.voiceRecordingRow} testID="visual-assistant-voice-recording">
+                <View style={styles.voiceRecordingIndicator}>
+                  <View style={styles.recordingPulseDot} />
+                  <Text variant="microMedium" color="#EF4444">
+                    {t('visualAssistant.listeningVoice') || 'बोलें... (Listening...)'} ({voiceRecorder.recordSeconds}s)
+                  </Text>
+                </View>
+                <View style={styles.voiceRecordingActions}>
+                  <Pressable
+                    onPress={() => void handleCancelVoiceQuery()}
+                    style={styles.voiceCancelButton}
+                    accessibilityRole="button"
+                    accessibilityLabel={t('visualAssistant.cancelVoice')}
+                    testID="visual-assistant-voice-cancel"
+                  >
+                    <Icon name="close" size={16} color="#FFFFFF" />
+                  </Pressable>
+                  <Pressable
+                    onPress={() => void handleStopVoiceQuery()}
+                    style={styles.voiceStopAskButton}
+                    accessibilityRole="button"
+                    accessibilityLabel={t('visualAssistant.stopAndAsk')}
+                    testID="visual-assistant-voice-stop"
+                  >
+                    <Icon name="check" size={16} color="#FFFFFF" strokeWidth={2.5} />
+                    <Text variant="microMedium" color="#FFFFFF">
+                      {t('visualAssistant.stopAndAsk') || 'पूछें'}
+                    </Text>
+                  </Pressable>
+                </View>
               </View>
+            ) : isTranscribingVoice ? (
+              <View style={styles.voiceRecordingRow} testID="visual-assistant-transcribing">
+                <ActivityIndicator size="small" color={avatarColors.state.speaking} />
+                <Text variant="microMedium" color="#FFFFFF">
+                  {t('visualAssistant.transcribingVoice') || 'Sarvam AI आवाज़ को समझ रहा है...'}
+                </Text>
+              </View>
+            ) : (
+              <View style={styles.messageBoxRow}>
+                <View style={styles.inputContainer}>
+                  <TextInput
+                    style={styles.messageInput}
+                    placeholder={
+                      isLiveActive
+                        ? 'Ask live assistant about this crop/plant...'
+                        : 'Type or speak question about this crop...'
+                    }
+                    placeholderTextColor="rgba(255, 255, 255, 0.6)"
+                    value={question}
+                    onChangeText={setQuestion}
+                    editable={!asking}
+                    returnKeyType="send"
+                    onSubmitEditing={() => void handleSendMessage()}
+                    testID="visual-assistant-question"
+                  />
+                </View>
 
-              <Pressable
-                onPress={() => void handleSendMessage()}
-                disabled={!question.trim() || asking}
-                style={({ pressed }) => [
-                  styles.sendButton,
-                  !question.trim() && styles.sendButtonDisabled,
-                  pressed && styles.capturePressed,
-                ]}
-                accessibilityRole="button"
-                accessibilityLabel="Send Question"
-                testID="visual-assistant-ask"
-              >
-                {asking ? (
-                  <ActivityIndicator size="small" color="#FFFFFF" />
-                ) : (
-                  <Icon name="rocket" size={20} color="#FFFFFF" strokeWidth={2.2} />
-                )}
-              </Pressable>
-            </View>
+                {/* Voice Query Mic Button (Sarvam STT) */}
+                <Pressable
+                  onPress={() => void handleStartVoiceQuery()}
+                  disabled={asking}
+                  style={({ pressed }) => [
+                    styles.micButton,
+                    pressed && styles.capturePressed,
+                  ]}
+                  accessibilityRole="button"
+                  accessibilityLabel={t('visualAssistant.askWithVoice')}
+                  testID="visual-assistant-mic"
+                >
+                  <Icon name="mic" size={20} color="#FFFFFF" strokeWidth={2.2} />
+                </Pressable>
+
+                {/* Send Question Button */}
+                <Pressable
+                  onPress={() => void handleSendMessage()}
+                  disabled={!question.trim() || asking}
+                  style={({ pressed }) => [
+                    styles.sendButton,
+                    !question.trim() && styles.sendButtonDisabled,
+                    pressed && styles.capturePressed,
+                  ]}
+                  accessibilityRole="button"
+                  accessibilityLabel="Send Question"
+                  testID="visual-assistant-ask"
+                >
+                  {asking ? (
+                    <ActivityIndicator size="small" color="#FFFFFF" />
+                  ) : (
+                    <Icon name="rocket" size={20} color="#FFFFFF" strokeWidth={2.2} />
+                  )}
+                </Pressable>
+              </View>
+            )}
 
             {/* Live / Camera Mode Controls */}
             {isLiveActive ? (
@@ -1027,6 +1182,65 @@ const styles = StyleSheet.create({
   },
   sendButtonDisabled: {
     backgroundColor: 'rgba(255, 255, 255, 0.2)',
+  },
+  micButton: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    backgroundColor: '#059669',
+    alignItems: 'center',
+    justifyContent: 'center',
+    elevation: 4,
+    shadowColor: '#000000',
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
+    shadowOffset: { width: 0, height: 2 },
+  },
+  voiceRecordingRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    backgroundColor: 'rgba(21, 23, 20, 0.94)',
+    borderWidth: 1.5,
+    borderColor: '#EF4444',
+    borderRadius: radius.pill,
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    gap: 12,
+  },
+  voiceRecordingIndicator: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    flex: 1,
+  },
+  recordingPulseDot: {
+    width: 10,
+    height: 10,
+    borderRadius: 5,
+    backgroundColor: '#EF4444',
+  },
+  voiceRecordingActions: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  voiceCancelButton: {
+    width: 34,
+    height: 34,
+    borderRadius: 17,
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  voiceStopAskButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+    backgroundColor: colors.primary,
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: radius.pill,
   },
   actionRow: {
     flexDirection: 'row',

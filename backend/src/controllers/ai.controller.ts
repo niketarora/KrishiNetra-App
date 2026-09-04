@@ -147,14 +147,49 @@ async function generateVisualAnswerWithCascade(
 }
 
 export async function visualAsk(req: Request, res: Response): Promise<void> {
-  const { imageBase64, mimeType, question, language } = req.body as {
+  const { imageBase64, mimeType, question, audioBase64, audioMimeType, language } = req.body as {
     imageBase64?: string;
     mimeType?: string;
     question?: string;
+    audioBase64?: string;
+    audioMimeType?: string;
     language?: string;
   };
 
-  if (!imageBase64 || !question?.trim()) {
+  if (!imageBase64 || (!question?.trim() && !audioBase64)) {
+    throw ApiError.invalidRequest('Missing imageBase64 or question.');
+  }
+
+  let finalQuestion = question?.trim() || '';
+  let activeLanguage = language;
+
+  // If audioBase64 is provided, transcribe with Sarvam STT
+  if (audioBase64) {
+    try {
+      const audioBuffer = Buffer.from(audioBase64, 'base64');
+      const transcription = await runTranscription(
+        {
+          buffer: audioBuffer,
+          filename: 'voice_query.m4a',
+          mimeType: audioMimeType || 'audio/mp4',
+        },
+        language,
+      );
+      if (transcription?.text) {
+        finalQuestion = transcription.text;
+        if (transcription.language) {
+          activeLanguage = transcription.language;
+        }
+      }
+    } catch (sttErr: any) {
+      console.warn('[visualAsk] Sarvam STT transcription failed for audio query:', sttErr?.message || sttErr);
+      if (!finalQuestion) {
+        throw ApiError.invalidRequest('Could not transcribe audio query. Please try speaking again.');
+      }
+    }
+  }
+
+  if (!finalQuestion) {
     throw ApiError.invalidRequest('Missing imageBase64 or question.');
   }
 
@@ -169,21 +204,21 @@ export async function visualAsk(req: Request, res: Response): Promise<void> {
   const answer = await generateVisualAnswerWithCascade(
     ai,
     modelName,
-    question,
+    finalQuestion,
     mimeType || 'image/jpeg',
     imageBase64,
   );
 
   let audio: string | null = null;
   let sampleRate = 16000;
-  let audioMimeType = 'audio/wav';
+  let outputAudioMimeType = 'audio/wav';
 
   try {
     if (env.SARVAM_API_KEY) {
-      const speech = await synthesize(answer, language || 'hi');
+      const speech = await synthesize(answer, activeLanguage || 'hi');
       audio = speech.audio;
       sampleRate = speech.sampleRate;
-      audioMimeType = speech.mimeType;
+      outputAudioMimeType = speech.mimeType;
     }
   } catch (err) {
     console.warn('[visualAsk] Speech synthesis fallback warning:', err);
@@ -191,8 +226,16 @@ export async function visualAsk(req: Request, res: Response): Promise<void> {
 
   sendOk(
     res,
-    { answer, audio, sampleRate, mimeType: audioMimeType },
+    {
+      question: finalQuestion,
+      answer,
+      audio,
+      sampleRate,
+      mimeType: outputAudioMimeType,
+      language: activeLanguage || 'hi',
+    },
     'Visual answer resolved',
   );
 }
+
 

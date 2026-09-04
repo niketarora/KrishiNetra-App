@@ -418,8 +418,55 @@
       "harvest": {
         "title": "Expected harvest",
         "reason": "Illustration of what a connected yield/harvest intelligence engine will one day estimate."
+      },
+      "irrigationStage1": {
+        "title": "1st Irrigation (Crown Root / Early)",
+        "reason": "Critical irrigation for crown root initiation and early plant establishment (10–15 days after sowing)."
+      },
+      "fertilizerStage1": {
+        "title": "1st Fertilizer & Weeding",
+        "reason": "Top-dressing with Urea / NPK and weed control to promote vigorous root and shoot growth."
+      },
+      "irrigationStage2": {
+        "title": "2nd Irrigation (Tillering)",
+        "reason": "Essential moisture required during active tillering and vegetative canopy expansion."
+      },
+      "cropHealthStage": {
+        "title": "Crop Health & Pest Scouting",
+        "reason": "Inspect crop foliage for stem borers, aphids, rust, or nutrient deficiency symptoms."
+      },
+      "fertilizerStage2": {
+        "title": "2nd Fertilizer (Booster / Foliar)",
+        "reason": "Foliar nutrient spray or micronutrient booster before flowering to support reproductive organs."
+      },
+      "irrigationStage3": {
+        "title": "3rd Irrigation (Flowering)",
+        "reason": "Critical moisture stage during flowering and panicle / pod formation to prevent blossom drop."
+      },
+      "irrigationStage4": {
+        "title": "4th Irrigation (Grain Filling)",
+        "reason": "Final irrigation ensuring plump grain and pod development without moisture stress."
       }
-    }
+    },
+    "addTask": "Add Task",
+    "customTasks": "My Farm Tasks",
+    "customTask": "Farm Task",
+    "customTaskReason": "Custom task scheduled by farmer for this date.",
+    "newTaskTitle": "Task description",
+    "taskPlaceholder": "e.g. Irrigate North parcel, spray fungicide...",
+    "selectCategory": "Activity Type",
+    "selectDate": "Scheduled Date",
+    "saveTask": "Save Task",
+    "cancelTask": "Cancel",
+    "deleteTask": "Delete",
+    "taskCompleted": "Completed",
+    "taskPending": "Pending",
+    "quickSuggestions": "Quick suggestions",
+    "quickIrrigation": "Irrigate field",
+    "quickFertilizer": "Apply Fertilizer",
+    "quickPesticide": "Pest Spray",
+    "quickWeeding": "Weed Removal",
+    "quickHarvest": "Crop Harvest"
   },
   "ar": {
     "title": "AR Guide",
@@ -735,6 +782,15 @@
     "connected": "Connected",
     "switchCamera": "Flip camera",
     "defaultGreeting": "I am watching your crop. Speak naturally to ask questions.",
+    "askWithVoice": "Ask with voice",
+    "listeningVoice": "Listening to your question...",
+    "transcribingVoice": "Understanding voice with Sarvam AI...",
+    "stopAndAsk": "Ask AI",
+    "cancelVoice": "Cancel",
+    "replayVoice": "Replay Voice",
+    "stopVoice": "Stop",
+    "voiceError": "Could not record audio. Please try again.",
+    "permissionMic": "Microphone permission required for voice query.",
     "errors": {
       "generic": "We couldn't get an answer. Check your connection and try again."
     }
@@ -809,4 +865,3 @@
     "finish": "Finish 🎉"
   }
 }
-

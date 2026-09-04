@@ -130,4 +130,63 @@ describe('CalendarScreen', () => {
       );
     });
   });
+
+  describe('with a farm and active crop with sowing date', () => {
+    beforeEach(() => {
+      mockFarmState.farm = makeFarm();
+      mockGetCurrentCrop.mockResolvedValue({
+        crop: { id: 'crop-wheat', code: 'wheat', name_en: 'Wheat', name_hi: 'गेहूँ', category: 'cereal', default_unit: 'quintal' },
+        planting: { id: 'planting-1', farm_id: 'farm-1', crop_id: 'crop-wheat', variety: 'HD-2967', sown_on: '2026-08-01', expected_harvest_on: null, area_acres: 2.5, status: 'growing', notes: null },
+      });
+    });
+
+    it('displays agronomic milestone schedule events starting from sowing date', async () => {
+      await renderWithProviders(<CalendarScreen {...props} />);
+
+      await waitFor(() => {
+        // Today is 2026-08-15:
+        // Day +35 (2026-09-05) is upcoming irrigation 2
+        // Day +115 (2026-11-24) is harvest
+        expect(screen.getByTestId('calendar-event-crop-schedule-planting-1-irrigation-2')).toBeTruthy();
+        expect(screen.getByTestId('calendar-event-crop-schedule-planting-1-harvest')).toBeTruthy();
+      });
+    });
+  });
+
+  describe('custom task management', () => {
+    beforeEach(() => {
+      mockFarmState.farm = makeFarm();
+    });
+
+    it('opens add task dialog, enters title, and adds a custom task', async () => {
+      await renderWithProviders(<CalendarScreen {...props} />);
+
+      const addBtn = screen.getByTestId('calendar-add-task-button');
+      await fireEvent.press(addBtn);
+
+      expect(screen.getByTestId('calendar-add-task-modal')).toBeTruthy();
+
+      const input = screen.getByTestId('calendar-task-title-input');
+      await fireEvent.changeText(input, 'Special foliar spray');
+
+      const saveBtn = screen.getByTestId('calendar-save-task-button');
+      await fireEvent.press(saveBtn);
+
+      await waitFor(() => {
+        expect(screen.queryByTestId('calendar-add-task-modal')).toBeNull();
+        expect(screen.getAllByText('Special foliar spray').length).toBeGreaterThan(0);
+      });
+    });
+
+    it('supports choosing quick suggestion chips', async () => {
+      await renderWithProviders(<CalendarScreen {...props} />);
+
+      await fireEvent.press(screen.getByTestId('calendar-add-task-button'));
+      await fireEvent.press(screen.getByTestId('quick-suggestion-irrigation'));
+
+      const input = screen.getByTestId('calendar-task-title-input');
+      expect(input.props.value).toBeTruthy();
+    });
+  });
 });
+

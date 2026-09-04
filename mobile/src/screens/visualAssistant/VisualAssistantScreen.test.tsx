@@ -200,6 +200,50 @@ describe('VisualAssistantScreen', () => {
     });
   });
 
+  describe('voice query with Sarvam STT & TTS', () => {
+    it('shows microphone button and starts voice recording', async () => {
+      await renderWithProviders(<VisualAssistantScreen onBack={onBack} />);
+      await capture();
+
+      expect(screen.getByTestId('visual-assistant-mic')).toBeTruthy();
+
+      await fireEvent.press(screen.getByTestId('visual-assistant-mic'));
+
+      expect(screen.getByTestId('visual-assistant-voice-recording')).toBeTruthy();
+      expect(screen.getByTestId('visual-assistant-voice-stop')).toBeTruthy();
+      expect(screen.getByTestId('visual-assistant-voice-cancel')).toBeTruthy();
+    });
+
+    it('cancels voice recording when cancel is pressed', async () => {
+      await renderWithProviders(<VisualAssistantScreen onBack={onBack} />);
+      await capture();
+
+      await fireEvent.press(screen.getByTestId('visual-assistant-mic'));
+      expect(screen.getByTestId('visual-assistant-voice-recording')).toBeTruthy();
+
+      await fireEvent.press(screen.getByTestId('visual-assistant-voice-cancel'));
+      expect(screen.queryByTestId('visual-assistant-voice-recording')).toBeNull();
+      expect(screen.getByTestId('visual-assistant-mic')).toBeTruthy();
+    });
+
+    it('submits voice query and receives diagnosis answer', async () => {
+      mockInvoke.mockResolvedValueOnce({
+        data: {
+          answer: 'यह मरोड़िया रोग के लक्षण हैं।',
+        },
+        error: null,
+      });
+
+      await renderWithProviders(<VisualAssistantScreen onBack={onBack} />);
+      await capture();
+
+      await fireEvent.press(screen.getByTestId('visual-assistant-mic'));
+      await fireEvent.press(screen.getByTestId('visual-assistant-voice-stop'));
+
+      expect(await screen.findByText('यह मरोड़िया रोग के लक्षण हैं।')).toBeTruthy();
+    });
+  });
+
   describe('live assistant mode', () => {
     it('allows typing and sending a question in live mode', async () => {
       await renderWithProviders(<VisualAssistantScreen onBack={onBack} />);

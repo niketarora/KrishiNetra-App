@@ -54,3 +54,19 @@ export const transcribeSchema = z
     language: z.string().trim().max(10).optional(),
   })
   .strict();
+
+export const visualAskSchema = z
+  .object({
+    imageBase64: z.string().min(1, 'Missing imageBase64.'),
+    mimeType: z.string().max(50).optional(),
+    question: z.string().trim().max(2000).optional(),
+    audioBase64: z.string().min(1).optional(),
+    audioMimeType: z.string().max(50).optional(),
+    language: z.string().trim().max(10).optional(),
+  })
+  .strict()
+  .refine((data) => (data.question && data.question.length > 0) || Boolean(data.audioBase64), {
+    message: 'Either question or audioBase64 must be provided.',
+  });
+
+export type VisualAskBody = z.infer<typeof visualAskSchema>;

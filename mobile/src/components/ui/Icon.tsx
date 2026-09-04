@@ -47,7 +47,8 @@ export type IconName =
   | 'rocket'
   | 'tractor'
   | 'wheat'
-  | 'coins';
+  | 'coins'
+  | 'plus';
 
 type Props = {
   name: IconName;
@@ -294,6 +295,9 @@ export function Icon({ name, size = 20, color = colors.text.secondary, strokeWid
           <Circle cx="9" cy="9" r="6" {...common} />
           <Path d="M18.09 10.37A6 6 0 1 1 10.34 18M8 7h2v4H8" {...common} />
         </>
+      )}
+      {name === 'plus' && (
+        <Path d="M12 5v14M5 12h14" {...common} />
       )}
     </Svg>
   );
