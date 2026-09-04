@@ -140,7 +140,7 @@ export class GeminiLiveClient {
       setup: {
         model,
         generationConfig: {
-          responseModalities: ['AUDIO', 'TEXT'],
+          responseModalities: ['AUDIO'],
           speechConfig: {
             voiceConfig: {
               prebuiltVoiceConfig: {
@@ -200,6 +200,11 @@ export class GeminiLiveClient {
       this.callbacks.onInterrupted();
       this.setState('listening');
       return;
+    }
+
+    // Live spoken transcript from Gemini Live
+    if (data.serverContent?.outputTranscription?.text) {
+      this.callbacks.onTranscript(data.serverContent.outputTranscription.text, false);
     }
 
     // Model turn with audio/text parts
