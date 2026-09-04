@@ -1,11 +1,13 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { ActivityIndicator, Image, Pressable, StyleSheet, TextInput, View } from 'react-native';
+import { ActivityIndicator, Image, Pressable, ScrollView, StyleSheet, TextInput, View } from 'react-native';
 import { CameraView, useCameraPermissions } from 'expo-camera';
 import type { CameraView as CameraViewInstance } from 'expo-camera';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTranslation } from 'react-i18next';
+import { createAudioPlayer, setAudioModeAsync, type AudioPlayer } from 'expo-audio';
+import { File, Paths } from 'expo-file-system';
 
-import { Banner, Button, Icon, Input, Screen, ScreenHeader, Text } from '@/components/ui';
+import { Banner, Button, Icon, Screen, ScreenHeader, Text } from '@/components/ui';
 import { resolveVisualAssistantAnswer, type VisualAssistantState } from '@/features/visualAssistant/demo';
 import { GeminiLiveClient } from '@/features/visualAssistant/GeminiLiveClient';
 import { LiveAudioController } from '@/features/visualAssistant/AudioController';
@@ -16,18 +18,25 @@ import { avatarColors, colors, layout, radius } from '@/theme';
 type Props = { onBack: () => void };
 type CapturedPhoto = { uri: string; base64: string };
 
+const SUGGESTED_QUESTIONS = [
+  { id: 'disease', label: '🌿 बीमारी क्या है?', question: 'पौधे में क्या बीमारी या समस्या है और इसका उपचार क्या है?' },
+  { id: 'identify', label: '🌾 यह कौन सा पौधा है?', question: 'यह कौन सी फसल या पौधा है? पहचानें।' },
+  { id: 'treatment', label: '🧪 दवा व खाद क्या डालें?', question: 'इस फसल के लिए उपयुक्त दवा या कीटनाशक क्या है?' },
+  { id: 'spots', label: '🍂 पत्तियों पर धब्बे', question: 'पत्तियों पर धब्बों का क्या कारण और रोकथाम क्या है?' },
+];
+
 /**
  * KrishiNetra Live AI Camera & Voice Assistant.
  *
- * Provides real-time multimodal live interaction with Google Gemini Live API:
- * - Live camera preview with 1-2 FPS continuous frame streaming
- * - Real-time spoken dialogue with Indian farmer agricultural system instruction
- * - Native continuous 16kHz PCM audio streaming & barge-in / interruption handling
- * - Gemini function calling to KrishiNetra backend services
- * - Optional still-photo snapshot analysis mode
+ * Provides multimodal interaction with Google Gemini Vision & Live API:
+ * - High-speed camera photo capture & analysis with Gemini 3.6 Flash
+ * - Spoken response audio playback in natural Indian voice via Sarvam TTS
+ * - Interactive suggestion chips & question input box
+ * - Replay voice audio on demand
+ * - Real-time continuous Gemini Live assistant mode
  */
 export function VisualAssistantScreen({ onBack }: Props) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [permission, requestPermission] = useCameraPermissions();
   const [cameraError, setCameraError] = useState(false);
   const [cameraFacing, setCameraFacing] = useState<'back' | 'front'>('back');
@@ -38,6 +47,8 @@ export function VisualAssistantScreen({ onBack }: Props) {
   const [photo, setPhoto] = useState<CapturedPhoto | null>(null);
   const [question, setQuestion] = useState('');
   const [answer, setAnswer] = useState<string | null>(null);
+  const [latestAudio, setLatestAudio] = useState<string | null>(null);
+  const [isPlayingAudio, setIsPlayingAudio] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   // Live session state
@@ -47,8 +58,57 @@ export function VisualAssistantScreen({ onBack }: Props) {
 
   const liveClientRef = useRef<GeminiLiveClient | null>(null);
   const audioControllerRef = useRef<LiveAudioController | null>(null);
+  const stillPlayerRef = useRef<AudioPlayer | null>(null);
   const frameTimerRef = useRef<NodeJS.Timeout | null>(null);
   const isSamplingFrameRef = useRef<boolean>(false);
+
+  // Stop still audio player helper
+  const stopStillAudio = useCallback(() => {
+    if (stillPlayerRef.current) {
+      try {
+        stillPlayerRef.current.remove();
+      } catch {
+        // Ignored
+      }
+      stillPlayerRef.current = null;
+    }
+    setIsPlayingAudio(false);
+  }, []);
+
+  // Play spoken WAV audio
+  const playSpokenAudio = useCallback(async (base64Wav: string) => {
+    if (!base64Wav) return;
+    stopStillAudio();
+
+    try {
+      await setAudioModeAsync({
+        playsInSilentMode: true,
+        allowsRecording: false,
+        shouldRouteThroughEarpiece: false,
+      });
+
+      const file = new File(Paths.cache, 'visual-answer.wav');
+      if (file.exists) file.delete();
+      file.create();
+      file.write(base64Wav, { encoding: 'base64' });
+
+      const player = createAudioPlayer(file);
+      stillPlayerRef.current = player;
+      setIsPlayingAudio(true);
+
+      player.addListener('playbackStatusUpdate', (status) => {
+        if (status.didJustFinish) {
+          setIsPlayingAudio(false);
+          stopStillAudio();
+        }
+      });
+
+      player.play();
+    } catch (err) {
+      console.warn('[VisualAssistant] Audio playback error:', err);
+      setIsPlayingAudio(false);
+    }
+  }, [stopStillAudio]);
 
   // Ask for camera permission immediately on mount
   useEffect(() => {
@@ -57,18 +117,19 @@ export function VisualAssistantScreen({ onBack }: Props) {
     }
   }, [permission, requestPermission]);
 
-  // Clean up live session on unmount
+  // Clean up sessions and audio on unmount
   useEffect(() => {
     return () => {
       stopLiveSession();
+      stopStillAudio();
     };
-  }, []);
+  }, [stopStillAudio]);
 
   const flipCamera = useCallback(() => {
     setCameraFacing((current) => (current === 'back' ? 'front' : 'back'));
   }, []);
 
-  // Frame sampler: captures ~1 frame per second from CameraView and sends to Gemini Live
+  // Frame sampler for live session
   const sampleAndSendFrame = useCallback(async () => {
     if (
       !cameraRef.current ||
@@ -91,7 +152,7 @@ export function VisualAssistantScreen({ onBack }: Props) {
         liveClientRef.current.sendRealtimeImage(result.base64);
       }
     } catch {
-      // Ignored during live stream frame capture
+      // Ignored
     } finally {
       isSamplingFrameRef.current = false;
     }
@@ -120,6 +181,7 @@ export function VisualAssistantScreen({ onBack }: Props) {
 
   const startLiveSession = useCallback(async () => {
     if (isLiveActive) return;
+    stopStillAudio();
 
     const audioController = new LiveAudioController();
     audioControllerRef.current = audioController;
@@ -157,14 +219,12 @@ export function VisualAssistantScreen({ onBack }: Props) {
     try {
       await client.connect();
 
-      // Start continuous microphone PCM audio capture and streaming
       await audioController.startRecording((base64PcmChunk) => {
         if (liveClientRef.current) {
           liveClientRef.current.sendRealtimeAudio(base64PcmChunk);
         }
       });
 
-      // Start ~1 FPS frame sampling
       frameTimerRef.current = setInterval(() => {
         void sampleAndSendFrame();
       }, 1200);
@@ -172,17 +232,16 @@ export function VisualAssistantScreen({ onBack }: Props) {
       setErrorMessage(err instanceof Error ? err.message : 'Connection failed');
       stopLiveSession();
     }
-  }, [isLiveActive, sampleAndSendFrame, stopLiveSession, t]);
+  }, [isLiveActive, sampleAndSendFrame, stopLiveSession, stopStillAudio, t]);
 
-  const handleSendMessage = useCallback(async () => {
-    const textToSend = question.trim();
+  const handleSendMessage = useCallback(async (customText?: string) => {
+    const textToSend = (customText ?? question).trim();
     if (!textToSend) return;
 
     if (isLiveActive && liveClientRef.current) {
       setLiveSubtitle(`Farmer: "${textToSend}"\n\nAI is analyzing...`);
       setQuestion('');
 
-      // Send the current camera frame to accompany the text prompt
       if (cameraRef.current) {
         try {
           const snap = await cameraRef.current.takePictureAsync({
@@ -201,7 +260,7 @@ export function VisualAssistantScreen({ onBack }: Props) {
       return;
     }
 
-    // Still photo mode / standard camera mode
+    // Still photo mode
     let currentPhoto = photo;
     if (!currentPhoto && cameraRef.current) {
       try {
@@ -220,25 +279,35 @@ export function VisualAssistantScreen({ onBack }: Props) {
 
     setState('asking');
     setErrorMessage(null);
+    stopStillAudio();
 
     try {
       const result = await resolveVisualAssistantAnswer(t, {
         imageBase64: currentPhoto.base64,
         mimeType: 'image/jpeg',
         questionText: textToSend,
+        language: i18n.language || 'hi',
       });
+
       setAnswer(result.answer);
+      setLatestAudio(result.audio ?? null);
       setState('answered');
       setQuestion('');
+
+      // Automatically speak the response aloud
+      if (result.audio) {
+        void playSpokenAudio(result.audio);
+      }
     } catch (err) {
       setErrorMessage(err instanceof Error ? err.message : t('visualAssistant.errors.generic'));
       setState('error');
     }
-  }, [isLiveActive, photo, question, t]);
+  }, [i18n.language, isLiveActive, photo, playSpokenAudio, question, stopStillAudio, t]);
 
   const captureStill = useCallback(async () => {
     if (!cameraRef.current) return;
     if (isLiveActive) stopLiveSession();
+    stopStillAudio();
 
     try {
       const result = await cameraRef.current.takePictureAsync({ base64: true, quality: 0.5 });
@@ -249,34 +318,40 @@ export function VisualAssistantScreen({ onBack }: Props) {
       setPhoto({ uri: result.uri, base64: result.base64 });
       setState('captured');
       setAnswer(null);
+      setLatestAudio(null);
       setErrorMessage(null);
     } catch {
       setCameraError(true);
     }
-  }, [isLiveActive, stopLiveSession]);
+  }, [isLiveActive, stopLiveSession, stopStillAudio]);
 
   const loadSamplePhoto = useCallback(() => {
     if (isLiveActive) stopLiveSession();
+    stopStillAudio();
     setPhoto({ uri: SAMPLE_PLANT_URI, base64: SAMPLE_PLANT_BASE64 });
     setState('captured');
-    setQuestion('what fruit is it');
+    setQuestion('इस पौधे में क्या समस्या या बीमारी है?');
     setAnswer(null);
+    setLatestAudio(null);
     setErrorMessage(null);
-  }, [isLiveActive, stopLiveSession]);
+  }, [isLiveActive, stopLiveSession, stopStillAudio]);
 
   const retakeStill = useCallback(() => {
+    stopStillAudio();
     setPhoto(null);
     setQuestion('');
     setAnswer(null);
+    setLatestAudio(null);
     setErrorMessage(null);
     setState('idle');
-  }, []);
+  }, [stopStillAudio]);
 
-  const askStill = useCallback(async () => {
-    await handleSendMessage();
+  const handleSelectChip = useCallback((chipQuestion: string) => {
+    setQuestion(chipQuestion);
+    void handleSendMessage(chipQuestion);
   }, [handleSendMessage]);
 
-  // --- Permission still resolving -----------------------------------------
+  // --- Permission resolving -------------------------------------------------
   if (!permission) {
     return (
       <Screen>
@@ -288,7 +363,7 @@ export function VisualAssistantScreen({ onBack }: Props) {
     );
   }
 
-  // --- Permission denied ---------------------------------------------------
+  // --- Permission denied ----------------------------------------------------
   if (!permission.granted) {
     return (
       <Screen>
@@ -317,7 +392,7 @@ export function VisualAssistantScreen({ onBack }: Props) {
     );
   }
 
-  // --- Camera unavailable on simulator -------------------------------------
+  // --- Camera unavailable --------------------------------------------------
   if (cameraError) {
     return (
       <Screen>
@@ -385,6 +460,7 @@ export function VisualAssistantScreen({ onBack }: Props) {
           <Pressable
             onPress={() => {
               stopLiveSession();
+              stopStillAudio();
               onBack();
             }}
             hitSlop={12}
@@ -448,19 +524,83 @@ export function VisualAssistantScreen({ onBack }: Props) {
             </View>
           ) : answer ? (
             <View style={styles.answerCard} testID="visual-assistant-answer">
-              <View style={styles.answerBadge}>
-                <Text variant="microMedium" color={avatarColors.state.speaking}>
-                  {t('visualAssistant.answerLabel')}
-                </Text>
+              <View style={styles.answerHeaderRow}>
+                <View style={styles.answerBadge}>
+                  <Text variant="microMedium" color={avatarColors.state.speaking}>
+                    {t('visualAssistant.answerLabel')}
+                  </Text>
+                </View>
+
+                {isPlayingAudio ? (
+                  <View style={styles.speakingBadge}>
+                    <View style={styles.speakingDot} />
+                    <Text variant="microMedium" color="#FFFFFF">
+                      बोल रहा है...
+                    </Text>
+                  </View>
+                ) : null}
               </View>
-              <Text variant="body" color="#FFFFFF">
+
+              <Text variant="body" color="#FFFFFF" style={styles.answerText}>
                 {answer}
               </Text>
+
+              {/* Spoken Voice Controls */}
+              {latestAudio ? (
+                <View style={styles.audioControlsRow}>
+                  {isPlayingAudio ? (
+                    <Pressable
+                      onPress={stopStillAudio}
+                      style={styles.audioActionButton}
+                      accessibilityRole="button"
+                      accessibilityLabel="Stop Audio"
+                    >
+                      <Icon name="close" size={16} color="#FFFFFF" />
+                      <Text variant="bodyMedium" color="#FFFFFF">
+                        रोकें (Stop)
+                      </Text>
+                    </Pressable>
+                  ) : (
+                    <Pressable
+                      onPress={() => void playSpokenAudio(latestAudio)}
+                      style={styles.audioActionButton}
+                      accessibilityRole="button"
+                      accessibilityLabel="Replay Voice"
+                    >
+                      <Icon name="play" size={16} color="#FFFFFF" />
+                      <Text variant="bodyMedium" color="#FFFFFF">
+                        🔊 आवाज़ सुनें (Replay)
+                      </Text>
+                    </Pressable>
+                  )}
+                </View>
+              ) : null}
             </View>
           ) : null}
 
           {errorMessage ? (
             <Banner title={errorMessage} tone="danger" icon="alert" />
+          ) : null}
+
+          {/* Quick Suggestion Chips (when photo is captured or before question) */}
+          {showingPhoto && !answer && !asking ? (
+            <ScrollView
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={styles.chipsContainer}
+            >
+              {SUGGESTED_QUESTIONS.map((item) => (
+                <Pressable
+                  key={item.id}
+                  style={styles.suggestionChip}
+                  onPress={() => handleSelectChip(item.question)}
+                >
+                  <Text variant="microMedium" color="#FFFFFF">
+                    {item.label}
+                  </Text>
+                </Pressable>
+              ))}
+            </ScrollView>
           ) : null}
 
           {/* Interactive Message Box with Text Input & Send */}
@@ -608,14 +748,64 @@ const styles = StyleSheet.create({
     lineHeight: 22,
   },
   answerCard: {
-    backgroundColor: 'rgba(21, 23, 20, 0.92)',
+    backgroundColor: 'rgba(21, 23, 20, 0.95)',
     padding: layout.cardPadding,
-    gap: 6,
+    gap: 8,
     borderRadius: radius.lg,
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.15)',
+    borderColor: 'rgba(255, 255, 255, 0.2)',
+  },
+  answerHeaderRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
   answerBadge: { alignSelf: 'flex-start' },
+  speakingBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    backgroundColor: colors.primary,
+    paddingHorizontal: 8,
+    paddingVertical: 2,
+    borderRadius: radius.pill,
+  },
+  speakingDot: {
+    width: 6,
+    height: 6,
+    borderRadius: 3,
+    backgroundColor: '#FFFFFF',
+  },
+  answerText: {
+    lineHeight: 22,
+  },
+  audioControlsRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    paddingTop: 4,
+  },
+  audioActionButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    backgroundColor: 'rgba(255, 255, 255, 0.18)',
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: radius.pill,
+  },
+  chipsContainer: {
+    gap: 8,
+    paddingVertical: 4,
+  },
+  suggestionChip: {
+    backgroundColor: 'rgba(21, 23, 20, 0.88)',
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.3)',
+    borderRadius: radius.pill,
+    paddingHorizontal: 14,
+    paddingVertical: 8,
+  },
   messageBoxRow: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -683,3 +873,4 @@ const styles = StyleSheet.create({
   },
   capturePressed: { opacity: 0.85 },
 });
+

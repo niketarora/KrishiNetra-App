@@ -22,26 +22,28 @@ import { supabase } from '@/services/supabase';
 
 export type VisualAssistantState = 'idle' | 'captured' | 'asking' | 'answered' | 'error';
 
-/** What this module sends to the temporary vision proxy. */
+/** What this module sends to the vision assistant. */
 export type VisualAssistantObservation = {
   /** Raw base64 JPEG bytes from expo-camera's takePictureAsync — no data: prefix. */
   imageBase64: string;
   mimeType: string;
-  /** The farmer's typed question — a temporary stand-in for real speech-to-text. */
+  /** The farmer's typed question or voice transcript. */
   questionText: string;
+  language?: string;
 };
 
 export type VisualAssistantAnswer = {
   answer: string;
-  /** false = a real (unverified) LLM answer. true = the fallback sentence
-   * used only when the network call itself fails — never confuse the two. */
+  /** Spoken WAV audio base64 string if synthesized. */
+  audio?: string | null;
+  /** Sample rate of audio in Hz (e.g. 16000). */
+  sampleRate?: number;
+  /** false = a real LLM answer. true = fallback. */
   isDemo: boolean;
 };
 
 /**
- * Calls the vision proxy and returns its answer. Throws on
- * failure — the screen owns the loading/error UI, this module only owns
- * "how do I get an answer".
+ * Calls the vision endpoint and returns its answer and spoken audio.
  */
 export async function resolveVisualAssistantAnswer(
   t: TFunction,
@@ -49,17 +51,30 @@ export async function resolveVisualAssistantAnswer(
 ): Promise<VisualAssistantAnswer> {
   // 1. Try KrishiNetra backend API
   try {
-    const res = await apiFetch<{ answer: string }>('/api/v1/ai/visual-ask', {
+    const res = await apiFetch<{
+      answer: string;
+      audio?: string | null;
+      sampleRate?: number;
+      mimeType?: string;
+    }>('/api/v1/ai/visual-ask', {
       method: 'POST',
       body: {
         imageBase64: observation.imageBase64,
-        mimeType: observation.mimeType,
+        mimeType: observation.mimeType || 'image/jpeg',
         question: observation.questionText,
+        language: observation.language || 'hi',
       },
+      auth: false,
       fallbackKey: 'visualAssistant.errors.generic',
+      timeoutMs: 45_000,
     });
     if (res?.answer) {
-      return { answer: res.answer, isDemo: false };
+      return {
+        answer: res.answer,
+        audio: res.audio ?? null,
+        sampleRate: res.sampleRate ?? 16000,
+        isDemo: false,
+      };
     }
   } catch (err) {
     console.warn('[VisualAssistant] Backend visual-ask failed:', err);
@@ -67,19 +82,20 @@ export async function resolveVisualAssistantAnswer(
 
   // 2. Try Supabase Edge Function
   try {
-    const { data, error } = await supabase.functions.invoke<{ answer?: string; error?: string }>(
-      'visual-assistant-ask',
-      {
-        body: {
-          imageBase64: observation.imageBase64,
-          mimeType: observation.mimeType,
-          question: observation.questionText,
-        },
+    const { data, error } = await supabase.functions.invoke<{
+      answer?: string;
+      audio?: string;
+      error?: string;
+    }>('visual-assistant-ask', {
+      body: {
+        imageBase64: observation.imageBase64,
+        mimeType: observation.mimeType,
+        question: observation.questionText,
       },
-    );
+    });
 
     if (!error && data?.answer) {
-      return { answer: data.answer, isDemo: false };
+      return { answer: data.answer, audio: data.audio ?? null, isDemo: false };
     }
   } catch {
     // Fall through

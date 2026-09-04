@@ -78,10 +78,11 @@ export async function speak(req: Request, res: Response): Promise<void> {
 }
 
 export async function visualAsk(req: Request, res: Response): Promise<void> {
-  const { imageBase64, mimeType, question } = req.body as {
+  const { imageBase64, mimeType, question, language } = req.body as {
     imageBase64?: string;
     mimeType?: string;
     question?: string;
+    language?: string;
   };
 
   if (!imageBase64 || !question?.trim()) {
@@ -94,19 +95,21 @@ export async function visualAsk(req: Request, res: Response): Promise<void> {
   }
 
   const ai = new GoogleGenAI({ apiKey: env.GEMINI_API_KEY });
+  const modelName = env.GEMINI_MODEL || 'gemini-3.6-flash';
+
   const response = await ai.models.generateContent({
-    model: env.GEMINI_MODEL || 'gemini-3.6-flash',
+    model: modelName,
     contents: [
       {
         role: 'user',
         parts: [
           {
             text:
-              `You are KrishiNetra Live visual assistant for Indian farmers. ` +
-              `A farmer is asking a question about a photo of their crop or field. ` +
-              `Answer concisely in simple Hindi or Hinglish (or the same language the question is in). ` +
-              `Describe only observable symptoms or features. Do not claim a definitive disease diagnosis without certainty. ` +
-              `Give 2-3 practical, actionable sentences a farmer can understand.\n\n` +
+              `You are KrishiNetra visual assistant for Indian farmers. ` +
+              `A farmer is asking a question about a photo of their crop, plant, soil, or farm. ` +
+              `Answer concisely in simple, clear Hindi or Hinglish (or the same language the question is asked in). ` +
+              `Describe clearly what you observe, any visible health issues or symptoms, and practical actionable advice. ` +
+              `Keep the answer within 2 to 4 clear sentences so it is easily understood and spoken aloud.\n\n` +
               `Farmer's question: ${question.trim()}`,
           },
           {
@@ -121,6 +124,26 @@ export async function visualAsk(req: Request, res: Response): Promise<void> {
   });
 
   const answer = response.text?.trim() || 'No answer generated.';
-  sendOk(res, { answer }, 'Visual answer resolved');
+
+  let audio: string | null = null;
+  let sampleRate = 16000;
+  let audioMimeType = 'audio/wav';
+
+  try {
+    if (env.SARVAM_API_KEY) {
+      const speech = await synthesize(answer, language || 'hi');
+      audio = speech.audio;
+      sampleRate = speech.sampleRate;
+      audioMimeType = speech.mimeType;
+    }
+  } catch (err) {
+    console.warn('[visualAsk] Speech synthesis fallback warning:', err);
+  }
+
+  sendOk(
+    res,
+    { answer, audio, sampleRate, mimeType: audioMimeType },
+    'Visual answer resolved',
+  );
 }
 
