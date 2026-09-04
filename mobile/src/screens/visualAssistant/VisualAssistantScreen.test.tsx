@@ -34,6 +34,9 @@ jest.mock('expo-camera', () => {
 });
 
 const mockSendTextPrompt = jest.fn();
+const mockFinishUserTurn = jest.fn((text?: string) => {
+  if (text) mockSendTextPrompt(text);
+});
 const mockSendRealtimeImage = jest.fn();
 const mockSendRealtimeAudio = jest.fn();
 const mockLiveConnect = jest.fn().mockResolvedValue(undefined);
@@ -47,6 +50,7 @@ jest.mock('@/features/visualAssistant/GeminiLiveClient', () => ({
     sendTextPrompt: mockSendTextPrompt,
     sendRealtimeImage: mockSendRealtimeImage,
     sendRealtimeAudio: mockSendRealtimeAudio,
+    finishUserTurn: mockFinishUserTurn,
     callbacks,
   })),
 }));
@@ -231,6 +235,21 @@ describe('VisualAssistantScreen', () => {
       expect(mockSendTextPrompt).toHaveBeenCalledWith(
         'पौधे में क्या बीमारी या समस्या है और इसका उपचार क्या है?',
       );
+    });
+
+    it('triggers question completion when End Question & Ask AI button is pressed in live mode', async () => {
+      await renderWithProviders(<VisualAssistantScreen onBack={onBack} />);
+
+      // Start live mode
+      await fireEvent.press(screen.getByText('Start Live Assistant'));
+
+      // The live ask button should be present
+      const askButton = screen.getByTestId('visual-assistant-live-ask');
+      expect(askButton).toBeTruthy();
+
+      await fireEvent.press(askButton);
+
+      expect(mockFinishUserTurn).toHaveBeenCalled();
     });
   });
 

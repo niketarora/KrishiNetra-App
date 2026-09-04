@@ -257,30 +257,42 @@ export function VisualAssistantScreen({ onBack }: Props) {
     }
   }, [isLiveActive, sampleAndSendFrame, stopLiveSession, stopStillAudio, t]);
 
+  const handleEndQuestionAndAsk = useCallback(async (customText?: string) => {
+    if (!isLiveActive || !liveClientRef.current) return;
+
+    const textToSend = (customText ?? question).trim();
+    if (textToSend) {
+      setLiveUserQuestion(textToSend);
+      setQuestion('');
+    } else {
+      setLiveUserQuestion(t('visualAssistant.spokenQuestion') || 'मौखिक प्रश्न (Voice Query)');
+    }
+    setLiveSubtitle('विश्लेषण किया जा रहा है... (Thinking...)');
+
+    if (cameraRef.current) {
+      try {
+        const snap = await cameraRef.current.takePictureAsync({
+          base64: true,
+          quality: 0.5,
+          skipProcessing: true,
+        });
+        if (snap?.base64 && liveClientRef.current) {
+          liveClientRef.current.sendRealtimeImage(snap.base64);
+        }
+      } catch {
+        // Ignored
+      }
+    }
+
+    liveClientRef.current.finishUserTurn(textToSend || undefined);
+  }, [isLiveActive, question, t]);
+
   const handleSendMessage = useCallback(async (customText?: string) => {
     const textToSend = (customText ?? question).trim();
     if (!textToSend) return;
 
     if (isLiveActive && liveClientRef.current) {
-      setLiveUserQuestion(textToSend);
-      setLiveSubtitle('');
-      setQuestion('');
-
-      if (cameraRef.current) {
-        try {
-          const snap = await cameraRef.current.takePictureAsync({
-            base64: true,
-            quality: 0.5,
-            skipProcessing: true,
-          });
-          if (snap?.base64 && liveClientRef.current) {
-            liveClientRef.current.sendRealtimeImage(snap.base64);
-          }
-        } catch {
-          // Ignored
-        }
-      }
-      liveClientRef.current.sendTextPrompt(textToSend);
+      await handleEndQuestionAndAsk(textToSend);
       return;
     }
 
@@ -753,12 +765,29 @@ export function VisualAssistantScreen({ onBack }: Props) {
 
             {/* Live / Camera Mode Controls */}
             {isLiveActive ? (
-              <Button
-                label={t('visualAssistant.endLive')}
-                onPress={stopLiveSession}
-                variant="secondary"
-                icon="close"
-              />
+              <View style={styles.actionRow}>
+                <Button
+                  label={
+                    liveState === 'thinking'
+                      ? 'AI सोच रहा है...'
+                      : 'सवाल समाप्त - उत्तर पूछें'
+                  }
+                  onPress={() => void handleEndQuestionAndAsk()}
+                  variant="primary"
+                  icon={liveState === 'thinking' ? undefined : 'rocket'}
+                  disabled={liveState === 'thinking' || liveState === 'speaking'}
+                  style={styles.flexButton}
+                  testID="visual-assistant-live-ask"
+                />
+
+                <Button
+                  label={t('visualAssistant.endLive')}
+                  onPress={stopLiveSession}
+                  variant="secondary"
+                  icon="close"
+                  testID="visual-assistant-live-end"
+                />
+              </View>
             ) : (
               <View style={styles.actionRow}>
                 <Button

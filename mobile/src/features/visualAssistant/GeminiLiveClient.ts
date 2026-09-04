@@ -254,12 +254,10 @@ export class GeminiLiveClient {
 
     const payload = {
       realtimeInput: {
-        mediaChunks: [
-          {
-            mimeType: 'audio/pcm;rate=16000',
-            data: base64PcmChunk,
-          },
-        ],
+        audio: {
+          mimeType: 'audio/pcm;rate=16000',
+          data: base64PcmChunk,
+        },
       },
     };
 
@@ -276,15 +274,34 @@ export class GeminiLiveClient {
 
     const payload = {
       realtimeInput: {
-        mediaChunks: [
-          {
-            mimeType: 'image/jpeg',
-            data: base64Jpeg,
-          },
-        ],
+        video: {
+          mimeType: 'image/jpeg',
+          data: base64Jpeg,
+        },
       },
     };
 
+    this.ws.send(JSON.stringify(payload));
+  }
+
+  /**
+   * Completes the user's speaking or questioning turn and forces the model
+   * to immediately generate and stream its response.
+   */
+  public finishUserTurn(text?: string) {
+    if (text && text.trim()) {
+      this.sendTextPrompt(text.trim());
+      return;
+    }
+
+    if (!this.ws || this.ws.readyState !== WebSocket.OPEN) return;
+
+    this.setState('thinking');
+    const payload = {
+      clientContent: {
+        turnComplete: true,
+      },
+    };
     this.ws.send(JSON.stringify(payload));
   }
 
