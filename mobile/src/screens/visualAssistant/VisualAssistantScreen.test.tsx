@@ -33,6 +33,35 @@ jest.mock('expo-camera', () => {
   };
 });
 
+const mockSendTextPrompt = jest.fn();
+const mockSendRealtimeImage = jest.fn();
+const mockSendRealtimeAudio = jest.fn();
+const mockLiveConnect = jest.fn().mockResolvedValue(undefined);
+const mockLiveDisconnect = jest.fn();
+
+jest.mock('@/features/visualAssistant/GeminiLiveClient', () => ({
+  GeminiLiveClient: jest.fn().mockImplementation((callbacks) => ({
+    connect: mockLiveConnect,
+    disconnect: mockLiveDisconnect,
+    getState: jest.fn(() => 'connected'),
+    sendTextPrompt: mockSendTextPrompt,
+    sendRealtimeImage: mockSendRealtimeImage,
+    sendRealtimeAudio: mockSendRealtimeAudio,
+    callbacks,
+  })),
+}));
+
+jest.mock('@/features/visualAssistant/AudioController', () => ({
+  LiveAudioController: jest.fn().mockImplementation(() => ({
+    requestPermissions: jest.fn().mockResolvedValue(true),
+    startRecording: jest.fn().mockResolvedValue(undefined),
+    stopRecording: jest.fn(),
+    enqueueAudioChunk: jest.fn(),
+    stopPlayback: jest.fn(),
+    destroy: jest.fn(),
+  })),
+}));
+
 const mockInvoke = jest.fn();
 jest.mock('@/services/supabase', () => ({
   supabase: { functions: { invoke: (...args: unknown[]) => mockInvoke(...args) } },
@@ -164,6 +193,44 @@ describe('VisualAssistantScreen', () => {
       await fireEvent.press(screen.getByTestId('visual-assistant-ask'));
 
       expect(mockInvoke).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('live assistant mode', () => {
+    it('allows typing and sending a question in live mode', async () => {
+      await renderWithProviders(<VisualAssistantScreen onBack={onBack} />);
+
+      // Start live mode
+      await fireEvent.press(screen.getByText('Start Live Assistant'));
+
+      expect(mockLiveConnect).toHaveBeenCalled();
+      expect(screen.getByTestId('visual-assistant-live-card')).toBeTruthy();
+
+      // Type question into live mode input
+      await fireEvent.changeText(
+        screen.getByTestId('visual-assistant-question'),
+        'पत्तियों में पीलापन क्यों है?',
+      );
+      await fireEvent.press(screen.getByTestId('visual-assistant-ask'));
+
+      expect(mockSendTextPrompt).toHaveBeenCalledWith('पत्तियों में पीलापन क्यों है?');
+      expect(screen.getByText('पत्तियों में पीलापन क्यों है?')).toBeTruthy();
+    });
+
+    it('allows tapping suggestion chips during live mode', async () => {
+      await renderWithProviders(<VisualAssistantScreen onBack={onBack} />);
+
+      // Start live mode
+      await fireEvent.press(screen.getByText('Start Live Assistant'));
+
+      // Suggestion chip should be visible and clickable in live mode
+      const chip = screen.getByText('🌿 बीमारी क्या है?');
+      expect(chip).toBeTruthy();
+      await fireEvent.press(chip);
+
+      expect(mockSendTextPrompt).toHaveBeenCalledWith(
+        'पौधे में क्या बीमारी या समस्या है और इसका उपचार क्या है?',
+      );
     });
   });
 

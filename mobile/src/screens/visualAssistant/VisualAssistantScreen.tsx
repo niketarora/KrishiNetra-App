@@ -1,5 +1,15 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { ActivityIndicator, Image, Pressable, ScrollView, StyleSheet, TextInput, View } from 'react-native';
+import {
+  ActivityIndicator,
+  Image,
+  KeyboardAvoidingView,
+  Platform,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  TextInput,
+  View,
+} from 'react-native';
 import { CameraView, useCameraPermissions } from 'expo-camera';
 import type { CameraView as CameraViewInstance } from 'expo-camera';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -31,7 +41,7 @@ const SUGGESTED_QUESTIONS = [
  * Provides multimodal interaction with Google Gemini Vision & Live API:
  * - High-speed camera photo capture & analysis with Gemini 3.6 Flash
  * - Spoken response audio playback in natural Indian voice via Sarvam TTS
- * - Interactive suggestion chips & question input box
+ * - Interactive suggestion chips & question input box (both Camera & Live modes)
  * - Replay voice audio on demand
  * - Real-time continuous Gemini Live assistant mode
  */
@@ -55,6 +65,7 @@ export function VisualAssistantScreen({ onBack }: Props) {
   const [isLiveActive, setIsLiveActive] = useState(false);
   const [liveState, setLiveState] = useState<LiveConnectionState>('disconnected');
   const [liveSubtitle, setLiveSubtitle] = useState<string>('');
+  const [liveUserQuestion, setLiveUserQuestion] = useState<string | null>(null);
 
   const liveClientRef = useRef<GeminiLiveClient | null>(null);
   const audioControllerRef = useRef<LiveAudioController | null>(null);
@@ -177,6 +188,7 @@ export function VisualAssistantScreen({ onBack }: Props) {
     setIsLiveActive(false);
     setLiveState('disconnected');
     setLiveSubtitle('');
+    setLiveUserQuestion(null);
   }, []);
 
   const startLiveSession = useCallback(async () => {
@@ -192,6 +204,7 @@ export function VisualAssistantScreen({ onBack }: Props) {
 
     setErrorMessage(null);
     setLiveSubtitle(t('visualAssistant.defaultGreeting'));
+    setLiveUserQuestion(null);
     setIsLiveActive(true);
 
     const client = new GeminiLiveClient({
@@ -239,7 +252,8 @@ export function VisualAssistantScreen({ onBack }: Props) {
     if (!textToSend) return;
 
     if (isLiveActive && liveClientRef.current) {
-      setLiveSubtitle(`Farmer: "${textToSend}"\n\nAI is analyzing...`);
+      setLiveUserQuestion(textToSend);
+      setLiveSubtitle('');
       setQuestion('');
 
       if (cameraRef.current) {
@@ -511,178 +525,217 @@ export function VisualAssistantScreen({ onBack }: Props) {
           </View>
         </View>
 
-        <View style={styles.bottomArea}>
-          {/* AI Response Card / Subtitles */}
-          {isLiveActive ? (
-            <View style={styles.liveActiveCard}>
-              <View style={styles.liveSpeechRow}>
-                <Icon name="mic" size={20} color={avatarColors.state.speaking} />
-                <Text variant="bodyMedium" color="#FFFFFF" style={styles.liveSubtitleText}>
-                  {liveSubtitle || t('visualAssistant.defaultGreeting')}
-                </Text>
-              </View>
-            </View>
-          ) : answer ? (
-            <View style={styles.answerCard} testID="visual-assistant-answer">
-              <View style={styles.answerHeaderRow}>
-                <View style={styles.answerBadge}>
-                  <Text variant="microMedium" color={avatarColors.state.speaking}>
-                    {t('visualAssistant.answerLabel')}
-                  </Text>
-                </View>
-
-                {isPlayingAudio ? (
-                  <View style={styles.speakingBadge}>
-                    <View style={styles.speakingDot} />
-                    <Text variant="microMedium" color="#FFFFFF">
-                      बोल रहा है...
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+          keyboardVerticalOffset={Platform.OS === 'ios' ? 12 : 0}
+        >
+          <View style={styles.bottomArea}>
+            {/* AI Response Card / Subtitles */}
+            {isLiveActive ? (
+              <View style={styles.liveActiveCard} testID="visual-assistant-live-card">
+                {liveUserQuestion ? (
+                  <View style={styles.liveUserQuestionRow}>
+                    <View style={styles.liveUserBadge}>
+                      <Text variant="microMedium" color="#FFFFFF">
+                        👨‍🌾 {t('visualAssistant.yourQuestion') || 'सवाल (You)'}
+                      </Text>
+                    </View>
+                    <Text variant="bodyMedium" color="#FFFFFF" style={styles.liveUserQuestionText}>
+                      {liveUserQuestion}
                     </Text>
                   </View>
                 ) : null}
+
+                <View style={styles.liveSpeechRow}>
+                  <View style={styles.liveAiBadge}>
+                    <Icon
+                      name={liveState === 'speaking' ? 'mic' : liveState === 'thinking' ? 'help' : 'mic'}
+                      size={15}
+                      color={avatarColors.state.speaking}
+                    />
+                    <Text variant="microMedium" color={avatarColors.state.speaking}>
+                      {liveState === 'thinking'
+                        ? 'AI विश्लेषण...'
+                        : liveState === 'speaking'
+                        ? 'AI बोल रहा है...'
+                        : 'कृषिनेत्र AI'}
+                    </Text>
+                  </View>
+
+                  <Text variant="bodyMedium" color="#FFFFFF" style={styles.liveSubtitleText}>
+                    {liveSubtitle ||
+                      (liveState === 'thinking'
+                        ? 'विश्लेषण किया जा रहा है... कृपया प्रतीक्षा करें।'
+                        : t('visualAssistant.defaultGreeting'))}
+                  </Text>
+                </View>
+              </View>
+            ) : answer ? (
+              <View style={styles.answerCard} testID="visual-assistant-answer">
+                <View style={styles.answerHeaderRow}>
+                  <View style={styles.answerBadge}>
+                    <Text variant="microMedium" color={avatarColors.state.speaking}>
+                      {t('visualAssistant.answerLabel')}
+                    </Text>
+                  </View>
+
+                  {isPlayingAudio ? (
+                    <View style={styles.speakingBadge}>
+                      <View style={styles.speakingDot} />
+                      <Text variant="microMedium" color="#FFFFFF">
+                        बोल रहा है...
+                      </Text>
+                    </View>
+                  ) : null}
+                </View>
+
+                <Text variant="body" color="#FFFFFF" style={styles.answerText}>
+                  {answer}
+                </Text>
+
+                {/* Spoken Voice Controls */}
+                {latestAudio ? (
+                  <View style={styles.audioControlsRow}>
+                    {isPlayingAudio ? (
+                      <Pressable
+                        onPress={stopStillAudio}
+                        style={styles.audioActionButton}
+                        accessibilityRole="button"
+                        accessibilityLabel="Stop Audio"
+                      >
+                        <Icon name="close" size={16} color="#FFFFFF" />
+                        <Text variant="bodyMedium" color="#FFFFFF">
+                          रोकें (Stop)
+                        </Text>
+                      </Pressable>
+                    ) : (
+                      <Pressable
+                        onPress={() => void playSpokenAudio(latestAudio)}
+                        style={styles.audioActionButton}
+                        accessibilityRole="button"
+                        accessibilityLabel="Replay Voice"
+                      >
+                        <Icon name="play" size={16} color="#FFFFFF" />
+                        <Text variant="bodyMedium" color="#FFFFFF">
+                          🔊 आवाज़ सुनें (Replay)
+                        </Text>
+                      </Pressable>
+                    )}
+                  </View>
+                ) : null}
+              </View>
+            ) : null}
+
+            {errorMessage ? (
+              <Banner title={errorMessage} tone="danger" icon="alert" />
+            ) : null}
+
+            {/* Quick Suggestion Chips (both Live mode and photo captured mode) */}
+            {isLiveActive || (showingPhoto && !answer && !asking) ? (
+              <ScrollView
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                contentContainerStyle={styles.chipsContainer}
+              >
+                {SUGGESTED_QUESTIONS.map((item) => (
+                  <Pressable
+                    key={item.id}
+                    style={styles.suggestionChip}
+                    onPress={() => handleSelectChip(item.question)}
+                  >
+                    <Text variant="microMedium" color="#FFFFFF">
+                      {item.label}
+                    </Text>
+                  </Pressable>
+                ))}
+              </ScrollView>
+            ) : null}
+
+            {/* Interactive Message Box with Text Input & Send */}
+            <View style={styles.messageBoxRow}>
+              <View style={styles.inputContainer}>
+                <TextInput
+                  style={styles.messageInput}
+                  placeholder={
+                    isLiveActive
+                      ? 'Ask live assistant about this crop/plant...'
+                      : 'Type question about this crop/plant...'
+                  }
+                  placeholderTextColor="rgba(255, 255, 255, 0.6)"
+                  value={question}
+                  onChangeText={setQuestion}
+                  editable={!asking}
+                  returnKeyType="send"
+                  onSubmitEditing={() => void handleSendMessage()}
+                  testID="visual-assistant-question"
+                />
               </View>
 
-              <Text variant="body" color="#FFFFFF" style={styles.answerText}>
-                {answer}
-              </Text>
-
-              {/* Spoken Voice Controls */}
-              {latestAudio ? (
-                <View style={styles.audioControlsRow}>
-                  {isPlayingAudio ? (
-                    <Pressable
-                      onPress={stopStillAudio}
-                      style={styles.audioActionButton}
-                      accessibilityRole="button"
-                      accessibilityLabel="Stop Audio"
-                    >
-                      <Icon name="close" size={16} color="#FFFFFF" />
-                      <Text variant="bodyMedium" color="#FFFFFF">
-                        रोकें (Stop)
-                      </Text>
-                    </Pressable>
-                  ) : (
-                    <Pressable
-                      onPress={() => void playSpokenAudio(latestAudio)}
-                      style={styles.audioActionButton}
-                      accessibilityRole="button"
-                      accessibilityLabel="Replay Voice"
-                    >
-                      <Icon name="play" size={16} color="#FFFFFF" />
-                      <Text variant="bodyMedium" color="#FFFFFF">
-                        🔊 आवाज़ सुनें (Replay)
-                      </Text>
-                    </Pressable>
-                  )}
-                </View>
-              ) : null}
-            </View>
-          ) : null}
-
-          {errorMessage ? (
-            <Banner title={errorMessage} tone="danger" icon="alert" />
-          ) : null}
-
-          {/* Quick Suggestion Chips (when photo is captured or before question) */}
-          {showingPhoto && !answer && !asking ? (
-            <ScrollView
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              contentContainerStyle={styles.chipsContainer}
-            >
-              {SUGGESTED_QUESTIONS.map((item) => (
-                <Pressable
-                  key={item.id}
-                  style={styles.suggestionChip}
-                  onPress={() => handleSelectChip(item.question)}
-                >
-                  <Text variant="microMedium" color="#FFFFFF">
-                    {item.label}
-                  </Text>
-                </Pressable>
-              ))}
-            </ScrollView>
-          ) : null}
-
-          {/* Interactive Message Box with Text Input & Send */}
-          <View style={styles.messageBoxRow}>
-            <View style={styles.inputContainer}>
-              <TextInput
-                style={styles.messageInput}
-                placeholder="Type question about this crop/plant..."
-                placeholderTextColor="rgba(255, 255, 255, 0.6)"
-                value={question}
-                onChangeText={setQuestion}
-                editable={!asking}
-                returnKeyType="send"
-                onSubmitEditing={() => void handleSendMessage()}
-                testID="visual-assistant-question"
-              />
+              <Pressable
+                onPress={() => void handleSendMessage()}
+                disabled={!question.trim() || asking}
+                style={({ pressed }) => [
+                  styles.sendButton,
+                  !question.trim() && styles.sendButtonDisabled,
+                  pressed && styles.capturePressed,
+                ]}
+                accessibilityRole="button"
+                accessibilityLabel="Send Question"
+                testID="visual-assistant-ask"
+              >
+                {asking ? (
+                  <ActivityIndicator size="small" color="#FFFFFF" />
+                ) : (
+                  <Icon name="rocket" size={20} color="#FFFFFF" strokeWidth={2.2} />
+                )}
+              </Pressable>
             </View>
 
-            <Pressable
-              onPress={() => void handleSendMessage()}
-              disabled={!question.trim() || asking}
-              style={({ pressed }) => [
-                styles.sendButton,
-                !question.trim() && styles.sendButtonDisabled,
-                pressed && styles.capturePressed,
-              ]}
-              accessibilityRole="button"
-              accessibilityLabel="Send Question"
-              testID="visual-assistant-ask"
-            >
-              {asking ? (
-                <ActivityIndicator size="small" color="#FFFFFF" />
-              ) : (
-                <Icon name="rocket" size={20} color="#FFFFFF" strokeWidth={2.2} />
-              )}
-            </Pressable>
-          </View>
-
-          {/* Live / Camera Mode Controls */}
-          {isLiveActive ? (
-            <Button
-              label={t('visualAssistant.endLive')}
-              onPress={stopLiveSession}
-              variant="secondary"
-              icon="close"
-            />
-          ) : (
-            <View style={styles.actionRow}>
+            {/* Live / Camera Mode Controls */}
+            {isLiveActive ? (
               <Button
-                label={t('visualAssistant.startLive')}
-                onPress={() => void startLiveSession()}
-                variant="primary"
-                icon="play"
-                style={styles.flexButton}
+                label={t('visualAssistant.endLive')}
+                onPress={stopLiveSession}
+                variant="secondary"
+                icon="close"
               />
+            ) : (
+              <View style={styles.actionRow}>
+                <Button
+                  label={t('visualAssistant.startLive')}
+                  onPress={() => void startLiveSession()}
+                  variant="primary"
+                  icon="play"
+                  style={styles.flexButton}
+                />
 
-              <Pressable
-                onPress={captureStill}
-                style={({ pressed }) => [styles.snapButton, pressed && styles.capturePressed]}
-                accessibilityRole="button"
-                accessibilityLabel={t('visualAssistant.captureLabel')}
-                testID="visual-assistant-capture"
-              >
-                <Icon name="camera" size={24} color="#151714" strokeWidth={2} />
-              </Pressable>
+                <Pressable
+                  onPress={captureStill}
+                  style={({ pressed }) => [styles.snapButton, pressed && styles.capturePressed]}
+                  accessibilityRole="button"
+                  accessibilityLabel={t('visualAssistant.captureLabel')}
+                  testID="visual-assistant-capture"
+                >
+                  <Icon name="camera" size={24} color="#151714" strokeWidth={2} />
+                </Pressable>
 
-              <Pressable
-                onPress={loadSamplePhoto}
-                style={({ pressed }) => [styles.sampleButtonSmall, pressed && styles.capturePressed]}
-                accessibilityRole="button"
-                accessibilityLabel="Test sample plant"
-                testID="visual-assistant-load-sample"
-              >
-                <Icon name="book" size={20} color="#FFFFFF" strokeWidth={2} />
-              </Pressable>
-            </View>
-          )}
+                <Pressable
+                  onPress={loadSamplePhoto}
+                  style={({ pressed }) => [styles.sampleButtonSmall, pressed && styles.capturePressed]}
+                  accessibilityRole="button"
+                  accessibilityLabel="Test sample plant"
+                  testID="visual-assistant-load-sample"
+                >
+                  <Icon name="book" size={20} color="#FFFFFF" strokeWidth={2} />
+                </Pressable>
+              </View>
+            )}
 
-          <Text variant="micro" color={avatarColors.footerHint} center>
-            {t('visualAssistant.answerDisclaimer')}
-          </Text>
-        </View>
+            <Text variant="micro" color={avatarColors.footerHint} center>
+              {t('visualAssistant.answerDisclaimer')}
+            </Text>
+          </View>
+        </KeyboardAvoidingView>
       </SafeAreaView>
     </View>
   );
@@ -731,20 +784,40 @@ const styles = StyleSheet.create({
     gap: 12,
   },
   liveActiveCard: {
-    backgroundColor: 'rgba(21, 23, 20, 0.92)',
+    backgroundColor: 'rgba(21, 23, 20, 0.94)',
     borderRadius: radius.lg,
     padding: layout.cardPadding,
-    gap: 14,
+    gap: 10,
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.15)',
+    borderColor: 'rgba(255, 255, 255, 0.18)',
+  },
+  liveUserQuestionRow: {
+    backgroundColor: 'rgba(255, 255, 255, 0.08)',
+    borderRadius: radius.md,
+    padding: 10,
+    gap: 4,
+  },
+  liveUserBadge: {
+    alignSelf: 'flex-start',
+    backgroundColor: 'rgba(255, 255, 255, 0.14)',
+    paddingHorizontal: 8,
+    paddingVertical: 2,
+    borderRadius: radius.pill,
+  },
+  liveUserQuestionText: {
+    lineHeight: 20,
   },
   liveSpeechRow: {
-    flexDirection: 'row',
+    flexDirection: 'column',
     alignItems: 'flex-start',
-    gap: 10,
+    gap: 6,
+  },
+  liveAiBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
   },
   liveSubtitleText: {
-    flex: 1,
     lineHeight: 22,
   },
   answerCard: {

@@ -165,6 +165,8 @@ export class GeminiLiveClient {
   public sendTextPrompt(text: string) {
     if (!this.ws || this.ws.readyState !== WebSocket.OPEN || !text.trim()) return;
 
+    this.setState('thinking');
+
     const payload = {
       clientContent: {
         turns: [
