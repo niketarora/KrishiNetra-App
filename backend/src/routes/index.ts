@@ -14,8 +14,10 @@ import * as liveController from '../controllers/live.controller.js';
 import * as irrigationController from '../controllers/irrigation.controller.js';
 import * as cropAnalysisController from '../controllers/cropAnalysis.controller.js';
 import * as marketIntelligenceController from '../controllers/marketIntelligence.controller.js';
+import * as notificationsController from '../controllers/notifications.controller.js';
 import { requireAuth } from '../middleware/requireAuth.js';
 import { validate } from '../middleware/validate.js';
+import { sendSmsSchema, makeCallSchema } from '../schemas/notifications.schema.js';
 import { marketIntelligenceAnalyseSchema } from '../schemas/marketIntelligence.schema.js';
 import {
   createFarmSchema,
@@ -57,6 +59,10 @@ export const apiRouter = Router();
 
 // Public vision assistant route (for live camera and still queries)
 apiRouter.post('/ai/visual-ask', aiController.visualAsk);
+
+// Twilio notifications (SMS & Voice calls) - accessible for both demo and authenticated triggers
+apiRouter.post('/notifications/sms', validate('body', sendSmsSchema), notificationsController.sendSms);
+apiRouter.post('/notifications/call', validate('body', makeCallSchema), notificationsController.makeCall);
 
 apiRouter.use(requireAuth);
 

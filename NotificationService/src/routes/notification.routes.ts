@@ -6,10 +6,11 @@ export const notificationRouter = Router();
 
 notificationRouter.post("/sms", async (req, res, next) => {
   try {
-    const { phone, message } = req.body;
+    const { phone, message, alertId } = req.body;
 
     if (!phone || !message) {
       return res.status(400).json({
+        success: false,
         error: "phone and message are required"
       });
     }
@@ -19,6 +20,7 @@ notificationRouter.post("/sms", async (req, res, next) => {
     return res.status(202).json({
       success: true,
       channel: "sms",
+      alertId: alertId ?? null,
       ...result
     });
   } catch (error) {
@@ -28,19 +30,21 @@ notificationRouter.post("/sms", async (req, res, next) => {
 
 notificationRouter.post("/call", async (req, res, next) => {
   try {
-    const { phone, message } = req.body;
+    const { phone, message, language, alertId } = req.body;
 
     if (!phone || !message) {
       return res.status(400).json({
+        success: false,
         error: "phone and message are required"
       });
     }
 
-    const result = await makeCall(phone, message);
+    const result = await makeCall(phone, message, language ?? "hi-IN");
 
     return res.status(202).json({
       success: true,
       channel: "voice",
+      alertId: alertId ?? null,
       ...result
     });
   } catch (error) {

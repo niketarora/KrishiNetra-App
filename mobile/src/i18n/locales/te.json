@@ -584,7 +584,18 @@
       "sent": "పంపబడింది",
       "initiated": "ప్రారంభమైంది",
       "notSent": "పంపలేదు"
-    }
+    },
+    "sendSms": "Send SMS Alert",
+    "makeCall": "Place Voice Call",
+    "sendingSms": "Sending SMS...",
+    "callingVoice": "Calling...",
+    "smsSuccess": "SMS alert dispatched successfully",
+    "callSuccess": "Voice call initiated successfully",
+    "phoneLabel": "Target Phone Number",
+    "sendActionTitle": "Instant Notification Dispatch",
+    "simulatedNotice": "Twilio live or simulated dispatch active",
+    "smsError": "Failed to dispatch SMS alert",
+    "callError": "Failed to initiate voice call"
   },
   "profile": {
     "title": "ప్రొఫైల్",

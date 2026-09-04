@@ -3,8 +3,15 @@ import twilio from "twilio";
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
 
-if (!accountSid || !authToken) {
-  throw new Error("Twilio credentials are missing");
+export function isTwilioConfigured(): boolean {
+  return Boolean(
+    accountSid &&
+    authToken &&
+    accountSid.startsWith("AC") &&
+    authToken.length > 5
+  );
 }
 
-export const twilioClient = twilio(accountSid, authToken);
+export const twilioClient = isTwilioConfigured()
+  ? twilio(accountSid!, authToken!)
+  : null;
